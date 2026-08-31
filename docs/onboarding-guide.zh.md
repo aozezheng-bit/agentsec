@@ -93,10 +93,15 @@ CI 流水线建议先跑 2~4 周纯报告（不 fail），观察误报率后再�
 
 ## 6. 语义分析（Shadow，只看不动）
 
+适用于 Codex 类 workspace（项目根含 `AGENTS.md`）：
+
 ```bash
 # 离线模式：不联网、零成本，生成语义候选供人审
 agentsec semantic analyze .
 ```
+
+注：未识别到 Agent 结构的项目会安全退出（CONFIGURATION_ERROR）——先确认
+`agentsec manifest .` 能产出画像再做语义分析。
 
 边界须知：语义输出**只做参考证据**，永不参与阻断决策（这是架构红线）。
 当前真实模型质量为基线水平（P/R≈0.39，见 ADR-0096），定义为"帮人发现
