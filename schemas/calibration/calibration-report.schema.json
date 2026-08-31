@@ -1,0 +1,744 @@
+{
+  "$defs": {
+    "CalibrationAggregateMetrics": {
+      "additionalProperties": false,
+      "properties": {
+        "confusion": {
+          "$ref": "#/$defs/CalibrationConfusionMatrix"
+        },
+        "f1": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "F1"
+        },
+        "false_positive_rate": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "False Positive Rate"
+        },
+        "precision": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Precision"
+        },
+        "recall": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Recall"
+        }
+      },
+      "required": [
+        "confusion",
+        "precision",
+        "recall",
+        "false_positive_rate",
+        "f1"
+      ],
+      "title": "CalibrationAggregateMetrics",
+      "type": "object"
+    },
+    "CalibrationCaseEvaluation": {
+      "additionalProperties": false,
+      "properties": {
+        "case_id": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Case Id",
+          "type": "string"
+        },
+        "classification": {
+          "$ref": "#/$defs/CalibrationClassification"
+        },
+        "confidence_agreement": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Confidence Agreement"
+        },
+        "correlation_agreement": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Correlation Agreement"
+        },
+        "coverage_visible": {
+          "title": "Coverage Visible",
+          "type": "boolean"
+        },
+        "duplicate_findings": {
+          "minimum": 0,
+          "title": "Duplicate Findings",
+          "type": "integer"
+        },
+        "evidence_complete": {
+          "title": "Evidence Complete",
+          "type": "boolean"
+        },
+        "expected_confidences": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/EvidenceConfidence"
+          },
+          "title": "Expected Confidences",
+          "type": "array"
+        },
+        "expected_correlations": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/CapabilityCorrelation"
+          },
+          "title": "Expected Correlations",
+          "type": "array"
+        },
+        "expected_outcome": {
+          "$ref": "#/$defs/CalibrationRuleOutcome"
+        },
+        "failure": {
+          "title": "Failure",
+          "type": "boolean"
+        },
+        "observed_confidences": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/EvidenceConfidence"
+          },
+          "title": "Observed Confidences",
+          "type": "array"
+        },
+        "observed_correlations": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/CapabilityCorrelation"
+          },
+          "title": "Observed Correlations",
+          "type": "array"
+        },
+        "observed_findings": {
+          "minimum": 0,
+          "title": "Observed Findings",
+          "type": "integer"
+        },
+        "observed_outcome": {
+          "$ref": "#/$defs/CalibrationRuleOutcome"
+        },
+        "rule_id": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Rule Id",
+          "type": "string"
+        },
+        "unknown_applicable": {
+          "default": false,
+          "title": "Unknown Applicable",
+          "type": "boolean"
+        },
+        "unknowns_visible": {
+          "title": "Unknowns Visible",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "case_id",
+        "rule_id",
+        "expected_outcome",
+        "observed_outcome",
+        "classification",
+        "observed_findings",
+        "correlation_agreement",
+        "confidence_agreement",
+        "evidence_complete",
+        "coverage_visible",
+        "unknowns_visible",
+        "duplicate_findings",
+        "failure"
+      ],
+      "title": "CalibrationCaseEvaluation",
+      "type": "object"
+    },
+    "CalibrationClassification": {
+      "enum": [
+        "true_positive",
+        "false_positive",
+        "false_negative",
+        "true_negative"
+      ],
+      "title": "CalibrationClassification",
+      "type": "string"
+    },
+    "CalibrationConfusionMatrix": {
+      "additionalProperties": false,
+      "properties": {
+        "false_negative": {
+          "minimum": 0,
+          "title": "False Negative",
+          "type": "integer"
+        },
+        "false_positive": {
+          "minimum": 0,
+          "title": "False Positive",
+          "type": "integer"
+        },
+        "true_negative": {
+          "minimum": 0,
+          "title": "True Negative",
+          "type": "integer"
+        },
+        "true_positive": {
+          "minimum": 0,
+          "title": "True Positive",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "true_positive",
+        "false_positive",
+        "false_negative",
+        "true_negative"
+      ],
+      "title": "CalibrationConfusionMatrix",
+      "type": "object"
+    },
+    "CalibrationReportPolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "ci_blocking_enabled": {
+          "const": false,
+          "default": false,
+          "title": "Ci Blocking Enabled",
+          "type": "boolean"
+        },
+        "enforcement_mode": {
+          "const": "report_only",
+          "default": "report_only",
+          "title": "Enforcement Mode",
+          "type": "string"
+        },
+        "hard_gate_eligibility_decided": {
+          "const": false,
+          "default": false,
+          "title": "Hard Gate Eligibility Decided",
+          "type": "boolean"
+        },
+        "runtime_capability_verified": {
+          "const": false,
+          "default": false,
+          "title": "Runtime Capability Verified",
+          "type": "boolean"
+        }
+      },
+      "title": "CalibrationReportPolicy",
+      "type": "object"
+    },
+    "CalibrationReportSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "confidence_agreement": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Confidence Agreement"
+        },
+        "correlation_agreement": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Correlation Agreement"
+        },
+        "coverage_visibility": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Coverage Visibility",
+          "type": "number"
+        },
+        "duplicate_findings": {
+          "minimum": 0,
+          "title": "Duplicate Findings",
+          "type": "integer"
+        },
+        "evaluated_rules": {
+          "minimum": 0,
+          "title": "Evaluated Rules",
+          "type": "integer"
+        },
+        "evidence_completeness": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Evidence Completeness"
+        },
+        "failures": {
+          "minimum": 0,
+          "title": "Failures",
+          "type": "integer"
+        },
+        "insufficient_sample_rules": {
+          "minimum": 0,
+          "title": "Insufficient Sample Rules",
+          "type": "integer"
+        },
+        "macro_f1": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Macro F1"
+        },
+        "macro_precision": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Macro Precision"
+        },
+        "macro_recall": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Macro Recall"
+        },
+        "micro": {
+          "$ref": "#/$defs/CalibrationAggregateMetrics"
+        },
+        "total_cases": {
+          "minimum": 0,
+          "title": "Total Cases",
+          "type": "integer"
+        },
+        "total_expectations": {
+          "minimum": 0,
+          "title": "Total Expectations",
+          "type": "integer"
+        },
+        "unknown_visibility": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Unknown Visibility"
+        }
+      },
+      "required": [
+        "total_cases",
+        "total_expectations",
+        "evaluated_rules",
+        "failures",
+        "duplicate_findings",
+        "insufficient_sample_rules",
+        "coverage_visibility",
+        "unknown_visibility",
+        "evidence_completeness",
+        "correlation_agreement",
+        "confidence_agreement",
+        "micro",
+        "macro_precision",
+        "macro_recall",
+        "macro_f1"
+      ],
+      "title": "CalibrationReportSummary",
+      "type": "object"
+    },
+    "CalibrationRuleMetrics": {
+      "additionalProperties": false,
+      "properties": {
+        "confidence_agreement": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Confidence Agreement"
+        },
+        "confusion": {
+          "$ref": "#/$defs/CalibrationConfusionMatrix"
+        },
+        "correlation_agreement": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Correlation Agreement"
+        },
+        "coverage_visibility": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Coverage Visibility",
+          "type": "number"
+        },
+        "duplicate_findings": {
+          "minimum": 0,
+          "title": "Duplicate Findings",
+          "type": "integer"
+        },
+        "evidence_completeness": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Evidence Completeness"
+        },
+        "f1": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "F1"
+        },
+        "failures": {
+          "minimum": 0,
+          "title": "Failures",
+          "type": "integer"
+        },
+        "false_positive_rate": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "False Positive Rate"
+        },
+        "negative_samples": {
+          "minimum": 0,
+          "title": "Negative Samples",
+          "type": "integer"
+        },
+        "positive_samples": {
+          "minimum": 0,
+          "title": "Positive Samples",
+          "type": "integer"
+        },
+        "precision": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Precision"
+        },
+        "recall": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Recall"
+        },
+        "rule_id": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Rule Id",
+          "type": "string"
+        },
+        "samples": {
+          "minimum": 0,
+          "title": "Samples",
+          "type": "integer"
+        },
+        "sufficient_sample_size": {
+          "title": "Sufficient Sample Size",
+          "type": "boolean"
+        },
+        "unknown_visibility": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Unknown Visibility"
+        }
+      },
+      "required": [
+        "rule_id",
+        "samples",
+        "positive_samples",
+        "negative_samples",
+        "confusion",
+        "precision",
+        "recall",
+        "false_positive_rate",
+        "f1",
+        "correlation_agreement",
+        "confidence_agreement",
+        "evidence_completeness",
+        "coverage_visibility",
+        "unknown_visibility",
+        "duplicate_findings",
+        "failures",
+        "sufficient_sample_size"
+      ],
+      "title": "CalibrationRuleMetrics",
+      "type": "object"
+    },
+    "CalibrationRuleOutcome": {
+      "description": "Expected result for one Rule under test.",
+      "enum": [
+        "match",
+        "no_match"
+      ],
+      "title": "CalibrationRuleOutcome",
+      "type": "string"
+    },
+    "CapabilityCorrelation": {
+      "description": "Strength and scope of the deterministic fact correlation.",
+      "enum": [
+        "same_target",
+        "parent_child",
+        "same_source",
+        "explicit_relation",
+        "agent_wide",
+        "incomplete_coverage"
+      ],
+      "title": "CapabilityCorrelation",
+      "type": "string"
+    },
+    "EvidenceConfidence": {
+      "description": "Confidence in evidence, independent from finding severity.",
+      "enum": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "title": "EvidenceConfidence",
+      "type": "string"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Versioned deterministic P2-CAL-02 report.",
+  "properties": {
+    "capability_risk_model_version": {
+      "default": "0.1.0",
+      "minLength": 1,
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+      "title": "Capability Risk Model Version",
+      "type": "string"
+    },
+    "capability_rule_pack_version": {
+      "default": "0.2.0",
+      "minLength": 1,
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+      "title": "Capability Rule Pack Version",
+      "type": "string"
+    },
+    "cases": {
+      "items": {
+        "$ref": "#/$defs/CalibrationCaseEvaluation"
+      },
+      "title": "Cases",
+      "type": "array"
+    },
+    "corpus_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Corpus Id",
+      "type": "string"
+    },
+    "evaluator_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Evaluator Id",
+      "type": "string"
+    },
+    "evaluator_version": {
+      "minLength": 1,
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+      "title": "Evaluator Version",
+      "type": "string"
+    },
+    "format": {
+      "const": "agentsec-capability-calibration-report",
+      "default": "agentsec-capability-calibration-report",
+      "title": "Format",
+      "type": "string"
+    },
+    "format_version": {
+      "default": "0.1.0",
+      "minLength": 1,
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+      "title": "Format Version",
+      "type": "string"
+    },
+    "labels_version": {
+      "minLength": 1,
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+      "title": "Labels Version",
+      "type": "string"
+    },
+    "limitations": {
+      "items": {
+        "maxLength": 512,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Limitations",
+      "type": "array"
+    },
+    "policy": {
+      "$ref": "#/$defs/CalibrationReportPolicy"
+    },
+    "rules": {
+      "items": {
+        "$ref": "#/$defs/CalibrationRuleMetrics"
+      },
+      "title": "Rules",
+      "type": "array"
+    },
+    "status": {
+      "enum": [
+        "complete",
+        "incomplete"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "summary": {
+      "$ref": "#/$defs/CalibrationReportSummary"
+    }
+  },
+  "required": [
+    "status",
+    "corpus_id",
+    "labels_version",
+    "evaluator_id",
+    "evaluator_version",
+    "policy",
+    "summary",
+    "rules",
+    "cases",
+    "limitations"
+  ],
+  "title": "CalibrationReport",
+  "type": "object",
+  "x-agentsec-calibration-report-output-version": "0.1.0"
+}

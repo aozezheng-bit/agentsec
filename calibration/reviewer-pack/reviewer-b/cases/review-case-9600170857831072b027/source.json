@@ -1,0 +1,73 @@
+{
+  "facts": [
+    {
+      "dimension": "permission",
+      "key": "state-changing",
+      "state": "absent",
+      "target_id": "target:prodauto-2"
+    },
+    {
+      "dimension": "permission",
+      "key": "production-state-change",
+      "state": "absent",
+      "target_id": "target:prodauto-2"
+    },
+    {
+      "dimension": "control",
+      "key": "human-approval",
+      "state": "absent",
+      "target_id": "target:prodauto-2"
+    },
+    {
+      "dimension": "control",
+      "key": "human-approval-allow",
+      "state": "present",
+      "target_id": "target:prodauto-2"
+    },
+    {
+      "dimension": "permission",
+      "key": "production-execute",
+      "state": "absent",
+      "target_id": "target:prodauto-2"
+    },
+    {
+      "dimension": "control",
+      "key": "sandbox",
+      "state": "present",
+      "target_id": "target:prodauto-2"
+    },
+    {
+      "dimension": "control",
+      "key": "network-policy",
+      "state": "present",
+      "target_id": "target:prodauto-2"
+    },
+    {
+      "dimension": "control",
+      "key": "secret-handling",
+      "state": "absent",
+      "target_id": "target:prodauto-2"
+    },
+    {
+      "dimension": "tool",
+      "key": "mcp-enabled-required",
+      "state": "absent",
+      "target_id": "target:prodauto-2"
+    },
+    {
+      "dimension": "runtime_identity",
+      "key": "identity-lifetime-reviewed",
+      "state": "present",
+      "target_id": "target:prodauto-2"
+    },
+    {
+      "dimension": "relationship",
+      "key": "delegates-to",
+      "state": "absent",
+      "target_id": "target:prodauto-2"
+    }
+  ],
+  "format": "synthetic-static-review-view",
+  "review_case_id": "review-case-9600170857831072b027",
+  "synthetic": true
+}

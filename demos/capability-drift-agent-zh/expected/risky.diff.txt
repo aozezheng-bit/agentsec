@@ -1,0 +1,248 @@
+AgentSec 能力 Diff
+状态：完整
+Agent：release-agent
+Diff Schema：0.1.0
+Manifest Schema：0.3.0
+摘要：新增=31 移除=4 修改=0 Profile 迁移=4
+
+Profile 迁移
+  configuration：unknown -> resolved
+  controls：unknown -> partial
+  permissions：unknown -> partial
+  runtime_identities：unknown -> resolved
+
+按维度分组的变化
+  control
+    [ADDED] control:approval:mcp-server:local_review
+      changed_fields：item
+      before_sha256：-
+      after_sha256：cf4884477c7ac5ec9f2d7f003d327eebc78b4d16f99c312f618e8e12d07e7f54
+      before_source: -
+      after_source: .codex/config.toml$.mcp_servers.local_review.default_tools_approval_mode:5-5
+    [ADDED] control:approval:mcp-server:remote_release
+      changed_fields：item
+      before_sha256：-
+      after_sha256：9b80b2956facf74d57ec4cfecb8b6329bd3148989228090c5bdf5b3c0153404c
+      before_source: -
+      after_source: .codex/config.toml$.mcp_servers.remote_release.default_tools_approval_mode:12-12
+    [ADDED] control:mcp-enable:mcp-server:local_review
+      changed_fields：item
+      before_sha256：-
+      after_sha256：d992c299167c7f6a412769105dc6ee3617528d47cf962e7cfc83708c13604703
+      before_source: -
+      after_source: .codex/config.toml$.mcp_servers.local_review.enabled:3-3
+    [ADDED] control:mcp-enable:mcp-server:remote_release
+      changed_fields：item
+      before_sha256：-
+      after_sha256：f659123059b18f237a5531497f739699b41b65d1a39485c0caa2d2365f5d148a
+      before_source: -
+      after_source: .codex/config.toml$.mcp_servers.remote_release.enabled:9-9
+    [ADDED] control:mcp-required:mcp-server:local_review
+      changed_fields：item
+      before_sha256：-
+      after_sha256：c41a464babeefb00a4c45f7635587bd5b0e5ea8b9e078ee64bb9517aa2803612
+      before_source: -
+      after_source: .codex/config.toml$.mcp_servers.local_review:1-5
+    [ADDED] control:mcp-required:mcp-server:remote_release
+      changed_fields：item
+      before_sha256：-
+      after_sha256：476e02dcaa403ebfb2321b7f2167c4fa1d57bcf6d22368f86481df73bc6f6e93
+      before_source: -
+      after_source: .codex/config.toml$.mcp_servers.remote_release.required:10-10
+    [ADDED] control:network-policy:mcp-server:remote_release
+      changed_fields：item
+      before_sha256：-
+      after_sha256：3434a2fe8e497247634b163b09143a5411573301572900cebc4f2af4aeac1dc8
+      before_source: -
+      after_source: .codex/config.toml$.mcp_servers.remote_release.url:8-8
+    [ADDED] control:secret-handling:mcp-server:local_review
+      changed_fields：item
+      before_sha256：-
+      after_sha256：7a96f1be8629488acf1b52b6166b51a78e7509a67345aec699eb56a2bae30ab9
+      before_source: -
+      after_source: .codex/config.toml$.mcp_servers.local_review.bearer_token_env_var:4-4
+  permission
+    [ADDED] permission:execute:mcp-server:local_review
+      changed_fields：item
+      before_sha256：-
+      after_sha256：6809bad0e7949fa16850bd9d17ecbed3984bc77790e2f0e68dc78338c164abde
+      before_source: -
+      after_source: .codex/config.toml$.mcp_servers.local_review:1-5
+    [ADDED] permission:network:mcp-server:remote_release
+      changed_fields：item
+      before_sha256：-
+      after_sha256：5ab5a5cd015d722ceec60cdc2ddf1ab37009b0535b1b95c367706385c79fdff9
+      before_source: -
+      after_source: .codex/config.toml$.mcp_servers.remote_release:7-12
+    [ADDED] permission:secret_access:mcp-server:local_review
+      changed_fields：item
+      before_sha256：-
+      after_sha256：77b605267b4c67f4d168d887fdd305fa32145a3e944a47209245ccc079e101ba
+      before_source: -
+      after_source: .codex/config.toml$.mcp_servers.local_review.bearer_token_env_var:4-4
+    [ADDED] permission:unknown:skill:review
+      changed_fields：item
+      before_sha256：-
+      after_sha256：4cff1d5d6de44e1386c7cba07b24769a38ab1c5cd07729c6fcff1f2044e8f89e
+      before_source: -
+      after_source: .agents/skills/review/SKILL.md
+  relationship
+    [ADDED] relation:delegates_to:agent:deployer
+      changed_fields：item
+      before_sha256：-
+      after_sha256：872c61e16401ff5c3e5bc83fa61bc8a63bd9e0a30364f7ae5f99054d46714da9
+      before_source: -
+      after_source: AGENTS.md$.frontmatter.delegates_to[0]:2-2
+    [ADDED] relation:persists_memory:memory:release_state
+      changed_fields：item
+      before_sha256：-
+      after_sha256：9fbb934bd04878c268d470d29b8b07975cedbc712a2942ba3409b525d0065d62
+      before_source: -
+      after_source: AGENTS.md$.frontmatter.persists_memory[0]:3-3
+    [ADDED] relation:uses-mcp:mcp-server:local_review
+      changed_fields：item
+      before_sha256：-
+      after_sha256：2fbd260111275239ad63d016abe30dc657662304128921558a3fa3256d4e3175
+      before_source: -
+      after_source: .codex/config.toml$.mcp_servers.local_review:1-5
+    [ADDED] relation:uses-mcp:mcp-server:remote_release
+      changed_fields：item
+      before_sha256：-
+      after_sha256：620d79e524fc3904a3100d76785737d4d2ec4066cc6c1ae3600d1d7172c41bdd
+      before_source: -
+      after_source: .codex/config.toml$.mcp_servers.remote_release:7-12
+  runtime_identity
+    [ADDED] identity:mcp-server:local_review
+      changed_fields：item
+      before_sha256：-
+      after_sha256：bbd6b9c55fd6ce2f2bbf46d8d876bf22412e8d71098b5ad1fcbf5fc5dc2274b5
+      before_source: -
+      after_source: .codex/config.toml$.mcp_servers.local_review:1-5
+      after_source: .codex/config.toml$.mcp_servers.local_review.bearer_token_env_var:4-4
+      after_source: .codex/config.toml$.mcp_servers.local_review.command:2-2
+      after_source: .codex/config.toml$.mcp_servers.local_review.enabled:3-3
+    [ADDED] identity:mcp-server:remote_release
+      changed_fields：item
+      before_sha256：-
+      after_sha256：eb3d82cc50ab9f35763839c5b2ea2460a8b50dd64d36ac2cf01e9f0359416189
+      before_source: -
+      after_source: .codex/config.toml$.mcp_servers.remote_release:7-12
+      after_source: .codex/config.toml$.mcp_servers.remote_release.auth:11-11
+      after_source: .codex/config.toml$.mcp_servers.remote_release.enabled:9-9
+      after_source: .codex/config.toml$.mcp_servers.remote_release.required:10-10
+      after_source: .codex/config.toml$.mcp_servers.remote_release.url:8-8
+  tool
+    [ADDED] mcp-server:local_review
+      changed_fields：item
+      before_sha256：-
+      after_sha256：9b091f900e06e4c02ef300b03f37b1d8a1dda924f41769db994db4a89495f7cd
+      before_source: -
+      after_source: .codex/config.toml$.mcp_servers.local_review:1-5
+    [ADDED] mcp-server:remote_release
+      changed_fields：item
+      before_sha256：-
+      after_sha256：fec87e43404c7e3493ad7563ab7a5c793f0e66ee059a660165346579ff945b2b
+      before_source: -
+      after_source: .codex/config.toml$.mcp_servers.remote_release:7-12
+  unknown
+    [ADDED] unknown:controls:149799341f5e288c
+      changed_fields：item
+      before_sha256：-
+      after_sha256：3d2cfa265c9a62fe9b91c8ee1488f00a7af40f7a2cc5ab0998d23ac78d56b649
+      before_source: -
+      after_source: .codex/config.toml$.mcp_servers.local_review:1-5
+    [REMOVED] unknown:controls:21a0b7e5d41746fa
+      changed_fields：item
+      before_sha256：7bb012486a4d698d3dfdea01be130d1b8a7345ab3d798591a284f57502a0a561
+      after_sha256：-
+      before_source: -
+      after_source: -
+    [ADDED] unknown:controls:94261a6d7b79fe9f
+      changed_fields：item
+      before_sha256：-
+      after_sha256：b6658ac547d61d1935c33b148f1c2259206df29977992759cfd31eb6e4f8aac0
+      before_source: -
+      after_source: .codex/config.toml
+    [REMOVED] unknown:identity:77d20c81b0e7afa5
+      changed_fields：item
+      before_sha256：719c90db3a81abcb72ae3b9886f609e5ece7df179cfb51de9f6c82f4ba189da3
+      after_sha256：-
+      before_source: -
+      after_source: -
+    [ADDED] unknown:identity:c920ca1667e8c1ec
+      changed_fields：item
+      before_sha256：-
+      after_sha256：233537da952b2fae24a082e877dcca4f48af85065df59c39651b1c9a94867fb9
+      before_source: -
+      after_source: .codex/config.toml
+    [ADDED] unknown:permissions:0481d8a855bc6071
+      changed_fields：item
+      before_sha256：-
+      after_sha256：d934e993fc813a9bad794abb1435aeba70bb8ebedb4275f129fc4ee3997fd45c
+      before_source: -
+      after_source: .agents/skills/review/SKILL.md
+    [ADDED] unknown:permissions:081a5d1ea12ed087
+      changed_fields：item
+      before_sha256：-
+      after_sha256：c5c8a491a32bae6fbd1b2e02426e8ef7d535ed238d4129810e5e7e954ebd3208
+      before_source: -
+      after_source: .agents/skills/review/SKILL.md
+    [REMOVED] unknown:permissions:2be0c85c08af985b
+      changed_fields：item
+      before_sha256：d7a55abefe62b954c04142f918801de4d0e8cded863ba6a2eb57a83bc4d348a1
+      after_sha256：-
+      before_source: -
+      after_source: -
+    [ADDED] unknown:permissions:7d935e6b768ef536
+      changed_fields：item
+      before_sha256：-
+      after_sha256：9275350b0b9fdb95f1d812a42c77604327929874ed14416db141d289d53cef0d
+      before_source: -
+      after_source: .codex/config.toml$.mcp_servers.remote_release:7-12
+    [ADDED] unknown:permissions:e52ed4c720997730
+      changed_fields：item
+      before_sha256：-
+      after_sha256：28406dd6371b75dfa9236bfaf2f9cb2dc63c75526f3e24ea4372a137ecb455d1
+      before_source: -
+      after_source: .codex/config.toml$.mcp_servers.local_review.bearer_token_env_var:4-4
+    [ADDED] unknown:permissions:e54c411ec89a1f22
+      changed_fields：item
+      before_sha256：-
+      after_sha256：cd525896a98afb9b409adecff737a5f61fa71d48268c4ef201e07891cc63c693
+      before_source: -
+      after_source: .codex/config.toml
+    [ADDED] unknown:permissions:f35f2c190bb8f0eb
+      changed_fields：item
+      before_sha256：-
+      after_sha256：92b4ad8dde44adad653a99edf4d74733a42a408955e31091043d905ac121f0a0
+      before_source: -
+      after_source: .codex/config.toml$.mcp_servers.local_review:1-5
+    [ADDED] unknown:runtime_identities:9064e24bda5c282c
+      changed_fields：item
+      before_sha256：-
+      after_sha256：96e83d31b183f94589dbd0df10e02c8fefd7a891ebeb666fe6fb508a5f81ccbe
+      before_source: -
+      after_source: .codex/config.toml$.mcp_servers.remote_release:7-12
+      after_source: .codex/config.toml$.mcp_servers.remote_release.auth:11-11
+      after_source: .codex/config.toml$.mcp_servers.remote_release.enabled:9-9
+      after_source: .codex/config.toml$.mcp_servers.remote_release.required:10-10
+      after_source: .codex/config.toml$.mcp_servers.remote_release.url:8-8
+    [REMOVED] unknown:runtime_identities:9af495e3982f8b99
+      changed_fields：item
+      before_sha256：77e02ef10a9c6fca87d10278e765bd1802b46cdb7065c4f78506ee6cbae9bdc0
+      after_sha256：-
+      before_source: -
+      after_source: -
+    [ADDED] unknown:runtime_identities:efea430ca56cde7a
+      changed_fields：item
+      before_sha256：-
+      after_sha256：bc53c7ba45461e009d5ea2339eeb87c46ef7121530ef4c870c4c3dcd82e232ec
+      before_source: -
+      after_source: .codex/config.toml$.mcp_servers.local_review:1-5
+      after_source: .codex/config.toml$.mcp_servers.local_review.bearer_token_env_var:4-4
+      after_source: .codex/config.toml$.mcp_servers.local_review.command:2-2
+      after_source: .codex/config.toml$.mcp_servers.local_review.enabled:3-3
+
+边界说明
+  Canonical Diff 不包含 before/after 原始值。
+  本 Diff 不代表运行时可达性或利用已被证明。

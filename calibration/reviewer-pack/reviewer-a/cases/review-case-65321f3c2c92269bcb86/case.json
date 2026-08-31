@@ -1,0 +1,33 @@
+{
+  "corpus_binding_hash": "sha256:59e034541e3c1096f311404358031a5dc81fc880123351363713d66c2544ad79",
+  "format": "agentsec-independent-review-case",
+  "input_format": "manifest",
+  "language": "en",
+  "pack_id": "reviewer-pack-sha256:58295690c13861a763ed9c202d39fe37642ac0f8d9d2d6e416886184a4a86d90",
+  "question_set_sha256": "sha256:8488a5c9da9981787eba2d09ec0cbfdcf7a5443b149fdde6a56320f933c58a6a",
+  "review_case_fingerprint": "sha256:ee06b1268a6d340c3ee9af189758f8f8dd48c1ad7a8fc0dbf6522a443570433c",
+  "review_case_id": "review-case-65321f3c2c92269bcb86",
+  "review_questions": [
+    {
+      "condition": {
+        "en": "A network permission has an effective allow approval state rather than prompt or deny."
+      },
+      "prompt": {
+        "en": "Independently label the human Rule condition as match, no_match, or uncertain; record your direct finding observation, policy/scope category, evidence location, Confidence, Correlation, disposition, rationale code, and notes. Do not calculate TP/FP/FN/TN."
+      },
+      "question_id": "question:review-case-65321f3c2c92269bcb86:CAP-AUTONETWORK-001",
+      "rule_id": "CAP-AUTONETWORK-001",
+      "title": {
+        "en": "Network access is allowed without human approval"
+      }
+    }
+  ],
+  "schema_version": "0.3.0",
+  "source_location": {
+    "end_line": 19,
+    "path": "source.manifest.json",
+    "start_line": 1
+  },
+  "source_sha256": "sha256:ab45499f8b776ca4b3810d7db8ac83d1a31f35253b4afdd0c4f2b03c84881e3a",
+  "synthetic_fixture": true
+}

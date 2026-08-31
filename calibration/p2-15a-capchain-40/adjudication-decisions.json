@@ -1,0 +1,41 @@
+{
+  "adjudications": [
+    {
+      "adjudication_notes": "主目标 secret-access 显式 absent；该能力仅以 secret-access-other-target 形式出现在同一 source 的 target:isolated，delegates-to 为 absent，无任何关联声明。证据完备、无覆盖缺口，失败纯粹是跨目标不关联 → same_source。",
+      "final_correlation": "same_source",
+      "final_rationale_code": "capchain.no-match.secret-access-only-on-other-target",
+      "review_case_id": "review-case-06f4894ec3df67a05c59"
+    },
+    {
+      "adjudication_notes": "主目标 execute 显式 absent；execute 仅见于 target:isolated。delegates-to 虽为 present，但事实格式无关系对象字段，不能升级为 explicit_relation/parent_child，也不构成权限判定所需的覆盖缺口（判定不依赖委托对象）。",
+      "final_correlation": "same_source",
+      "final_rationale_code": "capchain.no-match.execute-only-on-other-target",
+      "review_case_id": "review-case-3ee41000015a4bbbebd2"
+    },
+    {
+      "adjudication_notes": "主目标 external-network 显式 absent；该能力仅以 external-network-other-target 出现在 target:isolated，delegates-to 为 absent。证据完备，仅跨目标不关联 → same_source。",
+      "final_correlation": "same_source",
+      "final_rationale_code": "capchain.no-match.external-network-only-on-other-target",
+      "review_case_id": "review-case-538d26e339f9f158fc6a"
+    },
+    {
+      "adjudication_notes": "同 #8：主目标 execute 显式 absent；delegates-to present 但对象不可声明，不构成关联也不构成影响判定的覆盖缺口。no_match 判定不依赖委托对象。",
+      "final_correlation": "same_source",
+      "final_rationale_code": "capchain.no-match.execute-only-on-other-target",
+      "review_case_id": "review-case-dce8660339f28e773c58"
+    },
+    {
+      "adjudication_notes": "主目标 secret-access 显式 absent；该能力仅以 secret-access-other-target 出现在 target:isolated，delegates-to 为 absent。证据完备，仅跨目标不关联 → same_source。",
+      "final_correlation": "same_source",
+      "final_rationale_code": "capchain.no-match.secret-access-only-on-other-target",
+      "review_case_id": "review-case-f6802f8efd87a54dedee"
+    }
+  ],
+  "adjudicator_id": "project-owner",
+  "format": "agentsec-gate-scoped-adjudication-input",
+  "gate_id": "HG-CAPCHAIN-001",
+  "package_id": "gate-review-package-sha256:4bebfb271060eab3b638e5d229d3e8fb6d0c1c8284f4daaab77b961372787997",
+  "rule_id": "CAP-CHAIN-001",
+  "schema_version": "0.1.0",
+  "selection_id": "gate-subset-selection-sha256:4ef30e1a30ca4e6d4c87b32f07328946e8fdef4034ca78e48f8aef203104b2ae"
+}

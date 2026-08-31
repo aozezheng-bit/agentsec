@@ -1,0 +1,207 @@
+AgentSec Capability Change Impact
+Status: COMPLETE
+Agent: release-agent
+Policy: report-only; CI blocking disabled; runtime capability not verified
+
+Management Summary
+  Capability changes: 35; impact-assessed=14; unassessed=21
+  Exposure direction: increased=7 reduced=2 mixed=0 neutral=0 uncertain=5
+  Finding Delta: added=17 resolved=0 changed=0 unchanged=0
+  Highest Severity: before=NONE after=HIGH
+  High/Critical lifecycle: added=3 resolved=0
+
+Finding Delta
+  [ADDED] CAP-APPROVAL-001 — State-changing capability lacks an effective human approval control
+    risk_direction: increased
+    severity: - -> high
+    related_ids: mcp-server:local_review
+    changed_fields: finding
+    impacted_changes: capability-impact-sha256:859f06a6c202823323c9b5bc6dbf4a7ff5ef7c71471393b99a52f4118c21fada
+  [ADDED] CAP-AUTONETWORK-001 — Network access is allowed without human approval
+    risk_direction: increased
+    severity: - -> medium
+    related_ids: mcp-server:remote_release
+    changed_fields: finding
+    impacted_changes: capability-impact-sha256:7cd270587702764cfe5d2064f1f3f5c1b414e5701fff9594c770f897791a5a32
+  [ADDED] CAP-AUTOSECRET-001 — Secret access is allowed without human approval
+    risk_direction: increased
+    severity: - -> high
+    related_ids: mcp-server:local_review
+    changed_fields: finding
+    impacted_changes: capability-impact-sha256:859f06a6c202823323c9b5bc6dbf4a7ff5ef7c71471393b99a52f4118c21fada
+  [ADDED] CAP-CHAIN-001 — Execution, secret access, and external network form a potential chain
+    risk_direction: increased
+    severity: - -> medium
+    related_ids: permission:execute:mcp-server:local_review,permission:network:mcp-server:remote_release,permission:secret_access:mcp-server:local_review
+    changed_fields: finding
+    impacted_changes: capability-impact-sha256:55e20e39f92a225b6d2debad4bfff144e8bebc06caa675376979dc2dc442c991,capability-impact-sha256:cbd117882dc619505af21203b2af1acbdf8bb734a1258949f30faa06e9cc9480,capability-impact-sha256:ef03418aab5ce73032cd642d0b687765339643136639754f5caf1cee9f3d57e7
+  [ADDED] CAP-COVERAGE-001 — High-impact capability is visible under incomplete analysis
+    risk_direction: increased
+    severity: - -> medium
+    related_ids: mcp-server:local_review
+    changed_fields: finding
+    impacted_changes: capability-impact-sha256:859f06a6c202823323c9b5bc6dbf4a7ff5ef7c71471393b99a52f4118c21fada
+  [ADDED] CAP-COVERAGE-001 — High-impact capability is visible under incomplete analysis
+    risk_direction: increased
+    severity: - -> medium
+    related_ids: mcp-server:remote_release
+    changed_fields: finding
+    impacted_changes: capability-impact-sha256:7cd270587702764cfe5d2064f1f3f5c1b414e5701fff9594c770f897791a5a32
+  [ADDED] CAP-DELEGATE-001 — Delegation reaches a powerful capability without approval evidence
+    risk_direction: increased
+    severity: - -> medium
+    related_ids: permission:execute:mcp-server:local_review,relation:delegates_to:agent:deployer
+    changed_fields: finding
+    impacted_changes: capability-impact-sha256:cbd117882dc619505af21203b2af1acbdf8bb734a1258949f30faa06e9cc9480
+  [ADDED] CAP-DELEGATEEXTERNAL-001 — Delegation is combined with an external capability
+    risk_direction: increased
+    severity: - -> medium
+    related_ids: permission:network:mcp-server:remote_release,relation:delegates_to:agent:deployer
+    changed_fields: finding
+    impacted_changes: capability-impact-sha256:ef03418aab5ce73032cd642d0b687765339643136639754f5caf1cee9f3d57e7
+  [ADDED] CAP-DELEGATEPERSIST-001 — Delegation is combined with persistent memory
+    risk_direction: increased
+    severity: - -> low
+    related_ids: relation:delegates_to:agent:deployer,relation:persists_memory:memory:release_state
+    changed_fields: finding
+    impacted_changes: -
+  [ADDED] CAP-EXTERNAL-001 — Required enabled external MCP uses a credentialed identity
+    risk_direction: increased
+    severity: - -> high
+    related_ids: mcp-server:remote_release
+    changed_fields: finding
+    impacted_changes: capability-impact-sha256:7cd270587702764cfe5d2064f1f3f5c1b414e5701fff9594c770f897791a5a32
+  [ADDED] CAP-EXTERNALUNVERIFIED-001 — External MCP identity or availability is not runtime-verified
+    risk_direction: increased
+    severity: - -> medium
+    related_ids: mcp-server:remote_release
+    changed_fields: finding
+    impacted_changes: capability-impact-sha256:7cd270587702764cfe5d2064f1f3f5c1b414e5701fff9594c770f897791a5a32
+  [ADDED] CAP-MEMORYNETWORK-001 — Memory relationship coexists with external network access
+    risk_direction: increased
+    severity: - -> low
+    related_ids: permission:network:mcp-server:remote_release,relation:persists_memory:memory:release_state
+    changed_fields: finding
+    impacted_changes: capability-impact-sha256:ef03418aab5ce73032cd642d0b687765339643136639754f5caf1cee9f3d57e7
+  [ADDED] CAP-MEMORYSECRET-001 — Memory relationship coexists with secret access
+    risk_direction: increased
+    severity: - -> medium
+    related_ids: permission:secret_access:mcp-server:local_review,relation:persists_memory:memory:release_state
+    changed_fields: finding
+    impacted_changes: capability-impact-sha256:55e20e39f92a225b6d2debad4bfff144e8bebc06caa675376979dc2dc442c991
+  [ADDED] CAP-NOSANDBOX-001 — High-impact capability lacks a configured sandbox
+    risk_direction: increased
+    severity: - -> medium
+    related_ids: mcp-server:local_review
+    changed_fields: finding
+    impacted_changes: capability-impact-sha256:859f06a6c202823323c9b5bc6dbf4a7ff5ef7c71471393b99a52f4118c21fada
+  [ADDED] CAP-PERSIST-001 — Persistent memory is combined with a sensitive capability
+    risk_direction: increased
+    severity: - -> medium
+    related_ids: permission:network:mcp-server:remote_release,permission:secret_access:mcp-server:local_review,relation:persists_memory:memory:release_state
+    changed_fields: finding
+    impacted_changes: capability-impact-sha256:55e20e39f92a225b6d2debad4bfff144e8bebc06caa675376979dc2dc442c991,capability-impact-sha256:ef03418aab5ce73032cd642d0b687765339643136639754f5caf1cee9f3d57e7
+  [ADDED] CAP-REQUIREDNOFILTER-001 — Required external MCP has no tool filter
+    risk_direction: increased
+    severity: - -> medium
+    related_ids: mcp-server:remote_release
+    changed_fields: finding
+    impacted_changes: capability-impact-sha256:7cd270587702764cfe5d2064f1f3f5c1b414e5701fff9594c770f897791a5a32
+  [ADDED] CAP-REQUIREDNOTIMEOUT-001 — Required external MCP has no timeout control
+    risk_direction: increased
+    severity: - -> medium
+    related_ids: mcp-server:remote_release
+    changed_fields: finding
+    impacted_changes: capability-impact-sha256:7cd270587702764cfe5d2064f1f3f5c1b414e5701fff9594c770f897791a5a32
+
+Tool / Permission / Control Change Impact
+  [INCREASED_EXPOSURE] control control:approval:mcp-server:local_review
+    change_type: added
+    before: -
+    after: kind=human_approval; state=allow; target=mcp-server:local_review
+    reasons: capability_added,control_weakened
+    related_finding_delta: -
+  [INCREASED_EXPOSURE] control control:approval:mcp-server:remote_release
+    change_type: added
+    before: -
+    after: kind=human_approval; state=allow; target=mcp-server:remote_release
+    reasons: capability_added,control_weakened
+    related_finding_delta: -
+  [INCREASED_EXPOSURE] control control:mcp-enable:mcp-server:local_review
+    change_type: added
+    before: -
+    after: kind=enablement; state=enabled; target=mcp-server:local_review
+    reasons: capability_added,control_weakened
+    related_finding_delta: -
+  [INCREASED_EXPOSURE] control control:mcp-enable:mcp-server:remote_release
+    change_type: added
+    before: -
+    after: kind=enablement; state=enabled; target=mcp-server:remote_release
+    reasons: capability_added,control_weakened
+    related_finding_delta: -
+  [UNCERTAIN] control control:mcp-required:mcp-server:local_review
+    change_type: added
+    before: -
+    after: kind=required; state=unknown; target=mcp-server:local_review
+    reasons: capability_added,unknown_state
+    related_finding_delta: -
+  [INCREASED_EXPOSURE] control control:mcp-required:mcp-server:remote_release
+    change_type: added
+    before: -
+    after: kind=required; state=required; target=mcp-server:remote_release
+    reasons: capability_added,control_weakened
+    related_finding_delta: -
+  [REDUCED_EXPOSURE] control control:network-policy:mcp-server:remote_release
+    change_type: added
+    before: -
+    after: kind=network_policy; state=configured; target=mcp-server:remote_release
+    reasons: capability_added,control_strengthened
+    related_finding_delta: -
+  [REDUCED_EXPOSURE] control control:secret-handling:mcp-server:local_review
+    change_type: added
+    before: -
+    after: kind=secret_handling; state=configured; target=mcp-server:local_review
+    reasons: capability_added,control_strengthened
+    related_finding_delta: -
+  [UNCERTAIN] permission permission:execute:mcp-server:local_review
+    change_type: added
+    before: -
+    after: action=execute; effect=unknown; resource=shell; scope=project; target=mcp-server:local_review
+    reasons: capability_added,permission_effect_weakened,permission_granted,unknown_state
+    related_finding_delta: capability-finding-delta-sha256:1f10a13ea2b3c072ee77f9b2bf8033be20b5ced4b99c3b718b4c392d101757f0,capability-finding-delta-sha256:37d7190de4f73361b6023569bc2bed3aea4e51f4908a1669c7bee8d74aefdf63
+  [UNCERTAIN] permission permission:network:mcp-server:remote_release
+    change_type: added
+    before: -
+    after: action=network; effect=unknown; resource=network; scope=external; target=mcp-server:remote_release
+    reasons: capability_added,permission_effect_weakened,permission_granted,unknown_state
+    related_finding_delta: capability-finding-delta-sha256:0cc3d91f8049e626bf44c28256b8602b608f0850243e2848aa983198453dc8d2,capability-finding-delta-sha256:37d7190de4f73361b6023569bc2bed3aea4e51f4908a1669c7bee8d74aefdf63,capability-finding-delta-sha256:6ef01a21c0964a4b641f39f22798760f09ca1cb289d7e9780c21276f284b8ede,capability-finding-delta-sha256:a804467c87580135c06b4c26c5b1397cad84d9d956e6c8d100c68a0fbd156b24
+  [UNCERTAIN] permission permission:secret_access:mcp-server:local_review
+    change_type: added
+    before: -
+    after: action=secret_access; effect=unknown; resource=environment; scope=project; target=mcp-server:local_review
+    reasons: capability_added,permission_effect_weakened,permission_granted,unknown_state
+    related_finding_delta: capability-finding-delta-sha256:37d7190de4f73361b6023569bc2bed3aea4e51f4908a1669c7bee8d74aefdf63,capability-finding-delta-sha256:9618628e5712f585cff3a8acf3d3d8ea3244cea43fbcc046f2d30257254c660f,capability-finding-delta-sha256:a804467c87580135c06b4c26c5b1397cad84d9d956e6c8d100c68a0fbd156b24
+  [UNCERTAIN] permission permission:unknown:skill:review
+    change_type: added
+    before: -
+    after: action=unknown; effect=unknown; resource=tool; scope=project; target=skill:review
+    reasons: capability_added,permission_effect_weakened,permission_granted,unknown_state
+    related_finding_delta: -
+  [INCREASED_EXPOSURE] tool mcp-server:local_review
+    change_type: added
+    before: -
+    after: availability=enabled; kind=mcp_server; side_effects=execute
+    reasons: capability_added,sensitive_effect_added,tool_enabled
+    related_finding_delta: capability-finding-delta-sha256:3925b8c7c1c0f521362a86ecadbb4da5d1dd88031319395b642cf18dabfd3621,capability-finding-delta-sha256:4f388169520d64bf94dd14f7975c9e82da9cc02ba302bb37fabe74b15a6a76a3,capability-finding-delta-sha256:c02efd07891a7412b3c1ec265231d45c6faa08c7288218c3e2f89972e0cb87ff,capability-finding-delta-sha256:c97264626ab6b682e98416a9d8c30da9cb87661842da77b774ceaeb14339dcce
+  [INCREASED_EXPOSURE] tool mcp-server:remote_release
+    change_type: added
+    before: -
+    after: availability=enabled; kind=mcp_server; side_effects=network
+    reasons: capability_added,sensitive_effect_added,tool_enabled
+    related_finding_delta: capability-finding-delta-sha256:0fbbc6125727fbc121bc62cc5af9ecd6e5b106ae1b0c7a9c84a557946d581c64,capability-finding-delta-sha256:173d7115dfbfc722c86cf22cb018e0d91700c1c93311b88c47c135837c936c25,capability-finding-delta-sha256:634d8061e95aa7128cb72e7cf716a9971ed6c8db0987280432a389e8f140a8a0,capability-finding-delta-sha256:88e88ec736ddafba55ad21691aeb863c0aa0e77ae8cc3fde97d60f4c51a4c7de,capability-finding-delta-sha256:b4b8ca9ed69b68d93055a5cd7b2b75f47fbe1d1ed81b7078c496e6d8a22f7e5a,capability-finding-delta-sha256:c61e110222a861eaa708db536cf5d3394e8f84708c07e38d17e33ac057bfc1cb
+
+Boundary
+  Before/after state contains normalized fields only, not source values.
+  Exposure direction is not a new Severity score or authorization decision.
+  Added High Findings are not diluted by unchanged or lower Findings.
+  This report does not prove runtime reachability or exploitation.

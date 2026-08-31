@@ -1,0 +1,33 @@
+{
+  "corpus_binding_hash": "sha256:59e034541e3c1096f311404358031a5dc81fc880123351363713d66c2544ad79",
+  "format": "agentsec-independent-review-case",
+  "input_format": "manifest",
+  "language": "zh",
+  "pack_id": "reviewer-pack-sha256:58295690c13861a763ed9c202d39fe37642ac0f8d9d2d6e416886184a4a86d90",
+  "question_set_sha256": "sha256:37654324b758d4fd5f460a0b8f3e9a086fadcd84a811ac782bc209e07adc7e87",
+  "review_case_fingerprint": "sha256:c0de5d89275ff27696e4f69394e7ffe01bdc1f678e85aed3abcaaec4bacf08a0",
+  "review_case_id": "review-case-620a8e2f1b6e8ac131c8",
+  "review_questions": [
+    {
+      "condition": {
+        "zh": "状态变更权限的目标或父级没有 configured 或 enabled 的 sandbox 控制。"
+      },
+      "prompt": {
+        "zh": "请独立将人工规则条件标记为 match、no_match 或 uncertain，并填写直接观察、策略或范围类别、证据位置、置信度、关联方式、处置意见、理由代码和备注。不要自行计算 TP/FP/FN/TN。"
+      },
+      "question_id": "question:review-case-620a8e2f1b6e8ac131c8:CAP-NOSANDBOX-001",
+      "rule_id": "CAP-NOSANDBOX-001",
+      "title": {
+        "zh": "高影响能力缺少已配置的沙箱"
+      }
+    }
+  ],
+  "schema_version": "0.3.0",
+  "source_location": {
+    "end_line": 19,
+    "path": "source.manifest.json",
+    "start_line": 1
+  },
+  "source_sha256": "sha256:12111172180bb21d4b566394d0e43f6f2b00da07d52d16ab82fb39b33827c8e1",
+  "synthetic_fixture": true
+}

@@ -1,0 +1,19 @@
+{
+  "facts": [
+    {
+      "dimension": "permission",
+      "key": "secret-access",
+      "state": "absent",
+      "target_id": null
+    },
+    {
+      "dimension": "control",
+      "key": "human-approval-allow",
+      "state": "absent",
+      "target_id": null
+    }
+  ],
+  "format": "synthetic-agent-manifest-review-view",
+  "review_case_id": "review-case-85a10ef29760a720f3a4",
+  "synthetic": true
+}

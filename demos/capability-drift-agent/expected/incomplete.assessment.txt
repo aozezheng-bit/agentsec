@@ -1,0 +1,42 @@
+AgentSec Capability Assessment
+Status: INCOMPLETE
+Agent: release-agent
+Policy: report-only; CI blocking disabled; runtime not verified
+
+Management Summary
+  Findings: 0
+  Highest severity: NONE
+  Severity: critical=0 high=0 medium=0 low=0 none=0
+  Confidence: A=0 B=0 C=0 D=0
+  Inventory: sources=1 tools=0 permissions=0 controls=0 identities=0 relationships=0 unknowns=8
+  Coverage: INCOMPLETE; discovered=2 inspected=1 skipped=1 issues=1
+  Rule execution: COMPLETE; evaluated=29 failures=0
+  Hard Gates: matched=0 (report-only; no CI block)
+  Shadow Gates: matched=0 (shadow; pilot-only; no CI block)
+
+Version Vector
+  package: 0.2.0
+  agent_manifest_schema: 0.3.0
+  capability_rule_pack: 0.2.0
+  capability_risk_model: 0.1.0
+  capability_assessment_output: 0.2.0
+
+Stage Trace
+  adapter_inspection: partial input=0 output=1
+  manifest_build: partial input=1 output=1
+  instruction_resolution: partial input=1 output=1
+  configuration_resolution: partial input=0 output=0
+  association_extraction: partial input=1 output=0
+  capability_extraction: partial input=0 output=0
+  relationship_extraction: partial input=1 output=0
+  unknown_extraction: partial input=2 output=8
+  final_validation: partial input=1 output=1
+
+WARNING: This assessment is incomplete. Coverage or Rule execution gaps remain visible and this result must not be treated as a clean pass.
+
+Findings
+  No findings were produced in the supported static scope; this does not prove that the Agent is safe.
+
+Boundary
+  Findings describe static declarations and deterministic correlations only.
+  This report does not prove runtime reachability or global Agent safety.

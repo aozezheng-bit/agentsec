@@ -1,0 +1,17 @@
+{
+  "case_id": "risky-self-modify-skill",
+  "category": "risky",
+  "purpose": "Detect a Skill that declares editing itself.",
+  "assets": [
+    "skills/editor/SKILL.md"
+  ],
+  "expected": {
+    "coverage": "complete",
+    "signals": [
+      "self_modification"
+    ],
+    "rule_ids": [
+      "MD-SELF-001"
+    ]
+  }
+}

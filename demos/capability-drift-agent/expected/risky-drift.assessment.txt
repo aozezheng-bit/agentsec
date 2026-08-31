@@ -1,0 +1,428 @@
+AgentSec Capability Assessment
+Status: COMPLETE
+Agent: release-agent
+Policy: report-only; CI blocking disabled; runtime not verified
+
+Management Summary
+  Findings: 17
+  Highest severity: HIGH
+  Severity: critical=0 high=3 medium=12 low=2 none=0
+  Confidence: A=0 B=8 C=0 D=9
+  Inventory: sources=3 tools=3 permissions=4 controls=8 identities=2 relationships=5 unknowns=12
+  Coverage: COMPLETE; discovered=3 inspected=3 skipped=0 issues=0
+  Rule execution: COMPLETE; evaluated=29 failures=0
+  Hard Gates: matched=0 (report-only; no CI block)
+  Shadow Gates: matched=0 (shadow; pilot-only; no CI block)
+
+Version Vector
+  package: 0.2.0
+  agent_manifest_schema: 0.3.0
+  capability_rule_pack: 0.2.0
+  capability_risk_model: 0.1.0
+  capability_assessment_output: 0.2.0
+
+Stage Trace
+  adapter_inspection: completed input=0 output=3
+  manifest_build: completed input=3 output=3
+  instruction_resolution: completed input=1 output=1
+  configuration_resolution: completed input=1 output=1
+  association_extraction: completed input=3 output=6
+  capability_extraction: completed input=3 output=14
+  relationship_extraction: completed input=3 output=5
+  unknown_extraction: completed input=27 output=12
+  final_validation: completed input=1 output=1
+
+Findings
+
+1. [HIGH] State-changing capability lacks an effective human approval control
+   Finding ID: capability-finding-sha256:373e08c2d29f96c712f7aec7edb21fa0640b3d7ef137745e08cfdad369072e2a
+   Rule: CAP-APPROVAL-001
+   Category: human_approval
+   Score: 8.0
+   Severity: HIGH
+   Likelihood: moderate
+   Confidence: B
+   Hard Gate: disabled (report-only)
+   Correlation: same_target
+   Correlation: same_target
+   Description: A write, execute, deploy, publish, or admin capability is enabled or not explicitly disabled while the correlated target has no prompt or deny approval control.
+   Related IDs:
+     - mcp-server:local_review
+   Evidence:
+     1. project:project:.codex/config.toml$.mcp_servers.local_review:1-5 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     2. project:project:.codex/config.toml$.mcp_servers.local_review.bearer_token_env_var:4-4 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     3. project:project:.codex/config.toml$.mcp_servers.local_review.command:2-2 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     4. project:project:.codex/config.toml$.mcp_servers.local_review.default_tools_approval_mode:5-5 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     5. project:project:.codex/config.toml$.mcp_servers.local_review.enabled:3-3 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+   Recommendation:
+     1. Require prompt or deny approval for state-changing capabilities and review inherited parent controls.
+
+2. [HIGH] Secret access is allowed without human approval
+   Finding ID: capability-finding-sha256:d10b8674fa02c02d94e9160cc5a7b0551117ab3ec64928f243f9c6bfec067064
+   Rule: CAP-AUTOSECRET-001
+   Category: secret_access
+   Score: 8.0
+   Severity: HIGH
+   Likelihood: moderate
+   Confidence: B
+   Hard Gate: disabled (report-only)
+   Correlation: same_target
+   Correlation: same_target
+   Description: A secret_access permission has an effective allow approval state rather than prompt or deny.
+   Related IDs:
+     - mcp-server:local_review
+   Evidence:
+     1. project:project:.codex/config.toml$.mcp_servers.local_review:1-5 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     2. project:project:.codex/config.toml$.mcp_servers.local_review.bearer_token_env_var:4-4 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     3. project:project:.codex/config.toml$.mcp_servers.local_review.command:2-2 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     4. project:project:.codex/config.toml$.mcp_servers.local_review.default_tools_approval_mode:5-5 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     5. project:project:.codex/config.toml$.mcp_servers.local_review.enabled:3-3 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+   Recommendation:
+     1. Change the approval state to prompt or deny and provide a narrow, audited secret broker.
+
+3. [HIGH] Required enabled external MCP uses a credentialed identity
+   Finding ID: capability-finding-sha256:2d3a3a50b0c665b174d7a301ebf3e2b3fb4b78c3e7f77ccd39efb174133ee7e8
+   Rule: CAP-EXTERNAL-001
+   Category: network_access
+   Score: 8.0
+   Severity: HIGH
+   Likelihood: moderate
+   Confidence: B
+   Hard Gate: disabled (report-only)
+   Correlation: same_target
+   Correlation: same_target
+   Description: An enabled and required external MCP server has OAuth, ChatGPT, or environment-backed authentication.
+   Related IDs:
+     - mcp-server:remote_release
+   Evidence:
+     1. project:project:.codex/config.toml$.mcp_servers.remote_release:7-12 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     2. project:project:.codex/config.toml$.mcp_servers.remote_release.auth:11-11 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     3. project:project:.codex/config.toml$.mcp_servers.remote_release.default_tools_approval_mode:12-12 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     4. project:project:.codex/config.toml$.mcp_servers.remote_release.enabled:9-9 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     5. project:project:.codex/config.toml$.mcp_servers.remote_release.required:10-10 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     6. project:project:.codex/config.toml$.mcp_servers.remote_release.url:8-8 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+   Recommendation:
+     1. Make external integrations optional where possible, scope credentials, pin destinations, and retain human approval for side effects.
+
+4. [MEDIUM] Network access is allowed without human approval
+   Finding ID: capability-finding-sha256:04effd631596af33f6160edfdb54a4758970f237ad3354d88bdab08d48fc7ec8
+   Rule: CAP-AUTONETWORK-001
+   Category: network_access
+   Score: 5.5
+   Severity: MEDIUM
+   Likelihood: moderate
+   Confidence: B
+   Hard Gate: disabled (report-only)
+   Correlation: same_target
+   Correlation: same_target
+   Description: A network permission has an effective allow approval state rather than prompt or deny.
+   Related IDs:
+     - mcp-server:remote_release
+   Evidence:
+     1. project:project:.codex/config.toml$.mcp_servers.remote_release:7-12 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     2. project:project:.codex/config.toml$.mcp_servers.remote_release.auth:11-11 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     3. project:project:.codex/config.toml$.mcp_servers.remote_release.default_tools_approval_mode:12-12 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     4. project:project:.codex/config.toml$.mcp_servers.remote_release.enabled:9-9 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     5. project:project:.codex/config.toml$.mcp_servers.remote_release.required:10-10 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     6. project:project:.codex/config.toml$.mcp_servers.remote_release.url:8-8 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+   Recommendation:
+     1. Restrict destinations with a network policy and require prompt approval for side-effecting requests.
+
+5. [MEDIUM] Execution, secret access, and external network form a potential chain
+   Finding ID: capability-finding-sha256:54c5eb4276d9ac9677cf38d028d2c93af09461e9db172841be8e71bf275499b9
+   Rule: CAP-CHAIN-001
+   Category: secret_access
+   Score: 5.5
+   Severity: MEDIUM
+   Likelihood: low
+   Confidence: D
+   Hard Gate: disabled (report-only)
+   Shadow Gate: HG-CAPCHAIN-001 not matched (shadow; pilot-only; blocks=false)
+   Correlation: agent_wide
+   Correlation: agent_wide
+   Description: The same target family or Agent declaration combines execute, secret access, and external network permissions.
+   Related IDs:
+     - permission:execute:mcp-server:local_review
+     - permission:network:mcp-server:remote_release
+     - permission:secret_access:mcp-server:local_review
+   Evidence:
+     1. project:project:.codex/config.toml$.mcp_servers.local_review:1-5 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     2. project:project:.codex/config.toml$.mcp_servers.local_review.bearer_token_env_var:4-4 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     3. project:project:.codex/config.toml$.mcp_servers.remote_release:7-12 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+   Recommendation:
+     1. Separate execution, secret access, and external network capabilities; require least privilege and review each trust boundary.
+
+6. [MEDIUM] High-impact capability is visible under incomplete analysis
+   Finding ID: capability-finding-sha256:b4522c7b9f4261683061d1f5f5a7c0c7d8907355d45f1e5737a1a07d807928b9
+   Rule: CAP-COVERAGE-001
+   Category: scan_coverage
+   Score: 5.5
+   Severity: MEDIUM
+   Likelihood: low
+   Confidence: D
+   Hard Gate: disabled (report-only)
+   Correlation: incomplete_coverage
+   Correlation: incomplete_coverage
+   Description: A high-impact permission or relationship is visible while Coverage or a relevant Manifest dimension remains incomplete or Unknown.
+   Related IDs:
+     - mcp-server:local_review
+   Evidence:
+     1. project:project:.codex/config.toml sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     2. project:project:.codex/config.toml$.mcp_servers.local_review:1-5 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     3. project:project:.codex/config.toml$.mcp_servers.local_review.bearer_token_env_var:4-4 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     4. project:project:.codex/config.toml$.mcp_servers.local_review.command:2-2 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     5. project:project:.codex/config.toml$.mcp_servers.local_review.enabled:3-3 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+   Recommendation:
+     1. Resolve skipped assets and Unknown dimensions before treating the capability assessment as exhaustive.
+
+7. [MEDIUM] High-impact capability is visible under incomplete analysis
+   Finding ID: capability-finding-sha256:c1c83b68c9dc845db86d2337fab63ba043af41d20f39fd422cc08d6504524a92
+   Rule: CAP-COVERAGE-001
+   Category: scan_coverage
+   Score: 5.5
+   Severity: MEDIUM
+   Likelihood: low
+   Confidence: D
+   Hard Gate: disabled (report-only)
+   Correlation: incomplete_coverage
+   Correlation: incomplete_coverage
+   Description: A high-impact permission or relationship is visible while Coverage or a relevant Manifest dimension remains incomplete or Unknown.
+   Related IDs:
+     - mcp-server:remote_release
+   Evidence:
+     1. project:project:.codex/config.toml sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     2. project:project:.codex/config.toml$.mcp_servers.remote_release:7-12 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     3. project:project:.codex/config.toml$.mcp_servers.remote_release.auth:11-11 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     4. project:project:.codex/config.toml$.mcp_servers.remote_release.enabled:9-9 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     5. project:project:.codex/config.toml$.mcp_servers.remote_release.required:10-10 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     6. project:project:.codex/config.toml$.mcp_servers.remote_release.url:8-8 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+   Recommendation:
+     1. Resolve skipped assets and Unknown dimensions before treating the capability assessment as exhaustive.
+
+8. [MEDIUM] Delegation reaches a powerful capability without approval evidence
+   Finding ID: capability-finding-sha256:c2f3714360ad582e0a16646c5f06254a065fde75a49b4709902ca15a07ade69c
+   Rule: CAP-DELEGATE-001
+   Category: privileged_access
+   Score: 5.5
+   Severity: MEDIUM
+   Likelihood: low
+   Confidence: D
+   Hard Gate: disabled (report-only)
+   Correlation: agent_wide
+   Correlation: agent_wide
+   Description: An explicit delegates_to relationship coexists with a powerful capability and no prompt or deny approval evidence.
+   Related IDs:
+     - permission:execute:mcp-server:local_review
+     - relation:delegates_to:agent:deployer
+   Evidence:
+     1. project:project:.codex/config.toml$.mcp_servers.local_review:1-5 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     2. project:project:AGENTS.md$.frontmatter.delegates_to[0]:2-2 sha256=2367e30bcfb94c41db54c667f235bcd3c963c338415a07219c5ccdaa2138ebc7
+   Recommendation:
+     1. Require explicit approval at the delegation boundary and independently analyze the delegated Agent before granting power.
+
+9. [MEDIUM] Delegation is combined with an external capability
+   Finding ID: capability-finding-sha256:ced93b2709c7a005977fc426c23b2838a8d3dd623961edef1c448096165b62cf
+   Rule: CAP-DELEGATEEXTERNAL-001
+   Category: privileged_access
+   Score: 5.5
+   Severity: MEDIUM
+   Likelihood: low
+   Confidence: D
+   Hard Gate: disabled (report-only)
+   Correlation: agent_wide
+   Correlation: agent_wide
+   Description: A delegates_to relationship coexists with an external network, write, execute, or admin permission.
+   Related IDs:
+     - permission:network:mcp-server:remote_release
+     - relation:delegates_to:agent:deployer
+   Evidence:
+     1. project:project:.codex/config.toml$.mcp_servers.remote_release:7-12 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     2. project:project:AGENTS.md$.frontmatter.delegates_to[0]:2-2 sha256=2367e30bcfb94c41db54c667f235bcd3c963c338415a07219c5ccdaa2138ebc7
+   Recommendation:
+     1. Require an explicit delegation contract, destination allowlist, and approval at the external side-effect boundary.
+
+10. [MEDIUM] External MCP identity or availability is not runtime-verified
+   Finding ID: capability-finding-sha256:97b96ffb8cc03ecbfb85b06c8d3f36784e3639489e55d3a0fe80a25fe439a977
+   Rule: CAP-EXTERNALUNVERIFIED-001
+   Category: network_access
+   Score: 5.5
+   Severity: MEDIUM
+   Likelihood: moderate
+   Confidence: B
+   Hard Gate: disabled (report-only)
+   Correlation: same_target
+   Correlation: same_target
+   Description: An external MCP declaration has an unknown availability or a runtime identity field that still requires verification.
+   Related IDs:
+     - mcp-server:remote_release
+   Evidence:
+     1. project:project:.codex/config.toml$.mcp_servers.remote_release:7-12 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     2. project:project:.codex/config.toml$.mcp_servers.remote_release.auth:11-11 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     3. project:project:.codex/config.toml$.mcp_servers.remote_release.default_tools_approval_mode:12-12 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     4. project:project:.codex/config.toml$.mcp_servers.remote_release.enabled:9-9 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     5. project:project:.codex/config.toml$.mcp_servers.remote_release.required:10-10 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     6. project:project:.codex/config.toml$.mcp_servers.remote_release.url:8-8 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+   Recommendation:
+     1. Keep this as an explicit verification task; do not treat static identity metadata as runtime attestation.
+
+11. [MEDIUM] Memory relationship coexists with secret access
+   Finding ID: capability-finding-sha256:aeef5a93f9d4ce1100c6abfaa2df522dca67111cfb272a827c85ed836a9eb33c
+   Rule: CAP-MEMORYSECRET-001
+   Category: persistent_memory
+   Score: 5.5
+   Severity: MEDIUM
+   Likelihood: low
+   Confidence: D
+   Hard Gate: disabled (report-only)
+   Correlation: agent_wide
+   Correlation: agent_wide
+   Description: A reads, writes, or persists memory relationship coexists with a secret_access permission.
+   Related IDs:
+     - permission:secret_access:mcp-server:local_review
+     - relation:persists_memory:memory:release_state
+   Evidence:
+     1. project:project:.codex/config.toml$.mcp_servers.local_review.bearer_token_env_var:4-4 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     2. project:project:AGENTS.md$.frontmatter.persists_memory[0]:3-3 sha256=2367e30bcfb94c41db54c667f235bcd3c963c338415a07219c5ccdaa2138ebc7
+   Recommendation:
+     1. Prevent secrets from entering memory, enforce retention limits, and use explicit memory access controls.
+
+12. [MEDIUM] High-impact capability lacks a configured sandbox
+   Finding ID: capability-finding-sha256:e647dbd571abeea41e3285807e5f1ed967d0760cce0077b846842826681fd275
+   Rule: CAP-NOSANDBOX-001
+   Category: code_execution
+   Score: 5.5
+   Severity: MEDIUM
+   Likelihood: moderate
+   Confidence: B
+   Hard Gate: disabled (report-only)
+   Correlation: same_target
+   Correlation: same_target
+   Description: A state-changing permission has no configured or enabled sandbox control on its target or parent.
+   Related IDs:
+     - mcp-server:local_review
+   Evidence:
+     1. project:project:.codex/config.toml sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     2. project:project:.codex/config.toml$.mcp_servers.local_review:1-5 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     3. project:project:.codex/config.toml$.mcp_servers.local_review.bearer_token_env_var:4-4 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     4. project:project:.codex/config.toml$.mcp_servers.local_review.command:2-2 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     5. project:project:.codex/config.toml$.mcp_servers.local_review.default_tools_approval_mode:5-5 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     6. project:project:.codex/config.toml$.mcp_servers.local_review.enabled:3-3 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+   Recommendation:
+     1. Run high-impact tools in a bounded sandbox and record the isolation policy as source-backed configuration.
+
+13. [MEDIUM] Persistent memory is combined with a sensitive capability
+   Finding ID: capability-finding-sha256:d7476d2545dd50df080d23299cc7a59812992543cbdb96a1a26798fa817f10ea
+   Rule: CAP-PERSIST-001
+   Category: persistent_memory
+   Score: 5.5
+   Severity: MEDIUM
+   Likelihood: low
+   Confidence: D
+   Hard Gate: disabled (report-only)
+   Correlation: agent_wide
+   Correlation: agent_wide
+   Description: A persists_memory relationship coexists with secret access, external network, write, or admin capability.
+   Related IDs:
+     - permission:network:mcp-server:remote_release
+     - permission:secret_access:mcp-server:local_review
+     - relation:persists_memory:memory:release_state
+   Evidence:
+     1. project:project:.codex/config.toml$.mcp_servers.local_review.bearer_token_env_var:4-4 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     2. project:project:.codex/config.toml$.mcp_servers.remote_release:7-12 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     3. project:project:AGENTS.md$.frontmatter.persists_memory[0]:3-3 sha256=2367e30bcfb94c41db54c667f235bcd3c963c338415a07219c5ccdaa2138ebc7
+   Recommendation:
+     1. Limit retained data, set expiration and deletion controls, and exclude secrets and untrusted instructions from persistent memory.
+
+14. [MEDIUM] Required external MCP has no tool filter
+   Finding ID: capability-finding-sha256:10f1d5b18abbf58c7fcf806e580ddf9edaeb086dd065170dacf9425d2344b9b0
+   Rule: CAP-REQUIREDNOFILTER-001
+   Category: external_tooling
+   Score: 5.5
+   Severity: MEDIUM
+   Likelihood: moderate
+   Confidence: B
+   Hard Gate: disabled (report-only)
+   Correlation: same_target
+   Correlation: same_target
+   Description: An enabled required external MCP server has no tool_filter control on itself or its associated child tools.
+   Related IDs:
+     - mcp-server:remote_release
+   Evidence:
+     1. project:project:.codex/config.toml$.mcp_servers.remote_release:7-12 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     2. project:project:.codex/config.toml$.mcp_servers.remote_release.auth:11-11 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     3. project:project:.codex/config.toml$.mcp_servers.remote_release.default_tools_approval_mode:12-12 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     4. project:project:.codex/config.toml$.mcp_servers.remote_release.enabled:9-9 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     5. project:project:.codex/config.toml$.mcp_servers.remote_release.required:10-10 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     6. project:project:.codex/config.toml$.mcp_servers.remote_release.url:8-8 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+   Recommendation:
+     1. Allowlist only the tools required for the workflow and review each side-effecting tool separately.
+
+15. [MEDIUM] Required external MCP has no timeout control
+   Finding ID: capability-finding-sha256:95e1a899fcc0553e8269c58ff2d317ddb52d24f5a77fbbcd1f7f770801a72d54
+   Rule: CAP-REQUIREDNOTIMEOUT-001
+   Category: network_access
+   Score: 5.5
+   Severity: MEDIUM
+   Likelihood: moderate
+   Confidence: B
+   Hard Gate: disabled (report-only)
+   Correlation: same_target
+   Correlation: same_target
+   Description: An enabled required external MCP server has no configured timeout control.
+   Related IDs:
+     - mcp-server:remote_release
+   Evidence:
+     1. project:project:.codex/config.toml$.mcp_servers.remote_release:7-12 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     2. project:project:.codex/config.toml$.mcp_servers.remote_release.auth:11-11 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     3. project:project:.codex/config.toml$.mcp_servers.remote_release.default_tools_approval_mode:12-12 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     4. project:project:.codex/config.toml$.mcp_servers.remote_release.enabled:9-9 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     5. project:project:.codex/config.toml$.mcp_servers.remote_release.required:10-10 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     6. project:project:.codex/config.toml$.mcp_servers.remote_release.url:8-8 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+   Recommendation:
+     1. Set bounded startup and tool timeouts and fail closed when the control is absent.
+
+16. [LOW] Delegation is combined with persistent memory
+   Finding ID: capability-finding-sha256:a0dd947c9043824ccd659d5cf76d67a104054fe87e70ef0e28b98e8b8bf04023
+   Rule: CAP-DELEGATEPERSIST-001
+   Category: persistent_memory
+   Score: 2.0
+   Severity: LOW
+   Likelihood: low
+   Confidence: D
+   Hard Gate: disabled (report-only)
+   Correlation: agent_wide
+   Correlation: agent_wide
+   Description: The Agent declares both a delegates_to relationship and a persists_memory relationship.
+   Related IDs:
+     - relation:delegates_to:agent:deployer
+     - relation:persists_memory:memory:release_state
+   Evidence:
+     1. project:project:AGENTS.md$.frontmatter.delegates_to[0]:2-2 sha256=2367e30bcfb94c41db54c667f235bcd3c963c338415a07219c5ccdaa2138ebc7
+     2. project:project:AGENTS.md$.frontmatter.persists_memory[0]:3-3 sha256=2367e30bcfb94c41db54c667f235bcd3c963c338415a07219c5ccdaa2138ebc7
+   Recommendation:
+     1. Define ownership, retention, and deletion boundaries before delegated work can write persistent memory.
+
+17. [LOW] Memory relationship coexists with external network access
+   Finding ID: capability-finding-sha256:0eaec2935a17fd7ef586fffe80ac14fdf2e7fd53972d054ebb342c09ace58e7e
+   Rule: CAP-MEMORYNETWORK-001
+   Category: persistent_memory
+   Score: 2.0
+   Severity: LOW
+   Likelihood: low
+   Confidence: D
+   Hard Gate: disabled (report-only)
+   Correlation: agent_wide
+   Correlation: agent_wide
+   Description: A reads, writes, or persists memory relationship coexists with a network permission.
+   Related IDs:
+     - permission:network:mcp-server:remote_release
+     - relation:persists_memory:memory:release_state
+   Evidence:
+     1. project:project:.codex/config.toml$.mcp_servers.remote_release:7-12 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     2. project:project:AGENTS.md$.frontmatter.persists_memory[0]:3-3 sha256=2367e30bcfb94c41db54c667f235bcd3c963c338415a07219c5ccdaa2138ebc7
+   Recommendation:
+     1. Classify memory data before network transfer and require an explicit egress policy.
+
+Boundary
+  Findings describe static declarations and deterministic correlations only.
+  This report does not prove runtime reachability or global Agent safety.

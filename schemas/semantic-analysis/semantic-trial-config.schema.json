@@ -1,0 +1,153 @@
+{
+  "additionalProperties": false,
+  "description": "Strict non-secret configuration for one explicit Shadow trial.",
+  "properties": {
+    "allow_live_provider": {
+      "default": false,
+      "title": "Allow Live Provider",
+      "type": "boolean"
+    },
+    "approved_live_bindings": {
+      "default": [],
+      "items": {
+        "maxItems": 2,
+        "minItems": 2,
+        "prefixItems": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string"
+          }
+        ],
+        "type": "array"
+      },
+      "title": "Approved Live Bindings",
+      "type": "array"
+    },
+    "cases_path": {
+      "maxLength": 1024,
+      "minLength": 1,
+      "title": "Cases Path",
+      "type": "string"
+    },
+    "credential_env": {
+      "anyOf": [
+        {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Credential Env"
+    },
+    "endpoint_url": {
+      "anyOf": [
+        {
+          "maxLength": 2048,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Endpoint Url"
+    },
+    "format": {
+      "const": "agentsec-semantic-trial-config",
+      "default": "agentsec-semantic-trial-config",
+      "title": "Format",
+      "type": "string"
+    },
+    "max_input_tokens": {
+      "default": 32768,
+      "maximum": 1000000,
+      "minimum": 0,
+      "title": "Max Input Tokens",
+      "type": "integer"
+    },
+    "max_output_tokens": {
+      "default": 8192,
+      "maximum": 1000000,
+      "minimum": 0,
+      "title": "Max Output Tokens",
+      "type": "integer"
+    },
+    "model_id": {
+      "anyOf": [
+        {
+          "maxLength": 160,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Model Id"
+    },
+    "provider": {
+      "default": "offline_fixture",
+      "enum": [
+        "offline_fixture",
+        "live_https",
+        "openai_compatible"
+      ],
+      "title": "Provider",
+      "type": "string"
+    },
+    "provider_id": {
+      "anyOf": [
+        {
+          "maxLength": 160,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Provider Id"
+    },
+    "responses_path": {
+      "anyOf": [
+        {
+          "maxLength": 1024,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Responses Path"
+    },
+    "schema_version": {
+      "const": "0.1.0",
+      "default": "0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "timeout_ms": {
+      "default": 30000,
+      "maximum": 120000,
+      "minimum": 1,
+      "title": "Timeout Ms",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "cases_path"
+  ],
+  "title": "SemanticTrialConfig",
+  "type": "object"
+}

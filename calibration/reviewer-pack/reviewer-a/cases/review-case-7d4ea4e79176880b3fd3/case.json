@@ -1,0 +1,33 @@
+{
+  "corpus_binding_hash": "sha256:59e034541e3c1096f311404358031a5dc81fc880123351363713d66c2544ad79",
+  "format": "agentsec-independent-review-case",
+  "input_format": "manifest",
+  "language": "en",
+  "pack_id": "reviewer-pack-sha256:58295690c13861a763ed9c202d39fe37642ac0f8d9d2d6e416886184a4a86d90",
+  "question_set_sha256": "sha256:180eac17567d0c038211350266b2eeb1dc457ca45cf980669ee7cd940ec953b4",
+  "review_case_fingerprint": "sha256:2572e1cb2cb2076bfa02f8f9002f62c39523ca3241fe42f282c083bdc66ce559",
+  "review_case_id": "review-case-7d4ea4e79176880b3fd3",
+  "review_questions": [
+    {
+      "condition": {
+        "en": "A reads, writes, or persists memory relationship coexists with a network permission."
+      },
+      "prompt": {
+        "en": "Independently label the human Rule condition as match, no_match, or uncertain; record your direct finding observation, policy/scope category, evidence location, Confidence, Correlation, disposition, rationale code, and notes. Do not calculate TP/FP/FN/TN."
+      },
+      "question_id": "question:review-case-7d4ea4e79176880b3fd3:CAP-MEMORYNETWORK-001",
+      "rule_id": "CAP-MEMORYNETWORK-001",
+      "title": {
+        "en": "Memory relationship coexists with external network access"
+      }
+    }
+  ],
+  "schema_version": "0.3.0",
+  "source_location": {
+    "end_line": 19,
+    "path": "source.manifest.json",
+    "start_line": 1
+  },
+  "source_sha256": "sha256:526f99199fda6794d6b9d922b4a4c8cd98cc969879569d5d41d69d0852859383",
+  "synthetic_fixture": true
+}

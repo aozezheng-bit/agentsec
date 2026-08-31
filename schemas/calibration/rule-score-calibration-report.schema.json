@@ -1,0 +1,416 @@
+{
+  "$defs": {
+    "CalibrationDecision": {
+      "additionalProperties": false,
+      "properties": {
+        "candidate_risk_model_version": {
+          "title": "Candidate Risk Model Version",
+          "type": "string"
+        },
+        "candidate_rule_pack_version": {
+          "title": "Candidate Rule Pack Version",
+          "type": "string"
+        },
+        "current_risk_model_version": {
+          "title": "Current Risk Model Version",
+          "type": "string"
+        },
+        "current_rule_pack_version": {
+          "title": "Current Rule Pack Version",
+          "type": "string"
+        },
+        "external_calibration_required": {
+          "const": true,
+          "default": true,
+          "title": "External Calibration Required",
+          "type": "boolean"
+        },
+        "internal_mvp_ready": {
+          "title": "Internal Mvp Ready",
+          "type": "boolean"
+        },
+        "publish_rule_changes": {
+          "const": false,
+          "default": false,
+          "title": "Publish Rule Changes",
+          "type": "boolean"
+        },
+        "publish_score_changes": {
+          "const": false,
+          "default": false,
+          "title": "Publish Score Changes",
+          "type": "boolean"
+        },
+        "rationale": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Rationale",
+          "type": "array"
+        },
+        "risk_model_action": {
+          "enum": [
+            "retain_current",
+            "review_required"
+          ],
+          "title": "Risk Model Action",
+          "type": "string"
+        },
+        "rule_pack_action": {
+          "enum": [
+            "retain_current",
+            "review_required"
+          ],
+          "title": "Rule Pack Action",
+          "type": "string"
+        }
+      },
+      "required": [
+        "current_rule_pack_version",
+        "candidate_rule_pack_version",
+        "current_risk_model_version",
+        "candidate_risk_model_version",
+        "rule_pack_action",
+        "risk_model_action",
+        "internal_mvp_ready",
+        "rationale"
+      ],
+      "title": "CalibrationDecision",
+      "type": "object"
+    },
+    "CalibrationSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "covered_rules": {
+          "title": "Covered Rules",
+          "type": "integer"
+        },
+        "more_data_rules": {
+          "title": "More Data Rules",
+          "type": "integer"
+        },
+        "pilot_cases": {
+          "title": "Pilot Cases",
+          "type": "integer"
+        },
+        "pilot_false_negatives": {
+          "title": "Pilot False Negatives",
+          "type": "integer"
+        },
+        "pilot_false_positives": {
+          "title": "Pilot False Positives",
+          "type": "integer"
+        },
+        "retain_current_rules": {
+          "title": "Retain Current Rules",
+          "type": "integer"
+        },
+        "review_false_negative_rules": {
+          "title": "Review False Negative Rules",
+          "type": "integer"
+        },
+        "review_false_positive_rules": {
+          "title": "Review False Positive Rules",
+          "type": "integer"
+        },
+        "scoring_replay_cases": {
+          "title": "Scoring Replay Cases",
+          "type": "integer"
+        },
+        "scoring_replay_verified": {
+          "title": "Scoring Replay Verified",
+          "type": "boolean"
+        },
+        "uncovered_rules": {
+          "title": "Uncovered Rules",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "pilot_cases",
+        "covered_rules",
+        "uncovered_rules",
+        "retain_current_rules",
+        "more_data_rules",
+        "review_false_positive_rules",
+        "review_false_negative_rules",
+        "pilot_false_positives",
+        "pilot_false_negatives",
+        "scoring_replay_cases",
+        "scoring_replay_verified"
+      ],
+      "title": "CalibrationSummary",
+      "type": "object"
+    },
+    "RuleCalibrationRecommendation": {
+      "enum": [
+        "retain_current",
+        "review_false_positive",
+        "review_false_negative",
+        "more_data"
+      ],
+      "title": "RuleCalibrationRecommendation",
+      "type": "string"
+    },
+    "RuleCalibrationResult": {
+      "additionalProperties": false,
+      "properties": {
+        "expected_positive_cases": {
+          "title": "Expected Positive Cases",
+          "type": "integer"
+        },
+        "false_negatives": {
+          "title": "False Negatives",
+          "type": "integer"
+        },
+        "false_positives": {
+          "title": "False Positives",
+          "type": "integer"
+        },
+        "impact": {
+          "title": "Impact",
+          "type": "string"
+        },
+        "likelihood": {
+          "title": "Likelihood",
+          "type": "string"
+        },
+        "observed_positive_cases": {
+          "title": "Observed Positive Cases",
+          "type": "integer"
+        },
+        "precision": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Precision"
+        },
+        "profile_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Profile Sha256",
+          "type": "string"
+        },
+        "rationale": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Rationale",
+          "type": "array"
+        },
+        "recall": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Recall"
+        },
+        "recommendation": {
+          "$ref": "#/$defs/RuleCalibrationRecommendation"
+        },
+        "rule_id": {
+          "title": "Rule Id",
+          "type": "string"
+        },
+        "score": {
+          "title": "Score",
+          "type": "number"
+        },
+        "severity": {
+          "title": "Severity",
+          "type": "string"
+        },
+        "true_positives": {
+          "title": "True Positives",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "rule_id",
+        "expected_positive_cases",
+        "observed_positive_cases",
+        "true_positives",
+        "false_positives",
+        "false_negatives",
+        "precision",
+        "recall",
+        "likelihood",
+        "impact",
+        "score",
+        "severity",
+        "profile_sha256",
+        "recommendation",
+        "rationale"
+      ],
+      "title": "RuleCalibrationResult",
+      "type": "object"
+    },
+    "ScoreReplayCalibration": {
+      "additionalProperties": false,
+      "properties": {
+        "case_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Case Ids",
+          "type": "array"
+        },
+        "cases": {
+          "title": "Cases",
+          "type": "integer"
+        },
+        "critical_cases": {
+          "title": "Critical Cases",
+          "type": "integer"
+        },
+        "file_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "File Sha256",
+          "type": "string"
+        },
+        "format": {
+          "const": "agentsec-scoring-replay-suite",
+          "title": "Format",
+          "type": "string"
+        },
+        "format_version": {
+          "const": "0.1.0",
+          "title": "Format Version",
+          "type": "string"
+        },
+        "high_cases": {
+          "title": "High Cases",
+          "type": "integer"
+        },
+        "incomplete_coverage_cases": {
+          "title": "Incomplete Coverage Cases",
+          "type": "integer"
+        },
+        "medium_cases": {
+          "title": "Medium Cases",
+          "type": "integer"
+        },
+        "model_version": {
+          "title": "Model Version",
+          "type": "string"
+        },
+        "suite_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Suite Sha256",
+          "type": "string"
+        },
+        "verified_against_frozen_replay": {
+          "title": "Verified Against Frozen Replay",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "format",
+        "format_version",
+        "model_version",
+        "suite_sha256",
+        "file_sha256",
+        "cases",
+        "case_ids",
+        "critical_cases",
+        "high_cases",
+        "medium_cases",
+        "incomplete_coverage_cases",
+        "verified_against_frozen_replay"
+      ],
+      "title": "ScoreReplayCalibration",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "calibration_generation": {
+      "const": "v1",
+      "default": "v1",
+      "title": "Calibration Generation",
+      "type": "string"
+    },
+    "decision": {
+      "$ref": "#/$defs/CalibrationDecision"
+    },
+    "format": {
+      "const": "agentsec-rule-score-calibration-report",
+      "default": "agentsec-rule-score-calibration-report",
+      "title": "Format",
+      "type": "string"
+    },
+    "format_version": {
+      "const": "0.1.0",
+      "default": "0.1.0",
+      "title": "Format Version",
+      "type": "string"
+    },
+    "limitations": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Limitations",
+      "type": "array"
+    },
+    "pilot_evidence_mode": {
+      "enum": [
+        "internal_integration",
+        "external_repository"
+      ],
+      "title": "Pilot Evidence Mode",
+      "type": "string"
+    },
+    "pilot_id": {
+      "title": "Pilot Id",
+      "type": "string"
+    },
+    "pilot_report_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Pilot Report Sha256",
+      "type": "string"
+    },
+    "rules": {
+      "items": {
+        "$ref": "#/$defs/RuleCalibrationResult"
+      },
+      "title": "Rules",
+      "type": "array"
+    },
+    "scoring_replay": {
+      "$ref": "#/$defs/ScoreReplayCalibration"
+    },
+    "status": {
+      "enum": [
+        "complete",
+        "review_required",
+        "failed"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "summary": {
+      "$ref": "#/$defs/CalibrationSummary"
+    }
+  },
+  "required": [
+    "status",
+    "pilot_id",
+    "pilot_report_sha256",
+    "pilot_evidence_mode",
+    "summary",
+    "decision",
+    "rules",
+    "scoring_replay",
+    "limitations"
+  ],
+  "title": "RuleScoreCalibrationReport",
+  "type": "object"
+}

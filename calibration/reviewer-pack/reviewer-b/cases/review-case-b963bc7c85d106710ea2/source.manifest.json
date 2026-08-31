@@ -1,0 +1,19 @@
+{
+  "facts": [
+    {
+      "dimension": "permission",
+      "key": "external-network",
+      "state": "present",
+      "target_id": "target:primary"
+    },
+    {
+      "dimension": "control",
+      "key": "network-policy",
+      "state": "absent",
+      "target_id": null
+    }
+  ],
+  "format": "synthetic-agent-manifest-review-view",
+  "review_case_id": "review-case-b963bc7c85d106710ea2",
+  "synthetic": true
+}

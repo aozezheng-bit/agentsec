@@ -1,0 +1,61 @@
+{
+  "facts": [
+    {
+      "dimension": "permission",
+      "key": "execute",
+      "state": "present",
+      "target_id": "target:capchain-4"
+    },
+    {
+      "dimension": "permission",
+      "key": "secret-access",
+      "state": "present",
+      "target_id": "target:capchain-4"
+    },
+    {
+      "dimension": "permission",
+      "key": "external-network",
+      "state": "present",
+      "target_id": "target:capchain-4"
+    },
+    {
+      "dimension": "control",
+      "key": "sandbox",
+      "state": "absent",
+      "target_id": "target:capchain-4"
+    },
+    {
+      "dimension": "control",
+      "key": "network-policy",
+      "state": "present",
+      "target_id": "target:capchain-4"
+    },
+    {
+      "dimension": "control",
+      "key": "secret-handling",
+      "state": "absent",
+      "target_id": "target:capchain-4"
+    },
+    {
+      "dimension": "tool",
+      "key": "mcp-enabled-required",
+      "state": "absent",
+      "target_id": "target:capchain-4"
+    },
+    {
+      "dimension": "runtime_identity",
+      "key": "identity-lifetime-reviewed",
+      "state": "present",
+      "target_id": "target:capchain-4"
+    },
+    {
+      "dimension": "relationship",
+      "key": "memory",
+      "state": "present",
+      "target_id": "target:capchain-4"
+    }
+  ],
+  "format": "synthetic-static-review-view",
+  "review_case_id": "review-case-fd52db965a0e631b55e4",
+  "synthetic": true
+}

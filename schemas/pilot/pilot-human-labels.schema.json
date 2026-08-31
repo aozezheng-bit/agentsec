@@ -1,0 +1,97 @@
+{
+  "$defs": {
+    "PilotHumanLabelCase": {
+      "additionalProperties": false,
+      "description": "One independently reviewed expected outcome for an external Pilot case.",
+      "properties": {
+        "case_id": {
+          "pattern": "^[a-z][a-z0-9-]{0,63}$",
+          "title": "Case Id",
+          "type": "string"
+        },
+        "expected_coverage": {
+          "enum": [
+            "complete",
+            "incomplete"
+          ],
+          "title": "Expected Coverage",
+          "type": "string"
+        },
+        "expected_exit": {
+          "enum": [
+            0,
+            1,
+            2
+          ],
+          "title": "Expected Exit",
+          "type": "integer"
+        },
+        "expected_rule_ids": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Expected Rule Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "case_id",
+        "expected_exit",
+        "expected_coverage"
+      ],
+      "title": "PilotHumanLabelCase",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Independent, value-minimized TP/FP/FN ground truth for a Pilot.",
+  "properties": {
+    "cases": {
+      "items": {
+        "$ref": "#/$defs/PilotHumanLabelCase"
+      },
+      "maxItems": 1000,
+      "minItems": 1,
+      "title": "Cases",
+      "type": "array"
+    },
+    "format": {
+      "const": "agentsec-pilot-human-labels",
+      "title": "Format",
+      "type": "string"
+    },
+    "independence_statement": {
+      "maxLength": 1000,
+      "minLength": 20,
+      "title": "Independence Statement",
+      "type": "string"
+    },
+    "pilot_id": {
+      "pattern": "^[a-z][a-z0-9._-]{0,127}$",
+      "title": "Pilot Id",
+      "type": "string"
+    },
+    "reviewer_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Reviewer Id",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "format",
+    "schema_version",
+    "pilot_id",
+    "reviewer_id",
+    "independence_statement",
+    "cases"
+  ],
+  "title": "PilotHumanLabels",
+  "type": "object"
+}

@@ -1,0 +1,314 @@
+{
+  "$defs": {
+    "DriftApprovalStatus": {
+      "description": "Approval status without treating approval as runtime proof.",
+      "enum": [
+        "unknown",
+        "not_required",
+        "approved",
+        "rejected",
+        "expired"
+      ],
+      "title": "DriftApprovalStatus",
+      "type": "string"
+    },
+    "DriftBaselineTrust": {
+      "description": "Trust posture of the before-state baseline.",
+      "enum": [
+        "unknown",
+        "hash_only",
+        "signed_attested"
+      ],
+      "title": "DriftBaselineTrust",
+      "type": "string"
+    },
+    "DriftChangeSource": {
+      "description": "Bounded origin classification supplied by the caller or CI adapter.",
+      "enum": [
+        "unknown",
+        "local_edit",
+        "reviewed_change",
+        "ci_change",
+        "release_change",
+        "external_change"
+      ],
+      "title": "DriftChangeSource",
+      "type": "string"
+    },
+    "DriftDeploymentScope": {
+      "description": "Deployment scope used to contextualize change impact.",
+      "enum": [
+        "unknown",
+        "local",
+        "development",
+        "test",
+        "staging",
+        "production",
+        "external"
+      ],
+      "title": "DriftDeploymentScope",
+      "type": "string"
+    },
+    "EvidenceConfidence": {
+      "description": "Confidence in evidence, independent from finding severity.",
+      "enum": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "title": "EvidenceConfidence",
+      "type": "string"
+    },
+    "GovernanceReviewStatus": {
+      "description": "Review status supplied by a trusted caller or CI adapter.",
+      "enum": [
+        "unknown",
+        "not_reviewed",
+        "reviewed",
+        "approved",
+        "rejected",
+        "expired"
+      ],
+      "title": "GovernanceReviewStatus",
+      "type": "string"
+    },
+    "HardGateFloor": {
+      "description": "Minimum risk levels supported by the Phase 1 metadata contract.",
+      "enum": [
+        "high",
+        "critical"
+      ],
+      "title": "HardGateFloor",
+      "type": "string"
+    },
+    "OverallHardGateSource": {
+      "description": "Trusted deterministic source families allowed to set a report-only floor.",
+      "enum": [
+        "capability",
+        "cvss",
+        "policy"
+      ],
+      "title": "OverallHardGateSource",
+      "type": "string"
+    },
+    "ScoreContextCvss": {
+      "additionalProperties": false,
+      "description": "Optional explicit CVSS base input for the technical high-water mark.",
+      "properties": {
+        "vector": {
+          "maxLength": 1024,
+          "minLength": 5,
+          "title": "Vector",
+          "type": "string"
+        }
+      },
+      "required": [
+        "vector"
+      ],
+      "title": "ScoreContextCvss",
+      "type": "object"
+    },
+    "ScoreContextDrift": {
+      "additionalProperties": false,
+      "description": "Reviewed drift semantics; every value defaults to unknown/conservative.",
+      "properties": {
+        "approval_reference": {
+          "anyOf": [
+            {
+              "maxLength": 512,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Approval Reference"
+        },
+        "approval_status": {
+          "$ref": "#/$defs/DriftApprovalStatus",
+          "default": "unknown"
+        },
+        "baseline_trust": {
+          "$ref": "#/$defs/DriftBaselineTrust",
+          "default": "unknown"
+        },
+        "change_source": {
+          "$ref": "#/$defs/DriftChangeSource",
+          "default": "unknown"
+        },
+        "deployment_scope": {
+          "$ref": "#/$defs/DriftDeploymentScope",
+          "default": "unknown"
+        }
+      },
+      "title": "ScoreContextDrift",
+      "type": "object"
+    },
+    "ScoreContextGateMatch": {
+      "additionalProperties": false,
+      "description": "One accepted deterministic Gate match allowed to set a report-only floor.",
+      "properties": {
+        "confidence": {
+          "$ref": "#/$defs/EvidenceConfidence"
+        },
+        "evidence_ids": {
+          "items": {
+            "maxLength": 256,
+            "minLength": 1,
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Evidence Ids",
+          "type": "array"
+        },
+        "floor": {
+          "$ref": "#/$defs/HardGateFloor"
+        },
+        "gate_id": {
+          "pattern": "^HG-[A-Z][A-Z0-9]*-[0-9]{3}$",
+          "title": "Gate Id",
+          "type": "string"
+        },
+        "rationale": {
+          "items": {
+            "maxLength": 1024,
+            "minLength": 10,
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Rationale",
+          "type": "array"
+        },
+        "source": {
+          "$ref": "#/$defs/OverallHardGateSource"
+        }
+      },
+      "required": [
+        "gate_id",
+        "floor",
+        "source",
+        "evidence_ids",
+        "confidence",
+        "rationale"
+      ],
+      "title": "ScoreContextGateMatch",
+      "type": "object"
+    },
+    "ScoreContextGovernance": {
+      "additionalProperties": false,
+      "description": "Reviewed governance semantics; defaults remain unknown/conservative.",
+      "properties": {
+        "approval_owner": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Approval Owner"
+        },
+        "expired_waiver_count": {
+          "default": 0,
+          "maximum": 10000,
+          "minimum": 0,
+          "title": "Expired Waiver Count",
+          "type": "integer"
+        },
+        "policy_owner": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Policy Owner"
+        },
+        "review_status": {
+          "$ref": "#/$defs/GovernanceReviewStatus",
+          "default": "unknown"
+        },
+        "waiver_count": {
+          "default": 0,
+          "maximum": 10000,
+          "minimum": 0,
+          "title": "Waiver Count",
+          "type": "integer"
+        }
+      },
+      "title": "ScoreContextGovernance",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Strict bounded context for one Integrated Agentic Score run.",
+  "properties": {
+    "cvss": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ScoreContextCvss"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "drift": {
+      "$ref": "#/$defs/ScoreContextDrift",
+      "default": {
+        "approval_reference": null,
+        "approval_status": "unknown",
+        "baseline_trust": "unknown",
+        "change_source": "unknown",
+        "deployment_scope": "unknown"
+      }
+    },
+    "format": {
+      "const": "agentsec-score-context",
+      "title": "Format",
+      "type": "string"
+    },
+    "gate_matches": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/ScoreContextGateMatch"
+      },
+      "title": "Gate Matches",
+      "type": "array"
+    },
+    "governance": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ScoreContextGovernance"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "schema_version": {
+      "const": "0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "format",
+    "schema_version"
+  ],
+  "title": "AgenticScoreContext",
+  "type": "object"
+}

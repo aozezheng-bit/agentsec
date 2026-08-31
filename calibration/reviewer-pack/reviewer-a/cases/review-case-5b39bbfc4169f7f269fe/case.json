@@ -1,0 +1,33 @@
+{
+  "corpus_binding_hash": "sha256:59e034541e3c1096f311404358031a5dc81fc880123351363713d66c2544ad79",
+  "format": "agentsec-independent-review-case",
+  "input_format": "manifest",
+  "language": "zh",
+  "pack_id": "reviewer-pack-sha256:58295690c13861a763ed9c202d39fe37642ac0f8d9d2d6e416886184a4a86d90",
+  "question_set_sha256": "sha256:c48b3b9d7d81d4301954b80a8b863e5d0ee798d5b521eb9acd44ca645083c263",
+  "review_case_fingerprint": "sha256:af10545bd57f8429942e856441c84e11150f9c94a68ea7960e57fec3a88b5df9",
+  "review_case_id": "review-case-5b39bbfc4169f7f269fe",
+  "review_questions": [
+    {
+      "condition": {
+        "zh": "secret_access 权限的有效审批状态为 allow，而不是 prompt 或 deny。"
+      },
+      "prompt": {
+        "zh": "请独立将人工规则条件标记为 match、no_match 或 uncertain，并填写直接观察、策略或范围类别、证据位置、置信度、关联方式、处置意见、理由代码和备注。不要自行计算 TP/FP/FN/TN。"
+      },
+      "question_id": "question:review-case-5b39bbfc4169f7f269fe:CAP-AUTOSECRET-001",
+      "rule_id": "CAP-AUTOSECRET-001",
+      "title": {
+        "zh": "Secret 访问被允许且无需人工审批"
+      }
+    }
+  ],
+  "schema_version": "0.3.0",
+  "source_location": {
+    "end_line": 19,
+    "path": "source.manifest.json",
+    "start_line": 1
+  },
+  "source_sha256": "sha256:9c6be7227c74715bff90cdd680fc29801369b7a440866a8f95d6f34f70c7cc5b",
+  "synthetic_fixture": true
+}

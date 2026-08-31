@@ -1,0 +1,14 @@
+{
+  "case_id": "safe-nested-skill",
+  "category": "safe",
+  "purpose": "Exercise recursive discovery of an AGENTS file and nested SKILL file.",
+  "assets": [
+    "AGENTS.md",
+    "skills/review/SKILL.md"
+  ],
+  "expected": {
+    "coverage": "complete",
+    "signals": [],
+    "rule_ids": []
+  }
+}

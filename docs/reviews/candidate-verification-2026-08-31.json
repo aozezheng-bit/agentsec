@@ -1,0 +1,25 @@
+{
+  "acceptance_ready": true,
+  "artifact_hashes": {
+    "agentsec-0.4.0-py3-none-any.whl": "ae0f4a07a0245df3c100fcceee477a8c6eec7548841960afda8fe880034bf14b",
+    "agentsec-0.4.0.tar.gz": "6a147051cad806e1c3bc5d50bbf170722f0826098dab1ac948c630c69ce703b9b"
+  },
+  "candidate_version": "0.4.0",
+  "checks": {
+    "checksums_verified": true,
+    "clean_install": true,
+    "package_hardening": true,
+    "public_api_import": true,
+    "reproducible_build": true
+  },
+  "format": "agentsec-candidate-verification-report",
+  "format_version": "0.1.0",
+  "limitations": {
+    "artifact_signature": "not_claimed",
+    "production_deployment": false,
+    "remote_publication": false,
+    "slsa_provenance": "not_claimed"
+  },
+  "status": "complete",
+  "verification_date": "2026-08-31"
+}

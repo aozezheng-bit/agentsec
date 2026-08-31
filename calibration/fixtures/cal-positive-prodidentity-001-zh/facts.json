@@ -1,0 +1,32 @@
+{
+  "case_id": "cal-positive-prodidentity-001-zh",
+  "facts": [
+    {
+      "dimension": "permission",
+      "evidence": [
+        {
+          "asset_path": "facts.json",
+          "field_path": "facts.0"
+        }
+      ],
+      "fact_id": "fact-01",
+      "key": "production-state-change",
+      "state": "present",
+      "target_id": "target:primary"
+    },
+    {
+      "dimension": "runtime_identity",
+      "evidence": [
+        {
+          "asset_path": "facts.json",
+          "field_path": "facts.1"
+        }
+      ],
+      "fact_id": "fact-02",
+      "key": "external-session",
+      "state": "present",
+      "target_id": "target:primary"
+    }
+  ],
+  "fixture_version": "0.1.0"
+}

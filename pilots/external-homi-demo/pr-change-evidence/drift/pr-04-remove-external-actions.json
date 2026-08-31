@@ -1,0 +1,101 @@
+{
+  "actual": {
+    "added_findings": [],
+    "added_observations": [],
+    "capability_changes": {
+      "external_message_send": [
+        "conditional",
+        "unknown"
+      ],
+      "external_network_read": [
+        "present",
+        "unknown"
+      ]
+    },
+    "changed_findings": [],
+    "file_changes": {
+      "AGENTS.md": "modified"
+    },
+    "persona_changes": {},
+    "removed_findings": [
+      "HOMI-COMB-001"
+    ],
+    "removed_observations": [],
+    "resolution_status": "conflict",
+    "simulation_changes": {
+      "HOMI-SIM-002": [
+        "declared_path",
+        "blocked_example_only"
+      ]
+    },
+    "status": "partial"
+  },
+  "after": {
+    "ci_blocked": false,
+    "report_only": true,
+    "resolution_status": "conflict",
+    "runtime_verified": false,
+    "status": "partial"
+  },
+  "before": {
+    "ci_blocked": false,
+    "report_only": true,
+    "resolution_status": "conflict",
+    "runtime_verified": false,
+    "status": "partial"
+  },
+  "drill": null,
+  "expected": {
+    "added_findings": [],
+    "added_observations": [],
+    "capability_changes": {
+      "external_message_send": [
+        "conditional",
+        "unknown"
+      ],
+      "external_network_read": [
+        "present",
+        "unknown"
+      ]
+    },
+    "changed_findings": [],
+    "file_changes": {
+      "AGENTS.md": "modified"
+    },
+    "persona_changes": {},
+    "removed_findings": [
+      "HOMI-COMB-001"
+    ],
+    "removed_observations": [],
+    "resolution_status": "conflict",
+    "simulation_changes": {
+      "HOMI-SIM-002": [
+        "declared_path",
+        "blocked_example_only"
+      ]
+    },
+    "status": "partial"
+  },
+  "format": "agentsec-homi-capability-drift-evidence",
+  "format_version": "0.1.0",
+  "limitations": [
+    "Static Homi drift does not prove runtime reachability or execution.",
+    "Scenario-contract review is engineering evidence, not independent human TP/FP/FN adjudication.",
+    "No drift result authorizes CI blocking, release, Tool access, or a waiver."
+  ],
+  "provenance": {
+    "baseline_report_sha256": "782780c50cb7d8283e5f81480211c49f207d9f37275bf88c9fb7af66c71dbbaf",
+    "snapshot_archive_sha256": "d7a808de6954cc2d09af51444eca85092e9a05a8345f32bca626a3a679470ca1",
+    "snapshot_report_sha256": "accd9ec32d5b53994c1f812158a45ad773607ceb0d6c1193a4997c91fdee3443"
+  },
+  "review": {
+    "contract_pass": true,
+    "independent_human_review": false,
+    "mode": "deterministic_scenario_contract",
+    "outcome": "contract_pass"
+  },
+  "risk_direction": "hardening",
+  "scenario_id": "pr-04-remove-external-actions",
+  "task_id": "P2-EXIT-06-03",
+  "title": "移除 Web、日历、天气和外部消息声明"
+}

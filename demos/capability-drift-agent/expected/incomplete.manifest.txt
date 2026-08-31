@@ -1,0 +1,76 @@
+AgentSec Agent Manifest
+Status: INCOMPLETE
+Agent: release-agent
+Framework: Codex
+Policy: static declarations; report-only; runtime not verified
+Summary: sources=1 tools=0 permissions=0 controls=0 identities=0 relationships=0 unknowns=8
+
+Version Vector
+  package: 0.2.0
+  agent_manifest_schema: 0.3.0
+  adapter: 0.1.0
+  capability_rule_pack: 0.2.0
+  capability_risk_model: 0.1.0
+
+Coverage
+  discovered=2 inspected=1 skipped=1 issues=1
+  WARNING: Coverage is incomplete; this Manifest is not exhaustive.
+
+Stage Trace
+  adapter_inspection: partial input=0 output=1
+  manifest_build: partial input=1 output=1
+  instruction_resolution: partial input=1 output=1
+  configuration_resolution: partial input=0 output=0
+  association_extraction: partial input=1 output=0
+  capability_extraction: partial input=0 output=0
+  relationship_extraction: partial input=1 output=0
+  unknown_extraction: partial input=2 output=8
+  final_validation: partial input=1 output=1
+
+Profile Resolution
+  identity: partial
+  instructions: partial
+  configuration: unknown
+  tools: unknown
+  permissions: unknown
+  controls: unknown
+  runtime_identities: unknown
+  relationships: partial
+
+Sources
+  project:project:AGENTS.md format=markdown sha256=d760b451c005d4d01451686b2afc62fe77135e385713f69de4dfadbd76af2875
+
+Effective Instructions
+  project:project:AGENTS.md:-
+
+Configuration Order
+  -
+
+Tools
+  -
+
+Permissions
+  -
+
+Controls
+  -
+
+Runtime Identities
+  -
+
+Relationships
+  -
+
+Explicit Unknowns
+  unknown:controls:21a0b7e5d41746fa dimension=controls reason=missing_source field=controls.resolution source=-
+  unknown:coverage:8b150230ace4ecfa dimension=coverage reason=incomplete_coverage field=coverage source=-
+  unknown:identity:5ec71700c2432d2a dimension=identity reason=incomplete_coverage field=identity.resolution source=-
+  unknown:instructions:98d6e4f16f2bdf59 dimension=instructions reason=incomplete_coverage field=instructions.resolution source=project:project:AGENTS.md:-
+  unknown:permissions:2be0c85c08af985b dimension=permissions reason=missing_source field=permissions.resolution source=-
+  unknown:relationships:69a07b4f200dc474 dimension=relationships reason=incomplete_coverage field=relationships.resolution source=project:project:AGENTS.md:-
+  unknown:runtime_identities:9af495e3982f8b99 dimension=runtime_identities reason=missing_source field=runtime_identities.resolution source=-
+  unknown:tools:02551c2704900e95 dimension=tools reason=missing_source field=tools.resolution source=-
+
+Boundary
+  This report does not prove that the Agent is globally safe.
+  Declared capability does not prove runtime availability or authorization.

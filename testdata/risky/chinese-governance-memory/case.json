@@ -1,0 +1,25 @@
+{
+  "case_id": "risky-chinese-governance-memory",
+  "category": "risky",
+  "purpose": "Exercise Chinese instruction bypass, persistent memory, self-modification, and executable references.",
+  "assets": [
+    "AGENTS.md",
+    "skills/governance/SKILL.md"
+  ],
+  "expected": {
+    "coverage": "complete",
+    "signals": [
+      "external_tooling",
+      "instruction_integrity",
+      "persistent_memory",
+      "self_modification"
+    ],
+    "rule_ids": [
+      "MD-INSTR-001",
+      "MD-INSTR-002",
+      "MD-MEMORY-001",
+      "MD-SELF-001",
+      "MD-TOOL-001"
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "case_id": "risky-credential-read",
+  "category": "risky",
+  "purpose": "Isolate declared credential access.",
+  "assets": [
+    "AGENTS.md"
+  ],
+  "expected": {
+    "coverage": "complete",
+    "signals": [
+      "secret_access"
+    ],
+    "rule_ids": [
+      "MD-SECRET-001"
+    ]
+  }
+}

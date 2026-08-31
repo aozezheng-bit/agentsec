@@ -1,0 +1,267 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agentsec.local/schemas/calibration/capability-shadow-gate-demo.schema.json",
+  "title": "CapabilityShadowGateDemo",
+  "description": "Report-only P2-15A-PILOT-03 Shadow Gate demonstration with seeded calibration coverage and deterministic match/no-match scenarios.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "format": {"const": "agentsec-capability-shadow-gate-demo"},
+    "schema_version": {"const": "0.1.0"},
+    "status": {"enum": ["passed", "failed"]},
+    "gate": {"$ref": "#/$defs/Gate"},
+    "coverage": {"$ref": "#/$defs/Coverage"},
+    "match_no_match": {"$ref": "#/$defs/MatchNoMatch"},
+    "scenarios": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/Scenario"}
+    },
+    "summary": {"$ref": "#/$defs/Summary"},
+    "boundary": {"$ref": "#/$defs/Boundary"}
+  },
+  "required": [
+    "format",
+    "schema_version",
+    "status",
+    "gate",
+    "coverage",
+    "match_no_match",
+    "scenarios",
+    "summary",
+    "boundary"
+  ],
+  "$defs": {
+    "Gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "gate_id": {"const": "HG-CAPCHAIN-001"},
+        "component_rule_id": {"const": "CAP-CHAIN-001"},
+        "floor": {"const": "high"},
+        "gate_version": {"const": "0.1.0"},
+        "mode": {"const": "shadow"},
+        "qualification": {"const": "pilot_only"},
+        "blocks": {"const": false}
+      },
+      "required": [
+        "gate_id",
+        "component_rule_id",
+        "floor",
+        "gate_version",
+        "mode",
+        "qualification",
+        "blocks"
+      ]
+    },
+    "Distribution": {
+      "type": "object",
+      "additionalProperties": {"type": "integer", "minimum": 0}
+    },
+    "Coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "gate_id": {"const": "HG-CAPCHAIN-001"},
+        "positive_count": {"type": "integer", "minimum": 0},
+        "negative_count": {"type": "integer", "minimum": 0},
+        "near_miss_count": {"type": "integer", "minimum": 0},
+        "unknown_count": {"type": "integer", "minimum": 0},
+        "incomplete_count": {"type": "integer", "minimum": 0},
+        "eligible_positive_count": {"type": "integer", "minimum": 0},
+        "eligible_negative_or_near_miss_count": {"type": "integer", "minimum": 0},
+        "min_positive_samples": {"const": 20},
+        "min_negative_or_near_miss_samples": {"const": 20},
+        "language_distribution": {"$ref": "#/$defs/Distribution"},
+        "format_distribution": {"$ref": "#/$defs/Distribution"},
+        "coverage_status": {"enum": ["ready", "more_data_required"]},
+        "missing_sample_count": {"type": "integer", "minimum": 0},
+        "matrix_expected_match_count": {"type": "integer", "minimum": 0},
+        "matrix_expected_no_match_count": {"type": "integer", "minimum": 0},
+        "matrix_expected_no_match_eligible_count": {"type": "integer", "minimum": 0},
+        "matrix_expected_no_match_unknown_count": {"type": "integer", "minimum": 0}
+      },
+      "required": [
+        "gate_id",
+        "positive_count",
+        "negative_count",
+        "near_miss_count",
+        "unknown_count",
+        "incomplete_count",
+        "eligible_positive_count",
+        "eligible_negative_or_near_miss_count",
+        "min_positive_samples",
+        "min_negative_or_near_miss_samples",
+        "language_distribution",
+        "format_distribution",
+        "coverage_status",
+        "missing_sample_count",
+        "matrix_expected_match_count",
+        "matrix_expected_no_match_count",
+        "matrix_expected_no_match_eligible_count",
+        "matrix_expected_no_match_unknown_count"
+      ]
+    },
+    "MatrixRow": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "case_id": {"type": "string", "pattern": "^cal-[A-Za-z0-9._-]+$"},
+        "case_kind": {"enum": ["positive", "negative", "near_miss"]},
+        "coverage": {"enum": ["complete", "incomplete"]},
+        "expected_gate_condition": {"enum": ["match", "no_match"]},
+        "expected_rule_ids": {"type": "array", "items": {"type": "string"}},
+        "format": {"enum": ["json", "manifest", "markdown", "toml", "yaml"]},
+        "gate_id": {"const": "HG-CAPCHAIN-001"},
+        "has_unknown": {"type": "boolean"},
+        "is_eligible_negative": {"type": "boolean"},
+        "is_negative_or_near_miss": {"type": "boolean"},
+        "is_positive": {"type": "boolean"},
+        "language": {"enum": ["en", "zh", "bilingual"]},
+        "review_status": {"enum": ["seeded", "reviewed", "adjudicated"]},
+        "scenario_id": {"type": "string"},
+        "semantic_fingerprint": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+        "source_asset_path": {"type": "string"}
+      },
+      "required": [
+        "case_id",
+        "case_kind",
+        "coverage",
+        "expected_gate_condition",
+        "expected_rule_ids",
+        "format",
+        "gate_id",
+        "has_unknown",
+        "is_eligible_negative",
+        "is_negative_or_near_miss",
+        "is_positive",
+        "language",
+        "review_status",
+        "scenario_id",
+        "semantic_fingerprint",
+        "source_asset_path"
+      ]
+    },
+    "MatchNoMatch": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "demo_match_count": {"type": "integer", "minimum": 0},
+        "demo_no_match_count": {"type": "integer", "minimum": 0},
+        "matrix_rows": {"type": "array", "items": {"$ref": "#/$defs/MatrixRow"}}
+      },
+      "required": ["demo_match_count", "demo_no_match_count", "matrix_rows"]
+    },
+    "RiskUnchanged": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "finding_id_unchanged": {"const": true},
+        "score_unchanged": {"const": true},
+        "severity_unchanged": {"const": true},
+        "confidence_unchanged": {"const": true},
+        "hard_gate_remains_false": {"const": true}
+      },
+      "required": [
+        "finding_id_unchanged",
+        "score_unchanged",
+        "severity_unchanged",
+        "confidence_unchanged",
+        "hard_gate_remains_false"
+      ]
+    },
+    "Scenario": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "scenario_id": {"type": "string"},
+        "title": {"type": "string"},
+        "expected_match": {"type": "boolean"},
+        "actual_match": {"type": "boolean"},
+        "passed": {"type": "boolean"},
+        "finding_correlation": {"type": "string"},
+        "rejection_reason": {"type": "string"},
+        "rejection_reasons": {"type": "array", "items": {"type": "string"}},
+        "coverage_complete": {"type": "boolean"},
+        "relevant_unknowns": {"type": "integer", "minimum": 0},
+        "related_ids": {"type": "array", "items": {"type": "string"}},
+        "gate_id": {"const": "HG-CAPCHAIN-001"},
+        "gate_version": {"const": "0.1.0"},
+        "mode": {"const": "shadow"},
+        "qualification": {"const": "pilot_only"},
+        "blocks": {"const": false},
+        "hard_gate": {"const": false},
+        "risk_unchanged": {"$ref": "#/$defs/RiskUnchanged"}
+      },
+      "required": [
+        "scenario_id",
+        "title",
+        "expected_match",
+        "actual_match",
+        "passed",
+        "finding_correlation",
+        "rejection_reason",
+        "rejection_reasons",
+        "coverage_complete",
+        "relevant_unknowns",
+        "related_ids",
+        "gate_id",
+        "gate_version",
+        "mode",
+        "qualification",
+        "blocks",
+        "hard_gate",
+        "risk_unchanged"
+      ]
+    },
+    "Summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "demo_scenario_count": {"type": "integer", "minimum": 0},
+        "demo_match_count": {"type": "integer", "minimum": 0},
+        "demo_no_match_count": {"type": "integer", "minimum": 0},
+        "coverage_exit_code": {"enum": [0, 2]},
+        "coverage_status": {"enum": ["ready", "more_data_required"]},
+        "ci_blocking_enabled": {"const": false},
+        "hard_gate_enabled": {"const": false},
+        "fail_on_enabled": {"const": false}
+      },
+      "required": [
+        "demo_scenario_count",
+        "demo_match_count",
+        "demo_no_match_count",
+        "coverage_exit_code",
+        "coverage_status",
+        "ci_blocking_enabled",
+        "hard_gate_enabled",
+        "fail_on_enabled"
+      ]
+    },
+    "Boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enforcement_mode": {"const": "report_only"},
+        "runtime_capability_verified": {"const": false},
+        "global_safety_claimed": {"const": false},
+        "ci_blocking_enabled": {"const": false},
+        "hard_gate_enabled": {"const": false},
+        "fail_on_enabled": {"const": false},
+        "ground_truth_used_for_demo": {"const": false},
+        "matrix_labels_are_seeded_expected_metadata": {"const": true}
+      },
+      "required": [
+        "enforcement_mode",
+        "runtime_capability_verified",
+        "global_safety_claimed",
+        "ci_blocking_enabled",
+        "hard_gate_enabled",
+        "fail_on_enabled",
+        "ground_truth_used_for_demo",
+        "matrix_labels_are_seeded_expected_metadata"
+      ]
+    }
+  },
+  "x-agentsec-capability-shadow-gate-demo-schema-version": "0.1.0"
+}

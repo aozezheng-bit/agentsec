@@ -1,0 +1,13 @@
+{
+  "facts": [
+    {
+      "dimension": "permission",
+      "key": "production-execute",
+      "state": "absent",
+      "target_id": null
+    }
+  ],
+  "format": "synthetic-agent-manifest-review-view",
+  "review_case_id": "review-case-057c2055c7738a114f88",
+  "synthetic": true
+}

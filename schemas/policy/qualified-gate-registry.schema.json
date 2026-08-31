@@ -1,0 +1,99 @@
+{
+  "$defs": {
+    "QualifiedGateEntry": {
+      "additionalProperties": false,
+      "description": "One approved Gate qualification binding pinned by digest and artifact ID.",
+      "properties": {
+        "allowed_floor": {
+          "const": "high",
+          "title": "Allowed Floor",
+          "type": "string"
+        },
+        "evidence_mode": {
+          "const": "human",
+          "title": "Evidence Mode",
+          "type": "string"
+        },
+        "gate_id": {
+          "const": "HG-CAPCHAIN-001",
+          "title": "Gate Id",
+          "type": "string"
+        },
+        "qualification_artifact_id": {
+          "pattern": "^qualification\\-report\\-sha256:[0-9a-f]{64}$",
+          "title": "Qualification Artifact Id",
+          "type": "string"
+        },
+        "qualification_report_path": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$",
+          "title": "Qualification Report Path",
+          "type": "string"
+        },
+        "qualification_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Qualification Sha256",
+          "type": "string"
+        },
+        "qualification_status": {
+          "const": "accepted",
+          "title": "Qualification Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "gate_id",
+        "qualification_report_path",
+        "qualification_artifact_id",
+        "qualification_sha256",
+        "evidence_mode",
+        "qualification_status",
+        "allowed_floor"
+      ],
+      "title": "QualifiedGateEntry",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Strict approved-Gate registry referenced by a Capability CI Policy.",
+  "properties": {
+    "format": {
+      "const": "agentsec-qualified-gate-registry",
+      "title": "Format",
+      "type": "string"
+    },
+    "gates": {
+      "items": {
+        "$ref": "#/$defs/QualifiedGateEntry"
+      },
+      "title": "Gates",
+      "type": "array"
+    },
+    "registry_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9._:-]+$",
+      "title": "Registry Id",
+      "type": "string"
+    },
+    "registry_version": {
+      "maxLength": 32,
+      "minLength": 1,
+      "title": "Registry Version",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "format",
+    "schema_version",
+    "registry_id",
+    "registry_version",
+    "gates"
+  ],
+  "title": "QualifiedGateRegistry",
+  "type": "object"
+}

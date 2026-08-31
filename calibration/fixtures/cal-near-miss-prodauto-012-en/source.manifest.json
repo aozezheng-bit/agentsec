@@ -1,0 +1,73 @@
+{
+  "case_id": "cal-near-miss-prodauto-012-en",
+  "facts": [
+    {
+      "dimension": "permission",
+      "key": "state-changing",
+      "state": "present",
+      "target_id": "target:prodauto-3"
+    },
+    {
+      "dimension": "permission",
+      "key": "production-state-change",
+      "state": "absent",
+      "target_id": "target:prodauto-3"
+    },
+    {
+      "dimension": "control",
+      "key": "human-approval",
+      "state": "absent",
+      "target_id": "target:prodauto-3"
+    },
+    {
+      "dimension": "control",
+      "key": "human-approval-allow",
+      "state": "present",
+      "target_id": "target:prodauto-3"
+    },
+    {
+      "dimension": "permission",
+      "key": "production-deploy",
+      "state": "absent",
+      "target_id": "target:prodauto-3"
+    },
+    {
+      "dimension": "control",
+      "key": "sandbox",
+      "state": "present",
+      "target_id": "target:prodauto-3"
+    },
+    {
+      "dimension": "control",
+      "key": "network-policy",
+      "state": "present",
+      "target_id": "target:prodauto-3"
+    },
+    {
+      "dimension": "control",
+      "key": "secret-handling",
+      "state": "present",
+      "target_id": "target:prodauto-3"
+    },
+    {
+      "dimension": "tool",
+      "key": "mcp-enabled-required",
+      "state": "present",
+      "target_id": "target:prodauto-3"
+    },
+    {
+      "dimension": "runtime_identity",
+      "key": "identity-lifetime-reviewed",
+      "state": "absent",
+      "target_id": "target:prodauto-3"
+    },
+    {
+      "dimension": "relationship",
+      "key": "delegates-to",
+      "state": "present",
+      "target_id": "target:prodauto-3"
+    }
+  ],
+  "format": "synthetic-agent-manifest-review-view",
+  "synthetic": true
+}

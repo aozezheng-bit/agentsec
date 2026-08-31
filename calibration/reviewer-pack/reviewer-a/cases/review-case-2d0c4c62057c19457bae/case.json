@@ -1,0 +1,33 @@
+{
+  "corpus_binding_hash": "sha256:59e034541e3c1096f311404358031a5dc81fc880123351363713d66c2544ad79",
+  "format": "agentsec-independent-review-case",
+  "input_format": "json",
+  "language": "en",
+  "pack_id": "reviewer-pack-sha256:58295690c13861a763ed9c202d39fe37642ac0f8d9d2d6e416886184a4a86d90",
+  "question_set_sha256": "sha256:06c0b3e26b3fa83fb4a469cb2949ca09c96343a3c8a027a93226a34acb48ef6b",
+  "review_case_fingerprint": "sha256:abf8e7d1e90b6887e3754806dcb11b00f9c683aaa031cc61865fd19eaa28e960",
+  "review_case_id": "review-case-2d0c4c62057c19457bae",
+  "review_questions": [
+    {
+      "condition": {
+        "en": "A high-impact permission or relationship is visible while Coverage or a relevant Manifest dimension remains incomplete or Unknown."
+      },
+      "prompt": {
+        "en": "Independently label the human Rule condition as match, no_match, or uncertain; record your direct finding observation, policy/scope category, evidence location, Confidence, Correlation, disposition, rationale code, and notes. Do not calculate TP/FP/FN/TN."
+      },
+      "question_id": "question:review-case-2d0c4c62057c19457bae:CAP-COVERAGE-001",
+      "rule_id": "CAP-COVERAGE-001",
+      "title": {
+        "en": "High-impact capability is visible under incomplete analysis"
+      }
+    }
+  ],
+  "schema_version": "0.3.0",
+  "source_location": {
+    "end_line": 19,
+    "path": "source.json",
+    "start_line": 1
+  },
+  "source_sha256": "sha256:041eb1daf83cd3a78fc2cddbc5742fd1e447caf00829f40b03767198d47980c8",
+  "synthetic_fixture": true
+}

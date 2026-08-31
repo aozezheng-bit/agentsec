@@ -1,0 +1,235 @@
+format: agentsec-pilot-plan
+schema_version: 0.1.0
+pilot_id: external-homi-final-pilot
+project_name: External Homi Agent Final Report-only Pilot
+owner: homi-agent-platform-owner
+evidence_mode: external_repository
+cases:
+- case_id: baseline-01
+  title: Original supplied Homi workspace baseline
+  project_root: states/baseline-01
+  policy_path: organization-policy.yaml
+  expected_exit: 0
+  expected_coverage: complete
+  expected_rule_ids:
+  - MD-MEMORY-001
+  scan_kind: baseline
+  drill: null
+  max_duration_ms: 10000
+- case_id: baseline-02
+  title: Safe explicit approval boundary
+  project_root: states/baseline-02
+  policy_path: organization-policy.yaml
+  expected_exit: 0
+  expected_coverage: complete
+  expected_rule_ids: []
+  scan_kind: baseline
+  drill: null
+  max_duration_ms: 10000
+- case_id: baseline-03
+  title: Safe terminal documentation near-miss
+  project_root: states/baseline-03
+  policy_path: organization-policy.yaml
+  expected_exit: 0
+  expected_coverage: complete
+  expected_rule_ids: []
+  scan_kind: baseline
+  drill: null
+  max_duration_ms: 10000
+- case_id: baseline-04
+  title: Safe secret-provider documentation near-miss
+  project_root: states/baseline-04
+  policy_path: organization-policy.yaml
+  expected_exit: 0
+  expected_coverage: complete
+  expected_rule_ids: []
+  scan_kind: baseline
+  drill: null
+  max_duration_ms: 10000
+- case_id: baseline-05
+  title: Safe local-only network boundary
+  project_root: states/baseline-05
+  policy_path: organization-policy.yaml
+  expected_exit: 0
+  expected_coverage: complete
+  expected_rule_ids: []
+  scan_kind: baseline
+  drill: null
+  max_duration_ms: 10000
+- case_id: baseline-06
+  title: Safe release-review near-miss
+  project_root: states/baseline-06
+  policy_path: organization-policy.yaml
+  expected_exit: 0
+  expected_coverage: complete
+  expected_rule_ids: []
+  scan_kind: baseline
+  drill: null
+  max_duration_ms: 10000
+- case_id: baseline-07
+  title: Inert prompt-injection declaration
+  project_root: states/baseline-07
+  policy_path: organization-policy.yaml
+  expected_exit: 0
+  expected_coverage: complete
+  expected_rule_ids:
+  - MD-INSTR-001
+  - MD-INSTR-002
+  scan_kind: baseline
+  drill: null
+  max_duration_ms: 10000
+- case_id: baseline-08
+  title: Declared bounded long-term memory
+  project_root: states/baseline-08
+  policy_path: organization-policy.yaml
+  expected_exit: 0
+  expected_coverage: complete
+  expected_rule_ids:
+  - MD-MEMORY-001
+  scan_kind: baseline
+  drill: null
+  max_duration_ms: 10000
+- case_id: baseline-09
+  title: Chinese safe review boundary
+  project_root: states/baseline-09
+  policy_path: organization-policy.yaml
+  expected_exit: 0
+  expected_coverage: complete
+  expected_rule_ids: []
+  scan_kind: baseline
+  drill: null
+  max_duration_ms: 10000
+- case_id: baseline-10
+  title: Remediated minimal Homi workspace
+  project_root: states/baseline-10
+  policy_path: organization-policy.yaml
+  expected_exit: 0
+  expected_coverage: complete
+  expected_rule_ids: []
+  scan_kind: baseline
+  drill: null
+  max_duration_ms: 10000
+- case_id: pr-01
+  title: Risky multi-capability change
+  project_root: states/pr-01
+  policy_path: organization-policy.yaml
+  expected_exit: 1
+  expected_coverage: complete
+  expected_rule_ids:
+  - MD-APPROVAL-001
+  - MD-DEPLOY-001
+  - MD-EXEC-001
+  - MD-INSTR-001
+  - MD-INSTR-002
+  - MD-NET-001
+  - MD-PRIV-001
+  - MD-SECRET-001
+  scan_kind: pull_request
+  drill: risky_change
+  max_duration_ms: 10000
+- case_id: pr-02
+  title: Execution declaration visible under active Waiver
+  project_root: states/pr-02
+  policy_path: organization-policy.yaml
+  expected_exit: 0
+  expected_coverage: complete
+  expected_rule_ids:
+  - MD-EXEC-001
+  scan_kind: pull_request
+  drill: null
+  max_duration_ms: 10000
+- case_id: pr-03
+  title: Active execution Waiver lifecycle exercise
+  project_root: states/pr-03
+  policy_path: organization-policy.yaml
+  expected_exit: 0
+  expected_coverage: complete
+  expected_rule_ids:
+  - MD-EXEC-001
+  scan_kind: pull_request
+  drill: waiver_lifecycle
+  max_duration_ms: 10000
+- case_id: pr-04
+  title: Expired secret Waiver restores blocking
+  project_root: states/pr-04
+  policy_path: organization-policy.yaml
+  expected_exit: 1
+  expected_coverage: complete
+  expected_rule_ids:
+  - MD-SECRET-001
+  scan_kind: pull_request
+  drill: null
+  max_duration_ms: 10000
+- case_id: pr-05
+  title: Active and expired Waiver interaction
+  project_root: states/pr-05
+  policy_path: organization-policy.yaml
+  expected_exit: 1
+  expected_coverage: complete
+  expected_rule_ids:
+  - MD-EXEC-001
+  - MD-SECRET-001
+  scan_kind: pull_request
+  drill: null
+  max_duration_ms: 10000
+- case_id: pr-06
+  title: Malformed UTF-8 Coverage failure
+  project_root: states/pr-06
+  policy_path: organization-policy.yaml
+  expected_exit: 2
+  expected_coverage: incomplete
+  expected_rule_ids: []
+  scan_kind: pull_request
+  drill: incomplete_coverage
+  max_duration_ms: 10000
+- case_id: pr-07
+  title: Production deployment declaration remains report-visible
+  project_root: states/pr-07
+  policy_path: organization-policy.yaml
+  expected_exit: 0
+  expected_coverage: complete
+  expected_rule_ids:
+  - MD-DEPLOY-001
+  - MD-PRIV-001
+  scan_kind: pull_request
+  drill: null
+  max_duration_ms: 10000
+- case_id: pr-08
+  title: External network declaration remains report-visible
+  project_root: states/pr-08
+  policy_path: organization-policy.yaml
+  expected_exit: 0
+  expected_coverage: complete
+  expected_rule_ids:
+  - MD-NET-001
+  scan_kind: pull_request
+  drill: null
+  max_duration_ms: 10000
+- case_id: pr-09
+  title: Self-modification declaration remains report-visible
+  project_root: states/pr-09
+  policy_path: organization-policy.yaml
+  expected_exit: 0
+  expected_coverage: complete
+  expected_rule_ids:
+  - MD-SELF-001
+  scan_kind: pull_request
+  drill: null
+  max_duration_ms: 10000
+- case_id: pr-10
+  title: Remediated pull-request state
+  project_root: states/pr-10
+  policy_path: organization-policy.yaml
+  expected_exit: 0
+  expected_coverage: complete
+  expected_rule_ids: []
+  scan_kind: pull_request
+  drill: null
+  max_duration_ms: 10000
+security_reviewer: null
+minimum_scans: 20
+minimum_pr_scans: 10
+required_drills:
+- incomplete_coverage
+- risky_change
+- waiver_lifecycle

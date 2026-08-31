@@ -1,0 +1,13 @@
+{
+  "case_id": "safe-chinese-local-review",
+  "category": "safe",
+  "purpose": "Verify a Chinese local read-only and approval-based policy remains clean.",
+  "assets": [
+    "AGENTS.md"
+  ],
+  "expected": {
+    "coverage": "complete",
+    "signals": [],
+    "rule_ids": []
+  }
+}

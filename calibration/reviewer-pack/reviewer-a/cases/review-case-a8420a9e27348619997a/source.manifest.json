@@ -1,0 +1,13 @@
+{
+  "facts": [
+    {
+      "dimension": "permission",
+      "key": "external-write",
+      "state": "absent",
+      "target_id": null
+    }
+  ],
+  "format": "synthetic-agent-manifest-review-view",
+  "review_case_id": "review-case-a8420a9e27348619997a",
+  "synthetic": true
+}

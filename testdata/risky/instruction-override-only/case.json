@@ -1,0 +1,17 @@
+{
+  "case_id": "risky-instruction-override-only",
+  "category": "risky",
+  "purpose": "Isolate the earlier-instruction override rule.",
+  "assets": [
+    "AGENTS.md"
+  ],
+  "expected": {
+    "coverage": "complete",
+    "signals": [
+      "instruction_integrity"
+    ],
+    "rule_ids": [
+      "MD-INSTR-001"
+    ]
+  }
+}

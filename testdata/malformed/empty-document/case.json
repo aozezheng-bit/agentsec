@@ -1,0 +1,15 @@
+{
+  "case_id": "malformed-empty-document",
+  "category": "malformed",
+  "purpose": "Exercise an empty but readable Agent Markdown asset.",
+  "assets": [
+    "AGENTS.md"
+  ],
+  "expected": {
+    "coverage": "complete",
+    "signals": [
+      "empty_content"
+    ],
+    "rule_ids": []
+  }
+}

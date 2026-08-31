@@ -1,0 +1,86 @@
+{
+  "case_id": "cal-positive-requirednotimeout-001-zh",
+  "case_kind": "positive",
+  "fixture": {
+    "formats": [
+      "json"
+    ],
+    "kind": "fact_bundle",
+    "path": "fixtures/cal-positive-requirednotimeout-001-zh/facts.json"
+  },
+  "format": "agentsec-capability-calibration-case",
+  "framework_id": "codex",
+  "ground_truth": {
+    "coverage": "complete",
+    "facts": [
+      {
+        "dimension": "tool",
+        "evidence": [
+          {
+            "asset_path": "facts.json",
+            "field_path": "facts.0"
+          }
+        ],
+        "fact_id": "fact-01",
+        "key": "mcp-enabled-required",
+        "state": "present",
+        "target_id": "target:primary"
+      },
+      {
+        "dimension": "control",
+        "evidence": [
+          {
+            "asset_path": "facts.json",
+            "field_path": "facts.1"
+          }
+        ],
+        "fact_id": "fact-02",
+        "key": "timeout",
+        "state": "absent",
+        "target_id": null
+      }
+    ],
+    "rule_expectations": [
+      {
+        "confidences": [
+          "B"
+        ],
+        "correlations": [
+          "same_target"
+        ],
+        "fact_ids": [
+          "fact-01",
+          "fact-02"
+        ],
+        "max_findings": 4,
+        "min_findings": 1,
+        "outcome": "match",
+        "rationale_code": "required_mcp_without_timeout",
+        "rule_id": "CAP-REQUIREDNOTIMEOUT-001"
+      }
+    ],
+    "runtime_verified": false,
+    "unknown_dimensions": []
+  },
+  "language": "zh",
+  "purpose": "Reproduce CAP-REQUIREDNOTIMEOUT-001 with explicit normalized facts.",
+  "review": {
+    "disposition": "actionable",
+    "rationale_code": "seed_positive",
+    "reviewer_refs": [
+      "seed-labeler-1",
+      "seed-labeler-2"
+    ],
+    "status": "seeded"
+  },
+  "schema_version": "0.1.0",
+  "source_formats": [
+    "manifest",
+    "toml"
+  ],
+  "tags": [
+    "p2-cal-01",
+    "rule-family",
+    "zh"
+  ]
+}

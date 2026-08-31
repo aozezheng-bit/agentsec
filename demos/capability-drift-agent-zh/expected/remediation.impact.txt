@@ -1,0 +1,207 @@
+AgentSec 能力变化影响
+状态：完整
+Agent：release-agent
+策略：仅报告；不启用 CI 阻断；未验证运行时能力
+
+管理层摘要
+  能力变化：35；已评估影响=14；未评估=21
+  暴露方向：增加=2 降低=7 混合=0 中性=0 不确定=5
+  Finding Delta：新增=0 已解决=17 变化=0 未变化=0
+  最高严重性：before=HIGH after=NONE
+  High/Critical 生命周期：新增=0 已解决=3
+
+Finding Delta
+  [RESOLVED] CAP-APPROVAL-001 — 状态变更能力缺少有效人工审批控制
+    风险方向：decreased
+    严重性：high -> -
+    关联 ID：mcp-server:local_review
+    变化字段：finding
+    关联能力变化：capability-impact-sha256:c05251179adcbf5a5097e685c6c0cf57f40c3d8975ed4e192d201f5069348210
+  [RESOLVED] CAP-AUTONETWORK-001 — 网络访问被允许且无需人工审批
+    风险方向：decreased
+    严重性：medium -> -
+    关联 ID：mcp-server:remote_release
+    变化字段：finding
+    关联能力变化：capability-impact-sha256:cd04aa51b1f18268bb3a55f33c2ee788df960c0998b2f9bf7697444e55cd49b3
+  [RESOLVED] CAP-AUTOSECRET-001 — Secret 访问被允许且无需人工审批
+    风险方向：decreased
+    严重性：high -> -
+    关联 ID：mcp-server:local_review
+    变化字段：finding
+    关联能力变化：capability-impact-sha256:c05251179adcbf5a5097e685c6c0cf57f40c3d8975ed4e192d201f5069348210
+  [RESOLVED] CAP-CHAIN-001 — 代码执行、Secret 访问与外部网络形成潜在链路
+    风险方向：decreased
+    严重性：medium -> -
+    关联 ID：permission:execute:mcp-server:local_review,permission:network:mcp-server:remote_release,permission:secret_access:mcp-server:local_review
+    变化字段：finding
+    关联能力变化：capability-impact-sha256:25e87ea0db3c1a43bfe54c678675abb1456cda8160279296a49c974ae20a0356,capability-impact-sha256:54846d5bd4455353b3dc8a099e34d3f7abd6062f86518cba7ef3f411ff804a29,capability-impact-sha256:5e48ddae5f5c256ca16b86d09b63e0dc6b8861838c37add6857e756af90d25f7
+  [RESOLVED] CAP-COVERAGE-001 — 分析不完整时发现高影响能力
+    风险方向：decreased
+    严重性：medium -> -
+    关联 ID：mcp-server:local_review
+    变化字段：finding
+    关联能力变化：capability-impact-sha256:c05251179adcbf5a5097e685c6c0cf57f40c3d8975ed4e192d201f5069348210
+  [RESOLVED] CAP-COVERAGE-001 — 分析不完整时发现高影响能力
+    风险方向：decreased
+    严重性：medium -> -
+    关联 ID：mcp-server:remote_release
+    变化字段：finding
+    关联能力变化：capability-impact-sha256:cd04aa51b1f18268bb3a55f33c2ee788df960c0998b2f9bf7697444e55cd49b3
+  [RESOLVED] CAP-DELEGATE-001 — 委派可触达高权限能力但缺少审批证据
+    风险方向：decreased
+    严重性：medium -> -
+    关联 ID：permission:execute:mcp-server:local_review,relation:delegates_to:agent:deployer
+    变化字段：finding
+    关联能力变化：capability-impact-sha256:54846d5bd4455353b3dc8a099e34d3f7abd6062f86518cba7ef3f411ff804a29
+  [RESOLVED] CAP-DELEGATEEXTERNAL-001 — 委派与外部能力同时存在
+    风险方向：decreased
+    严重性：medium -> -
+    关联 ID：permission:network:mcp-server:remote_release,relation:delegates_to:agent:deployer
+    变化字段：finding
+    关联能力变化：capability-impact-sha256:25e87ea0db3c1a43bfe54c678675abb1456cda8160279296a49c974ae20a0356
+  [RESOLVED] CAP-DELEGATEPERSIST-001 — 委派与持久化记忆同时存在
+    风险方向：decreased
+    严重性：low -> -
+    关联 ID：relation:delegates_to:agent:deployer,relation:persists_memory:memory:release_state
+    变化字段：finding
+    关联能力变化：-
+  [RESOLVED] CAP-EXTERNAL-001 — 必选启用的外部 MCP 使用凭证化身份
+    风险方向：decreased
+    严重性：high -> -
+    关联 ID：mcp-server:remote_release
+    变化字段：finding
+    关联能力变化：capability-impact-sha256:cd04aa51b1f18268bb3a55f33c2ee788df960c0998b2f9bf7697444e55cd49b3
+  [RESOLVED] CAP-EXTERNALUNVERIFIED-001 — 外部 MCP 身份或可用性尚未运行时验证
+    风险方向：decreased
+    严重性：medium -> -
+    关联 ID：mcp-server:remote_release
+    变化字段：finding
+    关联能力变化：capability-impact-sha256:cd04aa51b1f18268bb3a55f33c2ee788df960c0998b2f9bf7697444e55cd49b3
+  [RESOLVED] CAP-MEMORYNETWORK-001 — 记忆关系与外部网络访问同时存在
+    风险方向：decreased
+    严重性：low -> -
+    关联 ID：permission:network:mcp-server:remote_release,relation:persists_memory:memory:release_state
+    变化字段：finding
+    关联能力变化：capability-impact-sha256:25e87ea0db3c1a43bfe54c678675abb1456cda8160279296a49c974ae20a0356
+  [RESOLVED] CAP-MEMORYSECRET-001 — 记忆关系与 Secret 访问同时存在
+    风险方向：decreased
+    严重性：medium -> -
+    关联 ID：permission:secret_access:mcp-server:local_review,relation:persists_memory:memory:release_state
+    变化字段：finding
+    关联能力变化：capability-impact-sha256:5e48ddae5f5c256ca16b86d09b63e0dc6b8861838c37add6857e756af90d25f7
+  [RESOLVED] CAP-NOSANDBOX-001 — 高影响能力缺少已配置的沙箱
+    风险方向：decreased
+    严重性：medium -> -
+    关联 ID：mcp-server:local_review
+    变化字段：finding
+    关联能力变化：capability-impact-sha256:c05251179adcbf5a5097e685c6c0cf57f40c3d8975ed4e192d201f5069348210
+  [RESOLVED] CAP-PERSIST-001 — 持久化记忆与敏感能力组合出现
+    风险方向：decreased
+    严重性：medium -> -
+    关联 ID：permission:network:mcp-server:remote_release,permission:secret_access:mcp-server:local_review,relation:persists_memory:memory:release_state
+    变化字段：finding
+    关联能力变化：capability-impact-sha256:25e87ea0db3c1a43bfe54c678675abb1456cda8160279296a49c974ae20a0356,capability-impact-sha256:5e48ddae5f5c256ca16b86d09b63e0dc6b8861838c37add6857e756af90d25f7
+  [RESOLVED] CAP-REQUIREDNOFILTER-001 — 必选外部 MCP 缺少工具过滤
+    风险方向：decreased
+    严重性：medium -> -
+    关联 ID：mcp-server:remote_release
+    变化字段：finding
+    关联能力变化：capability-impact-sha256:cd04aa51b1f18268bb3a55f33c2ee788df960c0998b2f9bf7697444e55cd49b3
+  [RESOLVED] CAP-REQUIREDNOTIMEOUT-001 — 必选外部 MCP 缺少超时控制
+    风险方向：decreased
+    严重性：medium -> -
+    关联 ID：mcp-server:remote_release
+    变化字段：finding
+    关联能力变化：capability-impact-sha256:cd04aa51b1f18268bb3a55f33c2ee788df960c0998b2f9bf7697444e55cd49b3
+
+工具 / 权限 / 控制变化影响
+  [REDUCED_EXPOSURE] control control:approval:mcp-server:local_review
+    变化类型：removed
+    before：kind=human_approval; state=allow; target=mcp-server:local_review
+    after：-
+    依据：移除能力,控制增强
+    关联 Finding Delta：-
+  [REDUCED_EXPOSURE] control control:approval:mcp-server:remote_release
+    变化类型：removed
+    before：kind=human_approval; state=allow; target=mcp-server:remote_release
+    after：-
+    依据：移除能力,控制增强
+    关联 Finding Delta：-
+  [REDUCED_EXPOSURE] control control:mcp-enable:mcp-server:local_review
+    变化类型：removed
+    before：kind=enablement; state=enabled; target=mcp-server:local_review
+    after：-
+    依据：移除能力,控制增强
+    关联 Finding Delta：-
+  [REDUCED_EXPOSURE] control control:mcp-enable:mcp-server:remote_release
+    变化类型：removed
+    before：kind=enablement; state=enabled; target=mcp-server:remote_release
+    after：-
+    依据：移除能力,控制增强
+    关联 Finding Delta：-
+  [UNCERTAIN] control control:mcp-required:mcp-server:local_review
+    变化类型：removed
+    before：kind=required; state=unknown; target=mcp-server:local_review
+    after：-
+    依据：移除能力,存在未知状态
+    关联 Finding Delta：-
+  [REDUCED_EXPOSURE] control control:mcp-required:mcp-server:remote_release
+    变化类型：removed
+    before：kind=required; state=required; target=mcp-server:remote_release
+    after：-
+    依据：移除能力,控制增强
+    关联 Finding Delta：-
+  [INCREASED_EXPOSURE] control control:network-policy:mcp-server:remote_release
+    变化类型：removed
+    before：kind=network_policy; state=configured; target=mcp-server:remote_release
+    after：-
+    依据：移除能力,控制减弱
+    关联 Finding Delta：-
+  [INCREASED_EXPOSURE] control control:secret-handling:mcp-server:local_review
+    变化类型：removed
+    before：kind=secret_handling; state=configured; target=mcp-server:local_review
+    after：-
+    依据：移除能力,控制减弱
+    关联 Finding Delta：-
+  [UNCERTAIN] permission permission:execute:mcp-server:local_review
+    变化类型：removed
+    before：action=execute; effect=unknown; resource=shell; scope=project; target=mcp-server:local_review
+    after：-
+    依据：移除能力,权限约束增强,权限收回,存在未知状态
+    关联 Finding Delta：capability-finding-delta-sha256:1f10a13ea2b3c072ee77f9b2bf8033be20b5ced4b99c3b718b4c392d101757f0,capability-finding-delta-sha256:37d7190de4f73361b6023569bc2bed3aea4e51f4908a1669c7bee8d74aefdf63
+  [UNCERTAIN] permission permission:network:mcp-server:remote_release
+    变化类型：removed
+    before：action=network; effect=unknown; resource=network; scope=external; target=mcp-server:remote_release
+    after：-
+    依据：移除能力,权限约束增强,权限收回,存在未知状态
+    关联 Finding Delta：capability-finding-delta-sha256:0cc3d91f8049e626bf44c28256b8602b608f0850243e2848aa983198453dc8d2,capability-finding-delta-sha256:37d7190de4f73361b6023569bc2bed3aea4e51f4908a1669c7bee8d74aefdf63,capability-finding-delta-sha256:6ef01a21c0964a4b641f39f22798760f09ca1cb289d7e9780c21276f284b8ede,capability-finding-delta-sha256:a804467c87580135c06b4c26c5b1397cad84d9d956e6c8d100c68a0fbd156b24
+  [UNCERTAIN] permission permission:secret_access:mcp-server:local_review
+    变化类型：removed
+    before：action=secret_access; effect=unknown; resource=environment; scope=project; target=mcp-server:local_review
+    after：-
+    依据：移除能力,权限约束增强,权限收回,存在未知状态
+    关联 Finding Delta：capability-finding-delta-sha256:37d7190de4f73361b6023569bc2bed3aea4e51f4908a1669c7bee8d74aefdf63,capability-finding-delta-sha256:9618628e5712f585cff3a8acf3d3d8ea3244cea43fbcc046f2d30257254c660f,capability-finding-delta-sha256:a804467c87580135c06b4c26c5b1397cad84d9d956e6c8d100c68a0fbd156b24
+  [UNCERTAIN] permission permission:unknown:skill:review
+    变化类型：removed
+    before：action=unknown; effect=unknown; resource=tool; scope=project; target=skill:review
+    after：-
+    依据：移除能力,权限约束增强,权限收回,存在未知状态
+    关联 Finding Delta：-
+  [REDUCED_EXPOSURE] tool mcp-server:local_review
+    变化类型：removed
+    before：availability=enabled; kind=mcp_server; side_effects=execute
+    after：-
+    依据：移除能力,移除敏感副作用,禁用工具
+    关联 Finding Delta：capability-finding-delta-sha256:3925b8c7c1c0f521362a86ecadbb4da5d1dd88031319395b642cf18dabfd3621,capability-finding-delta-sha256:4f388169520d64bf94dd14f7975c9e82da9cc02ba302bb37fabe74b15a6a76a3,capability-finding-delta-sha256:c02efd07891a7412b3c1ec265231d45c6faa08c7288218c3e2f89972e0cb87ff,capability-finding-delta-sha256:c97264626ab6b682e98416a9d8c30da9cb87661842da77b774ceaeb14339dcce
+  [REDUCED_EXPOSURE] tool mcp-server:remote_release
+    变化类型：removed
+    before：availability=enabled; kind=mcp_server; side_effects=network
+    after：-
+    依据：移除能力,移除敏感副作用,禁用工具
+    关联 Finding Delta：capability-finding-delta-sha256:0fbbc6125727fbc121bc62cc5af9ecd6e5b106ae1b0c7a9c84a557946d581c64,capability-finding-delta-sha256:173d7115dfbfc722c86cf22cb018e0d91700c1c93311b88c47c135837c936c25,capability-finding-delta-sha256:634d8061e95aa7128cb72e7cf716a9971ed6c8db0987280432a389e8f140a8a0,capability-finding-delta-sha256:88e88ec736ddafba55ad21691aeb863c0aa0e77ae8cc3fde97d60f4c51a4c7de,capability-finding-delta-sha256:b4b8ca9ed69b68d93055a5cd7b2b75f47fbe1d1ed81b7078c496e6d8a22f7e5a,capability-finding-delta-sha256:c61e110222a861eaa708db536cf5d3394e8f84708c07e38d17e33ac057bfc1cb
+
+边界说明
+  before/after 只包含标准化字段，不包含源配置原始值。
+  暴露方向不是新的 Severity 分数，也不是授权决策。
+  新增 High Finding 不会被未变化或低风险 Finding 平均稀释。
+  本报告不证明运行时可达性或利用已发生。

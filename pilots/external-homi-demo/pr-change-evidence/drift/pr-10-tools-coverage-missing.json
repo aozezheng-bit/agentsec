@@ -1,0 +1,113 @@
+{
+  "actual": {
+    "added_findings": [],
+    "added_observations": [],
+    "capability_changes": {
+      "camera_access": [
+        "example_only",
+        "unknown"
+      ],
+      "ssh_access": [
+        "example_only",
+        "unknown"
+      ],
+      "tts_output": [
+        "example_only",
+        "unknown"
+      ]
+    },
+    "changed_findings": [],
+    "file_changes": {
+      "SOUL.md": "modified",
+      "TOOLS.md": "removed"
+    },
+    "persona_changes": {},
+    "removed_findings": [],
+    "removed_observations": [
+      "startup_read_policy_conflict",
+      "tools_not_authority"
+    ],
+    "resolution_status": "partial",
+    "simulation_changes": {
+      "HOMI-SIM-005": [
+        "blocked_example_only",
+        "unknown_coverage"
+      ]
+    },
+    "status": "partial"
+  },
+  "after": {
+    "ci_blocked": false,
+    "report_only": true,
+    "resolution_status": "partial",
+    "runtime_verified": false,
+    "status": "partial"
+  },
+  "before": {
+    "ci_blocked": false,
+    "report_only": true,
+    "resolution_status": "conflict",
+    "runtime_verified": false,
+    "status": "partial"
+  },
+  "drill": "incomplete_coverage",
+  "expected": {
+    "added_findings": [],
+    "added_observations": [],
+    "capability_changes": {
+      "camera_access": [
+        "example_only",
+        "unknown"
+      ],
+      "ssh_access": [
+        "example_only",
+        "unknown"
+      ],
+      "tts_output": [
+        "example_only",
+        "unknown"
+      ]
+    },
+    "changed_findings": [],
+    "file_changes": {
+      "SOUL.md": "modified",
+      "TOOLS.md": "removed"
+    },
+    "persona_changes": {},
+    "removed_findings": [],
+    "removed_observations": [
+      "startup_read_policy_conflict",
+      "tools_not_authority"
+    ],
+    "resolution_status": "partial",
+    "simulation_changes": {
+      "HOMI-SIM-005": [
+        "blocked_example_only",
+        "unknown_coverage"
+      ]
+    },
+    "status": "partial"
+  },
+  "format": "agentsec-homi-capability-drift-evidence",
+  "format_version": "0.1.0",
+  "limitations": [
+    "Static Homi drift does not prove runtime reachability or execution.",
+    "Scenario-contract review is engineering evidence, not independent human TP/FP/FN adjudication.",
+    "No drift result authorizes CI blocking, release, Tool access, or a waiver."
+  ],
+  "provenance": {
+    "baseline_report_sha256": "782780c50cb7d8283e5f81480211c49f207d9f37275bf88c9fb7af66c71dbbaf",
+    "snapshot_archive_sha256": "e2e64f7bbf2f3195cf9c6f20b095c4d110ca8e013bf659c45771146eb6e4a3e7",
+    "snapshot_report_sha256": "a1f45cfe8e7b064bb62f7c2de8ddb207f39d537261939cdea45f2004dcfa305c"
+  },
+  "review": {
+    "contract_pass": true,
+    "independent_human_review": false,
+    "mode": "deterministic_scenario_contract",
+    "outcome": "contract_pass"
+  },
+  "risk_direction": "coverage_degradation",
+  "scenario_id": "pr-10-tools-coverage-missing",
+  "task_id": "P2-EXIT-06-03",
+  "title": "删除 TOOLS.md 并验证 Coverage Unknown"
+}

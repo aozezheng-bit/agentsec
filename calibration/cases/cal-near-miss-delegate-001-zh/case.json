@@ -1,0 +1,97 @@
+{
+  "case_id": "cal-near-miss-delegate-001-zh",
+  "case_kind": "near_miss",
+  "fixture": {
+    "formats": [
+      "json"
+    ],
+    "kind": "fact_bundle",
+    "path": "fixtures/cal-near-miss-delegate-001-zh/facts.json"
+  },
+  "format": "agentsec-capability-calibration-case",
+  "framework_id": "codex",
+  "ground_truth": {
+    "coverage": "complete",
+    "facts": [
+      {
+        "dimension": "relationship",
+        "evidence": [
+          {
+            "asset_path": "facts.json",
+            "field_path": "facts.0"
+          }
+        ],
+        "fact_id": "fact-01",
+        "key": "delegates-to",
+        "state": "absent",
+        "target_id": null
+      },
+      {
+        "dimension": "permission",
+        "evidence": [
+          {
+            "asset_path": "facts.json",
+            "field_path": "facts.1"
+          }
+        ],
+        "fact_id": "fact-02",
+        "key": "powerful",
+        "state": "absent",
+        "target_id": null
+      },
+      {
+        "dimension": "control",
+        "evidence": [
+          {
+            "asset_path": "facts.json",
+            "field_path": "facts.2"
+          }
+        ],
+        "fact_id": "fact-03",
+        "key": "human-approval",
+        "state": "present",
+        "target_id": "target:primary"
+      }
+    ],
+    "rule_expectations": [
+      {
+        "confidences": [],
+        "correlations": [],
+        "fact_ids": [
+          "fact-01",
+          "fact-02",
+          "fact-03"
+        ],
+        "max_findings": 0,
+        "min_findings": 0,
+        "outcome": "no_match",
+        "rationale_code": "delegated_power_without_approval_near_miss",
+        "rule_id": "CAP-DELEGATE-001"
+      }
+    ],
+    "runtime_verified": false,
+    "unknown_dimensions": []
+  },
+  "language": "zh",
+  "purpose": "Near-miss for CAP-DELEGATE-001; a required condition is intentionally absent or safe.",
+  "review": {
+    "disposition": "not_applicable",
+    "rationale_code": "seed_near_miss",
+    "reviewer_refs": [
+      "seed-labeler-1",
+      "seed-labeler-2"
+    ],
+    "status": "seeded"
+  },
+  "schema_version": "0.1.0",
+  "source_formats": [
+    "manifest",
+    "markdown",
+    "toml"
+  ],
+  "tags": [
+    "p2-cal-01",
+    "rule-family",
+    "zh"
+  ]
+}

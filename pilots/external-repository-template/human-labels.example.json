@@ -1,0 +1,8 @@
+{
+  "format": "agentsec-pilot-human-labels",
+  "schema_version": "0.1.0",
+  "pilot_id": "external-agent-project-pilot",
+  "reviewer_id": "replace-with-independent-reviewer-id",
+  "independence_statement": "I reviewed the external Agent cases independently of the AgentSec implementation output and recorded the expected deterministic Rule IDs, exit state, and Coverage state.",
+  "cases": []
+}

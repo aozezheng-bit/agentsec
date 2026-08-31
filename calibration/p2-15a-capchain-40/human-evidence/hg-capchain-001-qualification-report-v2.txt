@@ -1,0 +1,50 @@
+AgentSec HG-CAPCHAIN-001 Gate Qualification Report
+======================================================
+
+Status: accepted
+Report-only eligible: True
+
+Sample scope
+------------
+Cases: 40
+Human Positive: 20
+Human Negative/Near-miss: 20
+Coverage complete: True
+Relevant Unknown free: True
+
+Detector metrics
+---------------
+TP=20 FP=0 FN=0 TN=20
+Precision: 1.0
+Recall: 1.0
+F1: 1.0
+False positive rate: 0.0
+
+Evidence Confidence
+-------------------
+Human confidence distribution: {'A': 20, 'B': 20}
+Detector match confidence distribution: {'B': 20}
+Human vs detector agreement: 1.0
+Reviewer Confidence Kappa: 1.0
+Correlation agreement before adjudication: 0.875
+Correlation Kappa before adjudication: 0.466667
+
+Qualification checks
+--------------------
+sample_threshold: pass (positive=20/20, negative_or_near_miss=20/20)
+precision: pass (1.0 >= 0.95)
+recall: pass (1.0 >= 0.9)
+reviewer_confidence_kappa: pass (1.0 >= 0.8)
+coverage: pass (True)
+relevant_unknowns: pass (True)
+d_confidence_exclusion: pass (D confidence count=0)
+confidence_calibration: pass (human_vs_detector=1.0 >= 0.9)
+
+Blocking reasons
+
+Policy
+------
+enforcement_mode: report_only
+hard_gate: false
+ci_blocking: false
+runtime_capability_verified: false

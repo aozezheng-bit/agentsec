@@ -1,0 +1,19 @@
+{
+  "facts": [
+    {
+      "dimension": "tool",
+      "key": "mcp-enabled-required",
+      "state": "present",
+      "target_id": "target:primary"
+    },
+    {
+      "dimension": "runtime_identity",
+      "key": "credentialed-external",
+      "state": "present",
+      "target_id": "target:primary"
+    }
+  ],
+  "format": "synthetic-agent-manifest-review-view",
+  "review_case_id": "review-case-7fcab950e70af7f2b078",
+  "synthetic": true
+}

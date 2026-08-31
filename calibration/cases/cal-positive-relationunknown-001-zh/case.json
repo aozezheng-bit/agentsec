@@ -1,0 +1,72 @@
+{
+  "case_id": "cal-positive-relationunknown-001-zh",
+  "case_kind": "positive",
+  "fixture": {
+    "formats": [
+      "json"
+    ],
+    "kind": "fact_bundle",
+    "path": "fixtures/cal-positive-relationunknown-001-zh/facts.json"
+  },
+  "format": "agentsec-capability-calibration-case",
+  "framework_id": "codex",
+  "ground_truth": {
+    "coverage": "complete",
+    "facts": [
+      {
+        "dimension": "relationship",
+        "evidence": [
+          {
+            "asset_path": "facts.json",
+            "field_path": "facts.0"
+          }
+        ],
+        "fact_id": "fact-01",
+        "key": "high-impact",
+        "state": "unknown",
+        "target_id": "target:primary"
+      }
+    ],
+    "rule_expectations": [
+      {
+        "confidences": [
+          "C"
+        ],
+        "correlations": [
+          "explicit_relation"
+        ],
+        "fact_ids": [
+          "fact-01"
+        ],
+        "max_findings": 4,
+        "min_findings": 1,
+        "outcome": "match",
+        "rationale_code": "unknown_high_impact_relationship",
+        "rule_id": "CAP-RELATIONUNKNOWN-001"
+      }
+    ],
+    "runtime_verified": false,
+    "unknown_dimensions": []
+  },
+  "language": "zh",
+  "purpose": "Reproduce CAP-RELATIONUNKNOWN-001 with explicit normalized facts.",
+  "review": {
+    "disposition": "actionable",
+    "rationale_code": "seed_positive",
+    "reviewer_refs": [
+      "seed-labeler-1",
+      "seed-labeler-2"
+    ],
+    "status": "seeded"
+  },
+  "schema_version": "0.1.0",
+  "source_formats": [
+    "manifest",
+    "markdown"
+  ],
+  "tags": [
+    "p2-cal-01",
+    "rule-family",
+    "zh"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "format": "agentsec-capability-ci-policy",
+  "schema_version": "0.2.0",
+  "policy_id": "org-capchain-enforce",
+  "policy_version": "0.2.0",
+  "enabled": true,
+  "enforcement_mode": "enforce",
+  "fail_on": {"qualified_gates": ["HG-CAPCHAIN-001"]},
+  "qualification": {
+    "registry_path": "../calibration/p2-15a-capchain-40/human-evidence/qualified-gate-registry.yaml",
+    "registry_sha256": "19cc7f19b63b01b4479ecdd92da53c6bc5d3dae2a0985b5903bd77f4e4bfabfd"
+  },
+  "coverage": {"require_complete": true, "require_unknown_free": true},
+  "safety": {"allow_llm_authority": false, "allow_runtime_unverified_authority": false}
+}

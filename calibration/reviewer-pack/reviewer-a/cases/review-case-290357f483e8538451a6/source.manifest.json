@@ -1,0 +1,19 @@
+{
+  "facts": [
+    {
+      "dimension": "relationship",
+      "key": "memory",
+      "state": "absent",
+      "target_id": null
+    },
+    {
+      "dimension": "permission",
+      "key": "network",
+      "state": "absent",
+      "target_id": null
+    }
+  ],
+  "format": "synthetic-agent-manifest-review-view",
+  "review_case_id": "review-case-290357f483e8538451a6",
+  "synthetic": true
+}

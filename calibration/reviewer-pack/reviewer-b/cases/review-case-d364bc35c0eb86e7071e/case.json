@@ -1,0 +1,46 @@
+{
+  "corpus_binding_hash": "sha256:59e034541e3c1096f311404358031a5dc81fc880123351363713d66c2544ad79",
+  "format": "agentsec-independent-review-case",
+  "input_format": "markdown",
+  "language": "en",
+  "pack_id": "reviewer-pack-sha256:58295690c13861a763ed9c202d39fe37642ac0f8d9d2d6e416886184a4a86d90",
+  "question_set_sha256": "sha256:7243c64b8c4eec0092b9aa8f84d80b13b1a71766c3c1643f3063715e1c7143d8",
+  "review_case_fingerprint": "sha256:229e68cc49b49f8e315492e68e46dc8839488330ae5a6dc5338def788f4c99b0",
+  "review_case_id": "review-case-d364bc35c0eb86e7071e",
+  "review_questions": [
+    {
+      "condition": {
+        "en": "A write, execute, deploy, publish, or admin capability is enabled or not explicitly disabled while the correlated target has no prompt or deny approval control."
+      },
+      "prompt": {
+        "en": "Independently label the human Rule condition as match, no_match, or uncertain; record your direct finding observation, policy/scope category, evidence location, Confidence, Correlation, disposition, rationale code, and notes. Do not calculate TP/FP/FN/TN."
+      },
+      "question_id": "question:review-case-d364bc35c0eb86e7071e:CAP-APPROVAL-001",
+      "rule_id": "CAP-APPROVAL-001",
+      "title": {
+        "en": "State-changing capability lacks an effective human approval control"
+      }
+    },
+    {
+      "condition": {
+        "en": "A production write, execute, deploy, publish, or admin permission has an effective allow approval state."
+      },
+      "prompt": {
+        "en": "Independently label the human Rule condition as match, no_match, or uncertain; record your direct finding observation, policy/scope category, evidence location, Confidence, Correlation, disposition, rationale code, and notes. Do not calculate TP/FP/FN/TN."
+      },
+      "question_id": "question:review-case-d364bc35c0eb86e7071e:CAP-AUTOPROD-001",
+      "rule_id": "CAP-AUTOPROD-001",
+      "title": {
+        "en": "Production state-changing capability is allowed automatically"
+      }
+    }
+  ],
+  "schema_version": "0.3.0",
+  "source_location": {
+    "end_line": 17,
+    "path": "source.md",
+    "start_line": 1
+  },
+  "source_sha256": "sha256:af24358f3b45b99312fd276fd60a4d6e57c290f49e4189490d977f7eab7f259b",
+  "synthetic_fixture": true
+}

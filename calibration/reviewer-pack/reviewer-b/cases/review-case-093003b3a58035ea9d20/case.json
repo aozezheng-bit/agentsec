@@ -1,0 +1,33 @@
+{
+  "corpus_binding_hash": "sha256:59e034541e3c1096f311404358031a5dc81fc880123351363713d66c2544ad79",
+  "format": "agentsec-independent-review-case",
+  "input_format": "manifest",
+  "language": "zh",
+  "pack_id": "reviewer-pack-sha256:58295690c13861a763ed9c202d39fe37642ac0f8d9d2d6e416886184a4a86d90",
+  "question_set_sha256": "sha256:35de95e1c6e2766a990b20cad190ccba0cfb21c0f63e25119af51ef516227116",
+  "review_case_fingerprint": "sha256:158e56ba2ecd0cf94276c88af0f3846a96b9edb9d031da4f40f8fc69152374c6",
+  "review_case_id": "review-case-093003b3a58035ea9d20",
+  "review_questions": [
+    {
+      "condition": {
+        "zh": "已启用且必选的外部 MCP Server 自身或关联子工具没有 tool_filter 控制。"
+      },
+      "prompt": {
+        "zh": "请独立将人工规则条件标记为 match、no_match 或 uncertain，并填写直接观察、策略或范围类别、证据位置、置信度、关联方式、处置意见、理由代码和备注。不要自行计算 TP/FP/FN/TN。"
+      },
+      "question_id": "question:review-case-093003b3a58035ea9d20:CAP-REQUIREDNOFILTER-001",
+      "rule_id": "CAP-REQUIREDNOFILTER-001",
+      "title": {
+        "zh": "必选外部 MCP 缺少工具过滤"
+      }
+    }
+  ],
+  "schema_version": "0.3.0",
+  "source_location": {
+    "end_line": 19,
+    "path": "source.manifest.json",
+    "start_line": 1
+  },
+  "source_sha256": "sha256:9f0b2d2f3d80762f5398fae46bff8bab94fc4d184b3cfaba0bd5731004479ac7",
+  "synthetic_fixture": true
+}

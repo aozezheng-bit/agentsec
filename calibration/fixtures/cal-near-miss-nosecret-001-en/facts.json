@@ -1,0 +1,32 @@
+{
+  "case_id": "cal-near-miss-nosecret-001-en",
+  "facts": [
+    {
+      "dimension": "permission",
+      "evidence": [
+        {
+          "asset_path": "facts.json",
+          "field_path": "facts.0"
+        }
+      ],
+      "fact_id": "fact-01",
+      "key": "secret-access",
+      "state": "absent",
+      "target_id": null
+    },
+    {
+      "dimension": "control",
+      "evidence": [
+        {
+          "asset_path": "facts.json",
+          "field_path": "facts.1"
+        }
+      ],
+      "fact_id": "fact-02",
+      "key": "secret-handling",
+      "state": "present",
+      "target_id": "target:primary"
+    }
+  ],
+  "fixture_version": "0.1.0"
+}

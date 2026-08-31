@@ -1,0 +1,33 @@
+{
+  "corpus_binding_hash": "sha256:59e034541e3c1096f311404358031a5dc81fc880123351363713d66c2544ad79",
+  "format": "agentsec-independent-review-case",
+  "input_format": "manifest",
+  "language": "en",
+  "pack_id": "reviewer-pack-sha256:58295690c13861a763ed9c202d39fe37642ac0f8d9d2d6e416886184a4a86d90",
+  "question_set_sha256": "sha256:fec47794479acfd2dc8048d80237992665bcfb5e5633bfb05d1524de7a82bda8",
+  "review_case_fingerprint": "sha256:11c33122002e91e130f60c7f042552cfeefdc6b032ddd0da37cf4061e5b3a36e",
+  "review_case_id": "review-case-a3ddb115a0e5bc45032c",
+  "review_questions": [
+    {
+      "condition": {
+        "en": "A non-denied execute permission targets the production scope or production resource."
+      },
+      "prompt": {
+        "en": "Independently label the human Rule condition as match, no_match, or uncertain; record your direct finding observation, policy/scope category, evidence location, Confidence, Correlation, disposition, rationale code, and notes. Do not calculate TP/FP/FN/TN."
+      },
+      "question_id": "question:review-case-a3ddb115a0e5bc45032c:CAP-PRODEXEC-001",
+      "rule_id": "CAP-PRODEXEC-001",
+      "title": {
+        "en": "Production execution capability is declared"
+      }
+    }
+  ],
+  "schema_version": "0.3.0",
+  "source_location": {
+    "end_line": 13,
+    "path": "source.manifest.json",
+    "start_line": 1
+  },
+  "source_sha256": "sha256:524989d44f55ec6bae0e9338bf1429a21d6a1518eb3f54577087971112afff3d",
+  "synthetic_fixture": true
+}

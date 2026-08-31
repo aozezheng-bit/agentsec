@@ -1,0 +1,33 @@
+{
+  "corpus_binding_hash": "sha256:59e034541e3c1096f311404358031a5dc81fc880123351363713d66c2544ad79",
+  "format": "agentsec-independent-review-case",
+  "input_format": "manifest",
+  "language": "en",
+  "pack_id": "reviewer-pack-sha256:58295690c13861a763ed9c202d39fe37642ac0f8d9d2d6e416886184a4a86d90",
+  "question_set_sha256": "sha256:893f8830c7be8d40cd502c5c835aad2a4fb6abbebca22054fa2bd5bec59edcb5",
+  "review_case_fingerprint": "sha256:03460922abdfad95249507c7aabd684b8da38fa5c1ead0768587541676db0321",
+  "review_case_id": "review-case-05bbb4915302e34485a2",
+  "review_questions": [
+    {
+      "condition": {
+        "en": "A delegation or memory relationship is present with an Unknown relationship state."
+      },
+      "prompt": {
+        "en": "Independently label the human Rule condition as match, no_match, or uncertain; record your direct finding observation, policy/scope category, evidence location, Confidence, Correlation, disposition, rationale code, and notes. Do not calculate TP/FP/FN/TN."
+      },
+      "question_id": "question:review-case-05bbb4915302e34485a2:CAP-RELATIONUNKNOWN-001",
+      "rule_id": "CAP-RELATIONUNKNOWN-001",
+      "title": {
+        "en": "High-impact relationship is unresolved"
+      }
+    }
+  ],
+  "schema_version": "0.3.0",
+  "source_location": {
+    "end_line": 13,
+    "path": "source.manifest.json",
+    "start_line": 1
+  },
+  "source_sha256": "sha256:a204753e506739f7f7ceaec5514b3d17067d3ccec852257ddb9c1eab3f288f0d",
+  "synthetic_fixture": true
+}

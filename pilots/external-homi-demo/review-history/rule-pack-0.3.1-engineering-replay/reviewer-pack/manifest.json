@@ -1,0 +1,137 @@
+{
+  "blinding": {
+    "engineering_expectations_included": false,
+    "implementation_report_included": false,
+    "scanner_observations_included": false,
+    "tp_fp_fn_included": false
+  },
+  "cases": [
+    {
+      "case_id": "baseline-01",
+      "snapshot_path": "snapshots/baseline-01.zip",
+      "snapshot_sha256": "f1600d5aafe9d79fe0412d13bad88dfb9550fadb5feee85600d98323ba544ff2",
+      "title": "External Homi State 01"
+    },
+    {
+      "case_id": "baseline-02",
+      "snapshot_path": "snapshots/baseline-02.zip",
+      "snapshot_sha256": "bf2c8f1f85dbc23f8e393ad885113b4c8dcebbf6b725e93a2800908425d47451",
+      "title": "External Homi State 02"
+    },
+    {
+      "case_id": "baseline-03",
+      "snapshot_path": "snapshots/baseline-03.zip",
+      "snapshot_sha256": "d849dee4b2d1423ad1a06a33b62a9734579ba5f681749c0b53df14cdb5ae4b80",
+      "title": "External Homi State 03"
+    },
+    {
+      "case_id": "baseline-04",
+      "snapshot_path": "snapshots/baseline-04.zip",
+      "snapshot_sha256": "70f5beac21ed8d57305ea5618f656cff9466be88d6371763d266ff7e272b316d",
+      "title": "External Homi State 04"
+    },
+    {
+      "case_id": "baseline-05",
+      "snapshot_path": "snapshots/baseline-05.zip",
+      "snapshot_sha256": "fb327e6be2094c8cfb29c74149714436aa49ba583179a329e916ec568726649d",
+      "title": "External Homi State 05"
+    },
+    {
+      "case_id": "baseline-06",
+      "snapshot_path": "snapshots/baseline-06.zip",
+      "snapshot_sha256": "b21d9b28044ad3c8b2adadd97ebecc6052d5f04950e6714e1b23749b60c83680",
+      "title": "External Homi State 06"
+    },
+    {
+      "case_id": "baseline-07",
+      "snapshot_path": "snapshots/baseline-07.zip",
+      "snapshot_sha256": "0008fe36ee144149de8575127bbc94753f8611228e8a44201578033b79435670",
+      "title": "External Homi State 07"
+    },
+    {
+      "case_id": "baseline-08",
+      "snapshot_path": "snapshots/baseline-08.zip",
+      "snapshot_sha256": "6785d3a85f3bd64f6c5a6e59279f46864d55f5cefc564bf844b98c99a8037be6",
+      "title": "External Homi State 08"
+    },
+    {
+      "case_id": "baseline-09",
+      "snapshot_path": "snapshots/baseline-09.zip",
+      "snapshot_sha256": "e6d64da2a062d9ae9b5c28b106d35b3b0aa0d86d3bc927d70e6b0753c1778e5f",
+      "title": "External Homi State 09"
+    },
+    {
+      "case_id": "baseline-10",
+      "snapshot_path": "snapshots/baseline-10.zip",
+      "snapshot_sha256": "bed946af4299b6443bb6bcb7ddfb7cb54748355aa2b2c00b8c7fdd1129d72be8",
+      "title": "External Homi State 10"
+    },
+    {
+      "case_id": "pr-01",
+      "snapshot_path": "snapshots/pr-01.zip",
+      "snapshot_sha256": "8e8c8f0558c406e880fb05965c413a3880a450fb76e46520288e7df23e88bafd",
+      "title": "External Homi State 11"
+    },
+    {
+      "case_id": "pr-02",
+      "snapshot_path": "snapshots/pr-02.zip",
+      "snapshot_sha256": "5fd8b46217927839a71da2dec7d47839983b0c3d61bb216fbfd891a0511a7371",
+      "title": "External Homi State 12"
+    },
+    {
+      "case_id": "pr-03",
+      "snapshot_path": "snapshots/pr-03.zip",
+      "snapshot_sha256": "ac69536d5a8853f07c6649ae38f316326706709dc69e7c5baf2f1ed4d573e52d",
+      "title": "External Homi State 13"
+    },
+    {
+      "case_id": "pr-04",
+      "snapshot_path": "snapshots/pr-04.zip",
+      "snapshot_sha256": "ac3defe8104dc29d3dbec42dc40596fda7637437bb6824f0d87ca761bd4e9fe8",
+      "title": "External Homi State 14"
+    },
+    {
+      "case_id": "pr-05",
+      "snapshot_path": "snapshots/pr-05.zip",
+      "snapshot_sha256": "036abe90da30f096a125b9079f6e470cb37204342665598b7a764840135b7f7f",
+      "title": "External Homi State 15"
+    },
+    {
+      "case_id": "pr-06",
+      "snapshot_path": "snapshots/pr-06.zip",
+      "snapshot_sha256": "fa4131fe9679fde220373ad75a150498dd00add5f97e534a0c7c61ed0633dfe0",
+      "title": "External Homi State 16"
+    },
+    {
+      "case_id": "pr-07",
+      "snapshot_path": "snapshots/pr-07.zip",
+      "snapshot_sha256": "741ebf35b85bf9a001c5b4159060c590f9d480fa69c40706c05ccadc8b7b74ca",
+      "title": "External Homi State 17"
+    },
+    {
+      "case_id": "pr-08",
+      "snapshot_path": "snapshots/pr-08.zip",
+      "snapshot_sha256": "7b89258493063c9679442e8b0976d2248155e206620f5a7786494e108afd3afc",
+      "title": "External Homi State 18"
+    },
+    {
+      "case_id": "pr-09",
+      "snapshot_path": "snapshots/pr-09.zip",
+      "snapshot_sha256": "e609387fcf7e56d403ac5e2225c953cc28910de824ce323715319463add05e6e",
+      "title": "External Homi State 19"
+    },
+    {
+      "case_id": "pr-10",
+      "snapshot_path": "snapshots/pr-10.zip",
+      "snapshot_sha256": "bed946af4299b6443bb6bcb7ddfb7cb54748355aa2b2c00b8c7fdd1129d72be8",
+      "title": "External Homi State 20"
+    }
+  ],
+  "format": "agentsec-external-pilot-review-pack",
+  "format_version": "0.1.0",
+  "pilot_id": "external-homi-final-pilot",
+  "policy": {
+    "path": "policy/organization-policy.yaml",
+    "sha256": "134a0722cc725cadd3f59008e0ef87ada628df2d8ec0830f3cda03275789a67a"
+  }
+}

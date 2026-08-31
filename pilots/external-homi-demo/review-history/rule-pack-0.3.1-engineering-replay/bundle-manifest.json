@@ -1,0 +1,144 @@
+{
+  "collection_date": "2026-08-26",
+  "format": "agentsec-external-homi-final-pilot-bundle",
+  "format_version": "0.1.0",
+  "pilot_id": "external-homi-final-pilot",
+  "policy": {
+    "path": "protected-policy/organization-policy.yaml",
+    "sha256": "134a0722cc725cadd3f59008e0ef87ada628df2d8ec0830f3cda03275789a67a",
+    "shared_by_all_states": true,
+    "target_controlled": false
+  },
+  "review": {
+    "acceptance_ready": false,
+    "engineering_expectations_in_plan": true,
+    "independent_human_labels_complete": false
+  },
+  "safety": {
+    "hooks_invoked": false,
+    "mcp_servers_connected": false,
+    "network_accessed": false,
+    "scanned_content_executed": false,
+    "skills_invoked": false,
+    "target_code_executed": false
+  },
+  "scope": {
+    "baseline_states": 10,
+    "drills": [
+      "incomplete_coverage",
+      "risky_change",
+      "waiver_lifecycle"
+    ],
+    "pull_request_states": 10,
+    "states": 20
+  },
+  "snapshots": [
+    {
+      "case_id": "baseline-01",
+      "path": "snapshots/baseline-01.zip",
+      "sha256": "f1600d5aafe9d79fe0412d13bad88dfb9550fadb5feee85600d98323ba544ff2"
+    },
+    {
+      "case_id": "baseline-02",
+      "path": "snapshots/baseline-02.zip",
+      "sha256": "bf2c8f1f85dbc23f8e393ad885113b4c8dcebbf6b725e93a2800908425d47451"
+    },
+    {
+      "case_id": "baseline-03",
+      "path": "snapshots/baseline-03.zip",
+      "sha256": "d849dee4b2d1423ad1a06a33b62a9734579ba5f681749c0b53df14cdb5ae4b80"
+    },
+    {
+      "case_id": "baseline-04",
+      "path": "snapshots/baseline-04.zip",
+      "sha256": "70f5beac21ed8d57305ea5618f656cff9466be88d6371763d266ff7e272b316d"
+    },
+    {
+      "case_id": "baseline-05",
+      "path": "snapshots/baseline-05.zip",
+      "sha256": "fb327e6be2094c8cfb29c74149714436aa49ba583179a329e916ec568726649d"
+    },
+    {
+      "case_id": "baseline-06",
+      "path": "snapshots/baseline-06.zip",
+      "sha256": "b21d9b28044ad3c8b2adadd97ebecc6052d5f04950e6714e1b23749b60c83680"
+    },
+    {
+      "case_id": "baseline-07",
+      "path": "snapshots/baseline-07.zip",
+      "sha256": "0008fe36ee144149de8575127bbc94753f8611228e8a44201578033b79435670"
+    },
+    {
+      "case_id": "baseline-08",
+      "path": "snapshots/baseline-08.zip",
+      "sha256": "6785d3a85f3bd64f6c5a6e59279f46864d55f5cefc564bf844b98c99a8037be6"
+    },
+    {
+      "case_id": "baseline-09",
+      "path": "snapshots/baseline-09.zip",
+      "sha256": "e6d64da2a062d9ae9b5c28b106d35b3b0aa0d86d3bc927d70e6b0753c1778e5f"
+    },
+    {
+      "case_id": "baseline-10",
+      "path": "snapshots/baseline-10.zip",
+      "sha256": "bed946af4299b6443bb6bcb7ddfb7cb54748355aa2b2c00b8c7fdd1129d72be8"
+    },
+    {
+      "case_id": "pr-01",
+      "path": "snapshots/pr-01.zip",
+      "sha256": "8e8c8f0558c406e880fb05965c413a3880a450fb76e46520288e7df23e88bafd"
+    },
+    {
+      "case_id": "pr-02",
+      "path": "snapshots/pr-02.zip",
+      "sha256": "5fd8b46217927839a71da2dec7d47839983b0c3d61bb216fbfd891a0511a7371"
+    },
+    {
+      "case_id": "pr-03",
+      "path": "snapshots/pr-03.zip",
+      "sha256": "ac69536d5a8853f07c6649ae38f316326706709dc69e7c5baf2f1ed4d573e52d"
+    },
+    {
+      "case_id": "pr-04",
+      "path": "snapshots/pr-04.zip",
+      "sha256": "ac3defe8104dc29d3dbec42dc40596fda7637437bb6824f0d87ca761bd4e9fe8"
+    },
+    {
+      "case_id": "pr-05",
+      "path": "snapshots/pr-05.zip",
+      "sha256": "036abe90da30f096a125b9079f6e470cb37204342665598b7a764840135b7f7f"
+    },
+    {
+      "case_id": "pr-06",
+      "path": "snapshots/pr-06.zip",
+      "sha256": "fa4131fe9679fde220373ad75a150498dd00add5f97e534a0c7c61ed0633dfe0"
+    },
+    {
+      "case_id": "pr-07",
+      "path": "snapshots/pr-07.zip",
+      "sha256": "741ebf35b85bf9a001c5b4159060c590f9d480fa69c40706c05ccadc8b7b74ca"
+    },
+    {
+      "case_id": "pr-08",
+      "path": "snapshots/pr-08.zip",
+      "sha256": "7b89258493063c9679442e8b0976d2248155e206620f5a7786494e108afd3afc"
+    },
+    {
+      "case_id": "pr-09",
+      "path": "snapshots/pr-09.zip",
+      "sha256": "e609387fcf7e56d403ac5e2225c953cc28910de824ce323715319463add05e6e"
+    },
+    {
+      "case_id": "pr-10",
+      "path": "snapshots/pr-10.zip",
+      "sha256": "bed946af4299b6443bb6bcb7ddfb7cb54748355aa2b2c00b8c7fdd1129d72be8"
+    }
+  ],
+  "source": {
+    "archive_name": "workspace-files-20260826.zip",
+    "archive_sha256": "46461ac4c891e03094aa5e5487a72ab5c09fb6f10495fe7ed3cf11bbef345824",
+    "instruction_authority": false,
+    "untrusted_input": true
+  },
+  "task_id": "P2-EXIT-06-04"
+}

@@ -1,0 +1,33 @@
+{
+  "corpus_binding_hash": "sha256:59e034541e3c1096f311404358031a5dc81fc880123351363713d66c2544ad79",
+  "format": "agentsec-independent-review-case",
+  "input_format": "manifest",
+  "language": "en",
+  "pack_id": "reviewer-pack-sha256:58295690c13861a763ed9c202d39fe37642ac0f8d9d2d6e416886184a4a86d90",
+  "question_set_sha256": "sha256:32b6ee4c8fd371074bf6ad016f1fc8b0be7c245763ca9cc7325113f50c8e7d73",
+  "review_case_fingerprint": "sha256:e988dbecfe74c8f5e22c1cf31218a61044a91a66a9abc1fd8b074cc7e17d38be",
+  "review_case_id": "review-case-6d4940a8a033936537d1",
+  "review_questions": [
+    {
+      "condition": {
+        "en": "An enabled required external MCP server has no configured timeout control."
+      },
+      "prompt": {
+        "en": "Independently label the human Rule condition as match, no_match, or uncertain; record your direct finding observation, policy/scope category, evidence location, Confidence, Correlation, disposition, rationale code, and notes. Do not calculate TP/FP/FN/TN."
+      },
+      "question_id": "question:review-case-6d4940a8a033936537d1:CAP-REQUIREDNOTIMEOUT-001",
+      "rule_id": "CAP-REQUIREDNOTIMEOUT-001",
+      "title": {
+        "en": "Required external MCP has no timeout control"
+      }
+    }
+  ],
+  "schema_version": "0.3.0",
+  "source_location": {
+    "end_line": 19,
+    "path": "source.manifest.json",
+    "start_line": 1
+  },
+  "source_sha256": "sha256:292a74b8b59e5254f8397cad33fbd1fba3341dbd948eac5aedf4f484ba04361d",
+  "synthetic_fixture": true
+}

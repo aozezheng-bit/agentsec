@@ -1,0 +1,394 @@
+{
+  "format": "agentsec-external-homi-pr-change-plan",
+  "format_version": "0.1.0",
+  "task_id": "P2-EXIT-06-03",
+  "baseline_id": "baseline-01",
+  "review_mode": "deterministic_scenario_contract",
+  "independent_human_review": false,
+  "scenarios": [
+    {
+      "scenario_id": "pr-01-heartbeat-template-disabled",
+      "title": "将文档型 Heartbeat 明确改为禁用状态",
+      "risk_direction": "hardening",
+      "review_outcome": "contract_pass",
+      "drill": null,
+      "expected": {
+        "status": "partial",
+        "resolution_status": "conflict",
+        "file_changes": {
+          "HEARTBEAT.md": "modified"
+        },
+        "capability_changes": {
+          "heartbeat_schedule": [
+            "example_only",
+            "absent"
+          ]
+        },
+        "persona_changes": {},
+        "added_observations": [],
+        "removed_observations": [],
+        "added_findings": [],
+        "removed_findings": [],
+        "changed_findings": [],
+        "simulation_changes": {
+          "HOMI-SIM-001": [
+            "blocked_example_only",
+            "blocked_static_boundary"
+          ]
+        }
+      }
+    },
+    {
+      "scenario_id": "pr-02-startup-policy-alignment",
+      "title": "统一 AGENTS 与 SOUL 的启动上下文加载策略",
+      "risk_direction": "governance_hardening",
+      "review_outcome": "contract_pass",
+      "drill": null,
+      "expected": {
+        "status": "complete",
+        "resolution_status": "resolved",
+        "file_changes": {
+          "SOUL.md": "modified"
+        },
+        "capability_changes": {},
+        "persona_changes": {},
+        "added_observations": [],
+        "removed_observations": [
+          "startup_read_policy_conflict"
+        ],
+        "added_findings": [],
+        "removed_findings": [],
+        "changed_findings": [],
+        "simulation_changes": {}
+      }
+    },
+    {
+      "scenario_id": "pr-03-real-heartbeat-activation",
+      "title": "配置真实邮箱、日历和天气 Heartbeat 任务",
+      "risk_direction": "risk_increase",
+      "review_outcome": "contract_pass",
+      "drill": "risky_change",
+      "expected": {
+        "status": "partial",
+        "resolution_status": "conflict",
+        "file_changes": {
+          "HEARTBEAT.md": "modified"
+        },
+        "capability_changes": {
+          "heartbeat_schedule": [
+            "example_only",
+            "present"
+          ]
+        },
+        "persona_changes": {},
+        "added_observations": [],
+        "removed_observations": [
+          "heartbeat_activation_path"
+        ],
+        "added_findings": [
+          "HOMI-COMB-002"
+        ],
+        "removed_findings": [],
+        "changed_findings": [],
+        "simulation_changes": {
+          "HOMI-SIM-001": [
+            "blocked_example_only",
+            "declared_path"
+          ]
+        }
+      }
+    },
+    {
+      "scenario_id": "pr-04-remove-external-actions",
+      "title": "移除 Web、日历、天气和外部消息声明",
+      "risk_direction": "hardening",
+      "review_outcome": "contract_pass",
+      "drill": null,
+      "expected": {
+        "status": "partial",
+        "resolution_status": "conflict",
+        "file_changes": {
+          "AGENTS.md": "modified"
+        },
+        "capability_changes": {
+          "external_message_send": [
+            "conditional",
+            "unknown"
+          ],
+          "external_network_read": [
+            "present",
+            "unknown"
+          ]
+        },
+        "persona_changes": {},
+        "added_observations": [],
+        "removed_observations": [],
+        "added_findings": [],
+        "removed_findings": [
+          "HOMI-COMB-001"
+        ],
+        "changed_findings": [],
+        "simulation_changes": {
+          "HOMI-SIM-002": [
+            "declared_path",
+            "blocked_example_only"
+          ]
+        }
+      }
+    },
+    {
+      "scenario_id": "pr-05-remove-external-approval-boundary",
+      "title": "移除 SOUL 中的外部行为审批边界",
+      "risk_direction": "governance_risk",
+      "review_outcome": "contract_pass",
+      "drill": null,
+      "expected": {
+        "status": "partial",
+        "resolution_status": "conflict",
+        "file_changes": {
+          "SOUL.md": "modified"
+        },
+        "capability_changes": {},
+        "persona_changes": {
+          "external_approval": [
+            "present",
+            "unknown"
+          ]
+        },
+        "added_observations": [],
+        "removed_observations": [],
+        "added_findings": [],
+        "removed_findings": [],
+        "changed_findings": [],
+        "simulation_changes": {}
+      }
+    },
+    {
+      "scenario_id": "pr-06-activate-ssh-binding",
+      "title": "将 TOOLS 示例替换为实际 SSH 与 TTS 绑定声明",
+      "risk_direction": "risk_increase",
+      "review_outcome": "contract_pass",
+      "drill": null,
+      "expected": {
+        "status": "partial",
+        "resolution_status": "conflict",
+        "file_changes": {
+          "TOOLS.md": "modified"
+        },
+        "capability_changes": {
+          "camera_access": [
+            "example_only",
+            "unknown"
+          ],
+          "ssh_access": [
+            "example_only",
+            "conditional"
+          ],
+          "tts_output": [
+            "example_only",
+            "conditional"
+          ]
+        },
+        "persona_changes": {},
+        "added_observations": [],
+        "removed_observations": [],
+        "added_findings": [
+          "HOMI-COMB-005"
+        ],
+        "removed_findings": [],
+        "changed_findings": [
+          "HOMI-COMB-001"
+        ],
+        "simulation_changes": {
+          "HOMI-SIM-005": [
+            "blocked_example_only",
+            "declared_path"
+          ]
+        }
+      }
+    },
+    {
+      "scenario_id": "pr-07-activate-mcp-oauth-secret",
+      "title": "增加 MCP、OAuth 和 Secret 引用绑定",
+      "risk_direction": "risk_increase",
+      "review_outcome": "contract_pass",
+      "drill": "risky_change",
+      "expected": {
+        "status": "partial",
+        "resolution_status": "conflict",
+        "file_changes": {
+          "TOOLS.md": "modified"
+        },
+        "capability_changes": {
+          "camera_access": [
+            "example_only",
+            "unknown"
+          ],
+          "mcp_access": [
+            "unknown",
+            "conditional"
+          ],
+          "oauth_access": [
+            "unknown",
+            "conditional"
+          ],
+          "secret_access": [
+            "unknown",
+            "conditional"
+          ],
+          "ssh_access": [
+            "example_only",
+            "unknown"
+          ],
+          "tts_output": [
+            "example_only",
+            "unknown"
+          ]
+        },
+        "persona_changes": {},
+        "added_observations": [],
+        "removed_observations": [],
+        "added_findings": [
+          "HOMI-COMB-005"
+        ],
+        "removed_findings": [],
+        "changed_findings": [
+          "HOMI-COMB-001"
+        ],
+        "simulation_changes": {
+          "HOMI-SIM-005": [
+            "blocked_example_only",
+            "declared_path"
+          ]
+        }
+      }
+    },
+    {
+      "scenario_id": "pr-08-disable-persistent-memory",
+      "title": "关闭用户画像和跨会话长期记忆",
+      "risk_direction": "hardening",
+      "review_outcome": "contract_pass",
+      "drill": null,
+      "expected": {
+        "status": "partial",
+        "resolution_status": "conflict",
+        "file_changes": {
+          "AGENTS.md": "modified",
+          "USER.md": "modified"
+        },
+        "capability_changes": {
+          "persistent_memory": [
+            "present",
+            "unknown"
+          ],
+          "user_profile_persistence": [
+            "present",
+            "unknown"
+          ]
+        },
+        "persona_changes": {},
+        "added_observations": [],
+        "removed_observations": [],
+        "added_findings": [],
+        "removed_findings": [
+          "HOMI-COMB-003"
+        ],
+        "changed_findings": [],
+        "simulation_changes": {
+          "HOMI-SIM-003": [
+            "declared_path",
+            "unknown_coverage"
+          ]
+        }
+      }
+    },
+    {
+      "scenario_id": "pr-09-disable-self-modification",
+      "title": "固定人格和身份，移除自我演化声明",
+      "risk_direction": "hardening",
+      "review_outcome": "contract_pass",
+      "drill": null,
+      "expected": {
+        "status": "partial",
+        "resolution_status": "conflict",
+        "file_changes": {
+          "IDENTITY.md": "modified",
+          "SOUL.md": "modified"
+        },
+        "capability_changes": {
+          "identity_self_modification": [
+            "present",
+            "unknown"
+          ],
+          "persona_self_modification": [
+            "present",
+            "unknown"
+          ]
+        },
+        "persona_changes": {
+          "self_evolution": [
+            "present",
+            "unknown"
+          ]
+        },
+        "added_observations": [],
+        "removed_observations": [],
+        "added_findings": [],
+        "removed_findings": [
+          "HOMI-COMB-004"
+        ],
+        "changed_findings": [],
+        "simulation_changes": {
+          "HOMI-SIM-004": [
+            "declared_path",
+            "unknown_coverage"
+          ]
+        }
+      }
+    },
+    {
+      "scenario_id": "pr-10-tools-coverage-missing",
+      "title": "删除 TOOLS.md 并验证 Coverage Unknown",
+      "risk_direction": "coverage_degradation",
+      "review_outcome": "contract_pass",
+      "drill": "incomplete_coverage",
+      "expected": {
+        "status": "partial",
+        "resolution_status": "partial",
+        "file_changes": {
+          "SOUL.md": "modified",
+          "TOOLS.md": "removed"
+        },
+        "capability_changes": {
+          "camera_access": [
+            "example_only",
+            "unknown"
+          ],
+          "ssh_access": [
+            "example_only",
+            "unknown"
+          ],
+          "tts_output": [
+            "example_only",
+            "unknown"
+          ]
+        },
+        "persona_changes": {},
+        "added_observations": [],
+        "removed_observations": [
+          "startup_read_policy_conflict",
+          "tools_not_authority"
+        ],
+        "added_findings": [],
+        "removed_findings": [],
+        "changed_findings": [],
+        "simulation_changes": {
+          "HOMI-SIM-005": [
+            "blocked_example_only",
+            "unknown_coverage"
+          ]
+        }
+      }
+    }
+  ]
+}

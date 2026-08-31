@@ -1,0 +1,69 @@
+{
+  "actual": {
+    "added_findings": [],
+    "added_observations": [],
+    "capability_changes": {},
+    "changed_findings": [],
+    "file_changes": {
+      "HEARTBEAT.md": "modified"
+    },
+    "persona_changes": {},
+    "removed_findings": [],
+    "removed_observations": [],
+    "resolution_status": "conflict",
+    "simulation_changes": {},
+    "status": "partial"
+  },
+  "after": {
+    "ci_blocked": false,
+    "report_only": true,
+    "resolution_status": "conflict",
+    "runtime_verified": false,
+    "status": "partial"
+  },
+  "before": {
+    "ci_blocked": false,
+    "report_only": true,
+    "resolution_status": "conflict",
+    "runtime_verified": false,
+    "status": "partial"
+  },
+  "drill": "risky_change",
+  "expected": {
+    "added_findings": [],
+    "added_observations": [],
+    "capability_changes": {},
+    "changed_findings": [],
+    "file_changes": {
+      "HEARTBEAT.md": "modified"
+    },
+    "persona_changes": {},
+    "removed_findings": [],
+    "removed_observations": [],
+    "resolution_status": "conflict",
+    "simulation_changes": {},
+    "status": "partial"
+  },
+  "format": "agentsec-homi-capability-drift-evidence",
+  "format_version": "0.1.0",
+  "limitations": [
+    "Static Homi drift does not prove runtime reachability or execution.",
+    "Scenario-contract review is engineering evidence, not independent human TP/FP/FN adjudication.",
+    "No drift result authorizes CI blocking, release, Tool access, or a waiver."
+  ],
+  "provenance": {
+    "baseline_report_sha256": "78b4a257236b6a91b274b286b65298edc0bb26f8c40699ed94d78f4e959b4508",
+    "snapshot_archive_sha256": "5a2cbd8d9b7fdf6a0cc3dd125ab8104911e5d43f544a974f9a8ca59337df9406",
+    "snapshot_report_sha256": "e4b73d9220575e6a6a2bdf3d2d065074fe90ab17ab0217637052a5a24b79d15f"
+  },
+  "review": {
+    "contract_pass": true,
+    "independent_human_review": false,
+    "mode": "deterministic_scenario_contract",
+    "outcome": "calibration_required"
+  },
+  "risk_direction": "risk_increase",
+  "scenario_id": "pr-03-real-heartbeat-activation",
+  "task_id": "P2-EXIT-06-03",
+  "title": "配置真实邮箱、日历和天气 Heartbeat 任务"
+}

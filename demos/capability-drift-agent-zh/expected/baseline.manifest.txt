@@ -1,0 +1,73 @@
+AgentSec Agent 清单
+状态：完整
+Agent：release-agent
+框架：Codex
+策略：静态声明分析；仅报告；未验证运行时能力
+摘要：来源=2 工具=1 权限=0 控制=0 身份=0 关系=1 Unknown=5
+
+版本向量
+  package：0.2.0
+  agent_manifest_schema：0.3.0
+  adapter：0.1.0
+  capability_rule_pack：0.2.0
+  capability_risk_model：0.1.0
+
+Coverage
+  发现=2 已检查=2 跳过=0 问题=0
+
+阶段轨迹
+  adapter_inspection：completed 输入=0 输出=2
+  manifest_build：completed 输入=2 输出=2
+  instruction_resolution：completed 输入=1 输出=1
+  configuration_resolution：completed 输入=0 输出=0
+  association_extraction：completed 输入=2 输出=2
+  capability_extraction：completed 输入=1 输出=0
+  relationship_extraction：completed 输入=2 输出=1
+  unknown_extraction：completed 输入=5 输出=5
+  final_validation：completed 输入=1 输出=1
+
+Profile Resolution
+  identity：partial
+  instructions：resolved
+  configuration：unknown
+  tools：resolved
+  permissions：unknown
+  controls：unknown
+  runtime_identities：unknown
+  relationships：resolved
+
+来源
+  project:project:.agents/skills/review/SKILL.md format=markdown sha256=07fc7f833690e74af870b5901959a9f29f50e4c78d43ed1003ecf7f9f4f29d0f
+  project:project:AGENTS.md format=markdown sha256=540eaa7783f4747a7fdd748d3c31ac14fb28827fcd2842e0068357e51fa35663
+
+有效指令
+  project:project:AGENTS.md:-
+
+配置顺序
+  -
+
+工具
+  skill:review kind=skill availability=declared parent=- source=project:project:.agents/skills/review/SKILL.md:-
+
+权限
+  -
+
+控制
+  -
+
+运行时身份
+  -
+
+关系
+  relation:uses-skill:skill:review kind=uses_skill target=skill:review state=declared source=project:project:.agents/skills/review/SKILL.md:-
+
+显式 Unknown
+  unknown:controls:21a0b7e5d41746fa dimension=controls reason=missing_source field=controls.resolution
+  unknown:identity:77d20c81b0e7afa5 dimension=identity reason=unsupported_field field=identity.resolution
+  unknown:permissions:2be0c85c08af985b dimension=permissions reason=missing_source field=permissions.resolution
+  unknown:runtime_identities:9af495e3982f8b99 dimension=runtime_identities reason=missing_source field=runtime_identities.resolution
+  unknown:tools:dd8f12f4d887ff96 dimension=tools reason=unsupported_field field=tools.skill:review.side_effects
+
+边界说明
+  本报告不代表该 Agent 已被证明为全局安全。
+  声明的能力不代表运行时一定可用或已经获得授权。

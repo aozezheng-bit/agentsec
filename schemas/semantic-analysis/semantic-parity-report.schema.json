@@ -1,0 +1,207 @@
+{
+  "$defs": {
+    "SemanticParityCaseResult": {
+      "additionalProperties": false,
+      "description": "Value-free comparison of Offline and Live predictions for one case.",
+      "properties": {
+        "case_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Case Id",
+          "type": "string"
+        },
+        "evidence_equal": {
+          "title": "Evidence Equal",
+          "type": "boolean"
+        },
+        "live_error_code": {
+          "anyOf": [
+            {
+              "maxLength": 64,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Live Error Code"
+        },
+        "live_status": {
+          "enum": [
+            "complete",
+            "failed"
+          ],
+          "title": "Live Status",
+          "type": "string"
+        },
+        "offline_error_code": {
+          "anyOf": [
+            {
+              "maxLength": 64,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Offline Error Code"
+        },
+        "offline_status": {
+          "enum": [
+            "complete",
+            "failed"
+          ],
+          "title": "Offline Status",
+          "type": "string"
+        },
+        "prediction_equal": {
+          "title": "Prediction Equal",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "case_id",
+        "offline_status",
+        "live_status",
+        "prediction_equal",
+        "evidence_equal"
+      ],
+      "title": "SemanticParityCaseResult",
+      "type": "object"
+    },
+    "SemanticParityMetrics": {
+      "additionalProperties": false,
+      "description": "Deterministic Offline/Live parity counters.",
+      "properties": {
+        "case_count": {
+          "minimum": 0,
+          "title": "Case Count",
+          "type": "integer"
+        },
+        "comparable_case_count": {
+          "minimum": 0,
+          "title": "Comparable Case Count",
+          "type": "integer"
+        },
+        "evidence_equal_cases": {
+          "minimum": 0,
+          "title": "Evidence Equal Cases",
+          "type": "integer"
+        },
+        "evidence_parity_rate": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Evidence Parity Rate",
+          "type": "number"
+        },
+        "prediction_equal_cases": {
+          "minimum": 0,
+          "title": "Prediction Equal Cases",
+          "type": "integer"
+        },
+        "prediction_parity_rate": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Prediction Parity Rate",
+          "type": "number"
+        }
+      },
+      "required": [
+        "case_count",
+        "comparable_case_count",
+        "prediction_equal_cases",
+        "evidence_equal_cases",
+        "prediction_parity_rate",
+        "evidence_parity_rate"
+      ],
+      "title": "SemanticParityMetrics",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Report-only parity evidence; it cannot promote a Provider.",
+  "properties": {
+    "cases": {
+      "items": {
+        "$ref": "#/$defs/SemanticParityCaseResult"
+      },
+      "title": "Cases",
+      "type": "array"
+    },
+    "format": {
+      "const": "agentsec-semantic-parity-report",
+      "default": "agentsec-semantic-parity-report",
+      "title": "Format",
+      "type": "string"
+    },
+    "live_model_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "title": "Live Model Id",
+      "type": "string"
+    },
+    "live_provider_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "title": "Live Provider Id",
+      "type": "string"
+    },
+    "metrics": {
+      "$ref": "#/$defs/SemanticParityMetrics"
+    },
+    "offline_model_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "title": "Offline Model Id",
+      "type": "string"
+    },
+    "offline_provider_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "title": "Offline Provider Id",
+      "type": "string"
+    },
+    "policy_authority": {
+      "const": false,
+      "default": false,
+      "title": "Policy Authority",
+      "type": "boolean"
+    },
+    "provider_promotion_authority": {
+      "const": false,
+      "default": false,
+      "title": "Provider Promotion Authority",
+      "type": "boolean"
+    },
+    "release_authority": {
+      "const": false,
+      "default": false,
+      "title": "Release Authority",
+      "type": "boolean"
+    },
+    "report_only": {
+      "const": true,
+      "default": true,
+      "title": "Report Only",
+      "type": "boolean"
+    },
+    "schema_version": {
+      "const": "0.1.0",
+      "default": "0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "offline_provider_id",
+    "live_provider_id",
+    "offline_model_id",
+    "live_model_id",
+    "cases",
+    "metrics"
+  ],
+  "title": "SemanticParityReport",
+  "type": "object"
+}

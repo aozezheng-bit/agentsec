@@ -1,0 +1,33 @@
+{
+  "corpus_binding_hash": "sha256:59e034541e3c1096f311404358031a5dc81fc880123351363713d66c2544ad79",
+  "format": "agentsec-independent-review-case",
+  "input_format": "manifest",
+  "language": "en",
+  "pack_id": "reviewer-pack-sha256:58295690c13861a763ed9c202d39fe37642ac0f8d9d2d6e416886184a4a86d90",
+  "question_set_sha256": "sha256:376cd4062b6e7fb14dd1f5029f9410d35ff771633d90dbb11d00b979c2085a26",
+  "review_case_fingerprint": "sha256:f27be12cba30a092ac5fb226bacfb4819c51775341d2ce6b37b1d68fabe1c047",
+  "review_case_id": "review-case-417d0d8e987bba7a6eaa",
+  "review_questions": [
+    {
+      "condition": {
+        "en": "A production state-changing permission is associated with an external environment, OAuth, ChatGPT, or environment-backed identity."
+      },
+      "prompt": {
+        "en": "Independently label the human Rule condition as match, no_match, or uncertain; record your direct finding observation, policy/scope category, evidence location, Confidence, Correlation, disposition, rationale code, and notes. Do not calculate TP/FP/FN/TN."
+      },
+      "question_id": "question:review-case-417d0d8e987bba7a6eaa:CAP-PRODIDENTITY-001",
+      "rule_id": "CAP-PRODIDENTITY-001",
+      "title": {
+        "en": "Production capability uses an external or session identity"
+      }
+    }
+  ],
+  "schema_version": "0.3.0",
+  "source_location": {
+    "end_line": 19,
+    "path": "source.manifest.json",
+    "start_line": 1
+  },
+  "source_sha256": "sha256:ee6bc2973c02f1ce9be7cb61e3b65b43866627cc7ad1e7f1bd4ee7595230662d",
+  "synthetic_fixture": true
+}

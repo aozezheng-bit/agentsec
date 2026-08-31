@@ -1,0 +1,15 @@
+{
+  "case_id": "malformed-unclosed-frontmatter",
+  "category": "malformed",
+  "purpose": "Exercise parser handling for frontmatter without a closing delimiter.",
+  "assets": [
+    "AGENTS.md"
+  ],
+  "expected": {
+    "coverage": "complete",
+    "signals": [
+      "malformed_content"
+    ],
+    "rule_ids": []
+  }
+}

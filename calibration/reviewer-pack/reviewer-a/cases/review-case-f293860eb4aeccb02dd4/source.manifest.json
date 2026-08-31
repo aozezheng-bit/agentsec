@@ -1,0 +1,19 @@
+{
+  "facts": [
+    {
+      "dimension": "permission",
+      "key": "state-changing",
+      "state": "present",
+      "target_id": "target:primary"
+    },
+    {
+      "dimension": "control",
+      "key": "human-approval",
+      "state": "absent",
+      "target_id": null
+    }
+  ],
+  "format": "synthetic-agent-manifest-review-view",
+  "review_case_id": "review-case-f293860eb4aeccb02dd4",
+  "synthetic": true
+}

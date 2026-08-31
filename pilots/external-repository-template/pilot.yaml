@@ -1,0 +1,201 @@
+# Copy this file into an AgentSec-controlled pilot directory and replace the
+# placeholder state paths with reviewed snapshots from one external Agent repo.
+# The target repo and the protected Policy root are supplied to run-pilot.py,
+# not discovered from this file or from scanned content.
+format: agentsec-pilot-plan
+schema_version: "0.1.0"
+pilot_id: external-agent-project-pilot
+project_name: External Agent Project Report-only Pilot
+owner: replace-with-project-owner
+evidence_mode: external_repository
+security_reviewer: replace-with-independent-security-reviewer
+minimum_scans: 20
+minimum_pr_scans: 10
+required_drills:
+  - incomplete_coverage
+  - risky_change
+  - waiver_lifecycle
+cases:
+  - case_id: baseline-01
+    title: Reviewed external repository baseline 01
+    project_root: states/baseline-01
+    policy_path: organization-policy.yaml
+    expected_exit: 0
+    expected_coverage: complete
+    expected_rule_ids: []
+    scan_kind: baseline
+    max_duration_ms: 10000
+  - case_id: baseline-02
+    title: Reviewed external repository baseline 02
+    project_root: states/baseline-02
+    policy_path: organization-policy.yaml
+    expected_exit: 0
+    expected_coverage: complete
+    expected_rule_ids: []
+    scan_kind: baseline
+    max_duration_ms: 10000
+  - case_id: baseline-03
+    title: Reviewed external repository baseline 03
+    project_root: states/baseline-03
+    policy_path: organization-policy.yaml
+    expected_exit: 0
+    expected_coverage: complete
+    expected_rule_ids: []
+    scan_kind: baseline
+    max_duration_ms: 10000
+  - case_id: baseline-04
+    title: Reviewed external repository baseline 04
+    project_root: states/baseline-04
+    policy_path: organization-policy.yaml
+    expected_exit: 0
+    expected_coverage: complete
+    expected_rule_ids: []
+    scan_kind: baseline
+    max_duration_ms: 10000
+  - case_id: baseline-05
+    title: Reviewed external repository baseline 05
+    project_root: states/baseline-05
+    policy_path: organization-policy.yaml
+    expected_exit: 0
+    expected_coverage: complete
+    expected_rule_ids: []
+    scan_kind: baseline
+    max_duration_ms: 10000
+  - case_id: baseline-06
+    title: Reviewed external repository baseline 06
+    project_root: states/baseline-06
+    policy_path: organization-policy.yaml
+    expected_exit: 0
+    expected_coverage: complete
+    expected_rule_ids: []
+    scan_kind: baseline
+    max_duration_ms: 10000
+  - case_id: baseline-07
+    title: Reviewed external repository baseline 07
+    project_root: states/baseline-07
+    policy_path: organization-policy.yaml
+    expected_exit: 0
+    expected_coverage: complete
+    expected_rule_ids: []
+    scan_kind: baseline
+    max_duration_ms: 10000
+  - case_id: baseline-08
+    title: Reviewed external repository baseline 08
+    project_root: states/baseline-08
+    policy_path: organization-policy.yaml
+    expected_exit: 0
+    expected_coverage: complete
+    expected_rule_ids: []
+    scan_kind: baseline
+    max_duration_ms: 10000
+  - case_id: baseline-09
+    title: Reviewed external repository baseline 09
+    project_root: states/baseline-09
+    policy_path: organization-policy.yaml
+    expected_exit: 0
+    expected_coverage: complete
+    expected_rule_ids: []
+    scan_kind: baseline
+    max_duration_ms: 10000
+  - case_id: baseline-10
+    title: Reviewed external repository baseline 10
+    project_root: states/baseline-10
+    policy_path: organization-policy.yaml
+    expected_exit: 0
+    expected_coverage: complete
+    expected_rule_ids: []
+    scan_kind: baseline
+    max_duration_ms: 10000
+  - case_id: pr-01
+    title: Reviewed external pull request 01
+    project_root: states/pr-01
+    policy_path: organization-policy.yaml
+    expected_exit: 0
+    expected_coverage: complete
+    expected_rule_ids: []
+    scan_kind: pull_request
+    max_duration_ms: 10000
+  - case_id: pr-02
+    title: Reviewed external pull request 02
+    project_root: states/pr-02
+    policy_path: organization-policy.yaml
+    expected_exit: 0
+    expected_coverage: complete
+    expected_rule_ids: []
+    scan_kind: pull_request
+    max_duration_ms: 10000
+  - case_id: pr-03
+    title: Risky capability change exercise
+    project_root: states/pr-03-risky-change
+    policy_path: organization-policy.yaml
+    expected_exit: 1
+    expected_coverage: complete
+    expected_rule_ids: []
+    scan_kind: pull_request
+    drill: risky_change
+    max_duration_ms: 10000
+  - case_id: pr-04
+    title: Incomplete Coverage fail-closed exercise
+    project_root: states/pr-04-incomplete-coverage
+    policy_path: organization-policy.yaml
+    expected_exit: 2
+    expected_coverage: incomplete
+    expected_rule_ids: []
+    scan_kind: pull_request
+    drill: incomplete_coverage
+    max_duration_ms: 10000
+  - case_id: pr-05
+    title: Reviewed Waiver lifecycle exercise
+    project_root: states/pr-05-waiver-lifecycle
+    policy_path: organization-policy.yaml
+    expected_exit: 0
+    expected_coverage: complete
+    expected_rule_ids: []
+    scan_kind: pull_request
+    drill: waiver_lifecycle
+    max_duration_ms: 10000
+  - case_id: pr-06
+    title: Reviewed external pull request 06
+    project_root: states/pr-06
+    policy_path: organization-policy.yaml
+    expected_exit: 0
+    expected_coverage: complete
+    expected_rule_ids: []
+    scan_kind: pull_request
+    max_duration_ms: 10000
+  - case_id: pr-07
+    title: Reviewed external pull request 07
+    project_root: states/pr-07
+    policy_path: organization-policy.yaml
+    expected_exit: 0
+    expected_coverage: complete
+    expected_rule_ids: []
+    scan_kind: pull_request
+    max_duration_ms: 10000
+  - case_id: pr-08
+    title: Reviewed external pull request 08
+    project_root: states/pr-08
+    policy_path: organization-policy.yaml
+    expected_exit: 0
+    expected_coverage: complete
+    expected_rule_ids: []
+    scan_kind: pull_request
+    max_duration_ms: 10000
+  - case_id: pr-09
+    title: Reviewed external pull request 09
+    project_root: states/pr-09
+    policy_path: organization-policy.yaml
+    expected_exit: 0
+    expected_coverage: complete
+    expected_rule_ids: []
+    scan_kind: pull_request
+    max_duration_ms: 10000
+  - case_id: pr-10
+    title: Reviewed external pull request 10
+    project_root: states/pr-10
+    policy_path: organization-policy.yaml
+    expected_exit: 0
+    expected_coverage: complete
+    expected_rule_ids: []
+    scan_kind: pull_request
+    max_duration_ms: 10000

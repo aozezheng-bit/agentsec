@@ -1,0 +1,13 @@
+{
+  "case_id": "safe-read-only-control-assets",
+  "category": "safe",
+  "purpose": "Confirm read-only Agent control policy does not trigger self-modification.",
+  "assets": [
+    "AGENTS.md"
+  ],
+  "expected": {
+    "coverage": "complete",
+    "signals": [],
+    "rule_ids": []
+  }
+}

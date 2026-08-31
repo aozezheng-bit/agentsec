@@ -1,0 +1,2362 @@
+{
+  "$defs": {
+    "AgentAnalysisErrorCode": {
+      "description": "Safe public failure codes that never contain dependency diagnostics.",
+      "enum": [
+        "adapter_failure",
+        "required_stage_failure",
+        "final_validation_failure"
+      ],
+      "title": "AgentAnalysisErrorCode",
+      "type": "string"
+    },
+    "AgentAnalysisStage": {
+      "description": "Stable ordered stages in the Phase 2 Manifest analysis pipeline.",
+      "enum": [
+        "adapter_inspection",
+        "manifest_build",
+        "instruction_resolution",
+        "configuration_resolution",
+        "association_extraction",
+        "capability_extraction",
+        "relationship_extraction",
+        "unknown_extraction",
+        "final_validation"
+      ],
+      "title": "AgentAnalysisStage",
+      "type": "string"
+    },
+    "AgentManifest": {
+      "additionalProperties": false,
+      "description": "Versioned deterministic declaration inventory for one Agent subject.",
+      "properties": {
+        "configuration": {
+          "$ref": "#/$defs/ManifestConfigurationProfile"
+        },
+        "controls": {
+          "$ref": "#/$defs/ManifestControlProfile"
+        },
+        "coverage": {
+          "$ref": "#/$defs/ManifestCoverage"
+        },
+        "identity": {
+          "$ref": "#/$defs/ManifestIdentity"
+        },
+        "instructions": {
+          "$ref": "#/$defs/ManifestInstructionProfile"
+        },
+        "metadata": {
+          "$ref": "#/$defs/ManifestMetadata"
+        },
+        "permissions": {
+          "$ref": "#/$defs/ManifestPermissionProfile"
+        },
+        "relationships": {
+          "$ref": "#/$defs/ManifestRelationshipProfile"
+        },
+        "runtime_identities": {
+          "$ref": "#/$defs/ManifestRuntimeIdentityProfile"
+        },
+        "schema_version": {
+          "minLength": 1,
+          "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "sources": {
+          "items": {
+            "$ref": "#/$defs/ManifestSource"
+          },
+          "title": "Sources",
+          "type": "array"
+        },
+        "tools": {
+          "$ref": "#/$defs/ManifestToolProfile"
+        },
+        "unknowns": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ManifestUnknown"
+          },
+          "title": "Unknowns",
+          "type": "array"
+        }
+      },
+      "required": [
+        "schema_version",
+        "metadata",
+        "identity",
+        "sources",
+        "instructions",
+        "configuration",
+        "tools",
+        "permissions",
+        "controls",
+        "runtime_identities",
+        "relationships",
+        "coverage"
+      ],
+      "title": "AgentManifest",
+      "type": "object"
+    },
+    "AnalysisStageStatus": {
+      "description": "Safe operational status for one deterministic analysis stage.",
+      "enum": [
+        "completed",
+        "partial",
+        "skipped",
+        "failed"
+      ],
+      "title": "AnalysisStageStatus",
+      "type": "string"
+    },
+    "CapabilityAssessmentEvidence": {
+      "additionalProperties": false,
+      "properties": {
+        "content_sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Content Sha256",
+          "type": "string"
+        },
+        "end_line": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "End Line"
+        },
+        "field_path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Field Path"
+        },
+        "path": {
+          "title": "Path",
+          "type": "string"
+        },
+        "root_id": {
+          "title": "Root Id",
+          "type": "string"
+        },
+        "scope": {
+          "title": "Scope",
+          "type": "string"
+        },
+        "start_line": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Start Line"
+        }
+      },
+      "required": [
+        "scope",
+        "root_id",
+        "path",
+        "field_path",
+        "start_line",
+        "end_line",
+        "content_sha256"
+      ],
+      "title": "CapabilityAssessmentEvidence",
+      "type": "object"
+    },
+    "CapabilityAssessmentFinding": {
+      "additionalProperties": false,
+      "properties": {
+        "capability_risk_model_version": {
+          "title": "Capability Risk Model Version",
+          "type": "string"
+        },
+        "capability_rule_pack_version": {
+          "title": "Capability Rule Pack Version",
+          "type": "string"
+        },
+        "capability_shadow_gate": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CapabilityAssessmentShadowGate"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "category": {
+          "$ref": "#/$defs/FindingCategory"
+        },
+        "confidence": {
+          "$ref": "#/$defs/EvidenceConfidence"
+        },
+        "correlation": {
+          "$ref": "#/$defs/CapabilityCorrelation"
+        },
+        "evidence": {
+          "items": {
+            "$ref": "#/$defs/CapabilityAssessmentEvidence"
+          },
+          "title": "Evidence",
+          "type": "array"
+        },
+        "finding_id": {
+          "title": "Finding Id",
+          "type": "string"
+        },
+        "hard_gate": {
+          "const": false,
+          "title": "Hard Gate",
+          "type": "boolean"
+        },
+        "impact": {
+          "$ref": "#/$defs/ImpactLevel"
+        },
+        "impact_ratings": {
+          "items": {
+            "$ref": "#/$defs/CapabilityAssessmentImpactRating"
+          },
+          "title": "Impact Ratings",
+          "type": "array"
+        },
+        "likelihood": {
+          "$ref": "#/$defs/LikelihoodLevel"
+        },
+        "likelihood_basis": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Likelihood Basis",
+          "type": "array"
+        },
+        "limitations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Limitations",
+          "type": "array"
+        },
+        "mapping_basis": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Mapping Basis",
+          "type": "array"
+        },
+        "nist_semi_quantitative_value": {
+          "title": "Nist Semi Quantitative Value",
+          "type": "integer"
+        },
+        "related_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Related Ids",
+          "type": "array"
+        },
+        "risk_level": {
+          "$ref": "#/$defs/NistRiskLevel"
+        },
+        "rule_id": {
+          "title": "Rule Id",
+          "type": "string"
+        },
+        "score": {
+          "maximum": 10,
+          "minimum": 0,
+          "title": "Score",
+          "type": "number"
+        },
+        "severity": {
+          "$ref": "#/$defs/Severity"
+        },
+        "texts": {
+          "items": {
+            "$ref": "#/$defs/CapabilityAssessmentLocalizedText"
+          },
+          "title": "Texts",
+          "type": "array"
+        }
+      },
+      "required": [
+        "finding_id",
+        "rule_id",
+        "category",
+        "texts",
+        "correlation",
+        "likelihood",
+        "impact",
+        "risk_level",
+        "nist_semi_quantitative_value",
+        "score",
+        "severity",
+        "confidence",
+        "hard_gate",
+        "capability_shadow_gate",
+        "related_ids",
+        "evidence",
+        "likelihood_basis",
+        "impact_ratings",
+        "limitations",
+        "mapping_basis",
+        "capability_rule_pack_version",
+        "capability_risk_model_version"
+      ],
+      "title": "CapabilityAssessmentFinding",
+      "type": "object"
+    },
+    "CapabilityAssessmentImpactRating": {
+      "additionalProperties": false,
+      "properties": {
+        "dimension": {
+          "$ref": "#/$defs/ImpactDimension"
+        },
+        "level": {
+          "$ref": "#/$defs/ImpactLevel"
+        },
+        "rationale": {
+          "title": "Rationale",
+          "type": "string"
+        }
+      },
+      "required": [
+        "dimension",
+        "level",
+        "rationale"
+      ],
+      "title": "CapabilityAssessmentImpactRating",
+      "type": "object"
+    },
+    "CapabilityAssessmentLocalizedText": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "language": {
+          "$ref": "#/$defs/CapabilityRuleLanguage"
+        },
+        "recommendations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Recommendations",
+          "type": "array"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "language",
+        "title",
+        "description",
+        "recommendations"
+      ],
+      "title": "CapabilityAssessmentLocalizedText",
+      "type": "object"
+    },
+    "CapabilityAssessmentPolicy": {
+      "additionalProperties": false,
+      "description": "Explicit non-enforcement and static-analysis semantics.",
+      "properties": {
+        "ci_blocking_enabled": {
+          "const": false,
+          "title": "Ci Blocking Enabled",
+          "type": "boolean"
+        },
+        "enforcement_mode": {
+          "const": "report_only",
+          "title": "Enforcement Mode",
+          "type": "string"
+        },
+        "global_safety_claimed": {
+          "const": false,
+          "title": "Global Safety Claimed",
+          "type": "boolean"
+        },
+        "runtime_capability_verified": {
+          "const": false,
+          "title": "Runtime Capability Verified",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "enforcement_mode",
+        "ci_blocking_enabled",
+        "global_safety_claimed",
+        "runtime_capability_verified"
+      ],
+      "title": "CapabilityAssessmentPolicy",
+      "type": "object"
+    },
+    "CapabilityAssessmentRuleFailure": {
+      "additionalProperties": false,
+      "properties": {
+        "rule_id": {
+          "title": "Rule Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "rule_id"
+      ],
+      "title": "CapabilityAssessmentRuleFailure",
+      "type": "object"
+    },
+    "CapabilityAssessmentShadowGate": {
+      "additionalProperties": false,
+      "description": "Serialized shadow-mode, pilot-only Gate evaluation for one Finding.",
+      "properties": {
+        "blocks": {
+          "const": false,
+          "title": "Blocks",
+          "type": "boolean"
+        },
+        "coverage_complete": {
+          "title": "Coverage Complete",
+          "type": "boolean"
+        },
+        "finding_id": {
+          "title": "Finding Id",
+          "type": "string"
+        },
+        "gate_id": {
+          "pattern": "^HG-[A-Z][A-Z0-9]*-[0-9]{3}$",
+          "title": "Gate Id",
+          "type": "string"
+        },
+        "gate_version": {
+          "const": "0.1.0",
+          "title": "Gate Version",
+          "type": "string"
+        },
+        "match": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CapabilityAssessmentShadowGateMatch"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "matched": {
+          "title": "Matched",
+          "type": "boolean"
+        },
+        "mode": {
+          "const": "shadow",
+          "title": "Mode",
+          "type": "string"
+        },
+        "qualification": {
+          "const": "pilot_only",
+          "title": "Qualification",
+          "type": "string"
+        },
+        "relevant_unknowns": {
+          "minimum": 0,
+          "title": "Relevant Unknowns",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "gate_version",
+        "gate_id",
+        "finding_id",
+        "mode",
+        "qualification",
+        "matched",
+        "blocks",
+        "coverage_complete",
+        "relevant_unknowns",
+        "match"
+      ],
+      "title": "CapabilityAssessmentShadowGate",
+      "type": "object"
+    },
+    "CapabilityAssessmentShadowGateMatch": {
+      "additionalProperties": false,
+      "description": "Serialized shadow-mode Gate match (never enforcement).",
+      "properties": {
+        "correlation": {
+          "$ref": "#/$defs/CapabilityCorrelation"
+        },
+        "floor": {
+          "enum": [
+            "high",
+            "critical"
+          ],
+          "title": "Floor",
+          "type": "string"
+        },
+        "gate_id": {
+          "pattern": "^HG-[A-Z][A-Z0-9]*-[0-9]{3}$",
+          "title": "Gate Id",
+          "type": "string"
+        },
+        "rationale": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Rationale",
+          "type": "array"
+        },
+        "related_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Related Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "gate_id",
+        "floor",
+        "correlation",
+        "related_ids",
+        "rationale"
+      ],
+      "title": "CapabilityAssessmentShadowGateMatch",
+      "type": "object"
+    },
+    "CapabilityAssessmentStage": {
+      "additionalProperties": false,
+      "properties": {
+        "error_code": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/AgentAnalysisErrorCode"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "input_items": {
+          "minimum": 0,
+          "title": "Input Items",
+          "type": "integer"
+        },
+        "output_items": {
+          "minimum": 0,
+          "title": "Output Items",
+          "type": "integer"
+        },
+        "stage": {
+          "$ref": "#/$defs/AgentAnalysisStage"
+        },
+        "status": {
+          "$ref": "#/$defs/AnalysisStageStatus"
+        }
+      },
+      "required": [
+        "stage",
+        "status",
+        "input_items",
+        "output_items"
+      ],
+      "title": "CapabilityAssessmentStage",
+      "type": "object"
+    },
+    "CapabilityAssessmentSummary": {
+      "additionalProperties": false,
+      "description": "Management-level summary derived from Manifest and Findings.",
+      "properties": {
+        "confidence_counts": {
+          "$ref": "#/$defs/CapabilityConfidenceCounts"
+        },
+        "controls": {
+          "minimum": 0,
+          "title": "Controls",
+          "type": "integer"
+        },
+        "coverage_issues": {
+          "minimum": 0,
+          "title": "Coverage Issues",
+          "type": "integer"
+        },
+        "findings": {
+          "minimum": 0,
+          "title": "Findings",
+          "type": "integer"
+        },
+        "hard_gate_matches": {
+          "minimum": 0,
+          "title": "Hard Gate Matches",
+          "type": "integer"
+        },
+        "high_impact_permissions": {
+          "minimum": 0,
+          "title": "High Impact Permissions",
+          "type": "integer"
+        },
+        "highest_severity": {
+          "$ref": "#/$defs/Severity"
+        },
+        "manifest_coverage_complete": {
+          "title": "Manifest Coverage Complete",
+          "type": "boolean"
+        },
+        "permissions": {
+          "minimum": 0,
+          "title": "Permissions",
+          "type": "integer"
+        },
+        "relationships": {
+          "minimum": 0,
+          "title": "Relationships",
+          "type": "integer"
+        },
+        "rule_execution_complete": {
+          "title": "Rule Execution Complete",
+          "type": "boolean"
+        },
+        "rule_failures": {
+          "minimum": 0,
+          "title": "Rule Failures",
+          "type": "integer"
+        },
+        "runtime_identities": {
+          "minimum": 0,
+          "title": "Runtime Identities",
+          "type": "integer"
+        },
+        "severity_counts": {
+          "$ref": "#/$defs/CapabilitySeverityCounts"
+        },
+        "shadow_gate_matches": {
+          "minimum": 0,
+          "title": "Shadow Gate Matches",
+          "type": "integer"
+        },
+        "sources": {
+          "minimum": 0,
+          "title": "Sources",
+          "type": "integer"
+        },
+        "tools": {
+          "minimum": 0,
+          "title": "Tools",
+          "type": "integer"
+        },
+        "unknowns": {
+          "minimum": 0,
+          "title": "Unknowns",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "sources",
+        "tools",
+        "permissions",
+        "controls",
+        "runtime_identities",
+        "relationships",
+        "unknowns",
+        "high_impact_permissions",
+        "findings",
+        "highest_severity",
+        "severity_counts",
+        "confidence_counts",
+        "hard_gate_matches",
+        "shadow_gate_matches",
+        "manifest_coverage_complete",
+        "coverage_issues",
+        "rule_execution_complete",
+        "rule_failures"
+      ],
+      "title": "CapabilityAssessmentSummary",
+      "type": "object"
+    },
+    "CapabilityAssessmentVersions": {
+      "additionalProperties": false,
+      "description": "Complete version vector retained by the report wrapper.",
+      "properties": {
+        "agent_manifest_schema": {
+          "title": "Agent Manifest Schema",
+          "type": "string"
+        },
+        "assessment_output": {
+          "title": "Assessment Output",
+          "type": "string"
+        },
+        "baseline_schema": {
+          "title": "Baseline Schema",
+          "type": "string"
+        },
+        "capability_assessment_output": {
+          "title": "Capability Assessment Output",
+          "type": "string"
+        },
+        "capability_diff_schema": {
+          "title": "Capability Diff Schema",
+          "type": "string"
+        },
+        "capability_risk_model": {
+          "title": "Capability Risk Model",
+          "type": "string"
+        },
+        "capability_rule_pack": {
+          "title": "Capability Rule Pack",
+          "type": "string"
+        },
+        "capability_shadow_gate": {
+          "title": "Capability Shadow Gate",
+          "type": "string"
+        },
+        "config_schema": {
+          "title": "Config Schema",
+          "type": "string"
+        },
+        "diff_output": {
+          "title": "Diff Output",
+          "type": "string"
+        },
+        "domain_schema": {
+          "title": "Domain Schema",
+          "type": "string"
+        },
+        "package": {
+          "title": "Package",
+          "type": "string"
+        },
+        "risk_model": {
+          "title": "Risk Model",
+          "type": "string"
+        },
+        "rule_pack": {
+          "title": "Rule Pack",
+          "type": "string"
+        }
+      },
+      "required": [
+        "package",
+        "config_schema",
+        "domain_schema",
+        "agent_manifest_schema",
+        "capability_diff_schema",
+        "capability_rule_pack",
+        "capability_risk_model",
+        "capability_assessment_output",
+        "capability_shadow_gate",
+        "baseline_schema",
+        "diff_output",
+        "assessment_output",
+        "rule_pack",
+        "risk_model"
+      ],
+      "title": "CapabilityAssessmentVersions",
+      "type": "object"
+    },
+    "CapabilityConfidenceCounts": {
+      "additionalProperties": false,
+      "properties": {
+        "A": {
+          "minimum": 0,
+          "title": "A",
+          "type": "integer"
+        },
+        "B": {
+          "minimum": 0,
+          "title": "B",
+          "type": "integer"
+        },
+        "C": {
+          "minimum": 0,
+          "title": "C",
+          "type": "integer"
+        },
+        "D": {
+          "minimum": 0,
+          "title": "D",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "title": "CapabilityConfidenceCounts",
+      "type": "object"
+    },
+    "CapabilityCorrelation": {
+      "description": "Strength and scope of the deterministic fact correlation.",
+      "enum": [
+        "same_target",
+        "parent_child",
+        "same_source",
+        "explicit_relation",
+        "agent_wide",
+        "incomplete_coverage"
+      ],
+      "title": "CapabilityCorrelation",
+      "type": "string"
+    },
+    "CapabilityRuleLanguage": {
+      "description": "Reviewed languages available for Capability Rule presentation.",
+      "enum": [
+        "en",
+        "zh"
+      ],
+      "title": "CapabilityRuleLanguage",
+      "type": "string"
+    },
+    "CapabilitySeverityCounts": {
+      "additionalProperties": false,
+      "properties": {
+        "critical": {
+          "minimum": 0,
+          "title": "Critical",
+          "type": "integer"
+        },
+        "high": {
+          "minimum": 0,
+          "title": "High",
+          "type": "integer"
+        },
+        "low": {
+          "minimum": 0,
+          "title": "Low",
+          "type": "integer"
+        },
+        "medium": {
+          "minimum": 0,
+          "title": "Medium",
+          "type": "integer"
+        },
+        "none": {
+          "minimum": 0,
+          "title": "None",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "critical",
+        "high",
+        "medium",
+        "low",
+        "none"
+      ],
+      "title": "CapabilitySeverityCounts",
+      "type": "object"
+    },
+    "EvidenceConfidence": {
+      "description": "Confidence in evidence, independent from finding severity.",
+      "enum": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "title": "EvidenceConfidence",
+      "type": "string"
+    },
+    "FindingCategory": {
+      "description": "Initial Phase 1 security finding taxonomy.",
+      "enum": [
+        "instruction_integrity",
+        "human_approval",
+        "code_execution",
+        "network_access",
+        "secret_access",
+        "privileged_access",
+        "destructive_action",
+        "persistent_memory",
+        "self_modification",
+        "obfuscation",
+        "external_tooling",
+        "scan_coverage",
+        "other"
+      ],
+      "title": "FindingCategory",
+      "type": "string"
+    },
+    "ImpactDimension": {
+      "description": "AgentSec impact dimensions evaluated with a high-water-mark policy.",
+      "enum": [
+        "availability",
+        "business_compliance",
+        "confidentiality",
+        "downstream_blast_radius",
+        "integrity",
+        "safety"
+      ],
+      "title": "ImpactDimension",
+      "type": "string"
+    },
+    "ImpactLevel": {
+      "description": "NIST-style qualitative impact levels.",
+      "enum": [
+        "very_low",
+        "low",
+        "moderate",
+        "high",
+        "very_high"
+      ],
+      "title": "ImpactLevel",
+      "type": "string"
+    },
+    "LikelihoodLevel": {
+      "description": "NIST-style qualitative likelihood levels.",
+      "enum": [
+        "very_low",
+        "low",
+        "moderate",
+        "high",
+        "very_high"
+      ],
+      "title": "LikelihoodLevel",
+      "type": "string"
+    },
+    "ManifestAssetFormat": {
+      "description": "Normalized syntax of one Manifest source asset.",
+      "enum": [
+        "markdown",
+        "rules",
+        "json",
+        "yaml",
+        "toml"
+      ],
+      "title": "ManifestAssetFormat",
+      "type": "string"
+    },
+    "ManifestAssetRole": {
+      "description": "Normalized reason one source participates in the Manifest.",
+      "enum": [
+        "agent_instructions",
+        "instruction_override",
+        "skill",
+        "prefix_rules",
+        "framework_config",
+        "mcp_config"
+      ],
+      "title": "ManifestAssetRole",
+      "type": "string"
+    },
+    "ManifestAuthenticationKind": {
+      "description": "Authentication mechanisms without credential values.",
+      "enum": [
+        "none",
+        "api_key",
+        "token",
+        "oauth",
+        "environment",
+        "chatgpt",
+        "unknown"
+      ],
+      "title": "ManifestAuthenticationKind",
+      "type": "string"
+    },
+    "ManifestConfigurationCandidate": {
+      "additionalProperties": false,
+      "description": "One source-level configuration declaration awaiting precedence ordering.",
+      "properties": {
+        "chain_key": {
+          "minLength": 1,
+          "title": "Chain Key",
+          "type": "string"
+        },
+        "kinds": {
+          "items": {
+            "$ref": "#/$defs/ManifestConfigurationKind"
+          },
+          "title": "Kinds",
+          "type": "array"
+        },
+        "precedence_rank": {
+          "minimum": 0,
+          "title": "Precedence Rank",
+          "type": "integer"
+        },
+        "source": {
+          "$ref": "#/$defs/ManifestSourceReference"
+        }
+      },
+      "required": [
+        "source",
+        "kinds",
+        "precedence_rank",
+        "chain_key"
+      ],
+      "title": "ManifestConfigurationCandidate",
+      "type": "object"
+    },
+    "ManifestConfigurationKind": {
+      "description": "Configuration families represented by one static source asset.",
+      "enum": [
+        "framework_config",
+        "prefix_rules",
+        "mcp_config"
+      ],
+      "title": "ManifestConfigurationKind",
+      "type": "string"
+    },
+    "ManifestConfigurationProfile": {
+      "additionalProperties": false,
+      "description": "Source-level configuration precedence before field-level extraction.",
+      "properties": {
+        "candidates": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ManifestConfigurationCandidate"
+          },
+          "title": "Candidates",
+          "type": "array"
+        },
+        "effective_order": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ManifestSourceReference"
+          },
+          "title": "Effective Order",
+          "type": "array"
+        },
+        "effective_sources": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ManifestSourceReference"
+          },
+          "title": "Effective Sources",
+          "type": "array"
+        },
+        "resolution": {
+          "$ref": "#/$defs/ManifestResolutionStatus"
+        },
+        "resolution_trace": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ManifestConfigurationResolutionStep"
+          },
+          "title": "Resolution Trace",
+          "type": "array"
+        }
+      },
+      "required": [
+        "resolution"
+      ],
+      "title": "ManifestConfigurationProfile",
+      "type": "object"
+    },
+    "ManifestConfigurationResolutionAction": {
+      "description": "Decision recorded for one configuration source.",
+      "enum": [
+        "selected",
+        "conflict"
+      ],
+      "title": "ManifestConfigurationResolutionAction",
+      "type": "string"
+    },
+    "ManifestConfigurationResolutionReason": {
+      "description": "Safe explanation for one configuration source ordering decision.",
+      "enum": [
+        "user_scope",
+        "project_root",
+        "nested_project",
+        "same_precedence",
+        "incomplete_coverage"
+      ],
+      "title": "ManifestConfigurationResolutionReason",
+      "type": "string"
+    },
+    "ManifestConfigurationResolutionStep": {
+      "additionalProperties": false,
+      "description": "One deterministic source-level configuration precedence decision.",
+      "properties": {
+        "action": {
+          "$ref": "#/$defs/ManifestConfigurationResolutionAction"
+        },
+        "chain_key": {
+          "minLength": 1,
+          "title": "Chain Key",
+          "type": "string"
+        },
+        "kinds": {
+          "items": {
+            "$ref": "#/$defs/ManifestConfigurationKind"
+          },
+          "title": "Kinds",
+          "type": "array"
+        },
+        "precedence_rank": {
+          "minimum": 0,
+          "title": "Precedence Rank",
+          "type": "integer"
+        },
+        "reason": {
+          "$ref": "#/$defs/ManifestConfigurationResolutionReason"
+        },
+        "source": {
+          "$ref": "#/$defs/ManifestSourceReference"
+        }
+      },
+      "required": [
+        "source",
+        "kinds",
+        "action",
+        "reason",
+        "precedence_rank",
+        "chain_key"
+      ],
+      "title": "ManifestConfigurationResolutionStep",
+      "type": "object"
+    },
+    "ManifestControl": {
+      "additionalProperties": false,
+      "description": "Normalized approval, sandbox, policy, or tool-control fact.",
+      "properties": {
+        "control_id": {
+          "minLength": 1,
+          "title": "Control Id",
+          "type": "string"
+        },
+        "kind": {
+          "$ref": "#/$defs/ManifestControlKind"
+        },
+        "sources": {
+          "items": {
+            "$ref": "#/$defs/ManifestSourceReference"
+          },
+          "title": "Sources",
+          "type": "array"
+        },
+        "state": {
+          "$ref": "#/$defs/ManifestControlState"
+        },
+        "target": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Target"
+        }
+      },
+      "required": [
+        "control_id",
+        "kind",
+        "state",
+        "sources"
+      ],
+      "title": "ManifestControl",
+      "type": "object"
+    },
+    "ManifestControlKind": {
+      "description": "Guardrail and policy controls represented in the Manifest.",
+      "enum": [
+        "human_approval",
+        "sandbox",
+        "prefix_rule",
+        "trust",
+        "tool_filter",
+        "timeout",
+        "network_policy",
+        "secret_handling",
+        "enablement",
+        "required",
+        "other"
+      ],
+      "title": "ManifestControlKind",
+      "type": "string"
+    },
+    "ManifestControlProfile": {
+      "additionalProperties": false,
+      "description": "Control inventory and unresolved policy sources.",
+      "properties": {
+        "controls": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ManifestControl"
+          },
+          "title": "Controls",
+          "type": "array"
+        },
+        "declaration_sources": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ManifestSourceReference"
+          },
+          "title": "Declaration Sources",
+          "type": "array"
+        },
+        "resolution": {
+          "$ref": "#/$defs/ManifestResolutionStatus"
+        }
+      },
+      "required": [
+        "resolution"
+      ],
+      "title": "ManifestControlProfile",
+      "type": "object"
+    },
+    "ManifestControlState": {
+      "description": "Normalized state of one Agent control.",
+      "enum": [
+        "enabled",
+        "disabled",
+        "required",
+        "optional",
+        "allow",
+        "prompt",
+        "deny",
+        "configured",
+        "unknown"
+      ],
+      "title": "ManifestControlState",
+      "type": "string"
+    },
+    "ManifestCoverage": {
+      "additionalProperties": false,
+      "description": "Coverage counts for the source inventory represented by the Manifest.",
+      "properties": {
+        "complete": {
+          "title": "Complete",
+          "type": "boolean"
+        },
+        "discovered_assets": {
+          "minimum": 0,
+          "title": "Discovered Assets",
+          "type": "integer"
+        },
+        "inspected_assets": {
+          "minimum": 0,
+          "title": "Inspected Assets",
+          "type": "integer"
+        },
+        "issues": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ManifestCoverageIssue"
+          },
+          "title": "Issues",
+          "type": "array"
+        },
+        "skipped_assets": {
+          "minimum": 0,
+          "title": "Skipped Assets",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "discovered_assets",
+        "inspected_assets",
+        "skipped_assets",
+        "complete"
+      ],
+      "title": "ManifestCoverage",
+      "type": "object"
+    },
+    "ManifestCoverageIssue": {
+      "additionalProperties": false,
+      "description": "One framework-inspection gap retained without source or exception text.",
+      "properties": {
+        "code": {
+          "$ref": "#/$defs/ManifestCoverageIssueCode"
+        },
+        "path": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Path"
+        },
+        "root_id": {
+          "minLength": 1,
+          "title": "Root Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "root_id"
+      ],
+      "title": "ManifestCoverageIssue",
+      "type": "object"
+    },
+    "ManifestCoverageIssueCode": {
+      "description": "Stable source-coverage failures retained in an Agent Manifest.",
+      "enum": [
+        "unreadable",
+        "unsupported_encoding",
+        "too_large",
+        "depth_exceeded",
+        "asset_limit_exceeded",
+        "external_symlink",
+        "unsupported_format",
+        "parse_error",
+        "unknown"
+      ],
+      "title": "ManifestCoverageIssueCode",
+      "type": "string"
+    },
+    "ManifestEnvironmentKind": {
+      "description": "Operational environment associated with a runtime identity.",
+      "enum": [
+        "local",
+        "development",
+        "test",
+        "staging",
+        "production",
+        "external",
+        "unknown"
+      ],
+      "title": "ManifestEnvironmentKind",
+      "type": "string"
+    },
+    "ManifestIdentity": {
+      "additionalProperties": false,
+      "description": "Stable local identity of the Agent subject represented by this Manifest.",
+      "properties": {
+        "agent_id": {
+          "minLength": 1,
+          "title": "Agent Id",
+          "type": "string"
+        },
+        "declared_name": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Declared Name"
+        },
+        "resolution": {
+          "$ref": "#/$defs/ManifestResolutionStatus"
+        },
+        "sources": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ManifestSourceReference"
+          },
+          "title": "Sources",
+          "type": "array"
+        },
+        "subject_root_id": {
+          "minLength": 1,
+          "title": "Subject Root Id",
+          "type": "string"
+        },
+        "subject_scope": {
+          "$ref": "#/$defs/ManifestSourceScope"
+        }
+      },
+      "required": [
+        "agent_id",
+        "subject_scope",
+        "subject_root_id",
+        "resolution"
+      ],
+      "title": "ManifestIdentity",
+      "type": "object"
+    },
+    "ManifestInstructionCandidate": {
+      "additionalProperties": false,
+      "description": "One base or Override instruction source awaiting effective resolution.",
+      "properties": {
+        "kind": {
+          "$ref": "#/$defs/ManifestInstructionKind"
+        },
+        "precedence_rank": {
+          "minimum": 0,
+          "title": "Precedence Rank",
+          "type": "integer"
+        },
+        "source": {
+          "$ref": "#/$defs/ManifestSourceReference"
+        }
+      },
+      "required": [
+        "kind",
+        "source",
+        "precedence_rank"
+      ],
+      "title": "ManifestInstructionCandidate",
+      "type": "object"
+    },
+    "ManifestInstructionKind": {
+      "description": "Instruction-source roles understood before inheritance resolution.",
+      "enum": [
+        "base",
+        "override"
+      ],
+      "title": "ManifestInstructionKind",
+      "type": "string"
+    },
+    "ManifestInstructionProfile": {
+      "additionalProperties": false,
+      "description": "Instruction candidates and later effective-source selection.",
+      "properties": {
+        "candidates": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ManifestInstructionCandidate"
+          },
+          "title": "Candidates",
+          "type": "array"
+        },
+        "effective_order": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ManifestSourceReference"
+          },
+          "title": "Effective Order",
+          "type": "array"
+        },
+        "effective_sources": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ManifestSourceReference"
+          },
+          "title": "Effective Sources",
+          "type": "array"
+        },
+        "overridden_sources": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ManifestSourceReference"
+          },
+          "title": "Overridden Sources",
+          "type": "array"
+        },
+        "resolution": {
+          "$ref": "#/$defs/ManifestResolutionStatus"
+        },
+        "resolution_trace": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ManifestInstructionResolutionStep"
+          },
+          "title": "Resolution Trace",
+          "type": "array"
+        }
+      },
+      "required": [
+        "resolution"
+      ],
+      "title": "ManifestInstructionProfile",
+      "type": "object"
+    },
+    "ManifestInstructionResolutionAction": {
+      "description": "Decision recorded for one instruction candidate.",
+      "enum": [
+        "selected",
+        "overridden",
+        "conflict"
+      ],
+      "title": "ManifestInstructionResolutionAction",
+      "type": "string"
+    },
+    "ManifestInstructionResolutionReason": {
+      "description": "Safe explanation for one instruction resolution decision.",
+      "enum": [
+        "only_candidate",
+        "inherited",
+        "override_replaces_base",
+        "ambiguous_duplicate"
+      ],
+      "title": "ManifestInstructionResolutionReason",
+      "type": "string"
+    },
+    "ManifestInstructionResolutionStep": {
+      "additionalProperties": false,
+      "description": "One deterministic decision made for one instruction candidate.",
+      "properties": {
+        "action": {
+          "$ref": "#/$defs/ManifestInstructionResolutionAction"
+        },
+        "chain_key": {
+          "minLength": 1,
+          "title": "Chain Key",
+          "type": "string"
+        },
+        "precedence_rank": {
+          "minimum": 0,
+          "title": "Precedence Rank",
+          "type": "integer"
+        },
+        "reason": {
+          "$ref": "#/$defs/ManifestInstructionResolutionReason"
+        },
+        "source": {
+          "$ref": "#/$defs/ManifestSourceReference"
+        }
+      },
+      "required": [
+        "source",
+        "action",
+        "reason",
+        "precedence_rank",
+        "chain_key"
+      ],
+      "title": "ManifestInstructionResolutionStep",
+      "type": "object"
+    },
+    "ManifestMetadata": {
+      "additionalProperties": false,
+      "description": "Version and Adapter provenance for a reproducible Agent Manifest.",
+      "properties": {
+        "adapter_version": {
+          "minLength": 1,
+          "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+          "title": "Adapter Version",
+          "type": "string"
+        },
+        "deterministic": {
+          "default": true,
+          "title": "Deterministic",
+          "type": "boolean"
+        },
+        "framework_display_name": {
+          "minLength": 1,
+          "title": "Framework Display Name",
+          "type": "string"
+        },
+        "framework_id": {
+          "minLength": 1,
+          "title": "Framework Id",
+          "type": "string"
+        },
+        "scanner_version": {
+          "minLength": 1,
+          "title": "Scanner Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "scanner_version",
+        "framework_id",
+        "framework_display_name",
+        "adapter_version"
+      ],
+      "title": "ManifestMetadata",
+      "type": "object"
+    },
+    "ManifestPermission": {
+      "additionalProperties": false,
+      "description": "Normalized permission fact populated by P2-09 and later.",
+      "properties": {
+        "action": {
+          "$ref": "#/$defs/ManifestPermissionAction"
+        },
+        "effect": {
+          "$ref": "#/$defs/ManifestPermissionEffect"
+        },
+        "permission_id": {
+          "minLength": 1,
+          "title": "Permission Id",
+          "type": "string"
+        },
+        "resource": {
+          "$ref": "#/$defs/ManifestResourceKind"
+        },
+        "scope": {
+          "$ref": "#/$defs/ManifestResourceScope"
+        },
+        "sources": {
+          "items": {
+            "$ref": "#/$defs/ManifestSourceReference"
+          },
+          "title": "Sources",
+          "type": "array"
+        },
+        "target": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Target"
+        }
+      },
+      "required": [
+        "permission_id",
+        "action",
+        "effect",
+        "resource",
+        "scope",
+        "sources"
+      ],
+      "title": "ManifestPermission",
+      "type": "object"
+    },
+    "ManifestPermissionAction": {
+      "description": "Normalized permission actions for an Agent capability profile.",
+      "enum": [
+        "read",
+        "write",
+        "execute",
+        "network",
+        "secret_access",
+        "admin",
+        "deploy",
+        "publish",
+        "delegate",
+        "persist",
+        "unknown"
+      ],
+      "title": "ManifestPermissionAction",
+      "type": "string"
+    },
+    "ManifestPermissionEffect": {
+      "description": "Decision applied to a normalized permission declaration.",
+      "enum": [
+        "allow",
+        "prompt",
+        "deny",
+        "unknown"
+      ],
+      "title": "ManifestPermissionEffect",
+      "type": "string"
+    },
+    "ManifestPermissionProfile": {
+      "additionalProperties": false,
+      "description": "Permission inventory and unresolved configuration sources.",
+      "properties": {
+        "declaration_sources": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ManifestSourceReference"
+          },
+          "title": "Declaration Sources",
+          "type": "array"
+        },
+        "permissions": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ManifestPermission"
+          },
+          "title": "Permissions",
+          "type": "array"
+        },
+        "resolution": {
+          "$ref": "#/$defs/ManifestResolutionStatus"
+        }
+      },
+      "required": [
+        "resolution"
+      ],
+      "title": "ManifestPermissionProfile",
+      "type": "object"
+    },
+    "ManifestPrincipalKind": {
+      "description": "Runtime principal families used by an Agent or tool.",
+      "enum": [
+        "user",
+        "service_account",
+        "api_client",
+        "oauth_session",
+        "chatgpt",
+        "plugin",
+        "anonymous",
+        "unknown"
+      ],
+      "title": "ManifestPrincipalKind",
+      "type": "string"
+    },
+    "ManifestRelation": {
+      "additionalProperties": false,
+      "description": "One Agent, Skill, MCP, tool, or memory relationship.",
+      "properties": {
+        "kind": {
+          "$ref": "#/$defs/ManifestRelationKind"
+        },
+        "relation_id": {
+          "minLength": 1,
+          "title": "Relation Id",
+          "type": "string"
+        },
+        "source_agent_id": {
+          "minLength": 1,
+          "title": "Source Agent Id",
+          "type": "string"
+        },
+        "sources": {
+          "items": {
+            "$ref": "#/$defs/ManifestSourceReference"
+          },
+          "title": "Sources",
+          "type": "array"
+        },
+        "state": {
+          "$ref": "#/$defs/ManifestRelationState"
+        },
+        "target_id": {
+          "minLength": 1,
+          "title": "Target Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "relation_id",
+        "source_agent_id",
+        "kind",
+        "target_id",
+        "state",
+        "sources"
+      ],
+      "title": "ManifestRelation",
+      "type": "object"
+    },
+    "ManifestRelationKind": {
+      "description": "Agent, tool, Skill, MCP, and memory relationship families.",
+      "enum": [
+        "delegates_to",
+        "uses_skill",
+        "uses_mcp",
+        "uses_tool",
+        "reads_memory",
+        "writes_memory",
+        "persists_memory",
+        "other"
+      ],
+      "title": "ManifestRelationKind",
+      "type": "string"
+    },
+    "ManifestRelationState": {
+      "description": "Resolution state of one normalized relationship.",
+      "enum": [
+        "declared",
+        "active",
+        "disabled",
+        "unknown"
+      ],
+      "title": "ManifestRelationState",
+      "type": "string"
+    },
+    "ManifestRelationshipProfile": {
+      "additionalProperties": false,
+      "description": "Sub-Agent, Skill, MCP, tool, and memory relationships.",
+      "properties": {
+        "declaration_sources": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ManifestSourceReference"
+          },
+          "title": "Declaration Sources",
+          "type": "array"
+        },
+        "relations": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ManifestRelation"
+          },
+          "title": "Relations",
+          "type": "array"
+        },
+        "resolution": {
+          "$ref": "#/$defs/ManifestResolutionStatus"
+        }
+      },
+      "required": [
+        "resolution"
+      ],
+      "title": "ManifestRelationshipProfile",
+      "type": "object"
+    },
+    "ManifestResolutionStatus": {
+      "description": "How completely one Manifest dimension has been deterministically resolved.",
+      "enum": [
+        "unresolved",
+        "partial",
+        "resolved",
+        "unknown",
+        "not_applicable",
+        "conflict"
+      ],
+      "title": "ManifestResolutionStatus",
+      "type": "string"
+    },
+    "ManifestResourceKind": {
+      "description": "Resource families to which permissions or controls may apply.",
+      "enum": [
+        "filesystem",
+        "repository",
+        "shell",
+        "network",
+        "environment",
+        "secret_store",
+        "identity",
+        "production",
+        "tool",
+        "memory",
+        "other",
+        "unknown"
+      ],
+      "title": "ManifestResourceKind",
+      "type": "string"
+    },
+    "ManifestResourceScope": {
+      "description": "Normalized operational scope for a permission or resource.",
+      "enum": [
+        "project",
+        "user",
+        "system",
+        "external",
+        "development",
+        "test",
+        "staging",
+        "production",
+        "unknown"
+      ],
+      "title": "ManifestResourceScope",
+      "type": "string"
+    },
+    "ManifestRuntimeIdentity": {
+      "additionalProperties": false,
+      "description": "Credential-free runtime principal declaration populated by P2-09.",
+      "properties": {
+        "authentication": {
+          "$ref": "#/$defs/ManifestAuthenticationKind"
+        },
+        "environment": {
+          "$ref": "#/$defs/ManifestEnvironmentKind"
+        },
+        "identity_id": {
+          "minLength": 1,
+          "title": "Identity Id",
+          "type": "string"
+        },
+        "principal_kind": {
+          "$ref": "#/$defs/ManifestPrincipalKind"
+        },
+        "privileged": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Privileged"
+        },
+        "sources": {
+          "items": {
+            "$ref": "#/$defs/ManifestSourceReference"
+          },
+          "title": "Sources",
+          "type": "array"
+        }
+      },
+      "required": [
+        "identity_id",
+        "principal_kind",
+        "authentication",
+        "environment",
+        "sources"
+      ],
+      "title": "ManifestRuntimeIdentity",
+      "type": "object"
+    },
+    "ManifestRuntimeIdentityProfile": {
+      "additionalProperties": false,
+      "description": "Runtime identities and authentication declarations without secrets.",
+      "properties": {
+        "declaration_sources": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ManifestSourceReference"
+          },
+          "title": "Declaration Sources",
+          "type": "array"
+        },
+        "identities": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ManifestRuntimeIdentity"
+          },
+          "title": "Identities",
+          "type": "array"
+        },
+        "resolution": {
+          "$ref": "#/$defs/ManifestResolutionStatus"
+        }
+      },
+      "required": [
+        "resolution"
+      ],
+      "title": "ManifestRuntimeIdentityProfile",
+      "type": "object"
+    },
+    "ManifestSource": {
+      "additionalProperties": false,
+      "description": "One parsed framework asset represented without its untrusted content.",
+      "properties": {
+        "content_sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Content Sha256",
+          "type": "string"
+        },
+        "format": {
+          "$ref": "#/$defs/ManifestAssetFormat"
+        },
+        "line_count": {
+          "minimum": 0,
+          "title": "Line Count",
+          "type": "integer"
+        },
+        "locator": {
+          "$ref": "#/$defs/ManifestSourceLocator"
+        },
+        "precedence_rank": {
+          "minimum": 0,
+          "title": "Precedence Rank",
+          "type": "integer"
+        },
+        "roles": {
+          "items": {
+            "$ref": "#/$defs/ManifestAssetRole"
+          },
+          "title": "Roles",
+          "type": "array"
+        },
+        "size_bytes": {
+          "minimum": 0,
+          "title": "Size Bytes",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "locator",
+        "format",
+        "roles",
+        "content_sha256",
+        "size_bytes",
+        "line_count",
+        "precedence_rank"
+      ],
+      "title": "ManifestSource",
+      "type": "object"
+    },
+    "ManifestSourceLocator": {
+      "additionalProperties": false,
+      "description": "Portable locator for one source asset without an absolute host path.",
+      "properties": {
+        "path": {
+          "minLength": 1,
+          "title": "Path",
+          "type": "string"
+        },
+        "root_id": {
+          "minLength": 1,
+          "title": "Root Id",
+          "type": "string"
+        },
+        "scope": {
+          "$ref": "#/$defs/ManifestSourceScope"
+        }
+      },
+      "required": [
+        "scope",
+        "root_id",
+        "path"
+      ],
+      "title": "ManifestSourceLocator",
+      "type": "object"
+    },
+    "ManifestSourceReference": {
+      "additionalProperties": false,
+      "description": "Reference to a whole Manifest source or an exact field/line range.",
+      "properties": {
+        "end_line": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "End Line"
+        },
+        "field_path": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Field Path"
+        },
+        "locator": {
+          "$ref": "#/$defs/ManifestSourceLocator"
+        },
+        "start_line": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Start Line"
+        }
+      },
+      "required": [
+        "locator"
+      ],
+      "title": "ManifestSourceReference",
+      "type": "object"
+    },
+    "ManifestSourceScope": {
+      "description": "Portable trust scope for a Manifest source asset.",
+      "enum": [
+        "project",
+        "user",
+        "plugin"
+      ],
+      "title": "ManifestSourceScope",
+      "type": "string"
+    },
+    "ManifestTool": {
+      "additionalProperties": false,
+      "description": "Normalized tool or capability declaration populated by P2-08 and later.",
+      "properties": {
+        "availability": {
+          "$ref": "#/$defs/ManifestToolAvailability"
+        },
+        "kind": {
+          "$ref": "#/$defs/ManifestToolKind"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "parent_tool_id": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Parent Tool Id"
+        },
+        "side_effects": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ManifestToolSideEffect"
+          },
+          "title": "Side Effects",
+          "type": "array"
+        },
+        "sources": {
+          "items": {
+            "$ref": "#/$defs/ManifestSourceReference"
+          },
+          "title": "Sources",
+          "type": "array"
+        },
+        "tool_id": {
+          "minLength": 1,
+          "title": "Tool Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "tool_id",
+        "name",
+        "kind",
+        "availability",
+        "sources"
+      ],
+      "title": "ManifestTool",
+      "type": "object"
+    },
+    "ManifestToolAvailability": {
+      "description": "Static availability state of a tool declaration.",
+      "enum": [
+        "declared",
+        "enabled",
+        "disabled",
+        "unknown"
+      ],
+      "title": "ManifestToolAvailability",
+      "type": "string"
+    },
+    "ManifestToolKind": {
+      "description": "Normalized tool families available to later capability extraction.",
+      "enum": [
+        "skill",
+        "mcp_server",
+        "mcp_tool",
+        "command",
+        "builtin",
+        "plugin",
+        "other"
+      ],
+      "title": "ManifestToolKind",
+      "type": "string"
+    },
+    "ManifestToolProfile": {
+      "additionalProperties": false,
+      "description": "Tool inventory plus source declarations awaiting association.",
+      "properties": {
+        "declaration_sources": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ManifestSourceReference"
+          },
+          "title": "Declaration Sources",
+          "type": "array"
+        },
+        "resolution": {
+          "$ref": "#/$defs/ManifestResolutionStatus"
+        },
+        "tools": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ManifestTool"
+          },
+          "title": "Tools",
+          "type": "array"
+        }
+      },
+      "required": [
+        "resolution"
+      ],
+      "title": "ManifestToolProfile",
+      "type": "object"
+    },
+    "ManifestToolSideEffect": {
+      "description": "Potential side-effect families assigned by later deterministic analysis.",
+      "enum": [
+        "read",
+        "write",
+        "execute",
+        "network",
+        "destructive",
+        "secret_access",
+        "privileged",
+        "unknown"
+      ],
+      "title": "ManifestToolSideEffect",
+      "type": "string"
+    },
+    "ManifestUnknown": {
+      "additionalProperties": false,
+      "description": "One explicit unresolved fact without attacker-controlled explanation text.",
+      "properties": {
+        "dimension": {
+          "$ref": "#/$defs/ManifestUnknownDimension"
+        },
+        "field": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Field"
+        },
+        "reason": {
+          "$ref": "#/$defs/ManifestUnknownReason"
+        },
+        "sources": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ManifestSourceReference"
+          },
+          "title": "Sources",
+          "type": "array"
+        },
+        "unknown_id": {
+          "minLength": 1,
+          "title": "Unknown Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "unknown_id",
+        "dimension",
+        "reason"
+      ],
+      "title": "ManifestUnknown",
+      "type": "object"
+    },
+    "ManifestUnknownDimension": {
+      "description": "Manifest dimensions to which an explicit Unknown may belong.",
+      "enum": [
+        "identity",
+        "instructions",
+        "tools",
+        "permissions",
+        "controls",
+        "runtime_identities",
+        "relationships",
+        "coverage"
+      ],
+      "title": "ManifestUnknownDimension",
+      "type": "string"
+    },
+    "ManifestUnknownReason": {
+      "description": "Stable reasons a Manifest fact cannot yet be resolved.",
+      "enum": [
+        "not_analyzed",
+        "missing_source",
+        "incomplete_coverage",
+        "unsupported_field",
+        "ambiguous_precedence",
+        "conflicting_declarations",
+        "runtime_verification_required"
+      ],
+      "title": "ManifestUnknownReason",
+      "type": "string"
+    },
+    "NistRiskLevel": {
+      "description": "Five qualitative risk levels used by NIST SP 800-30 Table I-2.",
+      "enum": [
+        "very_low",
+        "low",
+        "moderate",
+        "high",
+        "very_high"
+      ],
+      "title": "NistRiskLevel",
+      "type": "string"
+    },
+    "Severity": {
+      "description": "Report severity compatible with the planned 0-10 risk scale.",
+      "enum": [
+        "none",
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "title": "Severity",
+      "type": "string"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Strict public JSON wrapper for one Capability Assessment.",
+  "properties": {
+    "findings": {
+      "items": {
+        "$ref": "#/$defs/CapabilityAssessmentFinding"
+      },
+      "title": "Findings",
+      "type": "array"
+    },
+    "format": {
+      "const": "agentsec-capability-assessment",
+      "title": "Format",
+      "type": "string"
+    },
+    "format_version": {
+      "const": "0.2.0",
+      "title": "Format Version",
+      "type": "string"
+    },
+    "manifest": {
+      "$ref": "#/$defs/AgentManifest"
+    },
+    "policy": {
+      "$ref": "#/$defs/CapabilityAssessmentPolicy"
+    },
+    "rule_failures": {
+      "items": {
+        "$ref": "#/$defs/CapabilityAssessmentRuleFailure"
+      },
+      "title": "Rule Failures",
+      "type": "array"
+    },
+    "stage_trace": {
+      "items": {
+        "$ref": "#/$defs/CapabilityAssessmentStage"
+      },
+      "title": "Stage Trace",
+      "type": "array"
+    },
+    "status": {
+      "enum": [
+        "complete",
+        "incomplete"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "summary": {
+      "$ref": "#/$defs/CapabilityAssessmentSummary"
+    },
+    "versions": {
+      "$ref": "#/$defs/CapabilityAssessmentVersions"
+    }
+  },
+  "required": [
+    "format",
+    "format_version",
+    "status",
+    "versions",
+    "policy",
+    "summary",
+    "manifest",
+    "findings",
+    "stage_trace",
+    "rule_failures"
+  ],
+  "title": "CapabilityAssessmentJsonReport",
+  "type": "object",
+  "x-agentsec-capability-assessment-output-version": "0.2.0"
+}

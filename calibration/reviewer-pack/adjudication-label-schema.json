@@ -1,0 +1,331 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "adjudications": {
+      "items": {
+        "additionalProperties": false,
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "status": {
+                  "const": "adjudicated"
+                }
+              },
+              "required": [
+                "status"
+              ]
+            },
+            "then": {
+              "properties": {
+                "category": {
+                  "enum": [
+                    "standard",
+                    "policy_accepted_risk",
+                    "out_of_scope",
+                    "runtime_uncertainty",
+                    "unresolved"
+                  ]
+                },
+                "confidence": {
+                  "enum": [
+                    "A",
+                    "B",
+                    "C",
+                    "D"
+                  ]
+                },
+                "correlation": {
+                  "enum": [
+                    "same_target",
+                    "parent_child",
+                    "same_source",
+                    "explicit_relation",
+                    "agent_wide",
+                    "incomplete_coverage"
+                  ]
+                },
+                "disposition": {
+                  "enum": [
+                    "keep",
+                    "tune",
+                    "shadow",
+                    "retire",
+                    "more_data"
+                  ]
+                },
+                "evidence_locations": {
+                  "items": {
+                    "additionalProperties": false,
+                    "description": "The importer also enforces end_line >= start_line.",
+                    "properties": {
+                      "end_line": {
+                        "maximum": 1000000,
+                        "minimum": 1,
+                        "type": "integer"
+                      },
+                      "path": {
+                        "maxLength": 256,
+                        "minLength": 1,
+                        "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9._/-]+$",
+                        "type": "string"
+                      },
+                      "start_line": {
+                        "maximum": 1000000,
+                        "minimum": 1,
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "path",
+                      "start_line",
+                      "end_line"
+                    ],
+                    "type": "object"
+                  },
+                  "maxItems": 16,
+                  "minItems": 1,
+                  "type": "array"
+                },
+                "finding_summary": {
+                  "maxLength": 512,
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "human_condition_label": {
+                  "enum": [
+                    "match",
+                    "no_match"
+                  ]
+                },
+                "observed_finding": {
+                  "enum": [
+                    "present",
+                    "absent",
+                    "uncertain"
+                  ]
+                },
+                "rationale_code": {
+                  "maxLength": 128,
+                  "pattern": "^[a-z][a-z0-9._:-]{0,127}$",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "properties": {
+          "adjudication_id": {
+            "maxLength": 256,
+            "pattern": "^adjudication:review-case-[0-9a-f]{20}:CAP-[A-Z0-9]+-[0-9]{3}$",
+            "type": "string"
+          },
+          "adjudication_notes": {
+            "maxLength": 2000,
+            "type": "string"
+          },
+          "category": {
+            "enum": [
+              null,
+              "standard",
+              "policy_accepted_risk",
+              "out_of_scope",
+              "runtime_uncertainty",
+              "unresolved"
+            ]
+          },
+          "classification": {
+            "const": null
+          },
+          "confidence": {
+            "enum": [
+              null,
+              "A",
+              "B",
+              "C",
+              "D"
+            ]
+          },
+          "corpus_binding_hash": {
+            "pattern": "^sha256:[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "correlation": {
+            "enum": [
+              null,
+              "same_target",
+              "parent_child",
+              "same_source",
+              "explicit_relation",
+              "agent_wide",
+              "incomplete_coverage"
+            ]
+          },
+          "disposition": {
+            "enum": [
+              null,
+              "keep",
+              "tune",
+              "shadow",
+              "retire",
+              "more_data"
+            ]
+          },
+          "evidence_locations": {
+            "items": {
+              "additionalProperties": false,
+              "description": "The importer also enforces end_line >= start_line.",
+              "properties": {
+                "end_line": {
+                  "maximum": 1000000,
+                  "minimum": 1,
+                  "type": "integer"
+                },
+                "path": {
+                  "maxLength": 256,
+                  "minLength": 1,
+                  "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9._/-]+$",
+                  "type": "string"
+                },
+                "start_line": {
+                  "maximum": 1000000,
+                  "minimum": 1,
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "path",
+                "start_line",
+                "end_line"
+              ],
+              "type": "object"
+            },
+            "maxItems": 16,
+            "type": "array"
+          },
+          "finding_summary": {
+            "maxLength": 512,
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "human_condition_label": {
+            "enum": [
+              null,
+              "match",
+              "no_match",
+              "uncertain"
+            ]
+          },
+          "observed_finding": {
+            "enum": [
+              null,
+              "present",
+              "absent",
+              "uncertain"
+            ]
+          },
+          "pack_id": {
+            "pattern": "^reviewer-pack-sha256:[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "question_set_sha256": {
+            "pattern": "^sha256:[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "rationale_code": {
+            "maxLength": 128,
+            "pattern": "^[a-z][a-z0-9._:-]{0,127}$",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "review_case_fingerprint": {
+            "pattern": "^sha256:[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "review_case_id": {
+            "pattern": "^review-case-[0-9a-f]{20}$",
+            "type": "string"
+          },
+          "review_ids": {
+            "items": {
+              "pattern": "^review:reviewer-[ab]:review-case-[0-9a-f]{20}:CAP-[A-Z0-9]+-[0-9]{3}$",
+              "type": "string"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array",
+            "uniqueItems": true
+          },
+          "rule_id": {
+            "pattern": "^CAP-[A-Z0-9]+-[0-9]{3}$",
+            "type": "string"
+          },
+          "source_sha256": {
+            "pattern": "^sha256:[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              null,
+              "adjudicated"
+            ]
+          }
+        },
+        "required": [
+          "corpus_binding_hash",
+          "pack_id",
+          "question_set_sha256",
+          "review_case_fingerprint",
+          "source_sha256",
+          "adjudication_id",
+          "adjudication_notes",
+          "category",
+          "classification",
+          "confidence",
+          "correlation",
+          "disposition",
+          "evidence_locations",
+          "finding_summary",
+          "human_condition_label",
+          "observed_finding",
+          "rationale_code",
+          "review_case_id",
+          "review_ids",
+          "rule_id",
+          "status"
+        ],
+        "type": "object"
+      },
+      "maxItems": 20000,
+      "type": "array"
+    },
+    "corpus_binding_hash": {
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "format": {
+      "const": "agentsec-independent-adjudication-template"
+    },
+    "pack_id": {
+      "pattern": "^reviewer-pack-sha256:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "0.3.0"
+    }
+  },
+  "required": [
+    "format",
+    "schema_version",
+    "pack_id",
+    "corpus_binding_hash",
+    "adjudications"
+  ],
+  "title": "IndependentAdjudicationTemplate",
+  "type": "object"
+}

@@ -1,0 +1,215 @@
+{
+  "$defs": {
+    "PilotCase": {
+      "additionalProperties": false,
+      "description": "One inert project state with reviewed expected scanner outcomes.",
+      "properties": {
+        "case_id": {
+          "pattern": "^[a-z][a-z0-9-]{0,63}$",
+          "title": "Case Id",
+          "type": "string"
+        },
+        "drill": {
+          "anyOf": [
+            {
+              "enum": [
+                "incomplete_coverage",
+                "risky_change",
+                "waiver_lifecycle"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Drill"
+        },
+        "expected_coverage": {
+          "enum": [
+            "complete",
+            "incomplete"
+          ],
+          "title": "Expected Coverage",
+          "type": "string"
+        },
+        "expected_exit": {
+          "enum": [
+            0,
+            1,
+            2
+          ],
+          "title": "Expected Exit",
+          "type": "integer"
+        },
+        "expected_rule_ids": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Expected Rule Ids",
+          "type": "array"
+        },
+        "max_duration_ms": {
+          "default": 10000,
+          "maximum": 600000,
+          "minimum": 1,
+          "title": "Max Duration Ms",
+          "type": "integer"
+        },
+        "policy_path": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Policy Path",
+          "type": "string"
+        },
+        "project_root": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Project Root",
+          "type": "string"
+        },
+        "scan_kind": {
+          "default": "baseline",
+          "enum": [
+            "baseline",
+            "pull_request"
+          ],
+          "title": "Scan Kind",
+          "type": "string"
+        },
+        "title": {
+          "maxLength": 160,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "case_id",
+        "title",
+        "project_root",
+        "policy_path",
+        "expected_exit",
+        "expected_coverage"
+      ],
+      "title": "PilotCase",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Explicit local pilot contract; never discovered from scanned content.",
+  "properties": {
+    "cases": {
+      "items": {
+        "$ref": "#/$defs/PilotCase"
+      },
+      "maxItems": 1000,
+      "minItems": 1,
+      "title": "Cases",
+      "type": "array"
+    },
+    "evidence_mode": {
+      "enum": [
+        "internal_integration",
+        "external_repository"
+      ],
+      "title": "Evidence Mode",
+      "type": "string"
+    },
+    "format": {
+      "const": "agentsec-pilot-plan",
+      "title": "Format",
+      "type": "string"
+    },
+    "minimum_pr_scans": {
+      "anyOf": [
+        {
+          "maximum": 100000,
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Minimum Pr Scans"
+    },
+    "minimum_scans": {
+      "anyOf": [
+        {
+          "maximum": 100000,
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Minimum Scans"
+    },
+    "owner": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Owner",
+      "type": "string"
+    },
+    "pilot_id": {
+      "pattern": "^[a-z][a-z0-9._-]{0,127}$",
+      "title": "Pilot Id",
+      "type": "string"
+    },
+    "project_name": {
+      "maxLength": 160,
+      "minLength": 1,
+      "title": "Project Name",
+      "type": "string"
+    },
+    "required_drills": {
+      "default": [],
+      "items": {
+        "enum": [
+          "incomplete_coverage",
+          "risky_change",
+          "waiver_lifecycle"
+        ],
+        "type": "string"
+      },
+      "title": "Required Drills",
+      "type": "array"
+    },
+    "schema_version": {
+      "const": "0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "security_reviewer": {
+      "anyOf": [
+        {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Security Reviewer"
+    }
+  },
+  "required": [
+    "format",
+    "schema_version",
+    "pilot_id",
+    "project_name",
+    "owner",
+    "evidence_mode",
+    "cases"
+  ],
+  "title": "PilotPlan",
+  "type": "object"
+}

@@ -1,0 +1,33 @@
+{
+  "corpus_binding_hash": "sha256:59e034541e3c1096f311404358031a5dc81fc880123351363713d66c2544ad79",
+  "format": "agentsec-independent-review-case",
+  "input_format": "manifest",
+  "language": "en",
+  "pack_id": "reviewer-pack-sha256:58295690c13861a763ed9c202d39fe37642ac0f8d9d2d6e416886184a4a86d90",
+  "question_set_sha256": "sha256:1c2a3f94de452c2f6f3a61de4e467ea2d38991a5588e7c3465c9f2f22e0cf873",
+  "review_case_fingerprint": "sha256:2881ef9d3f8df1541e92e697a2ce7b09132373952e1094b15124afae75e7c9b3",
+  "review_case_id": "review-case-467ce9650cd67ad63c71",
+  "review_questions": [
+    {
+      "condition": {
+        "en": "A non-denied execute permission targets an external resource or scope."
+      },
+      "prompt": {
+        "en": "Independently label the human Rule condition as match, no_match, or uncertain; record your direct finding observation, policy/scope category, evidence location, Confidence, Correlation, disposition, rationale code, and notes. Do not calculate TP/FP/FN/TN."
+      },
+      "question_id": "question:review-case-467ce9650cd67ad63c71:CAP-EXTERNALEXEC-001",
+      "rule_id": "CAP-EXTERNALEXEC-001",
+      "title": {
+        "en": "External execution capability crosses a trust boundary"
+      }
+    }
+  ],
+  "schema_version": "0.3.0",
+  "source_location": {
+    "end_line": 13,
+    "path": "source.manifest.json",
+    "start_line": 1
+  },
+  "source_sha256": "sha256:cd56484b66f656f1a957c8eebd787a15068a73a0a8873f72371e5fcb67e967f7",
+  "synthetic_fixture": true
+}

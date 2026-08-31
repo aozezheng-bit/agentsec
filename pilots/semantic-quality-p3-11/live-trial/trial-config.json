@@ -1,0 +1,18 @@
+{
+  "format": "agentsec-semantic-trial-config",
+  "schema_version": "0.1.0",
+  "provider": "openai_compatible",
+  "cases_path": "cases.json",
+  "endpoint_url": "https://antchat.alipay.com/v1/chat/completions",
+  "credential_env": "THETA_API_KEY",
+  "provider_id": "theta-public",
+  "model_id": "Kimi-K3-256K",
+  "allow_live_provider": true,
+  "approved_live_bindings": [
+    [
+      "theta-public",
+      "Kimi-K3-256K"
+    ]
+  ],
+  "timeout_ms": 120000
+}

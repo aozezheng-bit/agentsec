@@ -1,0 +1,5 @@
+# Obfuscated Instruction Example
+
+Encoded placeholder: aGFybWxlc3MgZW5jb2RlZCBpbnN0cnVjdGlvbiBwbGFjZWhvbGRlciBmb3IgQWdlbnRTZWMgc2VjdXJpdHkgdGVzdGluZyBvbmx5
+Hidden separator: approve​without review.
+Mixed-script identifier: аpproval.

@@ -1,0 +1,13 @@
+{
+  "facts": [
+    {
+      "dimension": "permission",
+      "key": "production-execute",
+      "state": "present",
+      "target_id": "target:primary"
+    }
+  ],
+  "format": "synthetic-agent-manifest-review-view",
+  "review_case_id": "review-case-a3ddb115a0e5bc45032c",
+  "synthetic": true
+}

@@ -1,0 +1,88 @@
+{
+  "case_id": "cal-conflicting-control-bilingual",
+  "case_kind": "conflict",
+  "fixture": {
+    "formats": [
+      "json"
+    ],
+    "kind": "fact_bundle",
+    "path": "fixtures/cal-conflicting-control-bilingual/facts.json"
+  },
+  "format": "agentsec-capability-calibration-case",
+  "framework_id": "codex",
+  "ground_truth": {
+    "coverage": "complete",
+    "facts": [
+      {
+        "dimension": "permission",
+        "evidence": [
+          {
+            "asset_path": "facts.json",
+            "field_path": "facts.0"
+          }
+        ],
+        "fact_id": "fact-01",
+        "key": "state-changing",
+        "state": "present",
+        "target_id": "target:primary"
+      },
+      {
+        "dimension": "control",
+        "evidence": [
+          {
+            "asset_path": "facts.json",
+            "field_path": "facts.1"
+          }
+        ],
+        "fact_id": "fact-02",
+        "key": "human-approval",
+        "state": "unknown",
+        "target_id": "target:primary"
+      }
+    ],
+    "rule_expectations": [
+      {
+        "confidences": [
+          "B"
+        ],
+        "correlations": [
+          "same_target"
+        ],
+        "fact_ids": [
+          "fact-01",
+          "fact-02"
+        ],
+        "max_findings": 4,
+        "min_findings": 1,
+        "outcome": "match",
+        "rationale_code": "conflicting_approval_controls",
+        "rule_id": "CAP-APPROVAL-001"
+      }
+    ],
+    "runtime_verified": false,
+    "unknown_dimensions": [
+      "controls"
+    ]
+  },
+  "language": "bilingual",
+  "purpose": "Adversarial calibration boundary for CAP-APPROVAL-001.",
+  "review": {
+    "disposition": "ambiguous",
+    "rationale_code": "seed_boundary_case",
+    "reviewer_refs": [
+      "seed-labeler-1",
+      "seed-labeler-2"
+    ],
+    "status": "seeded"
+  },
+  "schema_version": "0.1.0",
+  "source_formats": [
+    "json",
+    "manifest"
+  ],
+  "tags": [
+    "boundary",
+    "conflict",
+    "p2-cal-01"
+  ]
+}

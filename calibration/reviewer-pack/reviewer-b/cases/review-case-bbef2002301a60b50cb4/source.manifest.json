@@ -1,0 +1,19 @@
+{
+  "facts": [
+    {
+      "dimension": "relationship",
+      "key": "delegates-to",
+      "state": "present",
+      "target_id": "target:primary"
+    },
+    {
+      "dimension": "relationship",
+      "key": "persists-memory",
+      "state": "present",
+      "target_id": "target:primary"
+    }
+  ],
+  "format": "synthetic-agent-manifest-review-view",
+  "review_case_id": "review-case-bbef2002301a60b50cb4",
+  "synthetic": true
+}

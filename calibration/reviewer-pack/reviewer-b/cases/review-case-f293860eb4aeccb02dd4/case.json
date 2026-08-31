@@ -1,0 +1,33 @@
+{
+  "corpus_binding_hash": "sha256:59e034541e3c1096f311404358031a5dc81fc880123351363713d66c2544ad79",
+  "format": "agentsec-independent-review-case",
+  "input_format": "manifest",
+  "language": "en",
+  "pack_id": "reviewer-pack-sha256:58295690c13861a763ed9c202d39fe37642ac0f8d9d2d6e416886184a4a86d90",
+  "question_set_sha256": "sha256:5ed28306fa120247940a986489a7135c60534f5e82da1e5b20588c2620d8ceb8",
+  "review_case_fingerprint": "sha256:0ce3b6167d56d7600096318fb7b30fd92627c68d34adce904dd3c248d2c44438",
+  "review_case_id": "review-case-f293860eb4aeccb02dd4",
+  "review_questions": [
+    {
+      "condition": {
+        "en": "A write, execute, deploy, publish, or admin capability is enabled or not explicitly disabled while the correlated target has no prompt or deny approval control."
+      },
+      "prompt": {
+        "en": "Independently label the human Rule condition as match, no_match, or uncertain; record your direct finding observation, policy/scope category, evidence location, Confidence, Correlation, disposition, rationale code, and notes. Do not calculate TP/FP/FN/TN."
+      },
+      "question_id": "question:review-case-f293860eb4aeccb02dd4:CAP-APPROVAL-001",
+      "rule_id": "CAP-APPROVAL-001",
+      "title": {
+        "en": "State-changing capability lacks an effective human approval control"
+      }
+    }
+  ],
+  "schema_version": "0.3.0",
+  "source_location": {
+    "end_line": 19,
+    "path": "source.manifest.json",
+    "start_line": 1
+  },
+  "source_sha256": "sha256:14a21bdc2f0eaa168b2e4c7ccf1266def2c5d84394b7e3dd9912154982dc14f1",
+  "synthetic_fixture": true
+}

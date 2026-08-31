@@ -1,0 +1,370 @@
+{
+  "calibration_generation": "v1",
+  "decision": {
+    "candidate_risk_model_version": "0.4.0",
+    "candidate_rule_pack_version": "0.3.0",
+    "current_risk_model_version": "0.4.0",
+    "current_rule_pack_version": "0.3.0",
+    "external_calibration_required": true,
+    "internal_mvp_ready": true,
+    "publish_rule_changes": false,
+    "publish_score_changes": false,
+    "rationale": [
+      "No Pilot FP/FN requires a deterministic Rule change.",
+      "All seven frozen Agentic scoring replay cases match exactly.",
+      "Uncovered Rules remain more_data rather than being weakened or retired.",
+      "Current Rule and risk versions are retained; no automatic publication occurs."
+    ],
+    "risk_model_action": "retain_current",
+    "rule_pack_action": "retain_current"
+  },
+  "format": "agentsec-rule-score-calibration-report",
+  "format_version": "0.1.0",
+  "limitations": [
+    "Pilot evidence is internal and curated rather than a production distribution sample.",
+    "Six Rules have no positive Pilot scenario and remain marked more_data.",
+    "Scoring replay proves deterministic stability, not empirical loss calibration.",
+    "Static evidence does not prove runtime exploitability or reachable permissions."
+  ],
+  "pilot_evidence_mode": "internal_integration",
+  "pilot_id": "internal-release-agent-pilot",
+  "pilot_report_sha256": "519717fd8382769a41cc60a3ee1c277a984eb36342f2b6c71254303768c69366",
+  "rules": [
+    {
+      "expected_positive_cases": 3,
+      "false_negatives": 0,
+      "false_positives": 0,
+      "impact": "high",
+      "likelihood": "moderate",
+      "observed_positive_cases": 3,
+      "precision": 1.0,
+      "profile_sha256": "3b5114c88a2cdad315d71f597dc46fb5a3d73ef33174cac16ac8da31d0c26770",
+      "rationale": [
+        "Pilot covered 3 positive scenario(s) without FP/FN.",
+        "The current reviewed risk profile remains stable in replay."
+      ],
+      "recall": 1.0,
+      "recommendation": "retain_current",
+      "rule_id": "MD-APPROVAL-001",
+      "score": 5.5,
+      "severity": "medium",
+      "true_positives": 3
+    },
+    {
+      "expected_positive_cases": 3,
+      "false_negatives": 0,
+      "false_positives": 0,
+      "impact": "very_high",
+      "likelihood": "moderate",
+      "observed_positive_cases": 3,
+      "precision": 1.0,
+      "profile_sha256": "4e5ad84ea35ce14efbc4800057499001dc9047ecc122a135502f3a3a13e4a0ae",
+      "rationale": [
+        "Pilot covered 3 positive scenario(s) without FP/FN.",
+        "The current reviewed risk profile remains stable in replay."
+      ],
+      "recall": 1.0,
+      "recommendation": "retain_current",
+      "rule_id": "MD-DEPLOY-001",
+      "score": 8.0,
+      "severity": "high",
+      "true_positives": 3
+    },
+    {
+      "expected_positive_cases": 0,
+      "false_negatives": 0,
+      "false_positives": 0,
+      "impact": "very_high",
+      "likelihood": "moderate",
+      "observed_positive_cases": 0,
+      "precision": null,
+      "profile_sha256": "fff02f349a0237821bce581295d6166b914547972a891898ff686a4d67115118",
+      "rationale": [
+        "No positive Pilot scenario covers this Rule.",
+        "Retain the current Rule but collect more representative evidence."
+      ],
+      "recall": null,
+      "recommendation": "more_data",
+      "rule_id": "MD-DESTRUCT-001",
+      "score": 8.0,
+      "severity": "high",
+      "true_positives": 0
+    },
+    {
+      "expected_positive_cases": 3,
+      "false_negatives": 0,
+      "false_positives": 0,
+      "impact": "very_high",
+      "likelihood": "moderate",
+      "observed_positive_cases": 3,
+      "precision": 1.0,
+      "profile_sha256": "a07d91641e3b556db11adb91b35c7b2e725f567a30a56a86d3c46107fcb797a5",
+      "rationale": [
+        "Pilot covered 3 positive scenario(s) without FP/FN.",
+        "The current reviewed risk profile remains stable in replay."
+      ],
+      "recall": 1.0,
+      "recommendation": "retain_current",
+      "rule_id": "MD-EXEC-001",
+      "score": 8.0,
+      "severity": "high",
+      "true_positives": 3
+    },
+    {
+      "expected_positive_cases": 0,
+      "false_negatives": 0,
+      "false_positives": 0,
+      "impact": "very_high",
+      "likelihood": "moderate",
+      "observed_positive_cases": 0,
+      "precision": null,
+      "profile_sha256": "249150f4b58fa01f8df409a1fa63b3467c9984c5804b5797bbd5aa8227c19b48",
+      "rationale": [
+        "No positive Pilot scenario covers this Rule.",
+        "Retain the current Rule but collect more representative evidence."
+      ],
+      "recall": null,
+      "recommendation": "more_data",
+      "rule_id": "MD-EXEC-002",
+      "score": 8.0,
+      "severity": "high",
+      "true_positives": 0
+    },
+    {
+      "expected_positive_cases": 4,
+      "false_negatives": 0,
+      "false_positives": 0,
+      "impact": "high",
+      "likelihood": "moderate",
+      "observed_positive_cases": 4,
+      "precision": 1.0,
+      "profile_sha256": "13f6eea403dd3e0135e1e87af91f1bc147797843d6fc388db4cbe38c77e24eda",
+      "rationale": [
+        "Pilot covered 4 positive scenario(s) without FP/FN.",
+        "The current reviewed risk profile remains stable in replay."
+      ],
+      "recall": 1.0,
+      "recommendation": "retain_current",
+      "rule_id": "MD-INSTR-001",
+      "score": 5.5,
+      "severity": "medium",
+      "true_positives": 4
+    },
+    {
+      "expected_positive_cases": 4,
+      "false_negatives": 0,
+      "false_positives": 0,
+      "impact": "high",
+      "likelihood": "moderate",
+      "observed_positive_cases": 4,
+      "precision": 1.0,
+      "profile_sha256": "d9c7418d876b1b940bdda5d3d3f2afd2d105e7780cbf72cb448f3dec44d0b935",
+      "rationale": [
+        "Pilot covered 4 positive scenario(s) without FP/FN.",
+        "The current reviewed risk profile remains stable in replay."
+      ],
+      "recall": 1.0,
+      "recommendation": "retain_current",
+      "rule_id": "MD-INSTR-002",
+      "score": 5.5,
+      "severity": "medium",
+      "true_positives": 4
+    },
+    {
+      "expected_positive_cases": 0,
+      "false_negatives": 0,
+      "false_positives": 0,
+      "impact": "high",
+      "likelihood": "low",
+      "observed_positive_cases": 0,
+      "precision": null,
+      "profile_sha256": "c63f6ead766acaaf67fb2f18fd37d228302221884d39201ce6d172247b257ea7",
+      "rationale": [
+        "No positive Pilot scenario covers this Rule.",
+        "Retain the current Rule but collect more representative evidence."
+      ],
+      "recall": null,
+      "recommendation": "more_data",
+      "rule_id": "MD-MEMORY-001",
+      "score": 2.0,
+      "severity": "low",
+      "true_positives": 0
+    },
+    {
+      "expected_positive_cases": 3,
+      "false_negatives": 0,
+      "false_positives": 0,
+      "impact": "high",
+      "likelihood": "moderate",
+      "observed_positive_cases": 3,
+      "precision": 1.0,
+      "profile_sha256": "75ef3705dfb2a46514af677b2cb3a228e6cc621cb61d3420bc10f902d65f219b",
+      "rationale": [
+        "Pilot covered 3 positive scenario(s) without FP/FN.",
+        "The current reviewed risk profile remains stable in replay."
+      ],
+      "recall": 1.0,
+      "recommendation": "retain_current",
+      "rule_id": "MD-NET-001",
+      "score": 5.5,
+      "severity": "medium",
+      "true_positives": 3
+    },
+    {
+      "expected_positive_cases": 0,
+      "false_negatives": 0,
+      "false_positives": 0,
+      "impact": "moderate",
+      "likelihood": "low",
+      "observed_positive_cases": 0,
+      "precision": null,
+      "profile_sha256": "200bf824ebf5d7ed12a46f3f2e0537b51a8bfc9aa2dd87586ecc5a6c50211a24",
+      "rationale": [
+        "No positive Pilot scenario covers this Rule.",
+        "Retain the current Rule but collect more representative evidence."
+      ],
+      "recall": null,
+      "recommendation": "more_data",
+      "rule_id": "MD-OBFUSC-001",
+      "score": 2.0,
+      "severity": "low",
+      "true_positives": 0
+    },
+    {
+      "expected_positive_cases": 3,
+      "false_negatives": 0,
+      "false_positives": 0,
+      "impact": "very_high",
+      "likelihood": "moderate",
+      "observed_positive_cases": 3,
+      "precision": 1.0,
+      "profile_sha256": "4471039da3f92e642dbd8e657547380a0c1d37e71001d9ae9ae959d3536019ef",
+      "rationale": [
+        "Pilot covered 3 positive scenario(s) without FP/FN.",
+        "The current reviewed risk profile remains stable in replay."
+      ],
+      "recall": 1.0,
+      "recommendation": "retain_current",
+      "rule_id": "MD-PRIV-001",
+      "score": 8.0,
+      "severity": "high",
+      "true_positives": 3
+    },
+    {
+      "expected_positive_cases": 0,
+      "false_negatives": 0,
+      "false_positives": 0,
+      "impact": "very_high",
+      "likelihood": "moderate",
+      "observed_positive_cases": 0,
+      "precision": null,
+      "profile_sha256": "2fb3a9bb4f67af041e96657fe1ec177f39fac9a2613ba6dd2f68d12cc5dacaa9",
+      "rationale": [
+        "No positive Pilot scenario covers this Rule.",
+        "Retain the current Rule but collect more representative evidence."
+      ],
+      "recall": null,
+      "recommendation": "more_data",
+      "rule_id": "MD-PRIV-002",
+      "score": 8.0,
+      "severity": "high",
+      "true_positives": 0
+    },
+    {
+      "expected_positive_cases": 3,
+      "false_negatives": 0,
+      "false_positives": 0,
+      "impact": "very_high",
+      "likelihood": "moderate",
+      "observed_positive_cases": 3,
+      "precision": 1.0,
+      "profile_sha256": "ae463d2b3bbedfbeb7e1682ebdf6aeef0f969b2cc1a0935ee364250bd3d05294",
+      "rationale": [
+        "Pilot covered 3 positive scenario(s) without FP/FN.",
+        "The current reviewed risk profile remains stable in replay."
+      ],
+      "recall": 1.0,
+      "recommendation": "retain_current",
+      "rule_id": "MD-SECRET-001",
+      "score": 8.0,
+      "severity": "high",
+      "true_positives": 3
+    },
+    {
+      "expected_positive_cases": 0,
+      "false_negatives": 0,
+      "false_positives": 0,
+      "impact": "very_high",
+      "likelihood": "moderate",
+      "observed_positive_cases": 0,
+      "precision": null,
+      "profile_sha256": "337d6b21b565686af50852373d775a4fce2ddcc18eff140b677873375e69c662",
+      "rationale": [
+        "No positive Pilot scenario covers this Rule.",
+        "Retain the current Rule but collect more representative evidence."
+      ],
+      "recall": null,
+      "recommendation": "more_data",
+      "rule_id": "MD-SELF-001",
+      "score": 8.0,
+      "severity": "high",
+      "true_positives": 0
+    },
+    {
+      "expected_positive_cases": 3,
+      "false_negatives": 0,
+      "false_positives": 0,
+      "impact": "high",
+      "likelihood": "low",
+      "observed_positive_cases": 3,
+      "precision": 1.0,
+      "profile_sha256": "c925d6e04c614d1492358cffa31090405efa2646b9cb68d43b10645b9b07c77a",
+      "rationale": [
+        "Pilot covered 3 positive scenario(s) without FP/FN.",
+        "The current reviewed risk profile remains stable in replay."
+      ],
+      "recall": 1.0,
+      "recommendation": "retain_current",
+      "rule_id": "MD-TOOL-001",
+      "score": 2.0,
+      "severity": "low",
+      "true_positives": 3
+    }
+  ],
+  "scoring_replay": {
+    "case_ids": [
+      "critical-gate-floor",
+      "cvss-high-water",
+      "incomplete-coverage",
+      "remediation-drift",
+      "risky-default",
+      "risky-reviewed",
+      "safe-no-change"
+    ],
+    "cases": 7,
+    "critical_cases": 4,
+    "file_sha256": "86cd3e330b8c9cea5ab435522ff0c9019cb8a172d8eb59f095fdfd5772a6899d",
+    "format": "agentsec-scoring-replay-suite",
+    "format_version": "0.1.0",
+    "high_cases": 2,
+    "incomplete_coverage_cases": 1,
+    "medium_cases": 1,
+    "model_version": "0.1.0",
+    "suite_sha256": "6845d29e95b5fac40b9a46f71231873f52122776a72d5da2892dbac6c93c23ea",
+    "verified_against_frozen_replay": true
+  },
+  "status": "complete",
+  "summary": {
+    "covered_rules": 9,
+    "more_data_rules": 6,
+    "pilot_cases": 8,
+    "pilot_false_negatives": 0,
+    "pilot_false_positives": 0,
+    "retain_current_rules": 9,
+    "review_false_negative_rules": 0,
+    "review_false_positive_rules": 0,
+    "scoring_replay_cases": 7,
+    "scoring_replay_verified": true,
+    "uncovered_rules": 6
+  }
+}

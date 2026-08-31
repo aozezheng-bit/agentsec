@@ -1,0 +1,20 @@
+{
+  "acceptance_ready": false,
+  "boundary": {
+    "ci_decision_changed": false,
+    "final_acceptance_requires_replay": true,
+    "llm_authority": false,
+    "scanner_output_used_as_human_label": false
+  },
+  "case_manifest_sha256": "bf2e39679cfe3cf922e887455f54807a922db37cc812964e0899f0e34bba3fa8",
+  "format": "agentsec-external-pilot-review-import-report",
+  "format_version": "0.1.0",
+  "human_labels_complete": true,
+  "labels_sha256": "d739b3e3b7ec0fcf700c4d0ae0e02f418181f7524c308a69349b8e39e71d340f",
+  "pilot_id": "external-homi-final-pilot",
+  "reviewed_cases": 20,
+  "reviewer_id": "codefuse-agentsec-expert-reviewer",
+  "reviewer_independence_declared": true,
+  "submission_sha256": "8d3018cb33d5209eb0807454c45fbdf09018fd34ab9a75744ad20a1ddcb47c71",
+  "task_id": "P2-EXIT-06-05"
+}

@@ -1,0 +1,71 @@
+"""Public deterministic Capability Rule seam and built-in Rule Pack."""
+
+from agentsec.capability_rules.base import (
+    CAPABILITY_CORRELATION_POLICY_BASIS,
+    CAPABILITY_RISK_MAPPING_BASIS,
+    CapabilityCorrelation,
+    CapabilityEvidence,
+    CapabilityRule,
+    CapabilityRuleCandidate,
+    CapabilityRuleContext,
+    CapabilityRuleContextError,
+    CapabilityRuleContractError,
+    CapabilityRuleEvaluation,
+    CapabilityRuleFinding,
+    CapabilityRuleLanguage,
+    CapabilityRuleMetadata,
+    CapabilityRuleText,
+    CapabilityShadowGateAssessment,
+    CapabilityShadowGateMatch,
+    confidence_for_correlation,
+    likelihood_for_correlation,
+)
+from agentsec.capability_rules.builtin import (
+    BUILTIN_CAPABILITY_RULE_IDS,
+    builtin_capability_rules,
+)
+from agentsec.capability_rules.pipeline import (
+    CapabilityRuleFailure,
+    CapabilityRulePipelineError,
+    CapabilityRuleRegistryError,
+    CapabilityRuleRunResult,
+    DeterministicCapabilityRuleRunner,
+)
+from agentsec.capability_rules.shadow_gate import (
+    CAPABILITY_SHADOW_GATE_BASIS,
+    HG_CAPCHAIN_GATE_ID,
+    CapabilityShadowGateEngine,
+    DeterministicCapabilityShadowGateEngine,
+)
+
+__all__ = [
+    "BUILTIN_CAPABILITY_RULE_IDS",
+    "CAPABILITY_CORRELATION_POLICY_BASIS",
+    "CAPABILITY_RISK_MAPPING_BASIS",
+    "CAPABILITY_SHADOW_GATE_BASIS",
+    "HG_CAPCHAIN_GATE_ID",
+    "CapabilityCorrelation",
+    "CapabilityEvidence",
+    "CapabilityRule",
+    "CapabilityRuleCandidate",
+    "CapabilityRuleContext",
+    "CapabilityRuleContextError",
+    "CapabilityRuleContractError",
+    "CapabilityRuleEvaluation",
+    "CapabilityRuleFailure",
+    "CapabilityRuleFinding",
+    "CapabilityRuleLanguage",
+    "CapabilityRuleMetadata",
+    "CapabilityRulePipelineError",
+    "CapabilityRuleRegistryError",
+    "CapabilityRuleRunResult",
+    "CapabilityRuleText",
+    "CapabilityShadowGateAssessment",
+    "CapabilityShadowGateEngine",
+    "CapabilityShadowGateMatch",
+    "DeterministicCapabilityRuleRunner",
+    "DeterministicCapabilityShadowGateEngine",
+    "builtin_capability_rules",
+    "confidence_for_correlation",
+    "likelihood_for_correlation",
+]

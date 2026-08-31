@@ -1,0 +1,98 @@
+AgentSec Agent Manifest
+Status: COMPLETE
+Agent: release-agent
+Framework: Codex
+Policy: static declarations; report-only; runtime not verified
+Summary: sources=3 tools=3 permissions=4 controls=8 identities=2 relationships=5 unknowns=12
+
+Version Vector
+  package: 0.2.0
+  agent_manifest_schema: 0.3.0
+  adapter: 0.1.0
+  capability_rule_pack: 0.2.0
+  capability_risk_model: 0.1.0
+
+Coverage
+  discovered=3 inspected=3 skipped=0 issues=0
+
+Stage Trace
+  adapter_inspection: completed input=0 output=3
+  manifest_build: completed input=3 output=3
+  instruction_resolution: completed input=1 output=1
+  configuration_resolution: completed input=1 output=1
+  association_extraction: completed input=3 output=6
+  capability_extraction: completed input=3 output=14
+  relationship_extraction: completed input=3 output=5
+  unknown_extraction: completed input=27 output=12
+  final_validation: completed input=1 output=1
+
+Profile Resolution
+  identity: partial
+  instructions: resolved
+  configuration: resolved
+  tools: resolved
+  permissions: partial
+  controls: partial
+  runtime_identities: resolved
+  relationships: resolved
+
+Sources
+  project:project:.agents/skills/review/SKILL.md format=markdown sha256=85057a66f6987694362c41a4d3b746ad0d412a221470117be2bcbe0c5c3b16e8
+  project:project:.codex/config.toml format=toml sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+  project:project:AGENTS.md format=markdown sha256=2367e30bcfb94c41db54c667f235bcd3c963c338415a07219c5ccdaa2138ebc7
+
+Effective Instructions
+  project:project:AGENTS.md:-
+
+Configuration Order
+  project:project:.codex/config.toml:-
+
+Tools
+  mcp-server:local_review kind=mcp_server availability=enabled side_effects=execute parent=- source=project:project:.codex/config.toml$.mcp_servers.local_review:1-5
+  mcp-server:remote_release kind=mcp_server availability=enabled side_effects=network parent=- source=project:project:.codex/config.toml$.mcp_servers.remote_release:7-12
+  skill:review kind=skill availability=declared side_effects=unknown parent=- source=project:project:.agents/skills/review/SKILL.md:-
+
+Permissions
+  permission:execute:mcp-server:local_review action=execute effect=unknown resource=shell scope=project target=mcp-server:local_review source=project:project:.codex/config.toml$.mcp_servers.local_review:1-5
+  permission:network:mcp-server:remote_release action=network effect=unknown resource=network scope=external target=mcp-server:remote_release source=project:project:.codex/config.toml$.mcp_servers.remote_release:7-12
+  permission:secret_access:mcp-server:local_review action=secret_access effect=unknown resource=environment scope=project target=mcp-server:local_review source=project:project:.codex/config.toml$.mcp_servers.local_review.bearer_token_env_var:4-4
+  permission:unknown:skill:review action=unknown effect=unknown resource=tool scope=project target=skill:review source=project:project:.agents/skills/review/SKILL.md:-
+
+Controls
+  control:approval:mcp-server:local_review kind=human_approval state=allow target=mcp-server:local_review source=project:project:.codex/config.toml$.mcp_servers.local_review.default_tools_approval_mode:5-5
+  control:approval:mcp-server:remote_release kind=human_approval state=allow target=mcp-server:remote_release source=project:project:.codex/config.toml$.mcp_servers.remote_release.default_tools_approval_mode:12-12
+  control:mcp-enable:mcp-server:local_review kind=enablement state=enabled target=mcp-server:local_review source=project:project:.codex/config.toml$.mcp_servers.local_review.enabled:3-3
+  control:mcp-enable:mcp-server:remote_release kind=enablement state=enabled target=mcp-server:remote_release source=project:project:.codex/config.toml$.mcp_servers.remote_release.enabled:9-9
+  control:mcp-required:mcp-server:local_review kind=required state=unknown target=mcp-server:local_review source=project:project:.codex/config.toml$.mcp_servers.local_review:1-5
+  control:mcp-required:mcp-server:remote_release kind=required state=required target=mcp-server:remote_release source=project:project:.codex/config.toml$.mcp_servers.remote_release.required:10-10
+  control:network-policy:mcp-server:remote_release kind=network_policy state=configured target=mcp-server:remote_release source=project:project:.codex/config.toml$.mcp_servers.remote_release.url:8-8
+  control:secret-handling:mcp-server:local_review kind=secret_handling state=configured target=mcp-server:local_review source=project:project:.codex/config.toml$.mcp_servers.local_review.bearer_token_env_var:4-4
+
+Runtime Identities
+  identity:mcp-server:local_review principal=api_client authentication=environment environment=local privileged=None source=project:project:.codex/config.toml$.mcp_servers.local_review:1-5
+  identity:mcp-server:remote_release principal=oauth_session authentication=oauth environment=external privileged=None source=project:project:.codex/config.toml$.mcp_servers.remote_release:7-12
+
+Relationships
+  relation:delegates_to:agent:deployer kind=delegates_to target=agent:deployer state=declared source=project:project:AGENTS.md$.frontmatter.delegates_to[0]:2-2
+  relation:persists_memory:memory:release_state kind=persists_memory target=memory:release_state state=declared source=project:project:AGENTS.md$.frontmatter.persists_memory[0]:3-3
+  relation:uses-mcp:mcp-server:local_review kind=uses_mcp target=mcp-server:local_review state=declared source=project:project:.codex/config.toml$.mcp_servers.local_review:1-5
+  relation:uses-mcp:mcp-server:remote_release kind=uses_mcp target=mcp-server:remote_release state=declared source=project:project:.codex/config.toml$.mcp_servers.remote_release:7-12
+  relation:uses-skill:skill:review kind=uses_skill target=skill:review state=declared source=project:project:.agents/skills/review/SKILL.md:-
+
+Explicit Unknowns
+  unknown:controls:149799341f5e288c dimension=controls reason=unsupported_field field=controls.control:mcp-required:mcp-server:local_review.state source=project:project:.codex/config.toml$.mcp_servers.local_review:1-5
+  unknown:controls:94261a6d7b79fe9f dimension=controls reason=unsupported_field field=controls.resolution source=project:project:.codex/config.toml:-
+  unknown:identity:c920ca1667e8c1ec dimension=identity reason=unsupported_field field=identity.resolution source=project:project:.codex/config.toml:-
+  unknown:permissions:0481d8a855bc6071 dimension=permissions reason=unsupported_field field=permissions.permission:unknown:skill:review.action source=project:project:.agents/skills/review/SKILL.md:-
+  unknown:permissions:081a5d1ea12ed087 dimension=permissions reason=unsupported_field field=permissions.permission:unknown:skill:review.effect source=project:project:.agents/skills/review/SKILL.md:-
+  unknown:permissions:7d935e6b768ef536 dimension=permissions reason=unsupported_field field=permissions.permission:network:mcp-server:remote_release.effect source=project:project:.codex/config.toml$.mcp_servers.remote_release:7-12
+  unknown:permissions:e52ed4c720997730 dimension=permissions reason=unsupported_field field=permissions.permission:secret_access:mcp-server:local_review.effect source=project:project:.codex/config.toml$.mcp_servers.local_review.bearer_token_env_var:4-4
+  unknown:permissions:e54c411ec89a1f22 dimension=permissions reason=unsupported_field field=permissions.resolution source=project:project:.codex/config.toml:-
+  unknown:permissions:f35f2c190bb8f0eb dimension=permissions reason=unsupported_field field=permissions.permission:execute:mcp-server:local_review.effect source=project:project:.codex/config.toml$.mcp_servers.local_review:1-5
+  unknown:runtime_identities:9064e24bda5c282c dimension=runtime_identities reason=runtime_verification_required field=runtime_identities.identity:mcp-server:remote_release.privileged source=project:project:.codex/config.toml$.mcp_servers.remote_release:7-12
+  unknown:runtime_identities:efea430ca56cde7a dimension=runtime_identities reason=runtime_verification_required field=runtime_identities.identity:mcp-server:local_review.privileged source=project:project:.codex/config.toml$.mcp_servers.local_review:1-5
+  unknown:tools:dd8f12f4d887ff96 dimension=tools reason=unsupported_field field=tools.skill:review.side_effects source=project:project:.agents/skills/review/SKILL.md:-
+
+Boundary
+  This report does not prove that the Agent is globally safe.
+  Declared capability does not prove runtime availability or authorization.

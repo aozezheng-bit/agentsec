@@ -1,0 +1,45 @@
+{
+  "case_id": "cal-near-miss-chain-001-zh",
+  "facts": [
+    {
+      "dimension": "permission",
+      "evidence": [
+        {
+          "asset_path": "facts.json",
+          "field_path": "facts.0"
+        }
+      ],
+      "fact_id": "fact-01",
+      "key": "execute",
+      "state": "absent",
+      "target_id": null
+    },
+    {
+      "dimension": "permission",
+      "evidence": [
+        {
+          "asset_path": "facts.json",
+          "field_path": "facts.1"
+        }
+      ],
+      "fact_id": "fact-02",
+      "key": "secret-access",
+      "state": "absent",
+      "target_id": null
+    },
+    {
+      "dimension": "permission",
+      "evidence": [
+        {
+          "asset_path": "facts.json",
+          "field_path": "facts.2"
+        }
+      ],
+      "fact_id": "fact-03",
+      "key": "external-network",
+      "state": "absent",
+      "target_id": null
+    }
+  ],
+  "fixture_version": "0.1.0"
+}

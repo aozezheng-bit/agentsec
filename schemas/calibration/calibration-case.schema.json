@@ -1,0 +1,528 @@
+{
+  "$defs": {
+    "CalibrationCaseKind": {
+      "description": "Ground-truth scenario class used for calibration stratification.",
+      "enum": [
+        "positive",
+        "negative",
+        "near_miss",
+        "incomplete",
+        "unknown",
+        "conflict"
+      ],
+      "title": "CalibrationCaseKind",
+      "type": "string"
+    },
+    "CalibrationDisposition": {
+      "description": "Reviewer disposition, independent from deterministic Rule outcome.",
+      "enum": [
+        "actionable",
+        "accepted_risk",
+        "not_applicable",
+        "unsupported",
+        "ambiguous"
+      ],
+      "title": "CalibrationDisposition",
+      "type": "string"
+    },
+    "CalibrationEvidenceReference": {
+      "additionalProperties": false,
+      "description": "Value-free location inside an inert calibration fixture.",
+      "properties": {
+        "asset_path": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Asset Path",
+          "type": "string"
+        },
+        "end_line": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "End Line"
+        },
+        "field_path": {
+          "anyOf": [
+            {
+              "maxLength": 512,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Field Path"
+        },
+        "start_line": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Start Line"
+        }
+      },
+      "required": [
+        "asset_path"
+      ],
+      "title": "CalibrationEvidenceReference",
+      "type": "object"
+    },
+    "CalibrationFact": {
+      "additionalProperties": false,
+      "description": "One expected normalized fact without raw source values.",
+      "properties": {
+        "dimension": {
+          "$ref": "#/$defs/CalibrationFactDimension"
+        },
+        "evidence": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/CalibrationEvidenceReference"
+          },
+          "title": "Evidence",
+          "type": "array"
+        },
+        "fact_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Fact Id",
+          "type": "string"
+        },
+        "key": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Key",
+          "type": "string"
+        },
+        "state": {
+          "$ref": "#/$defs/CalibrationFactState"
+        },
+        "target_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Target Id"
+        }
+      },
+      "required": [
+        "fact_id",
+        "dimension",
+        "key",
+        "state"
+      ],
+      "title": "CalibrationFact",
+      "type": "object"
+    },
+    "CalibrationFactDimension": {
+      "description": "Normalized Manifest dimension represented by one labeled fact.",
+      "enum": [
+        "tool",
+        "permission",
+        "control",
+        "runtime_identity",
+        "relationship",
+        "unknown",
+        "coverage"
+      ],
+      "title": "CalibrationFactDimension",
+      "type": "string"
+    },
+    "CalibrationFactState": {
+      "description": "Expected state of a normalized fact in a calibration Case.",
+      "enum": [
+        "present",
+        "absent",
+        "unknown"
+      ],
+      "title": "CalibrationFactState",
+      "type": "string"
+    },
+    "CalibrationFixture": {
+      "additionalProperties": false,
+      "description": "Portable fixture reference; the loader verifies containment and existence.",
+      "properties": {
+        "assets": {
+          "default": [],
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Assets",
+          "type": "array"
+        },
+        "formats": {
+          "items": {
+            "$ref": "#/$defs/CalibrationFormat"
+          },
+          "title": "Formats",
+          "type": "array"
+        },
+        "kind": {
+          "$ref": "#/$defs/CalibrationInputKind"
+        },
+        "path": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Path",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "path",
+        "formats"
+      ],
+      "title": "CalibrationFixture",
+      "type": "object"
+    },
+    "CalibrationFormat": {
+      "description": "Input syntax represented by one calibration scenario.",
+      "enum": [
+        "markdown",
+        "toml",
+        "yaml",
+        "json",
+        "rules",
+        "manifest"
+      ],
+      "title": "CalibrationFormat",
+      "type": "string"
+    },
+    "CalibrationGroundTruth": {
+      "additionalProperties": false,
+      "description": "Reviewed labels for Coverage, facts, Rules, and Evidence Confidence.",
+      "properties": {
+        "coverage": {
+          "enum": [
+            "complete",
+            "incomplete"
+          ],
+          "title": "Coverage",
+          "type": "string"
+        },
+        "facts": {
+          "items": {
+            "$ref": "#/$defs/CalibrationFact"
+          },
+          "title": "Facts",
+          "type": "array"
+        },
+        "rule_expectations": {
+          "items": {
+            "$ref": "#/$defs/CalibrationRuleExpectation"
+          },
+          "title": "Rule Expectations",
+          "type": "array"
+        },
+        "runtime_verified": {
+          "const": false,
+          "default": false,
+          "title": "Runtime Verified",
+          "type": "boolean"
+        },
+        "unknown_dimensions": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ManifestUnknownDimension"
+          },
+          "title": "Unknown Dimensions",
+          "type": "array"
+        }
+      },
+      "required": [
+        "coverage",
+        "facts",
+        "rule_expectations"
+      ],
+      "title": "CalibrationGroundTruth",
+      "type": "object"
+    },
+    "CalibrationInputKind": {
+      "description": "Safe fixture representation consumed by a later calibration Runner.",
+      "enum": [
+        "project",
+        "manifest_snapshot",
+        "fact_bundle"
+      ],
+      "title": "CalibrationInputKind",
+      "type": "string"
+    },
+    "CalibrationLanguage": {
+      "description": "Language of the inert input fixture or reviewed declaration.",
+      "enum": [
+        "en",
+        "zh",
+        "bilingual"
+      ],
+      "title": "CalibrationLanguage",
+      "type": "string"
+    },
+    "CalibrationReview": {
+      "additionalProperties": false,
+      "description": "Review provenance for one seed label without personal data.",
+      "properties": {
+        "disposition": {
+          "$ref": "#/$defs/CalibrationDisposition"
+        },
+        "rationale_code": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Rationale Code",
+          "type": "string"
+        },
+        "reviewer_refs": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Reviewer Refs",
+          "type": "array"
+        },
+        "status": {
+          "$ref": "#/$defs/CalibrationReviewStatus"
+        }
+      },
+      "required": [
+        "status",
+        "disposition",
+        "reviewer_refs",
+        "rationale_code"
+      ],
+      "title": "CalibrationReview",
+      "type": "object"
+    },
+    "CalibrationReviewStatus": {
+      "description": "Review maturity of one seed label.",
+      "enum": [
+        "seeded",
+        "reviewed",
+        "adjudicated"
+      ],
+      "title": "CalibrationReviewStatus",
+      "type": "string"
+    },
+    "CalibrationRuleExpectation": {
+      "additionalProperties": false,
+      "description": "One expected Rule result used by a future deterministic evaluator.",
+      "properties": {
+        "confidences": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/EvidenceConfidence"
+          },
+          "title": "Confidences",
+          "type": "array"
+        },
+        "correlations": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/CapabilityCorrelation"
+          },
+          "title": "Correlations",
+          "type": "array"
+        },
+        "fact_ids": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Fact Ids",
+          "type": "array"
+        },
+        "max_findings": {
+          "default": 0,
+          "maximum": 4096,
+          "minimum": 0,
+          "title": "Max Findings",
+          "type": "integer"
+        },
+        "min_findings": {
+          "default": 0,
+          "maximum": 4096,
+          "minimum": 0,
+          "title": "Min Findings",
+          "type": "integer"
+        },
+        "outcome": {
+          "$ref": "#/$defs/CalibrationRuleOutcome"
+        },
+        "rationale_code": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Rationale Code",
+          "type": "string"
+        },
+        "rule_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Rule Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "rule_id",
+        "outcome",
+        "rationale_code"
+      ],
+      "title": "CalibrationRuleExpectation",
+      "type": "object"
+    },
+    "CalibrationRuleOutcome": {
+      "description": "Expected result for one Rule under test.",
+      "enum": [
+        "match",
+        "no_match"
+      ],
+      "title": "CalibrationRuleOutcome",
+      "type": "string"
+    },
+    "CapabilityCorrelation": {
+      "description": "Strength and scope of the deterministic fact correlation.",
+      "enum": [
+        "same_target",
+        "parent_child",
+        "same_source",
+        "explicit_relation",
+        "agent_wide",
+        "incomplete_coverage"
+      ],
+      "title": "CapabilityCorrelation",
+      "type": "string"
+    },
+    "EvidenceConfidence": {
+      "description": "Confidence in evidence, independent from finding severity.",
+      "enum": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "title": "EvidenceConfidence",
+      "type": "string"
+    },
+    "ManifestUnknownDimension": {
+      "description": "Manifest dimensions to which an explicit Unknown may belong.",
+      "enum": [
+        "identity",
+        "instructions",
+        "tools",
+        "permissions",
+        "controls",
+        "runtime_identities",
+        "relationships",
+        "coverage"
+      ],
+      "title": "ManifestUnknownDimension",
+      "type": "string"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "One bounded, labeled calibration scenario.",
+  "properties": {
+    "case_id": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Case Id",
+      "type": "string"
+    },
+    "case_kind": {
+      "$ref": "#/$defs/CalibrationCaseKind"
+    },
+    "fixture": {
+      "$ref": "#/$defs/CalibrationFixture"
+    },
+    "format": {
+      "const": "agentsec-capability-calibration-case",
+      "default": "agentsec-capability-calibration-case",
+      "title": "Format",
+      "type": "string"
+    },
+    "framework_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Framework Id",
+      "type": "string"
+    },
+    "ground_truth": {
+      "$ref": "#/$defs/CalibrationGroundTruth"
+    },
+    "language": {
+      "$ref": "#/$defs/CalibrationLanguage"
+    },
+    "purpose": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Purpose",
+      "type": "string"
+    },
+    "review": {
+      "$ref": "#/$defs/CalibrationReview"
+    },
+    "schema_version": {
+      "default": "0.1.0",
+      "minLength": 1,
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "source_formats": {
+      "items": {
+        "$ref": "#/$defs/CalibrationFormat"
+      },
+      "title": "Source Formats",
+      "type": "array"
+    },
+    "tags": {
+      "default": [],
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Tags",
+      "type": "array"
+    }
+  },
+  "required": [
+    "case_id",
+    "case_kind",
+    "language",
+    "framework_id",
+    "purpose",
+    "fixture",
+    "source_formats",
+    "ground_truth",
+    "review"
+  ],
+  "title": "CalibrationCase",
+  "type": "object",
+  "x-agentsec-calibration-case-schema-version": "0.1.0"
+}

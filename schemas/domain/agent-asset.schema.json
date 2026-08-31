@@ -1,0 +1,93 @@
+{
+  "$defs": {
+    "AssetSource": {
+      "description": "How an asset entered the scan scope.",
+      "enum": [
+        "discovered",
+        "explicit"
+      ],
+      "title": "AssetSource",
+      "type": "string"
+    },
+    "AssetType": {
+      "description": "Supported Phase 1 Agent asset types.",
+      "enum": [
+        "agents",
+        "agents_override",
+        "skill",
+        "explicit_markdown"
+      ],
+      "title": "AssetType",
+      "type": "string"
+    },
+    "GitFileStatus": {
+      "description": "Optional Git working-tree status associated with an asset.",
+      "enum": [
+        "unchanged",
+        "added",
+        "modified",
+        "deleted",
+        "untracked"
+      ],
+      "title": "GitFileStatus",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "A discovered Phase 1 Agent control asset.",
+  "properties": {
+    "asset_type": {
+      "$ref": "#/$defs/AssetType"
+    },
+    "encoding": {
+      "default": "utf-8",
+      "minLength": 1,
+      "title": "Encoding",
+      "type": "string"
+    },
+    "git_status": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/GitFileStatus"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "line_count": {
+      "minimum": 0,
+      "title": "Line Count",
+      "type": "integer"
+    },
+    "path": {
+      "minLength": 1,
+      "title": "Path",
+      "type": "string"
+    },
+    "sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Sha256",
+      "type": "string"
+    },
+    "size_bytes": {
+      "minimum": 0,
+      "title": "Size Bytes",
+      "type": "integer"
+    },
+    "source": {
+      "$ref": "#/$defs/AssetSource"
+    }
+  },
+  "required": [
+    "path",
+    "asset_type",
+    "source",
+    "sha256",
+    "size_bytes",
+    "line_count"
+  ],
+  "title": "AgentAsset",
+  "type": "object"
+}

@@ -1,0 +1,97 @@
+{
+  "actual": {
+    "added_findings": [
+      "HOMI-COMB-002"
+    ],
+    "added_observations": [],
+    "capability_changes": {
+      "heartbeat_schedule": [
+        "example_only",
+        "present"
+      ]
+    },
+    "changed_findings": [],
+    "file_changes": {
+      "HEARTBEAT.md": "modified"
+    },
+    "persona_changes": {},
+    "removed_findings": [],
+    "removed_observations": [
+      "heartbeat_activation_path"
+    ],
+    "resolution_status": "conflict",
+    "simulation_changes": {
+      "HOMI-SIM-001": [
+        "blocked_example_only",
+        "declared_path"
+      ]
+    },
+    "status": "partial"
+  },
+  "after": {
+    "ci_blocked": false,
+    "report_only": true,
+    "resolution_status": "conflict",
+    "runtime_verified": false,
+    "status": "partial"
+  },
+  "before": {
+    "ci_blocked": false,
+    "report_only": true,
+    "resolution_status": "conflict",
+    "runtime_verified": false,
+    "status": "partial"
+  },
+  "drill": "risky_change",
+  "expected": {
+    "added_findings": [
+      "HOMI-COMB-002"
+    ],
+    "added_observations": [],
+    "capability_changes": {
+      "heartbeat_schedule": [
+        "example_only",
+        "present"
+      ]
+    },
+    "changed_findings": [],
+    "file_changes": {
+      "HEARTBEAT.md": "modified"
+    },
+    "persona_changes": {},
+    "removed_findings": [],
+    "removed_observations": [
+      "heartbeat_activation_path"
+    ],
+    "resolution_status": "conflict",
+    "simulation_changes": {
+      "HOMI-SIM-001": [
+        "blocked_example_only",
+        "declared_path"
+      ]
+    },
+    "status": "partial"
+  },
+  "format": "agentsec-homi-capability-drift-evidence",
+  "format_version": "0.1.0",
+  "limitations": [
+    "Static Homi drift does not prove runtime reachability or execution.",
+    "Scenario-contract review is engineering evidence, not independent human TP/FP/FN adjudication.",
+    "No drift result authorizes CI blocking, release, Tool access, or a waiver."
+  ],
+  "provenance": {
+    "baseline_report_sha256": "782780c50cb7d8283e5f81480211c49f207d9f37275bf88c9fb7af66c71dbbaf",
+    "snapshot_archive_sha256": "5a2cbd8d9b7fdf6a0cc3dd125ab8104911e5d43f544a974f9a8ca59337df9406",
+    "snapshot_report_sha256": "b11ff451316cdf41663f800de000261c018c86b1f8465ece41b0d4fba3d0f4c8"
+  },
+  "review": {
+    "contract_pass": true,
+    "independent_human_review": false,
+    "mode": "deterministic_scenario_contract",
+    "outcome": "contract_pass"
+  },
+  "risk_direction": "risk_increase",
+  "scenario_id": "pr-03-real-heartbeat-activation",
+  "task_id": "P2-EXIT-06-03",
+  "title": "配置真实邮箱、日历和天气 Heartbeat 任务"
+}

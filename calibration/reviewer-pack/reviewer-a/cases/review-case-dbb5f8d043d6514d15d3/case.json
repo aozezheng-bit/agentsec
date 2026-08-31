@@ -1,0 +1,33 @@
+{
+  "corpus_binding_hash": "sha256:59e034541e3c1096f311404358031a5dc81fc880123351363713d66c2544ad79",
+  "format": "agentsec-independent-review-case",
+  "input_format": "manifest",
+  "language": "en",
+  "pack_id": "reviewer-pack-sha256:58295690c13861a763ed9c202d39fe37642ac0f8d9d2d6e416886184a4a86d90",
+  "question_set_sha256": "sha256:24b9fee8c468e96eb9394783fc8aab64e968b71b12823d13ac84f6f6c181e190",
+  "review_case_fingerprint": "sha256:d227c0941873e490e5bfb8f30d7c08544865c4e3ff217f9d35103a7b26b98441",
+  "review_case_id": "review-case-dbb5f8d043d6514d15d3",
+  "review_questions": [
+    {
+      "condition": {
+        "en": "A reads, writes, or persists memory relationship coexists with a secret_access permission."
+      },
+      "prompt": {
+        "en": "Independently label the human Rule condition as match, no_match, or uncertain; record your direct finding observation, policy/scope category, evidence location, Confidence, Correlation, disposition, rationale code, and notes. Do not calculate TP/FP/FN/TN."
+      },
+      "question_id": "question:review-case-dbb5f8d043d6514d15d3:CAP-MEMORYSECRET-001",
+      "rule_id": "CAP-MEMORYSECRET-001",
+      "title": {
+        "en": "Memory relationship coexists with secret access"
+      }
+    }
+  ],
+  "schema_version": "0.3.0",
+  "source_location": {
+    "end_line": 19,
+    "path": "source.manifest.json",
+    "start_line": 1
+  },
+  "source_sha256": "sha256:5c1e636dc2d5e821e471fc5cd8b00342261ab65f3d63be83e9d5db335bae886d",
+  "synthetic_fixture": true
+}

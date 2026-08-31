@@ -1,0 +1,33 @@
+{
+  "corpus_binding_hash": "sha256:59e034541e3c1096f311404358031a5dc81fc880123351363713d66c2544ad79",
+  "format": "agentsec-independent-review-case",
+  "input_format": "manifest",
+  "language": "en",
+  "pack_id": "reviewer-pack-sha256:58295690c13861a763ed9c202d39fe37642ac0f8d9d2d6e416886184a4a86d90",
+  "question_set_sha256": "sha256:497badc179109e969685932bfec2345cfc71d3f981d17aadadd78533c98824e6",
+  "review_case_fingerprint": "sha256:9ce3bf52d518af568c9b0884df2b54f5c684ed3e676e6aa43b2722d57d25d567",
+  "review_case_id": "review-case-86b938a2bd49e52b5232",
+  "review_questions": [
+    {
+      "condition": {
+        "en": "A delegates_to relationship coexists with an external network, write, execute, or admin permission."
+      },
+      "prompt": {
+        "en": "Independently label the human Rule condition as match, no_match, or uncertain; record your direct finding observation, policy/scope category, evidence location, Confidence, Correlation, disposition, rationale code, and notes. Do not calculate TP/FP/FN/TN."
+      },
+      "question_id": "question:review-case-86b938a2bd49e52b5232:CAP-DELEGATEEXTERNAL-001",
+      "rule_id": "CAP-DELEGATEEXTERNAL-001",
+      "title": {
+        "en": "Delegation is combined with an external capability"
+      }
+    }
+  ],
+  "schema_version": "0.3.0",
+  "source_location": {
+    "end_line": 19,
+    "path": "source.manifest.json",
+    "start_line": 1
+  },
+  "source_sha256": "sha256:4c035ae46c18d95ae675672a35d20cf0d201d5ecd4c3226c54619df04aed77eb",
+  "synthetic_fixture": true
+}

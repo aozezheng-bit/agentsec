@@ -1,0 +1,25 @@
+{
+  "facts": [
+    {
+      "dimension": "permission",
+      "key": "execute",
+      "state": "present",
+      "target_id": "target:primary"
+    },
+    {
+      "dimension": "permission",
+      "key": "secret-access",
+      "state": "present",
+      "target_id": "target:primary"
+    },
+    {
+      "dimension": "permission",
+      "key": "external-network",
+      "state": "present",
+      "target_id": "target:primary"
+    }
+  ],
+  "format": "synthetic-agent-manifest-review-view",
+  "review_case_id": "review-case-4f2e9c701faec7353c83",
+  "synthetic": true
+}

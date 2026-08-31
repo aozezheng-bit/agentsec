@@ -1,0 +1,17 @@
+{
+  "case_id": "risky-database-drop",
+  "category": "risky",
+  "purpose": "Isolate destructive database deletion behavior.",
+  "assets": [
+    "AGENTS.md"
+  ],
+  "expected": {
+    "coverage": "complete",
+    "signals": [
+      "destructive_action"
+    ],
+    "rule_ids": [
+      "MD-DESTRUCT-001"
+    ]
+  }
+}

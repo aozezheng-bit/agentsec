@@ -1,0 +1,295 @@
+{
+  "decisions": [
+    {
+      "applied_waiver_ids": [],
+      "blocking_finding_count": 0,
+      "case_id": "baseline-01",
+      "coverage_complete": true,
+      "decision": "allow",
+      "exit_code": 0,
+      "expired_waiver_ids": [
+        "external-pilot-secret-expired"
+      ],
+      "observed_rule_ids": [
+        "MD-MEMORY-001"
+      ]
+    },
+    {
+      "applied_waiver_ids": [],
+      "blocking_finding_count": 0,
+      "case_id": "baseline-02",
+      "coverage_complete": true,
+      "decision": "allow",
+      "exit_code": 0,
+      "expired_waiver_ids": [
+        "external-pilot-secret-expired"
+      ],
+      "observed_rule_ids": []
+    },
+    {
+      "applied_waiver_ids": [],
+      "blocking_finding_count": 0,
+      "case_id": "baseline-03",
+      "coverage_complete": true,
+      "decision": "allow",
+      "exit_code": 0,
+      "expired_waiver_ids": [
+        "external-pilot-secret-expired"
+      ],
+      "observed_rule_ids": []
+    },
+    {
+      "applied_waiver_ids": [],
+      "blocking_finding_count": 0,
+      "case_id": "baseline-04",
+      "coverage_complete": true,
+      "decision": "allow",
+      "exit_code": 0,
+      "expired_waiver_ids": [
+        "external-pilot-secret-expired"
+      ],
+      "observed_rule_ids": []
+    },
+    {
+      "applied_waiver_ids": [],
+      "blocking_finding_count": 0,
+      "case_id": "baseline-05",
+      "coverage_complete": true,
+      "decision": "allow",
+      "exit_code": 0,
+      "expired_waiver_ids": [
+        "external-pilot-secret-expired"
+      ],
+      "observed_rule_ids": []
+    },
+    {
+      "applied_waiver_ids": [],
+      "blocking_finding_count": 0,
+      "case_id": "baseline-06",
+      "coverage_complete": true,
+      "decision": "allow",
+      "exit_code": 0,
+      "expired_waiver_ids": [
+        "external-pilot-secret-expired"
+      ],
+      "observed_rule_ids": []
+    },
+    {
+      "applied_waiver_ids": [],
+      "blocking_finding_count": 0,
+      "case_id": "baseline-07",
+      "coverage_complete": true,
+      "decision": "allow",
+      "exit_code": 0,
+      "expired_waiver_ids": [
+        "external-pilot-secret-expired"
+      ],
+      "observed_rule_ids": [
+        "MD-INSTR-001",
+        "MD-INSTR-002"
+      ]
+    },
+    {
+      "applied_waiver_ids": [],
+      "blocking_finding_count": 0,
+      "case_id": "baseline-08",
+      "coverage_complete": true,
+      "decision": "allow",
+      "exit_code": 0,
+      "expired_waiver_ids": [
+        "external-pilot-secret-expired"
+      ],
+      "observed_rule_ids": [
+        "MD-MEMORY-001"
+      ]
+    },
+    {
+      "applied_waiver_ids": [],
+      "blocking_finding_count": 0,
+      "case_id": "baseline-09",
+      "coverage_complete": true,
+      "decision": "allow",
+      "exit_code": 0,
+      "expired_waiver_ids": [
+        "external-pilot-secret-expired"
+      ],
+      "observed_rule_ids": []
+    },
+    {
+      "applied_waiver_ids": [],
+      "blocking_finding_count": 0,
+      "case_id": "baseline-10",
+      "coverage_complete": true,
+      "decision": "allow",
+      "exit_code": 0,
+      "expired_waiver_ids": [
+        "external-pilot-secret-expired"
+      ],
+      "observed_rule_ids": []
+    },
+    {
+      "applied_waiver_ids": [
+        "external-pilot-exec-active"
+      ],
+      "blocking_finding_count": 1,
+      "case_id": "pr-01",
+      "coverage_complete": true,
+      "decision": "block",
+      "exit_code": 1,
+      "expired_waiver_ids": [
+        "external-pilot-secret-expired"
+      ],
+      "observed_rule_ids": [
+        "MD-APPROVAL-001",
+        "MD-DEPLOY-001",
+        "MD-EXEC-001",
+        "MD-INSTR-001",
+        "MD-INSTR-002",
+        "MD-NET-001",
+        "MD-PRIV-001",
+        "MD-SECRET-001"
+      ]
+    },
+    {
+      "applied_waiver_ids": [
+        "external-pilot-exec-active"
+      ],
+      "blocking_finding_count": 0,
+      "case_id": "pr-02",
+      "coverage_complete": true,
+      "decision": "allow",
+      "exit_code": 0,
+      "expired_waiver_ids": [
+        "external-pilot-secret-expired"
+      ],
+      "observed_rule_ids": [
+        "MD-EXEC-001"
+      ]
+    },
+    {
+      "applied_waiver_ids": [
+        "external-pilot-exec-active"
+      ],
+      "blocking_finding_count": 0,
+      "case_id": "pr-03",
+      "coverage_complete": true,
+      "decision": "allow",
+      "exit_code": 0,
+      "expired_waiver_ids": [
+        "external-pilot-secret-expired"
+      ],
+      "observed_rule_ids": [
+        "MD-EXEC-001"
+      ]
+    },
+    {
+      "applied_waiver_ids": [],
+      "blocking_finding_count": 1,
+      "case_id": "pr-04",
+      "coverage_complete": true,
+      "decision": "block",
+      "exit_code": 1,
+      "expired_waiver_ids": [
+        "external-pilot-secret-expired"
+      ],
+      "observed_rule_ids": [
+        "MD-SECRET-001"
+      ]
+    },
+    {
+      "applied_waiver_ids": [
+        "external-pilot-exec-active"
+      ],
+      "blocking_finding_count": 1,
+      "case_id": "pr-05",
+      "coverage_complete": true,
+      "decision": "block",
+      "exit_code": 1,
+      "expired_waiver_ids": [
+        "external-pilot-secret-expired"
+      ],
+      "observed_rule_ids": [
+        "MD-EXEC-001",
+        "MD-SECRET-001"
+      ]
+    },
+    {
+      "applied_waiver_ids": [],
+      "blocking_finding_count": 0,
+      "case_id": "pr-06",
+      "coverage_complete": false,
+      "decision": "incomplete",
+      "exit_code": 2,
+      "expired_waiver_ids": [
+        "external-pilot-secret-expired"
+      ],
+      "observed_rule_ids": []
+    },
+    {
+      "applied_waiver_ids": [],
+      "blocking_finding_count": 0,
+      "case_id": "pr-07",
+      "coverage_complete": true,
+      "decision": "allow",
+      "exit_code": 0,
+      "expired_waiver_ids": [
+        "external-pilot-secret-expired"
+      ],
+      "observed_rule_ids": [
+        "MD-DEPLOY-001",
+        "MD-PRIV-001"
+      ]
+    },
+    {
+      "applied_waiver_ids": [],
+      "blocking_finding_count": 0,
+      "case_id": "pr-08",
+      "coverage_complete": true,
+      "decision": "allow",
+      "exit_code": 0,
+      "expired_waiver_ids": [
+        "external-pilot-secret-expired"
+      ],
+      "observed_rule_ids": [
+        "MD-NET-001"
+      ]
+    },
+    {
+      "applied_waiver_ids": [],
+      "blocking_finding_count": 0,
+      "case_id": "pr-09",
+      "coverage_complete": true,
+      "decision": "allow",
+      "exit_code": 0,
+      "expired_waiver_ids": [
+        "external-pilot-secret-expired"
+      ],
+      "observed_rule_ids": [
+        "MD-SELF-001"
+      ]
+    },
+    {
+      "applied_waiver_ids": [],
+      "blocking_finding_count": 0,
+      "case_id": "pr-10",
+      "coverage_complete": true,
+      "decision": "allow",
+      "exit_code": 0,
+      "expired_waiver_ids": [
+        "external-pilot-secret-expired"
+      ],
+      "observed_rule_ids": []
+    }
+  ],
+  "format": "agentsec-external-pilot-waiver-drill-evidence",
+  "format_version": "0.1.0",
+  "policy_sha256": "134a0722cc725cadd3f59008e0ef87ada628df2d8ec0830f3cda03275789a67a",
+  "task_id": "P2-EXIT-06-04",
+  "waiver_lifecycle": {
+    "active_waived_finding_remained_visible": true,
+    "active_waiver_applied": true,
+    "expired_waiver_reported": true,
+    "expired_waiver_restored_blocking": true,
+    "passed": true
+  }
+}

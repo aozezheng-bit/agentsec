@@ -1,0 +1,32 @@
+format: agentsec-organization-policy
+schema_version: 0.3.0
+policy_id: external-homi-final-pilot
+policy_version: 0.1.0
+enabled: true
+enforcement_mode: enforce
+scan:
+  fail_on: high
+  blocking_rule_ids:
+  - MD-EXEC-001
+  - MD-SECRET-001
+capability:
+  qualified_gates: []
+coverage:
+  require_complete: true
+  require_unknown_free: true
+safety:
+  allow_llm_authority: false
+  allow_runtime_unverified_authority: false
+waivers:
+- waiver_id: external-pilot-exec-active
+  owner: security-team
+  reason: Reviewed active Waiver lifecycle state
+  expires_on: '2099-12-31'
+  rule_ids:
+  - MD-EXEC-001
+- waiver_id: external-pilot-secret-expired
+  owner: security-team
+  reason: Expired Waiver lifecycle state
+  expires_on: '2000-01-01'
+  rule_ids:
+  - MD-SECRET-001

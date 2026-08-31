@@ -1,0 +1,33 @@
+{
+  "corpus_binding_hash": "sha256:59e034541e3c1096f311404358031a5dc81fc880123351363713d66c2544ad79",
+  "format": "agentsec-independent-review-case",
+  "input_format": "manifest",
+  "language": "en",
+  "pack_id": "reviewer-pack-sha256:58295690c13861a763ed9c202d39fe37642ac0f8d9d2d6e416886184a4a86d90",
+  "question_set_sha256": "sha256:344fd6651f8a718c41c39487856dd30bd9ff6557925f81fa6ea65c749266442a",
+  "review_case_fingerprint": "sha256:26669caea1265f63e24275b6efa3d25ac4a4f3670efdb42ca4d1eac015999f37",
+  "review_case_id": "review-case-2111d24353518d260697",
+  "review_questions": [
+    {
+      "condition": {
+        "en": "An external network permission has no configured network_policy control on its target or parent."
+      },
+      "prompt": {
+        "en": "Independently label the human Rule condition as match, no_match, or uncertain; record your direct finding observation, policy/scope category, evidence location, Confidence, Correlation, disposition, rationale code, and notes. Do not calculate TP/FP/FN/TN."
+      },
+      "question_id": "question:review-case-2111d24353518d260697:CAP-NONETWORKPOLICY-001",
+      "rule_id": "CAP-NONETWORKPOLICY-001",
+      "title": {
+        "en": "External network capability lacks a network policy"
+      }
+    }
+  ],
+  "schema_version": "0.3.0",
+  "source_location": {
+    "end_line": 19,
+    "path": "source.manifest.json",
+    "start_line": 1
+  },
+  "source_sha256": "sha256:d6cf989606c4d0b7908cb1f0b1d6ca5becf23b7a6727361991e7971fecd32c1b",
+  "synthetic_fixture": true
+}

@@ -1,0 +1,13 @@
+{
+  "facts": [
+    {
+      "dimension": "runtime_identity",
+      "key": "external-privileged",
+      "state": "present",
+      "target_id": "target:primary"
+    }
+  ],
+  "format": "synthetic-agent-manifest-review-view",
+  "review_case_id": "review-case-0c6f0854a7a891149e05",
+  "synthetic": true
+}

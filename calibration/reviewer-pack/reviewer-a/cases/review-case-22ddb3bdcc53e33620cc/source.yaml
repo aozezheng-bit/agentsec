@@ -1,0 +1,48 @@
+title: "Synthetic static capability review input / 合成静态能力评审输入"
+synthetic: true
+review_case_id: review-case-22ddb3bdcc53e33620cc
+facts:
+  - dimension: permission
+    key: state-changing
+    state: present
+    target_id: target:prodauto-1
+  - dimension: permission
+    key: production-state-change
+    state: present
+    target_id: target:prodauto-1
+  - dimension: control
+    key: human-approval
+    state: absent
+    target_id: target:prodauto-1
+  - dimension: control
+    key: human-approval-allow
+    state: present
+    target_id: target:prodauto-1
+  - dimension: permission
+    key: production-write
+    state: present
+    target_id: target:prodauto-1
+  - dimension: control
+    key: sandbox
+    state: absent
+    target_id: target:prodauto-1
+  - dimension: control
+    key: network-policy
+    state: present
+    target_id: target:prodauto-1
+  - dimension: control
+    key: secret-handling
+    state: absent
+    target_id: target:prodauto-1
+  - dimension: tool
+    key: mcp-enabled-required
+    state: absent
+    target_id: target:prodauto-1
+  - dimension: runtime_identity
+    key: identity-lifetime-reviewed
+    state: present
+    target_id: target:prodauto-1
+  - dimension: relationship
+    key: memory
+    state: present
+    target_id: target:prodauto-1

@@ -1,0 +1,13 @@
+{
+  "facts": [
+    {
+      "dimension": "relationship",
+      "key": "high-impact",
+      "state": "unknown",
+      "target_id": "target:primary"
+    }
+  ],
+  "format": "synthetic-static-review-view",
+  "review_case_id": "review-case-4b43e6e931f2da0cb3b7",
+  "synthetic": true
+}

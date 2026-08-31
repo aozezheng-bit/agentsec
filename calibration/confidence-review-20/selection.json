@@ -1,0 +1,208 @@
+{
+  "boundary": {
+    "ci_blocking": false,
+    "expected_confidence_distributed": false,
+    "formal_human_evidence": false,
+    "gate_qualification": false,
+    "match_labels_distributed": false,
+    "prior_human_confidence_distributed": false
+  },
+  "expected_labels_included": false,
+  "format": "agentsec-confidence-recalibration-selection",
+  "gate_id": "HG-CAPCHAIN-001",
+  "ground_truth_included": false,
+  "items": [
+    {
+      "input_format": "manifest",
+      "language": "zh",
+      "review_case_id": "review-case-00ae928f46d9cf409d26",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-00ae928f46d9cf409d26/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-00ae928f46d9cf409d26/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 1
+    },
+    {
+      "input_format": "toml",
+      "language": "zh",
+      "review_case_id": "review-case-07b5af6d2e9751112094",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-07b5af6d2e9751112094/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-07b5af6d2e9751112094/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 2
+    },
+    {
+      "input_format": "toml",
+      "language": "zh",
+      "review_case_id": "review-case-10cac34e3c5aa3f50781",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-10cac34e3c5aa3f50781/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-10cac34e3c5aa3f50781/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 3
+    },
+    {
+      "input_format": "markdown",
+      "language": "zh",
+      "review_case_id": "review-case-3d175c4543b41a9d762e",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-3d175c4543b41a9d762e/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-3d175c4543b41a9d762e/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 4
+    },
+    {
+      "input_format": "markdown",
+      "language": "en",
+      "review_case_id": "review-case-4934a357278a2bae5e40",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-4934a357278a2bae5e40/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-4934a357278a2bae5e40/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 5
+    },
+    {
+      "input_format": "yaml",
+      "language": "bilingual",
+      "review_case_id": "review-case-5ab82f461824f821505b",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-5ab82f461824f821505b/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-5ab82f461824f821505b/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 6
+    },
+    {
+      "input_format": "json",
+      "language": "en",
+      "review_case_id": "review-case-5db83bb2029f3bfc3a61",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-5db83bb2029f3bfc3a61/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-5db83bb2029f3bfc3a61/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 7
+    },
+    {
+      "input_format": "toml",
+      "language": "en",
+      "review_case_id": "review-case-618d9b4c58c484258529",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-618d9b4c58c484258529/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-618d9b4c58c484258529/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 8
+    },
+    {
+      "input_format": "json",
+      "language": "en",
+      "review_case_id": "review-case-63ad8b6f1347ecb10b4d",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-63ad8b6f1347ecb10b4d/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-63ad8b6f1347ecb10b4d/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 9
+    },
+    {
+      "input_format": "json",
+      "language": "en",
+      "review_case_id": "review-case-685066e8291eeb5abdb6",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-685066e8291eeb5abdb6/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-685066e8291eeb5abdb6/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 10
+    },
+    {
+      "input_format": "yaml",
+      "language": "bilingual",
+      "review_case_id": "review-case-71ca600abea3b9c1ab89",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-71ca600abea3b9c1ab89/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-71ca600abea3b9c1ab89/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 11
+    },
+    {
+      "input_format": "manifest",
+      "language": "zh",
+      "review_case_id": "review-case-9ab94822fa5f070b89c7",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-9ab94822fa5f070b89c7/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-9ab94822fa5f070b89c7/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 12
+    },
+    {
+      "input_format": "markdown",
+      "language": "en",
+      "review_case_id": "review-case-be2c93e14bd68bde17cf",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-be2c93e14bd68bde17cf/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-be2c93e14bd68bde17cf/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 13
+    },
+    {
+      "input_format": "manifest",
+      "language": "en",
+      "review_case_id": "review-case-c5d64066eb407dd3a640",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-c5d64066eb407dd3a640/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-c5d64066eb407dd3a640/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 14
+    },
+    {
+      "input_format": "yaml",
+      "language": "bilingual",
+      "review_case_id": "review-case-cd72f50cf70ed7c35d40",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-cd72f50cf70ed7c35d40/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-cd72f50cf70ed7c35d40/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 15
+    },
+    {
+      "input_format": "toml",
+      "language": "en",
+      "review_case_id": "review-case-e7d09ded7ee8bd050fa3",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-e7d09ded7ee8bd050fa3/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-e7d09ded7ee8bd050fa3/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 16
+    },
+    {
+      "input_format": "manifest",
+      "language": "en",
+      "review_case_id": "review-case-e9254f57e24f42237c8a",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-e9254f57e24f42237c8a/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-e9254f57e24f42237c8a/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 17
+    },
+    {
+      "input_format": "json",
+      "language": "zh",
+      "review_case_id": "review-case-ee81efa9a591a74c2820",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-ee81efa9a591a74c2820/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-ee81efa9a591a74c2820/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 18
+    },
+    {
+      "input_format": "markdown",
+      "language": "zh",
+      "review_case_id": "review-case-f7ddbb1ee23b4059457f",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-f7ddbb1ee23b4059457f/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-f7ddbb1ee23b4059457f/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 19
+    },
+    {
+      "input_format": "json",
+      "language": "zh",
+      "review_case_id": "review-case-fd52db965a0e631b55e4",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-fd52db965a0e631b55e4/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-fd52db965a0e631b55e4/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 20
+    }
+  ],
+  "prior_confidence_included": false,
+  "review_count": 20,
+  "reviewer_scopes": [
+    "reviewer-a",
+    "reviewer-b"
+  ],
+  "rule_id": "CAP-CHAIN-001",
+  "schema_version": "0.1.0",
+  "selection_id": "confidence-selection-sha256:7d15023d866a0af3a70fcd15534cccfa8f174ec14c6191b2151c0e3f16027536",
+  "source_package_id": "gate-review-package-sha256:4bebfb271060eab3b638e5d229d3e8fb6d0c1c8284f4daaab77b961372787997",
+  "source_selection_id": "gate-subset-selection-sha256:4ef30e1a30ca4e6d4c87b32f07328946e8fdef4034ca78e48f8aef203104b2ae",
+  "task_id": "P2-15A-QUAL-02"
+}

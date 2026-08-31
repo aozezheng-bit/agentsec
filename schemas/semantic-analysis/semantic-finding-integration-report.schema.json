@@ -1,0 +1,127 @@
+{
+  "$defs": {
+    "SemanticFindingLink": {
+      "additionalProperties": false,
+      "properties": {
+        "basis": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Basis",
+          "type": "array"
+        },
+        "candidate_evidence_count": {
+          "minimum": 1,
+          "title": "Candidate Evidence Count",
+          "type": "integer"
+        },
+        "candidate_id": {
+          "pattern": "^semantic-candidate-sha256:[0-9a-f]{64}$",
+          "title": "Candidate Id",
+          "type": "string"
+        },
+        "finding_id": {
+          "anyOf": [
+            {
+              "maxLength": 256,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Finding Id"
+        },
+        "relation": {
+          "$ref": "#/$defs/SemanticFindingRelation"
+        }
+      },
+      "required": [
+        "candidate_id",
+        "relation",
+        "basis",
+        "candidate_evidence_count"
+      ],
+      "title": "SemanticFindingLink",
+      "type": "object"
+    },
+    "SemanticFindingRelation": {
+      "description": "A report-only relationship to a pre-existing deterministic Finding.",
+      "enum": [
+        "supports",
+        "duplicates",
+        "contradicts",
+        "unmatched"
+      ],
+      "title": "SemanticFindingRelation",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "ci_authority": {
+      "const": false,
+      "default": false,
+      "title": "Ci Authority",
+      "type": "boolean"
+    },
+    "finding_authority": {
+      "const": false,
+      "default": false,
+      "title": "Finding Authority",
+      "type": "boolean"
+    },
+    "format": {
+      "const": "agentsec-semantic-finding-integration-report",
+      "default": "agentsec-semantic-finding-integration-report",
+      "title": "Format",
+      "type": "string"
+    },
+    "links": {
+      "items": {
+        "$ref": "#/$defs/SemanticFindingLink"
+      },
+      "title": "Links",
+      "type": "array"
+    },
+    "policy_authority": {
+      "const": false,
+      "default": false,
+      "title": "Policy Authority",
+      "type": "boolean"
+    },
+    "report_only": {
+      "const": true,
+      "default": true,
+      "title": "Report Only",
+      "type": "boolean"
+    },
+    "schema_version": {
+      "const": "0.1.0",
+      "default": "0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "semantic_result_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Semantic Result Sha256",
+      "type": "string"
+    },
+    "severity_authority": {
+      "const": false,
+      "default": false,
+      "title": "Severity Authority",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "semantic_result_sha256",
+    "links"
+  ],
+  "title": "SemanticFindingIntegrationReport",
+  "type": "object"
+}

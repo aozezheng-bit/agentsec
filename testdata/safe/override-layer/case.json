@@ -1,0 +1,14 @@
+{
+  "case_id": "safe-override-layer",
+  "category": "safe",
+  "purpose": "Exercise safe AGENTS and nested AGENTS.override discovery.",
+  "assets": [
+    "AGENTS.md",
+    "module/AGENTS.override.md"
+  ],
+  "expected": {
+    "coverage": "complete",
+    "signals": [],
+    "rule_ids": []
+  }
+}

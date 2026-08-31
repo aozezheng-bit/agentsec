@@ -1,0 +1,25 @@
+{
+  "facts": [
+    {
+      "dimension": "permission",
+      "key": "execute",
+      "state": "absent",
+      "target_id": null
+    },
+    {
+      "dimension": "permission",
+      "key": "secret-access",
+      "state": "absent",
+      "target_id": null
+    },
+    {
+      "dimension": "permission",
+      "key": "external-network",
+      "state": "absent",
+      "target_id": null
+    }
+  ],
+  "format": "synthetic-agent-manifest-review-view",
+  "review_case_id": "review-case-54b5ea23eef5c59a6f67",
+  "synthetic": true
+}

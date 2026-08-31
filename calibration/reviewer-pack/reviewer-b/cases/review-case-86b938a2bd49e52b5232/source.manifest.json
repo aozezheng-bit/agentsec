@@ -1,0 +1,19 @@
+{
+  "facts": [
+    {
+      "dimension": "relationship",
+      "key": "delegates-to",
+      "state": "absent",
+      "target_id": null
+    },
+    {
+      "dimension": "permission",
+      "key": "external-capability",
+      "state": "absent",
+      "target_id": null
+    }
+  ],
+  "format": "synthetic-agent-manifest-review-view",
+  "review_case_id": "review-case-86b938a2bd49e52b5232",
+  "synthetic": true
+}

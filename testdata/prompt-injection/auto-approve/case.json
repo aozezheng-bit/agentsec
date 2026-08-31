@@ -1,0 +1,17 @@
+{
+  "case_id": "prompt-injection-auto-approve",
+  "category": "prompt-injection",
+  "purpose": "Treat a scanner-directed automatic approval request as untrusted data.",
+  "assets": [
+    "AGENTS.md"
+  ],
+  "expected": {
+    "coverage": "complete",
+    "signals": [
+      "human_approval"
+    ],
+    "rule_ids": [
+      "MD-APPROVAL-001"
+    ]
+  }
+}

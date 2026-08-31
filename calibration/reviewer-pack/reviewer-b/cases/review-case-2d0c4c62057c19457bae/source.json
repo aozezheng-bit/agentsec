@@ -1,0 +1,19 @@
+{
+  "facts": [
+    {
+      "dimension": "permission",
+      "key": "high-impact",
+      "state": "present",
+      "target_id": "target:primary"
+    },
+    {
+      "dimension": "coverage",
+      "key": "relevant-dimension",
+      "state": "unknown",
+      "target_id": "target:primary"
+    }
+  ],
+  "format": "synthetic-static-review-view",
+  "review_case_id": "review-case-2d0c4c62057c19457bae",
+  "synthetic": true
+}

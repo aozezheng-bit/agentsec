@@ -1,0 +1,12 @@
+{
+  "agent": "Release Agent",
+  "agentsec_enforcement": "report_only",
+  "assessment_status": "complete",
+  "ci_blocking_enabled": false,
+  "findings": 10,
+  "global_safety_claimed": false,
+  "highest_severity": "high",
+  "human_recommendation": "hold release until the risky drift is remediated",
+  "modified_assets": 2,
+  "unique_rule_ids": 9
+}

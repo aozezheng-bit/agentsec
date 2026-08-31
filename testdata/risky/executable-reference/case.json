@@ -1,0 +1,17 @@
+{
+  "case_id": "risky-executable-reference",
+  "category": "risky",
+  "purpose": "Detect a static executable script reference without opening it.",
+  "assets": [
+    "AGENTS.md"
+  ],
+  "expected": {
+    "coverage": "complete",
+    "signals": [
+      "external_tooling"
+    ],
+    "rule_ids": [
+      "MD-TOOL-001"
+    ]
+  }
+}

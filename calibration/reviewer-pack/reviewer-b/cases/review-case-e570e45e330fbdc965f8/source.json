@@ -1,0 +1,19 @@
+{
+  "facts": [
+    {
+      "dimension": "permission",
+      "key": "state-changing",
+      "state": "present",
+      "target_id": "target:primary"
+    },
+    {
+      "dimension": "control",
+      "key": "human-approval",
+      "state": "unknown",
+      "target_id": "target:primary"
+    }
+  ],
+  "format": "synthetic-static-review-view",
+  "review_case_id": "review-case-e570e45e330fbdc965f8",
+  "synthetic": true
+}

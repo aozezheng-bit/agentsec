@@ -1,0 +1,301 @@
+{
+  "$defs": {
+    "SemanticCalibrationClassification": {
+      "enum": [
+        "true_positive",
+        "false_positive",
+        "false_negative",
+        "true_negative"
+      ],
+      "title": "SemanticCalibrationClassification",
+      "type": "string"
+    },
+    "SemanticCandidateCalibrationCaseResult": {
+      "additionalProperties": false,
+      "properties": {
+        "candidate_key": {
+          "pattern": "^[a-z][a-z0-9-]{0,63}$",
+          "title": "Candidate Key",
+          "type": "string"
+        },
+        "case_id": {
+          "title": "Case Id",
+          "type": "string"
+        },
+        "category_agreement": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Category Agreement"
+        },
+        "classification": {
+          "$ref": "#/$defs/SemanticCalibrationClassification"
+        },
+        "disposition_agreement": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Disposition Agreement"
+        },
+        "evidence_agreement": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Evidence Agreement"
+        },
+        "kind_agreement": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Kind Agreement"
+        },
+        "observed_present": {
+          "title": "Observed Present",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "case_id",
+        "candidate_key",
+        "observed_present",
+        "classification"
+      ],
+      "title": "SemanticCandidateCalibrationCaseResult",
+      "type": "object"
+    },
+    "SemanticCandidateCalibrationMetrics": {
+      "additionalProperties": false,
+      "properties": {
+        "case_count": {
+          "minimum": 1,
+          "title": "Case Count",
+          "type": "integer"
+        },
+        "category_agreement": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Category Agreement"
+        },
+        "disposition_agreement": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Disposition Agreement"
+        },
+        "evidence_agreement": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Evidence Agreement"
+        },
+        "f1": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "F1"
+        },
+        "false_negative": {
+          "minimum": 0,
+          "title": "False Negative",
+          "type": "integer"
+        },
+        "false_positive": {
+          "minimum": 0,
+          "title": "False Positive",
+          "type": "integer"
+        },
+        "kind_agreement": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Kind Agreement"
+        },
+        "precision": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Precision"
+        },
+        "recall": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Recall"
+        },
+        "true_negative": {
+          "minimum": 0,
+          "title": "True Negative",
+          "type": "integer"
+        },
+        "true_positive": {
+          "minimum": 0,
+          "title": "True Positive",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "case_count",
+        "true_positive",
+        "false_positive",
+        "false_negative",
+        "true_negative"
+      ],
+      "title": "SemanticCandidateCalibrationMetrics",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "cases": {
+      "items": {
+        "$ref": "#/$defs/SemanticCandidateCalibrationCaseResult"
+      },
+      "title": "Cases",
+      "type": "array"
+    },
+    "ci_authority": {
+      "const": false,
+      "default": false,
+      "title": "Ci Authority",
+      "type": "boolean"
+    },
+    "finding_authority": {
+      "const": false,
+      "default": false,
+      "title": "Finding Authority",
+      "type": "boolean"
+    },
+    "format": {
+      "const": "agentsec-semantic-candidate-calibration-report",
+      "default": "agentsec-semantic-candidate-calibration-report",
+      "title": "Format",
+      "type": "string"
+    },
+    "metrics": {
+      "$ref": "#/$defs/SemanticCandidateCalibrationMetrics"
+    },
+    "policy_authority": {
+      "const": false,
+      "default": false,
+      "title": "Policy Authority",
+      "type": "boolean"
+    },
+    "report_only": {
+      "const": true,
+      "default": true,
+      "title": "Report Only",
+      "type": "boolean"
+    },
+    "reviewer_count": {
+      "minimum": 1,
+      "title": "Reviewer Count",
+      "type": "integer"
+    },
+    "rule_publication_authority": {
+      "const": false,
+      "default": false,
+      "title": "Rule Publication Authority",
+      "type": "boolean"
+    },
+    "schema_version": {
+      "const": "0.1.0",
+      "default": "0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "semantic_result_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Semantic Result Sha256",
+      "type": "string"
+    }
+  },
+  "required": [
+    "semantic_result_sha256",
+    "cases",
+    "metrics",
+    "reviewer_count"
+  ],
+  "title": "SemanticCandidateCalibrationReport",
+  "type": "object"
+}

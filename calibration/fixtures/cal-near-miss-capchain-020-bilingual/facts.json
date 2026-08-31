@@ -1,0 +1,136 @@
+{
+  "case_id": "cal-near-miss-capchain-020-bilingual",
+  "facts": [
+    {
+      "dimension": "control",
+      "evidence": [
+        {
+          "asset_path": "facts.json",
+          "field_path": "facts.0"
+        }
+      ],
+      "fact_id": "fact-01",
+      "key": "external-network-deny",
+      "state": "present",
+      "target_id": "target:capchain-1"
+    },
+    {
+      "dimension": "permission",
+      "evidence": [
+        {
+          "asset_path": "facts.json",
+          "field_path": "facts.1"
+        }
+      ],
+      "fact_id": "fact-02",
+      "key": "execute",
+      "state": "present",
+      "target_id": "target:capchain-1"
+    },
+    {
+      "dimension": "permission",
+      "evidence": [
+        {
+          "asset_path": "facts.json",
+          "field_path": "facts.2"
+        }
+      ],
+      "fact_id": "fact-03",
+      "key": "secret-access",
+      "state": "present",
+      "target_id": "target:capchain-1"
+    },
+    {
+      "dimension": "permission",
+      "evidence": [
+        {
+          "asset_path": "facts.json",
+          "field_path": "facts.3"
+        }
+      ],
+      "fact_id": "fact-04",
+      "key": "external-network",
+      "state": "absent",
+      "target_id": "target:capchain-1"
+    },
+    {
+      "dimension": "control",
+      "evidence": [
+        {
+          "asset_path": "facts.json",
+          "field_path": "facts.4"
+        }
+      ],
+      "fact_id": "fact-05",
+      "key": "sandbox",
+      "state": "absent",
+      "target_id": "target:capchain-1"
+    },
+    {
+      "dimension": "control",
+      "evidence": [
+        {
+          "asset_path": "facts.json",
+          "field_path": "facts.5"
+        }
+      ],
+      "fact_id": "fact-06",
+      "key": "network-policy",
+      "state": "absent",
+      "target_id": "target:capchain-1"
+    },
+    {
+      "dimension": "control",
+      "evidence": [
+        {
+          "asset_path": "facts.json",
+          "field_path": "facts.6"
+        }
+      ],
+      "fact_id": "fact-07",
+      "key": "secret-handling",
+      "state": "present",
+      "target_id": "target:capchain-1"
+    },
+    {
+      "dimension": "tool",
+      "evidence": [
+        {
+          "asset_path": "facts.json",
+          "field_path": "facts.7"
+        }
+      ],
+      "fact_id": "fact-08",
+      "key": "mcp-enabled-required",
+      "state": "absent",
+      "target_id": "target:capchain-1"
+    },
+    {
+      "dimension": "runtime_identity",
+      "evidence": [
+        {
+          "asset_path": "facts.json",
+          "field_path": "facts.8"
+        }
+      ],
+      "fact_id": "fact-09",
+      "key": "identity-lifetime-reviewed",
+      "state": "present",
+      "target_id": "target:capchain-1"
+    },
+    {
+      "dimension": "relationship",
+      "evidence": [
+        {
+          "asset_path": "facts.json",
+          "field_path": "facts.9"
+        }
+      ],
+      "fact_id": "fact-10",
+      "key": "memory",
+      "state": "absent",
+      "target_id": "target:capchain-1"
+    }
+  ],
+  "fixture_version": "0.1.0"
+}

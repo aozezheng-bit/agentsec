@@ -1,0 +1,113 @@
+{
+  "actual": {
+    "added_findings": [],
+    "added_observations": [],
+    "capability_changes": {
+      "identity_self_modification": [
+        "present",
+        "unknown"
+      ],
+      "persona_self_modification": [
+        "present",
+        "unknown"
+      ]
+    },
+    "changed_findings": [],
+    "file_changes": {
+      "IDENTITY.md": "modified",
+      "SOUL.md": "modified"
+    },
+    "persona_changes": {
+      "self_evolution": [
+        "present",
+        "unknown"
+      ]
+    },
+    "removed_findings": [
+      "HOMI-COMB-004"
+    ],
+    "removed_observations": [],
+    "resolution_status": "conflict",
+    "simulation_changes": {
+      "HOMI-SIM-004": [
+        "declared_path",
+        "unknown_coverage"
+      ]
+    },
+    "status": "partial"
+  },
+  "after": {
+    "ci_blocked": false,
+    "report_only": true,
+    "resolution_status": "conflict",
+    "runtime_verified": false,
+    "status": "partial"
+  },
+  "before": {
+    "ci_blocked": false,
+    "report_only": true,
+    "resolution_status": "conflict",
+    "runtime_verified": false,
+    "status": "partial"
+  },
+  "drill": null,
+  "expected": {
+    "added_findings": [],
+    "added_observations": [],
+    "capability_changes": {
+      "identity_self_modification": [
+        "present",
+        "unknown"
+      ],
+      "persona_self_modification": [
+        "present",
+        "unknown"
+      ]
+    },
+    "changed_findings": [],
+    "file_changes": {
+      "IDENTITY.md": "modified",
+      "SOUL.md": "modified"
+    },
+    "persona_changes": {
+      "self_evolution": [
+        "present",
+        "unknown"
+      ]
+    },
+    "removed_findings": [
+      "HOMI-COMB-004"
+    ],
+    "removed_observations": [],
+    "resolution_status": "conflict",
+    "simulation_changes": {
+      "HOMI-SIM-004": [
+        "declared_path",
+        "unknown_coverage"
+      ]
+    },
+    "status": "partial"
+  },
+  "format": "agentsec-homi-capability-drift-evidence",
+  "format_version": "0.1.0",
+  "limitations": [
+    "Static Homi drift does not prove runtime reachability or execution.",
+    "Scenario-contract review is engineering evidence, not independent human TP/FP/FN adjudication.",
+    "No drift result authorizes CI blocking, release, Tool access, or a waiver."
+  ],
+  "provenance": {
+    "baseline_report_sha256": "782780c50cb7d8283e5f81480211c49f207d9f37275bf88c9fb7af66c71dbbaf",
+    "snapshot_archive_sha256": "4ff45ebb76da3018dbfcaf00f9c43821faec26b3441cc08a38f0f611b26d0453",
+    "snapshot_report_sha256": "1d093f24f841f43162b1114dd9229834885229d69f4c685d230e899df7b5497a"
+  },
+  "review": {
+    "contract_pass": true,
+    "independent_human_review": false,
+    "mode": "deterministic_scenario_contract",
+    "outcome": "contract_pass"
+  },
+  "risk_direction": "hardening",
+  "scenario_id": "pr-09-disable-self-modification",
+  "task_id": "P2-EXIT-06-03",
+  "title": "固定人格和身份，移除自我演化声明"
+}

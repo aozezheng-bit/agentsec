@@ -1,0 +1,232 @@
+{
+  "adjudications": [
+    {
+      "adjudication_notes": "主目标 secret-access 显式 absent；该能力仅以 secret-access-other-target 形式出现在同一 source 的 target:isolated，delegates-to 为 absent，无任何关联声明。证据完备、无覆盖缺口，失败纯粹是跨目标不关联 → same_source。",
+      "evidence_locations": [
+        {
+          "end_line": 8,
+          "path": "source.yaml",
+          "start_line": 5
+        },
+        {
+          "end_line": 12,
+          "path": "source.yaml",
+          "start_line": 9
+        },
+        {
+          "end_line": 16,
+          "path": "source.yaml",
+          "start_line": 13
+        },
+        {
+          "end_line": 20,
+          "path": "source.yaml",
+          "start_line": 17
+        }
+      ],
+      "final_correlation": "same_source",
+      "final_rationale_code": "capchain.no-match.secret-access-only-on-other-target",
+      "review_case_id": "review-case-06f4894ec3df67a05c59",
+      "review_ids": [
+        "review:reviewer-a:review-case-06f4894ec3df67a05c59:CAP-CHAIN-001",
+        "review:reviewer-b:review-case-06f4894ec3df67a05c59:CAP-CHAIN-001"
+      ],
+      "reviewer_a_correlation": "same_source",
+      "reviewer_b_correlation": "incomplete_coverage",
+      "rule_id": "CAP-CHAIN-001",
+      "source_sha256": "sha256:d45399e4d637dbeb934386d50f04bdbbc2023ade623b31cdc7dc5f28d9bec5b2",
+      "status": "adjudicated"
+    },
+    {
+      "adjudication_notes": "主目标 execute 显式 absent；execute 仅见于 target:isolated。delegates-to 虽为 present，但事实格式无关系对象字段，不能升级为 explicit_relation/parent_child，也不构成权限判定所需的覆盖缺口（判定不依赖委托对象）。",
+      "evidence_locations": [
+        {
+          "end_line": 8,
+          "path": "source.json",
+          "start_line": 3
+        },
+        {
+          "end_line": 14,
+          "path": "source.json",
+          "start_line": 9
+        },
+        {
+          "end_line": 20,
+          "path": "source.json",
+          "start_line": 15
+        },
+        {
+          "end_line": 26,
+          "path": "source.json",
+          "start_line": 21
+        }
+      ],
+      "final_correlation": "same_source",
+      "final_rationale_code": "capchain.no-match.execute-only-on-other-target",
+      "review_case_id": "review-case-3ee41000015a4bbbebd2",
+      "review_ids": [
+        "review:reviewer-a:review-case-3ee41000015a4bbbebd2:CAP-CHAIN-001",
+        "review:reviewer-b:review-case-3ee41000015a4bbbebd2:CAP-CHAIN-001"
+      ],
+      "reviewer_a_correlation": "same_source",
+      "reviewer_b_correlation": "incomplete_coverage",
+      "rule_id": "CAP-CHAIN-001",
+      "source_sha256": "sha256:4c18f25604f60ce5370d5c61d9bf92aa726e8b5edf703540d2bb4a1fa9e21d4f",
+      "status": "adjudicated"
+    },
+    {
+      "adjudication_notes": "主目标 external-network 显式 absent；该能力仅以 external-network-other-target 出现在 target:isolated，delegates-to 为 absent。证据完备，仅跨目标不关联 → same_source。",
+      "evidence_locations": [
+        {
+          "end_line": 9,
+          "path": "source.toml",
+          "start_line": 5
+        },
+        {
+          "end_line": 15,
+          "path": "source.toml",
+          "start_line": 11
+        },
+        {
+          "end_line": 21,
+          "path": "source.toml",
+          "start_line": 17
+        },
+        {
+          "end_line": 27,
+          "path": "source.toml",
+          "start_line": 23
+        }
+      ],
+      "final_correlation": "same_source",
+      "final_rationale_code": "capchain.no-match.external-network-only-on-other-target",
+      "review_case_id": "review-case-538d26e339f9f158fc6a",
+      "review_ids": [
+        "review:reviewer-a:review-case-538d26e339f9f158fc6a:CAP-CHAIN-001",
+        "review:reviewer-b:review-case-538d26e339f9f158fc6a:CAP-CHAIN-001"
+      ],
+      "reviewer_a_correlation": "same_source",
+      "reviewer_b_correlation": "incomplete_coverage",
+      "rule_id": "CAP-CHAIN-001",
+      "source_sha256": "sha256:84d1fb3b1d6dcecbb51578124a8bbb0b5cc8fa1331974a325022b2ac8a3152d7",
+      "status": "adjudicated"
+    },
+    {
+      "adjudication_notes": "同 #8：主目标 execute 显式 absent；delegates-to present 但对象不可声明，不构成关联也不构成影响判定的覆盖缺口。no_match 判定不依赖委托对象。",
+      "evidence_locations": [
+        {
+          "end_line": 7,
+          "path": "source.md",
+          "start_line": 7
+        },
+        {
+          "end_line": 10,
+          "path": "source.md",
+          "start_line": 7
+        },
+        {
+          "end_line": 8,
+          "path": "source.md",
+          "start_line": 8
+        },
+        {
+          "end_line": 9,
+          "path": "source.md",
+          "start_line": 9
+        },
+        {
+          "end_line": 10,
+          "path": "source.md",
+          "start_line": 10
+        }
+      ],
+      "final_correlation": "same_source",
+      "final_rationale_code": "capchain.no-match.execute-only-on-other-target",
+      "review_case_id": "review-case-dce8660339f28e773c58",
+      "review_ids": [
+        "review:reviewer-a:review-case-dce8660339f28e773c58:CAP-CHAIN-001",
+        "review:reviewer-b:review-case-dce8660339f28e773c58:CAP-CHAIN-001"
+      ],
+      "reviewer_a_correlation": "same_source",
+      "reviewer_b_correlation": "incomplete_coverage",
+      "rule_id": "CAP-CHAIN-001",
+      "source_sha256": "sha256:1db48967f0b6ecfa3eed526c480d678c4b1b84404cf0d917b7a972a9234e46bc",
+      "status": "adjudicated"
+    },
+    {
+      "adjudication_notes": "主目标 secret-access 显式 absent；该能力仅以 secret-access-other-target 出现在 target:isolated，delegates-to 为 absent。证据完备，仅跨目标不关联 → same_source。",
+      "evidence_locations": [
+        {
+          "end_line": 8,
+          "path": "source.json",
+          "start_line": 3
+        },
+        {
+          "end_line": 14,
+          "path": "source.json",
+          "start_line": 9
+        },
+        {
+          "end_line": 20,
+          "path": "source.json",
+          "start_line": 15
+        },
+        {
+          "end_line": 26,
+          "path": "source.json",
+          "start_line": 21
+        }
+      ],
+      "final_correlation": "same_source",
+      "final_rationale_code": "capchain.no-match.secret-access-only-on-other-target",
+      "review_case_id": "review-case-f6802f8efd87a54dedee",
+      "review_ids": [
+        "review:reviewer-a:review-case-f6802f8efd87a54dedee:CAP-CHAIN-001",
+        "review:reviewer-b:review-case-f6802f8efd87a54dedee:CAP-CHAIN-001"
+      ],
+      "reviewer_a_correlation": "same_source",
+      "reviewer_b_correlation": "incomplete_coverage",
+      "rule_id": "CAP-CHAIN-001",
+      "source_sha256": "sha256:749cabca156512ffe60e45b47b6cdafd0e97aaaef9d68e0a80b6120b92b90c4b",
+      "status": "adjudicated"
+    }
+  ],
+  "adjudicator_id": "project-owner",
+  "artifact_id": "human-evidence-sha256:1b68808d1845d583e6c395160712db3113bfccd6f3a230344a366df42d950716",
+  "boundary": {
+    "ci_blocking": false,
+    "formal_human_evidence": true,
+    "gate_qualification": false,
+    "ground_truth_used": false,
+    "hard_gate": false,
+    "llm_used": false,
+    "runtime_capability_verified": false
+  },
+  "comparison": {
+    "agreement_count": 35,
+    "disagreement_count": 5,
+    "field_agreement": {
+      "category": 40,
+      "confidence": 40,
+      "correlation": 35,
+      "disposition": 40,
+      "human_condition_label": 40,
+      "observed_finding": 40
+    },
+    "total": 40
+  },
+  "evidence_mode": "human",
+  "format": "agentsec-gate-scoped-adjudication-set",
+  "gate_id": "HG-CAPCHAIN-001",
+  "package_id": "gate-review-package-sha256:4bebfb271060eab3b638e5d229d3e8fb6d0c1c8284f4daaab77b961372787997",
+  "reviewer_ids": [
+    "reviewer-a",
+    "reviewer-b"
+  ],
+  "rule_id": "CAP-CHAIN-001",
+  "schema_version": "0.1.0",
+  "selection_id": "gate-subset-selection-sha256:4ef30e1a30ca4e6d4c87b32f07328946e8fdef4034ca78e48f8aef203104b2ae",
+  "source_corpus_binding_hash": "sha256:59e034541e3c1096f311404358031a5dc81fc880123351363713d66c2544ad79",
+  "source_pack_id": "reviewer-pack-sha256:58295690c13861a763ed9c202d39fe37642ac0f8d9d2d6e416886184a4a86d90",
+  "status": "complete"
+}

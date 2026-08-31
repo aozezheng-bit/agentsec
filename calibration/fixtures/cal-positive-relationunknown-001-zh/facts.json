@@ -1,0 +1,19 @@
+{
+  "case_id": "cal-positive-relationunknown-001-zh",
+  "facts": [
+    {
+      "dimension": "relationship",
+      "evidence": [
+        {
+          "asset_path": "facts.json",
+          "field_path": "facts.0"
+        }
+      ],
+      "fact_id": "fact-01",
+      "key": "high-impact",
+      "state": "unknown",
+      "target_id": "target:primary"
+    }
+  ],
+  "fixture_version": "0.1.0"
+}

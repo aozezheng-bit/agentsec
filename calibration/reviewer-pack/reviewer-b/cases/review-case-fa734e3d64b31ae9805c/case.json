@@ -1,0 +1,33 @@
+{
+  "corpus_binding_hash": "sha256:59e034541e3c1096f311404358031a5dc81fc880123351363713d66c2544ad79",
+  "format": "agentsec-independent-review-case",
+  "input_format": "manifest",
+  "language": "zh",
+  "pack_id": "reviewer-pack-sha256:58295690c13861a763ed9c202d39fe37642ac0f8d9d2d6e416886184a4a86d90",
+  "question_set_sha256": "sha256:77fb6b4dc8d93196f2c32639eca0ed0bef5a269b5c59142e1f308089082ec753",
+  "review_case_fingerprint": "sha256:267dc1c1ddb2f9eed004c3deb819f2868801b99b41464ac4f0b86476bd9749fc",
+  "review_case_id": "review-case-fa734e3d64b31ae9805c",
+  "review_questions": [
+    {
+      "condition": {
+        "zh": "secret_access 权限的目标或父级没有 configured 的 secret_handling 控制。"
+      },
+      "prompt": {
+        "zh": "请独立将人工规则条件标记为 match、no_match 或 uncertain，并填写直接观察、策略或范围类别、证据位置、置信度、关联方式、处置意见、理由代码和备注。不要自行计算 TP/FP/FN/TN。"
+      },
+      "question_id": "question:review-case-fa734e3d64b31ae9805c:CAP-NOSECRET-001",
+      "rule_id": "CAP-NOSECRET-001",
+      "title": {
+        "zh": "Secret 能力缺少 Secret 处理控制"
+      }
+    }
+  ],
+  "schema_version": "0.3.0",
+  "source_location": {
+    "end_line": 19,
+    "path": "source.manifest.json",
+    "start_line": 1
+  },
+  "source_sha256": "sha256:b8a9f73cd1e593cc1d4639efe14d82e3755ac10636236abbd5fe9912c70e6086",
+  "synthetic_fixture": true
+}

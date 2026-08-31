@@ -1,0 +1,366 @@
+{
+  "$defs": {
+    "ChannelScenarioMetrics": {
+      "additionalProperties": false,
+      "description": "Per-channel detection statistics over one scenario pack.",
+      "properties": {
+        "asr_detection_proxy": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Asr Detection Proxy",
+          "type": "number"
+        },
+        "attack_task_count": {
+          "maximum": 128,
+          "minimum": 1,
+          "title": "Attack Task Count",
+          "type": "integer"
+        },
+        "attack_tasks_detected": {
+          "maximum": 128,
+          "minimum": 0,
+          "title": "Attack Tasks Detected",
+          "type": "integer"
+        },
+        "attack_tasks_invocation_failed": {
+          "maximum": 128,
+          "minimum": 0,
+          "title": "Attack Tasks Invocation Failed",
+          "type": "integer"
+        },
+        "attack_tasks_undetected": {
+          "maximum": 128,
+          "minimum": 0,
+          "title": "Attack Tasks Undetected",
+          "type": "integer"
+        },
+        "channel": {
+          "$ref": "#/$defs/MetricsChannelKind"
+        },
+        "f1": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "F1",
+          "type": "number"
+        },
+        "false_negative": {
+          "minimum": 0,
+          "title": "False Negative",
+          "type": "integer"
+        },
+        "false_negative_rate": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "False Negative Rate",
+          "type": "number"
+        },
+        "false_positive": {
+          "minimum": 0,
+          "title": "False Positive",
+          "type": "integer"
+        },
+        "false_positive_rate": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "False Positive Rate",
+          "type": "number"
+        },
+        "invocation_failed_task_count": {
+          "maximum": 256,
+          "minimum": 0,
+          "title": "Invocation Failed Task Count",
+          "type": "integer"
+        },
+        "metrics_complete": {
+          "title": "Metrics Complete",
+          "type": "boolean"
+        },
+        "normal_task_count": {
+          "maximum": 128,
+          "minimum": 1,
+          "title": "Normal Task Count",
+          "type": "integer"
+        },
+        "normal_tasks_clean": {
+          "maximum": 128,
+          "minimum": 0,
+          "title": "Normal Tasks Clean",
+          "type": "integer"
+        },
+        "normal_tasks_false_alarm": {
+          "maximum": 128,
+          "minimum": 0,
+          "title": "Normal Tasks False Alarm",
+          "type": "integer"
+        },
+        "normal_tasks_invocation_failed": {
+          "maximum": 128,
+          "minimum": 0,
+          "title": "Normal Tasks Invocation Failed",
+          "type": "integer"
+        },
+        "note": {
+          "default": "Detection-based metrics over paired normal/attack tasks: ASR is the task-level false-negative rate on attack tasks and Utility is the task-level true-negative rate on normal tasks. No dynamic attack success, runtime reachability, or exploitability is claimed.",
+          "maxLength": 512,
+          "minLength": 8,
+          "title": "Note",
+          "type": "string"
+        },
+        "precision": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Precision",
+          "type": "number"
+        },
+        "recall": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Recall",
+          "type": "number"
+        },
+        "report_only": {
+          "const": true,
+          "default": true,
+          "title": "Report Only",
+          "type": "boolean"
+        },
+        "runtime_verified": {
+          "const": false,
+          "default": false,
+          "title": "Runtime Verified",
+          "type": "boolean"
+        },
+        "scenario_count": {
+          "maximum": 64,
+          "minimum": 1,
+          "title": "Scenario Count",
+          "type": "integer"
+        },
+        "task_results": {
+          "items": {
+            "$ref": "#/$defs/ScenarioTaskMetricResult"
+          },
+          "maxItems": 256,
+          "title": "Task Results",
+          "type": "array"
+        },
+        "true_positive": {
+          "minimum": 0,
+          "title": "True Positive",
+          "type": "integer"
+        },
+        "utility_detection_proxy": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Utility Detection Proxy",
+          "type": "number"
+        }
+      },
+      "required": [
+        "channel",
+        "scenario_count",
+        "attack_task_count",
+        "normal_task_count",
+        "attack_tasks_detected",
+        "attack_tasks_undetected",
+        "attack_tasks_invocation_failed",
+        "normal_tasks_clean",
+        "normal_tasks_false_alarm",
+        "normal_tasks_invocation_failed",
+        "invocation_failed_task_count",
+        "metrics_complete",
+        "true_positive",
+        "false_positive",
+        "false_negative",
+        "precision",
+        "recall",
+        "f1",
+        "asr_detection_proxy",
+        "utility_detection_proxy",
+        "false_positive_rate",
+        "false_negative_rate",
+        "task_results"
+      ],
+      "title": "ChannelScenarioMetrics",
+      "type": "object"
+    },
+    "MetricsChannelKind": {
+      "description": "Which injection channel a scenario pack exercises.",
+      "enum": [
+        "instruction_channel",
+        "tool_channel"
+      ],
+      "title": "MetricsChannelKind",
+      "type": "string"
+    },
+    "ScenarioTaskKind": {
+      "description": "AgentDojo-style task variant recorded per scenario case.",
+      "enum": [
+        "normal",
+        "attack"
+      ],
+      "title": "ScenarioTaskKind",
+      "type": "string"
+    },
+    "ScenarioTaskMetricResult": {
+      "additionalProperties": false,
+      "description": "Value-free per-task outcome row; no corpus text is recorded.",
+      "properties": {
+        "case_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Case Id",
+          "type": "string"
+        },
+        "expected_count": {
+          "minimum": 0,
+          "title": "Expected Count",
+          "type": "integer"
+        },
+        "false_negative": {
+          "minimum": 0,
+          "title": "False Negative",
+          "type": "integer"
+        },
+        "false_positive": {
+          "minimum": 0,
+          "title": "False Positive",
+          "type": "integer"
+        },
+        "outcome": {
+          "$ref": "#/$defs/ScenarioTaskOutcome"
+        },
+        "predicted_count": {
+          "minimum": 0,
+          "title": "Predicted Count",
+          "type": "integer"
+        },
+        "task_kind": {
+          "$ref": "#/$defs/ScenarioTaskKind"
+        },
+        "true_positive": {
+          "minimum": 0,
+          "title": "True Positive",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "case_id",
+        "task_kind",
+        "outcome",
+        "expected_count",
+        "predicted_count",
+        "true_positive",
+        "false_positive",
+        "false_negative"
+      ],
+      "title": "ScenarioTaskMetricResult",
+      "type": "object"
+    },
+    "ScenarioTaskOutcome": {
+      "description": "Task-level detection outcome, derived from harness case counts.",
+      "enum": [
+        "attack_detected",
+        "attack_undetected",
+        "normal_false_alarm",
+        "normal_clean",
+        "invocation_failed"
+      ],
+      "title": "ScenarioTaskOutcome",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Report-only paired-scenario detection metrics across channels.",
+  "properties": {
+    "asr_semantics": {
+      "const": "detection_based_proxy",
+      "default": "detection_based_proxy",
+      "title": "Asr Semantics",
+      "type": "string"
+    },
+    "blocks": {
+      "const": false,
+      "default": false,
+      "title": "Blocks",
+      "type": "boolean"
+    },
+    "channel_count": {
+      "maximum": 2,
+      "minimum": 1,
+      "title": "Channel Count",
+      "type": "integer"
+    },
+    "channels": {
+      "items": {
+        "$ref": "#/$defs/ChannelScenarioMetrics"
+      },
+      "maxItems": 2,
+      "minItems": 1,
+      "title": "Channels",
+      "type": "array"
+    },
+    "format": {
+      "const": "agentsec-p3-14-scenario-evaluation-metrics",
+      "default": "agentsec-p3-14-scenario-evaluation-metrics",
+      "title": "Format",
+      "type": "string"
+    },
+    "model_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "title": "Model Id",
+      "type": "string"
+    },
+    "policy_authority": {
+      "const": false,
+      "default": false,
+      "title": "Policy Authority",
+      "type": "boolean"
+    },
+    "provider_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "title": "Provider Id",
+      "type": "string"
+    },
+    "provider_promotion_authority": {
+      "const": false,
+      "default": false,
+      "title": "Provider Promotion Authority",
+      "type": "boolean"
+    },
+    "release_authority": {
+      "const": false,
+      "default": false,
+      "title": "Release Authority",
+      "type": "boolean"
+    },
+    "runtime_attack_success_claimed": {
+      "const": false,
+      "default": false,
+      "title": "Runtime Attack Success Claimed",
+      "type": "boolean"
+    },
+    "runtime_verified": {
+      "const": false,
+      "default": false,
+      "title": "Runtime Verified",
+      "type": "boolean"
+    },
+    "schema_version": {
+      "const": "0.1.0",
+      "default": "0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "provider_id",
+    "model_id",
+    "channel_count",
+    "channels"
+  ],
+  "title": "ScenarioMetricsReport",
+  "type": "object"
+}

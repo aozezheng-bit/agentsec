@@ -1,0 +1,33 @@
+{
+  "corpus_binding_hash": "sha256:59e034541e3c1096f311404358031a5dc81fc880123351363713d66c2544ad79",
+  "format": "agentsec-independent-review-case",
+  "input_format": "manifest",
+  "language": "en",
+  "pack_id": "reviewer-pack-sha256:58295690c13861a763ed9c202d39fe37642ac0f8d9d2d6e416886184a4a86d90",
+  "question_set_sha256": "sha256:0147fbae5ec4ffb4ad84e98ee3dfe81f00b15992ccf6c683a2cf6859cf8d5788",
+  "review_case_fingerprint": "sha256:590ed76fe56c559c2015d0b9c8256ded908614f0ca5da75b4cc5508e800a6231",
+  "review_case_id": "review-case-a8420a9e27348619997a",
+  "review_questions": [
+    {
+      "condition": {
+        "en": "A non-denied write permission targets an external resource or scope."
+      },
+      "prompt": {
+        "en": "Independently label the human Rule condition as match, no_match, or uncertain; record your direct finding observation, policy/scope category, evidence location, Confidence, Correlation, disposition, rationale code, and notes. Do not calculate TP/FP/FN/TN."
+      },
+      "question_id": "question:review-case-a8420a9e27348619997a:CAP-EXTERNALWRITE-001",
+      "rule_id": "CAP-EXTERNALWRITE-001",
+      "title": {
+        "en": "External write capability crosses a trust boundary"
+      }
+    }
+  ],
+  "schema_version": "0.3.0",
+  "source_location": {
+    "end_line": 13,
+    "path": "source.manifest.json",
+    "start_line": 1
+  },
+  "source_sha256": "sha256:b6df2e6d97ba34f8871712aa9c4869f7719f248905535cf1b70000b175c427e9",
+  "synthetic_fixture": true
+}

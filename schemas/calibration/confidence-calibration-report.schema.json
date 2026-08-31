@@ -1,0 +1,545 @@
+{
+  "$defs": {
+    "CapabilityCorrelation": {
+      "description": "Strength and scope of the deterministic fact correlation.",
+      "enum": [
+        "same_target",
+        "parent_child",
+        "same_source",
+        "explicit_relation",
+        "agent_wide",
+        "incomplete_coverage"
+      ],
+      "title": "CapabilityCorrelation",
+      "type": "string"
+    },
+    "ConfidenceAgreementMetrics": {
+      "additionalProperties": false,
+      "description": "Agreement metrics for one categorical comparison population.",
+      "properties": {
+        "agreement_count": {
+          "minimum": 0,
+          "title": "Agreement Count",
+          "type": "integer"
+        },
+        "agreement_rate": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Agreement Rate"
+        },
+        "cohens_kappa": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": -1,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Cohens Kappa"
+        },
+        "grade_matrix": {
+          "items": {
+            "$ref": "#/$defs/ConfidenceGradeMatrixRow"
+          },
+          "title": "Grade Matrix",
+          "type": "array"
+        },
+        "items": {
+          "minimum": 0,
+          "title": "Items",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "items",
+        "agreement_count",
+        "agreement_rate",
+        "cohens_kappa",
+        "grade_matrix"
+      ],
+      "title": "ConfidenceAgreementMetrics",
+      "type": "object"
+    },
+    "ConfidenceCalibrationPolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "ci_blocking_enabled": {
+          "const": false,
+          "default": false,
+          "title": "Ci Blocking Enabled",
+          "type": "boolean"
+        },
+        "enforcement_mode": {
+          "const": "report_only",
+          "default": "report_only",
+          "title": "Enforcement Mode",
+          "type": "string"
+        },
+        "hard_gate_eligibility_decided": {
+          "const": false,
+          "default": false,
+          "title": "Hard Gate Eligibility Decided",
+          "type": "boolean"
+        }
+      },
+      "title": "ConfidenceCalibrationPolicy",
+      "type": "object"
+    },
+    "ConfidenceCalibrationSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "expected_vs_emitted": {
+          "$ref": "#/$defs/ConfidenceAgreementMetrics"
+        },
+        "insufficient_sample_items": {
+          "minimum": 0,
+          "title": "Insufficient Sample Items",
+          "type": "integer"
+        },
+        "reviewer_agreement": {
+          "$ref": "#/$defs/ConfidenceAgreementMetrics"
+        },
+        "reviewer_count": {
+          "minimum": 0,
+          "title": "Reviewer Count",
+          "type": "integer"
+        },
+        "total_cases": {
+          "minimum": 0,
+          "title": "Total Cases",
+          "type": "integer"
+        },
+        "total_reviews": {
+          "minimum": 0,
+          "title": "Total Reviews",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "total_cases",
+        "total_reviews",
+        "reviewer_count",
+        "reviewer_agreement",
+        "expected_vs_emitted",
+        "insufficient_sample_items"
+      ],
+      "title": "ConfidenceCalibrationSummary",
+      "type": "object"
+    },
+    "ConfidenceCaseEvaluation": {
+      "additionalProperties": false,
+      "properties": {
+        "case_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Case Id",
+          "type": "string"
+        },
+        "correlation": {
+          "$ref": "#/$defs/CapabilityCorrelation"
+        },
+        "emitted_confidence": {
+          "$ref": "#/$defs/EvidenceConfidence"
+        },
+        "expected_confidence": {
+          "$ref": "#/$defs/EvidenceConfidence"
+        },
+        "expected_vs_emitted": {
+          "title": "Expected Vs Emitted",
+          "type": "boolean"
+        },
+        "reviewer_agreement": {
+          "title": "Reviewer Agreement",
+          "type": "boolean"
+        },
+        "reviewer_labels": {
+          "items": {
+            "$ref": "#/$defs/ConfidenceReviewLabel"
+          },
+          "title": "Reviewer Labels",
+          "type": "array"
+        },
+        "rule_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Rule Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "case_id",
+        "rule_id",
+        "correlation",
+        "expected_confidence",
+        "emitted_confidence",
+        "reviewer_labels",
+        "reviewer_agreement",
+        "expected_vs_emitted"
+      ],
+      "title": "ConfidenceCaseEvaluation",
+      "type": "object"
+    },
+    "ConfidenceGradeMatrixRow": {
+      "additionalProperties": false,
+      "properties": {
+        "expected": {
+          "$ref": "#/$defs/EvidenceConfidence"
+        },
+        "observed_a": {
+          "minimum": 0,
+          "title": "Observed A",
+          "type": "integer"
+        },
+        "observed_b": {
+          "minimum": 0,
+          "title": "Observed B",
+          "type": "integer"
+        },
+        "observed_c": {
+          "minimum": 0,
+          "title": "Observed C",
+          "type": "integer"
+        },
+        "observed_d": {
+          "minimum": 0,
+          "title": "Observed D",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "expected",
+        "observed_a",
+        "observed_b",
+        "observed_c",
+        "observed_d"
+      ],
+      "title": "ConfidenceGradeMatrixRow",
+      "type": "object"
+    },
+    "ConfidenceReviewLabel": {
+      "additionalProperties": false,
+      "description": "One reviewer label for one expected deterministic Finding.",
+      "properties": {
+        "case_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Case Id",
+          "type": "string"
+        },
+        "confidence": {
+          "$ref": "#/$defs/EvidenceConfidence"
+        },
+        "correlation": {
+          "$ref": "#/$defs/CapabilityCorrelation"
+        },
+        "rationale_code": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Rationale Code",
+          "type": "string"
+        },
+        "review_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Review Id",
+          "type": "string"
+        },
+        "reviewer_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Reviewer Id",
+          "type": "string"
+        },
+        "rule_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Rule Id",
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/$defs/ConfidenceReviewStatus"
+        }
+      },
+      "required": [
+        "review_id",
+        "case_id",
+        "rule_id",
+        "reviewer_id",
+        "confidence",
+        "correlation",
+        "status",
+        "rationale_code"
+      ],
+      "title": "ConfidenceReviewLabel",
+      "type": "object"
+    },
+    "ConfidenceReviewStatus": {
+      "enum": [
+        "seeded",
+        "reviewed",
+        "adjudicated"
+      ],
+      "title": "ConfidenceReviewStatus",
+      "type": "string"
+    },
+    "ConfidenceReviewerPairMetrics": {
+      "additionalProperties": false,
+      "properties": {
+        "agreement_rate": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Agreement Rate"
+        },
+        "cohens_kappa": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": -1,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Cohens Kappa"
+        },
+        "items": {
+          "minimum": 0,
+          "title": "Items",
+          "type": "integer"
+        },
+        "reviewer_a": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Reviewer A",
+          "type": "string"
+        },
+        "reviewer_b": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Reviewer B",
+          "type": "string"
+        }
+      },
+      "required": [
+        "reviewer_a",
+        "reviewer_b",
+        "items",
+        "agreement_rate",
+        "cohens_kappa"
+      ],
+      "title": "ConfidenceReviewerPairMetrics",
+      "type": "object"
+    },
+    "ConfidenceRuleMetrics": {
+      "additionalProperties": false,
+      "properties": {
+        "cohens_kappa": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": -1,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Cohens Kappa"
+        },
+        "correlation": {
+          "$ref": "#/$defs/CapabilityCorrelation"
+        },
+        "expected_vs_emitted_rate": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Expected Vs Emitted Rate"
+        },
+        "items": {
+          "minimum": 0,
+          "title": "Items",
+          "type": "integer"
+        },
+        "reviewer_agreement_rate": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Reviewer Agreement Rate"
+        },
+        "rule_id": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Rule Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "rule_id",
+        "correlation",
+        "items",
+        "reviewer_agreement_rate",
+        "cohens_kappa",
+        "expected_vs_emitted_rate"
+      ],
+      "title": "ConfidenceRuleMetrics",
+      "type": "object"
+    },
+    "EvidenceConfidence": {
+      "description": "Confidence in evidence, independent from finding severity.",
+      "enum": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "title": "EvidenceConfidence",
+      "type": "string"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Versioned P2-CAL-03 report-only Confidence calibration output.",
+  "properties": {
+    "by_case": {
+      "items": {
+        "$ref": "#/$defs/ConfidenceCaseEvaluation"
+      },
+      "title": "By Case",
+      "type": "array"
+    },
+    "by_rule": {
+      "items": {
+        "$ref": "#/$defs/ConfidenceRuleMetrics"
+      },
+      "title": "By Rule",
+      "type": "array"
+    },
+    "capability_risk_model_version": {
+      "default": "0.1.0",
+      "minLength": 1,
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+      "title": "Capability Risk Model Version",
+      "type": "string"
+    },
+    "capability_rule_pack_version": {
+      "default": "0.2.0",
+      "minLength": 1,
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+      "title": "Capability Rule Pack Version",
+      "type": "string"
+    },
+    "corpus_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Corpus Id",
+      "type": "string"
+    },
+    "format": {
+      "const": "agentsec-capability-confidence-calibration-report",
+      "default": "agentsec-capability-confidence-calibration-report",
+      "title": "Format",
+      "type": "string"
+    },
+    "format_version": {
+      "default": "0.1.0",
+      "minLength": 1,
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+      "title": "Format Version",
+      "type": "string"
+    },
+    "labels_version": {
+      "minLength": 1,
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+      "title": "Labels Version",
+      "type": "string"
+    },
+    "limitations": {
+      "items": {
+        "maxLength": 512,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Limitations",
+      "type": "array"
+    },
+    "pairwise": {
+      "items": {
+        "$ref": "#/$defs/ConfidenceReviewerPairMetrics"
+      },
+      "title": "Pairwise",
+      "type": "array"
+    },
+    "policy": {
+      "$ref": "#/$defs/ConfidenceCalibrationPolicy"
+    },
+    "reviewer_ids": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Reviewer Ids",
+      "type": "array"
+    },
+    "status": {
+      "enum": [
+        "complete",
+        "incomplete"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "summary": {
+      "$ref": "#/$defs/ConfidenceCalibrationSummary"
+    }
+  },
+  "required": [
+    "status",
+    "corpus_id",
+    "labels_version",
+    "reviewer_ids",
+    "policy",
+    "summary",
+    "pairwise",
+    "by_rule",
+    "by_case",
+    "limitations"
+  ],
+  "title": "ConfidenceCalibrationReport",
+  "type": "object",
+  "x-agentsec-confidence-report-output-version": "0.1.0"
+}

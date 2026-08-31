@@ -1,0 +1,84 @@
+{
+  "corpus_binding_hash": "sha256:59e034541e3c1096f311404358031a5dc81fc880123351363713d66c2544ad79",
+  "format": "agentsec-independent-review-case",
+  "input_format": "toml",
+  "language": "bilingual",
+  "pack_id": "reviewer-pack-sha256:58295690c13861a763ed9c202d39fe37642ac0f8d9d2d6e416886184a4a86d90",
+  "question_set_sha256": "sha256:c74f6870168e3042ebaf990add57fedf8ca8fc94b34bb4149e1551cb5caa8d2c",
+  "review_case_fingerprint": "sha256:f435811c5b8999ef1aa2079de3e1af6afe5cd4436366bf900a0f0a5d87f08134",
+  "review_case_id": "review-case-80a70bc1e50fa4443b9b",
+  "review_questions": [
+    {
+      "condition": {
+        "en": "An external MCP server is associated with a runtime identity whose privileged flag is true.",
+        "zh": "外部 MCP Server 关联的运行时身份 privileged 标记为 true。"
+      },
+      "prompt": {
+        "en": "Independently label the human Rule condition as match, no_match, or uncertain; record your direct finding observation, policy/scope category, evidence location, Confidence, Correlation, disposition, rationale code, and notes. Do not calculate TP/FP/FN/TN.",
+        "zh": "请独立将人工规则条件标记为 match、no_match 或 uncertain，并填写直接观察、策略或范围类别、证据位置、置信度、关联方式、处置意见、理由代码和备注。不要自行计算 TP/FP/FN/TN。"
+      },
+      "question_id": "question:review-case-80a70bc1e50fa4443b9b:CAP-EXTERNALPRIVILEGED-001",
+      "rule_id": "CAP-EXTERNALPRIVILEGED-001",
+      "title": {
+        "en": "External MCP uses an explicitly privileged identity",
+        "zh": "外部 MCP 使用明确的特权身份"
+      }
+    },
+    {
+      "condition": {
+        "en": "A non-denied admin permission targets the production scope or production resource.",
+        "zh": "非 deny 的 admin 权限指向 production 范围或生产资源。"
+      },
+      "prompt": {
+        "en": "Independently label the human Rule condition as match, no_match, or uncertain; record your direct finding observation, policy/scope category, evidence location, Confidence, Correlation, disposition, rationale code, and notes. Do not calculate TP/FP/FN/TN.",
+        "zh": "请独立将人工规则条件标记为 match、no_match 或 uncertain，并填写直接观察、策略或范围类别、证据位置、置信度、关联方式、处置意见、理由代码和备注。不要自行计算 TP/FP/FN/TN。"
+      },
+      "question_id": "question:review-case-80a70bc1e50fa4443b9b:CAP-PRODADMIN-001",
+      "rule_id": "CAP-PRODADMIN-001",
+      "title": {
+        "en": "Production administrative capability is declared",
+        "zh": "声明了生产环境管理能力"
+      }
+    },
+    {
+      "condition": {
+        "en": "A production state-changing permission is associated with an external environment, OAuth, ChatGPT, or environment-backed identity.",
+        "zh": "生产状态变更权限关联了 external 环境、OAuth、ChatGPT 或环境凭证身份。"
+      },
+      "prompt": {
+        "en": "Independently label the human Rule condition as match, no_match, or uncertain; record your direct finding observation, policy/scope category, evidence location, Confidence, Correlation, disposition, rationale code, and notes. Do not calculate TP/FP/FN/TN.",
+        "zh": "请独立将人工规则条件标记为 match、no_match 或 uncertain，并填写直接观察、策略或范围类别、证据位置、置信度、关联方式、处置意见、理由代码和备注。不要自行计算 TP/FP/FN/TN。"
+      },
+      "question_id": "question:review-case-80a70bc1e50fa4443b9b:CAP-PRODIDENTITY-001",
+      "rule_id": "CAP-PRODIDENTITY-001",
+      "title": {
+        "en": "Production capability uses an external or session identity",
+        "zh": "生产能力使用外部或会话身份"
+      }
+    },
+    {
+      "condition": {
+        "en": "A non-denied write permission targets the production scope or production resource.",
+        "zh": "非 deny 的 write 权限指向 production 范围或生产资源。"
+      },
+      "prompt": {
+        "en": "Independently label the human Rule condition as match, no_match, or uncertain; record your direct finding observation, policy/scope category, evidence location, Confidence, Correlation, disposition, rationale code, and notes. Do not calculate TP/FP/FN/TN.",
+        "zh": "请独立将人工规则条件标记为 match、no_match 或 uncertain，并填写直接观察、策略或范围类别、证据位置、置信度、关联方式、处置意见、理由代码和备注。不要自行计算 TP/FP/FN/TN。"
+      },
+      "question_id": "question:review-case-80a70bc1e50fa4443b9b:CAP-PRODWRITE-001",
+      "rule_id": "CAP-PRODWRITE-001",
+      "title": {
+        "en": "Production write capability is declared",
+        "zh": "声明了生产环境写入能力"
+      }
+    }
+  ],
+  "schema_version": "0.3.0",
+  "source_location": {
+    "end_line": 87,
+    "path": "source.toml",
+    "start_line": 1
+  },
+  "source_sha256": "sha256:9118a542fa92c0f66185c707f7c7ada95640cc7d99133904478a7264e4d5258e",
+  "synthetic_fixture": true
+}

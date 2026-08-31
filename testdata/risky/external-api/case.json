@@ -1,0 +1,17 @@
+{
+  "case_id": "risky-external-api",
+  "category": "risky",
+  "purpose": "Isolate an explicit external API declaration without a URL.",
+  "assets": [
+    "AGENTS.md"
+  ],
+  "expected": {
+    "coverage": "complete",
+    "signals": [
+      "network_access"
+    ],
+    "rule_ids": [
+      "MD-NET-001"
+    ]
+  }
+}

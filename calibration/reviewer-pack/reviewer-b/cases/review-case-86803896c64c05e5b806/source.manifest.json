@@ -1,0 +1,25 @@
+{
+  "facts": [
+    {
+      "dimension": "relationship",
+      "key": "delegates-to",
+      "state": "present",
+      "target_id": "target:primary"
+    },
+    {
+      "dimension": "permission",
+      "key": "powerful",
+      "state": "present",
+      "target_id": "target:primary"
+    },
+    {
+      "dimension": "control",
+      "key": "human-approval",
+      "state": "absent",
+      "target_id": null
+    }
+  ],
+  "format": "synthetic-agent-manifest-review-view",
+  "review_case_id": "review-case-86803896c64c05e5b806",
+  "synthetic": true
+}

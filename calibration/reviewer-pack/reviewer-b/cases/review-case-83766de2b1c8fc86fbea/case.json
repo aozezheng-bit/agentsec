@@ -1,0 +1,33 @@
+{
+  "corpus_binding_hash": "sha256:59e034541e3c1096f311404358031a5dc81fc880123351363713d66c2544ad79",
+  "format": "agentsec-independent-review-case",
+  "input_format": "manifest",
+  "language": "zh",
+  "pack_id": "reviewer-pack-sha256:58295690c13861a763ed9c202d39fe37642ac0f8d9d2d6e416886184a4a86d90",
+  "question_set_sha256": "sha256:4d78e57be35331ab8da5947c9dad0c7fea95cc6bcac03816d08b05603321ac87",
+  "review_case_fingerprint": "sha256:9a7575612d05407cb9457b9c754f4cee1ab55777571fd54bd41379c6737b7b1d",
+  "review_case_id": "review-case-83766de2b1c8fc86fbea",
+  "review_questions": [
+    {
+      "condition": {
+        "zh": "非 deny 的 write 权限指向 production 范围或生产资源。"
+      },
+      "prompt": {
+        "zh": "请独立将人工规则条件标记为 match、no_match 或 uncertain，并填写直接观察、策略或范围类别、证据位置、置信度、关联方式、处置意见、理由代码和备注。不要自行计算 TP/FP/FN/TN。"
+      },
+      "question_id": "question:review-case-83766de2b1c8fc86fbea:CAP-PRODWRITE-001",
+      "rule_id": "CAP-PRODWRITE-001",
+      "title": {
+        "zh": "声明了生产环境写入能力"
+      }
+    }
+  ],
+  "schema_version": "0.3.0",
+  "source_location": {
+    "end_line": 13,
+    "path": "source.manifest.json",
+    "start_line": 1
+  },
+  "source_sha256": "sha256:98eee7e6b0cc44c63b7cd5869821184945812012809e49f5ec6cd96e6a2b7bc1",
+  "synthetic_fixture": true
+}

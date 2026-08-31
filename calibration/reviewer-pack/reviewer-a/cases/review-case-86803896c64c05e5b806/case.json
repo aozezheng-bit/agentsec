@@ -1,0 +1,33 @@
+{
+  "corpus_binding_hash": "sha256:59e034541e3c1096f311404358031a5dc81fc880123351363713d66c2544ad79",
+  "format": "agentsec-independent-review-case",
+  "input_format": "manifest",
+  "language": "en",
+  "pack_id": "reviewer-pack-sha256:58295690c13861a763ed9c202d39fe37642ac0f8d9d2d6e416886184a4a86d90",
+  "question_set_sha256": "sha256:281a5914a7ccd40392c2602fa098c98eddf5e3c64879d39abff10781e78c813f",
+  "review_case_fingerprint": "sha256:5dd503151096bbf7f2e50b9ba412ff08bbde4b92d258717787c59442ae03f21d",
+  "review_case_id": "review-case-86803896c64c05e5b806",
+  "review_questions": [
+    {
+      "condition": {
+        "en": "An explicit delegates_to relationship coexists with a powerful capability and no prompt or deny approval evidence."
+      },
+      "prompt": {
+        "en": "Independently label the human Rule condition as match, no_match, or uncertain; record your direct finding observation, policy/scope category, evidence location, Confidence, Correlation, disposition, rationale code, and notes. Do not calculate TP/FP/FN/TN."
+      },
+      "question_id": "question:review-case-86803896c64c05e5b806:CAP-DELEGATE-001",
+      "rule_id": "CAP-DELEGATE-001",
+      "title": {
+        "en": "Delegation reaches a powerful capability without approval evidence"
+      }
+    }
+  ],
+  "schema_version": "0.3.0",
+  "source_location": {
+    "end_line": 25,
+    "path": "source.manifest.json",
+    "start_line": 1
+  },
+  "source_sha256": "sha256:08e125de7ff454211981a23d06b8369d6cf90d177bf27798c2a765220af5d537",
+  "synthetic_fixture": true
+}

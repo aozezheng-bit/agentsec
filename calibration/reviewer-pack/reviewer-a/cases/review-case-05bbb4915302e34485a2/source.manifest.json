@@ -1,0 +1,13 @@
+{
+  "facts": [
+    {
+      "dimension": "relationship",
+      "key": "high-impact",
+      "state": "present",
+      "target_id": "target:primary"
+    }
+  ],
+  "format": "synthetic-agent-manifest-review-view",
+  "review_case_id": "review-case-05bbb4915302e34485a2",
+  "synthetic": true
+}

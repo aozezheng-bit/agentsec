@@ -1,0 +1,69 @@
+title = "Synthetic static capability review input / 合成静态能力评审输入"
+synthetic = true
+case_id = "cal-near-miss-prodauto-010-bilingual"
+
+[[facts]]
+dimension = "permission"
+key = "state-changing"
+state = "absent"
+target_id = "target:prodauto-1"
+
+[[facts]]
+dimension = "permission"
+key = "production-state-change"
+state = "absent"
+target_id = "target:prodauto-1"
+
+[[facts]]
+dimension = "control"
+key = "human-approval"
+state = "absent"
+target_id = "target:prodauto-1"
+
+[[facts]]
+dimension = "control"
+key = "human-approval-allow"
+state = "present"
+target_id = "target:prodauto-1"
+
+[[facts]]
+dimension = "permission"
+key = "production-write"
+state = "absent"
+target_id = "target:prodauto-1"
+
+[[facts]]
+dimension = "control"
+key = "sandbox"
+state = "present"
+target_id = "target:prodauto-1"
+
+[[facts]]
+dimension = "control"
+key = "network-policy"
+state = "absent"
+target_id = "target:prodauto-1"
+
+[[facts]]
+dimension = "control"
+key = "secret-handling"
+state = "present"
+target_id = "target:prodauto-1"
+
+[[facts]]
+dimension = "tool"
+key = "mcp-enabled-required"
+state = "present"
+target_id = "target:prodauto-1"
+
+[[facts]]
+dimension = "runtime_identity"
+key = "identity-lifetime-reviewed"
+state = "absent"
+target_id = "target:prodauto-1"
+
+[[facts]]
+dimension = "relationship"
+key = "delegates-to"
+state = "absent"
+target_id = "target:prodauto-1"

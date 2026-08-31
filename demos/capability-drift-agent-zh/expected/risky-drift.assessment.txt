@@ -1,0 +1,428 @@
+AgentSec 能力评估
+状态：完整
+Agent：release-agent
+策略：仅报告；不启用 CI 阻断；未验证运行时能力
+
+管理摘要
+  发现项：17
+  最高严重性：高
+  严重性：严重=0 高=3 中=12 低=2 无=0
+  证据置信度：A=0 B=8 C=0 D=9
+  能力清单：来源=3 工具=3 权限=4 控制=8 身份=2 关系=5 Unknown=12
+  Coverage：完整；发现=3 已检查=3 跳过=0 问题=0
+  规则执行：完整；已评估=29 失败=0
+  Hard Gate：命中=0（仅报告；不阻断 CI）
+  Shadow Gate：命中=0（影子模式；仅试点；不阻断 CI）
+
+版本向量
+  package：0.2.0
+  agent_manifest_schema：0.3.0
+  capability_rule_pack：0.2.0
+  capability_risk_model：0.1.0
+  capability_assessment_output：0.2.0
+
+阶段轨迹
+  adapter_inspection：completed 输入=0 输出=3
+  manifest_build：completed 输入=3 输出=3
+  instruction_resolution：completed 输入=1 输出=1
+  configuration_resolution：completed 输入=1 输出=1
+  association_extraction：completed 输入=3 输出=6
+  capability_extraction：completed 输入=3 输出=14
+  relationship_extraction：completed 输入=3 输出=5
+  unknown_extraction：completed 输入=27 输出=12
+  final_validation：completed 输入=1 输出=1
+
+发现项
+
+1. [高] 状态变更能力缺少有效人工审批控制
+   Finding ID：capability-finding-sha256:373e08c2d29f96c712f7aec7edb21fa0640b3d7ef137745e08cfdad369072e2a
+   规则：CAP-APPROVAL-001
+   类别：human_approval
+   分数：8.0
+   严重性：高
+   可能性：moderate
+   影响：very_high
+   证据置信度：B
+   Hard Gate：未启用（仅报告）
+   相关性：same_target
+   描述：能力已启用或未明确禁用，但关联目标缺少 prompt 或 deny 人工审批控制。
+   相关 ID：
+     - mcp-server:local_review
+   证据：
+     1. project:project:.codex/config.toml$.mcp_servers.local_review:1-5 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     2. project:project:.codex/config.toml$.mcp_servers.local_review.bearer_token_env_var:4-4 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     3. project:project:.codex/config.toml$.mcp_servers.local_review.command:2-2 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     4. project:project:.codex/config.toml$.mcp_servers.local_review.default_tools_approval_mode:5-5 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     5. project:project:.codex/config.toml$.mcp_servers.local_review.enabled:3-3 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+   修复建议：
+     1. 为状态变更能力配置 prompt 或 deny 审批，并复核父级工具继承的控制。
+
+2. [高] Secret 访问被允许且无需人工审批
+   Finding ID：capability-finding-sha256:d10b8674fa02c02d94e9160cc5a7b0551117ab3ec64928f243f9c6bfec067064
+   规则：CAP-AUTOSECRET-001
+   类别：secret_access
+   分数：8.0
+   严重性：高
+   可能性：moderate
+   影响：very_high
+   证据置信度：B
+   Hard Gate：未启用（仅报告）
+   相关性：same_target
+   描述：secret_access 权限的有效审批状态为 allow，而不是 prompt 或 deny。
+   相关 ID：
+     - mcp-server:local_review
+   证据：
+     1. project:project:.codex/config.toml$.mcp_servers.local_review:1-5 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     2. project:project:.codex/config.toml$.mcp_servers.local_review.bearer_token_env_var:4-4 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     3. project:project:.codex/config.toml$.mcp_servers.local_review.command:2-2 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     4. project:project:.codex/config.toml$.mcp_servers.local_review.default_tools_approval_mode:5-5 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     5. project:project:.codex/config.toml$.mcp_servers.local_review.enabled:3-3 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+   修复建议：
+     1. 将审批状态改为 prompt 或 deny，并提供严格限权且可审计的 Secret 代理。
+
+3. [高] 必选启用的外部 MCP 使用凭证化身份
+   Finding ID：capability-finding-sha256:2d3a3a50b0c665b174d7a301ebf3e2b3fb4b78c3e7f77ccd39efb174133ee7e8
+   规则：CAP-EXTERNAL-001
+   类别：network_access
+   分数：8.0
+   严重性：高
+   可能性：moderate
+   影响：very_high
+   证据置信度：B
+   Hard Gate：未启用（仅报告）
+   相关性：same_target
+   描述：外部 MCP Server 已启用且必选，同时使用 OAuth、ChatGPT 或环境凭证认证。
+   相关 ID：
+     - mcp-server:remote_release
+   证据：
+     1. project:project:.codex/config.toml$.mcp_servers.remote_release:7-12 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     2. project:project:.codex/config.toml$.mcp_servers.remote_release.auth:11-11 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     3. project:project:.codex/config.toml$.mcp_servers.remote_release.default_tools_approval_mode:12-12 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     4. project:project:.codex/config.toml$.mcp_servers.remote_release.enabled:9-9 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     5. project:project:.codex/config.toml$.mcp_servers.remote_release.required:10-10 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     6. project:project:.codex/config.toml$.mcp_servers.remote_release.url:8-8 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+   修复建议：
+     1. 尽量将外部集成设为可选，限制凭证范围、固定目标并保留副作用人工审批。
+
+4. [中] 网络访问被允许且无需人工审批
+   Finding ID：capability-finding-sha256:04effd631596af33f6160edfdb54a4758970f237ad3354d88bdab08d48fc7ec8
+   规则：CAP-AUTONETWORK-001
+   类别：network_access
+   分数：5.5
+   严重性：中
+   可能性：moderate
+   影响：high
+   证据置信度：B
+   Hard Gate：未启用（仅报告）
+   相关性：same_target
+   描述：network 权限的有效审批状态为 allow，而不是 prompt 或 deny。
+   相关 ID：
+     - mcp-server:remote_release
+   证据：
+     1. project:project:.codex/config.toml$.mcp_servers.remote_release:7-12 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     2. project:project:.codex/config.toml$.mcp_servers.remote_release.auth:11-11 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     3. project:project:.codex/config.toml$.mcp_servers.remote_release.default_tools_approval_mode:12-12 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     4. project:project:.codex/config.toml$.mcp_servers.remote_release.enabled:9-9 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     5. project:project:.codex/config.toml$.mcp_servers.remote_release.required:10-10 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     6. project:project:.codex/config.toml$.mcp_servers.remote_release.url:8-8 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+   修复建议：
+     1. 使用网络策略限制目标，并对有副作用的请求要求 prompt 审批。
+
+5. [中] 代码执行、Secret 访问与外部网络形成潜在链路
+   Finding ID：capability-finding-sha256:54c5eb4276d9ac9677cf38d028d2c93af09461e9db172841be8e71bf275499b9
+   规则：CAP-CHAIN-001
+   类别：secret_access
+   分数：5.5
+   严重性：中
+   可能性：low
+   影响：very_high
+   证据置信度：D
+   Hard Gate：未启用（仅报告）
+   Shadow Gate：HG-CAPCHAIN-001 未命中（影子模式；仅试点；不阻断）
+   相关性：agent_wide
+   描述：同一目标族或 Agent 声明同时具备 execute、secret_access 和 external network 权限。
+   相关 ID：
+     - permission:execute:mcp-server:local_review
+     - permission:network:mcp-server:remote_release
+     - permission:secret_access:mcp-server:local_review
+   证据：
+     1. project:project:.codex/config.toml$.mcp_servers.local_review:1-5 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     2. project:project:.codex/config.toml$.mcp_servers.local_review.bearer_token_env_var:4-4 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     3. project:project:.codex/config.toml$.mcp_servers.remote_release:7-12 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+   修复建议：
+     1. 拆分执行、Secret 访问和外部网络能力，遵循最小权限并分别复核信任边界。
+
+6. [中] 分析不完整时发现高影响能力
+   Finding ID：capability-finding-sha256:b4522c7b9f4261683061d1f5f5a7c0c7d8907355d45f1e5737a1a07d807928b9
+   规则：CAP-COVERAGE-001
+   类别：scan_coverage
+   分数：5.5
+   严重性：中
+   可能性：low
+   影响：very_high
+   证据置信度：D
+   Hard Gate：未启用（仅报告）
+   相关性：incomplete_coverage
+   描述：发现高影响权限或关系，但 Coverage 或相关 Manifest 维度仍不完整或 Unknown。
+   相关 ID：
+     - mcp-server:local_review
+   证据：
+     1. project:project:.codex/config.toml sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     2. project:project:.codex/config.toml$.mcp_servers.local_review:1-5 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     3. project:project:.codex/config.toml$.mcp_servers.local_review.bearer_token_env_var:4-4 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     4. project:project:.codex/config.toml$.mcp_servers.local_review.command:2-2 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     5. project:project:.codex/config.toml$.mcp_servers.local_review.enabled:3-3 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+   修复建议：
+     1. 先解决跳过的资产和 Unknown 维度，再将能力评估视为完整结果。
+
+7. [中] 分析不完整时发现高影响能力
+   Finding ID：capability-finding-sha256:c1c83b68c9dc845db86d2337fab63ba043af41d20f39fd422cc08d6504524a92
+   规则：CAP-COVERAGE-001
+   类别：scan_coverage
+   分数：5.5
+   严重性：中
+   可能性：low
+   影响：very_high
+   证据置信度：D
+   Hard Gate：未启用（仅报告）
+   相关性：incomplete_coverage
+   描述：发现高影响权限或关系，但 Coverage 或相关 Manifest 维度仍不完整或 Unknown。
+   相关 ID：
+     - mcp-server:remote_release
+   证据：
+     1. project:project:.codex/config.toml sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     2. project:project:.codex/config.toml$.mcp_servers.remote_release:7-12 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     3. project:project:.codex/config.toml$.mcp_servers.remote_release.auth:11-11 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     4. project:project:.codex/config.toml$.mcp_servers.remote_release.enabled:9-9 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     5. project:project:.codex/config.toml$.mcp_servers.remote_release.required:10-10 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     6. project:project:.codex/config.toml$.mcp_servers.remote_release.url:8-8 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+   修复建议：
+     1. 先解决跳过的资产和 Unknown 维度，再将能力评估视为完整结果。
+
+8. [中] 委派可触达高权限能力但缺少审批证据
+   Finding ID：capability-finding-sha256:8fef48e4215494dcde9945213fa2732f2d6d537ba5594472f192cbc351ad8071
+   规则：CAP-DELEGATE-001
+   类别：privileged_access
+   分数：5.5
+   严重性：中
+   可能性：low
+   影响：very_high
+   证据置信度：D
+   Hard Gate：未启用（仅报告）
+   相关性：agent_wide
+   描述：存在 delegates_to 关系，同时存在高权限能力且没有 prompt 或 deny 审批证据。
+   相关 ID：
+     - permission:execute:mcp-server:local_review
+     - relation:delegates_to:agent:deployer
+   证据：
+     1. project:project:.codex/config.toml$.mcp_servers.local_review:1-5 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     2. project:project:AGENTS.md$.frontmatter.delegates_to[0]:2-2 sha256=b844539124ae05c105a603aa56300522493749bfa0bfb12c72280411368c9e75
+   修复建议：
+     1. 在委派边界要求明确审批，并在授予高权限前独立分析被委派 Agent。
+
+9. [中] 委派与外部能力同时存在
+   Finding ID：capability-finding-sha256:7570aae2fa0171fcd18c2ff6eba703a16ade04b4fabc0c383e334aa92de5fea8
+   规则：CAP-DELEGATEEXTERNAL-001
+   类别：privileged_access
+   分数：5.5
+   严重性：中
+   可能性：low
+   影响：very_high
+   证据置信度：D
+   Hard Gate：未启用（仅报告）
+   相关性：agent_wide
+   描述：delegates_to 关系与外部 network、write、execute 或 admin 权限同时存在。
+   相关 ID：
+     - permission:network:mcp-server:remote_release
+     - relation:delegates_to:agent:deployer
+   证据：
+     1. project:project:.codex/config.toml$.mcp_servers.remote_release:7-12 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     2. project:project:AGENTS.md$.frontmatter.delegates_to[0]:2-2 sha256=b844539124ae05c105a603aa56300522493749bfa0bfb12c72280411368c9e75
+   修复建议：
+     1. 要求明确的委派契约、目标白名单，并在外部副作用边界进行审批。
+
+10. [中] 外部 MCP 身份或可用性尚未运行时验证
+   Finding ID：capability-finding-sha256:97b96ffb8cc03ecbfb85b06c8d3f36784e3639489e55d3a0fe80a25fe439a977
+   规则：CAP-EXTERNALUNVERIFIED-001
+   类别：network_access
+   分数：5.5
+   严重性：中
+   可能性：moderate
+   影响：high
+   证据置信度：B
+   Hard Gate：未启用（仅报告）
+   相关性：same_target
+   描述：外部 MCP 声明的可用性未知，或运行时身份字段仍需要验证。
+   相关 ID：
+     - mcp-server:remote_release
+   证据：
+     1. project:project:.codex/config.toml$.mcp_servers.remote_release:7-12 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     2. project:project:.codex/config.toml$.mcp_servers.remote_release.auth:11-11 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     3. project:project:.codex/config.toml$.mcp_servers.remote_release.default_tools_approval_mode:12-12 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     4. project:project:.codex/config.toml$.mcp_servers.remote_release.enabled:9-9 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     5. project:project:.codex/config.toml$.mcp_servers.remote_release.required:10-10 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     6. project:project:.codex/config.toml$.mcp_servers.remote_release.url:8-8 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+   修复建议：
+     1. 将其保留为明确的验证任务；不要把静态身份元数据当作运行时证明。
+
+11. [中] 记忆关系与 Secret 访问同时存在
+   Finding ID：capability-finding-sha256:cafff6878c80e8f2068130984a9168c3a5fb9f7f075f9a170597a994fe29f711
+   规则：CAP-MEMORYSECRET-001
+   类别：persistent_memory
+   分数：5.5
+   严重性：中
+   可能性：low
+   影响：very_high
+   证据置信度：D
+   Hard Gate：未启用（仅报告）
+   相关性：agent_wide
+   描述：reads_memory、writes_memory 或 persists_memory 关系与 secret_access 权限同时存在。
+   相关 ID：
+     - permission:secret_access:mcp-server:local_review
+     - relation:persists_memory:memory:release_state
+   证据：
+     1. project:project:.codex/config.toml$.mcp_servers.local_review.bearer_token_env_var:4-4 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     2. project:project:AGENTS.md$.frontmatter.persists_memory[0]:3-3 sha256=b844539124ae05c105a603aa56300522493749bfa0bfb12c72280411368c9e75
+   修复建议：
+     1. 禁止 Secret 进入记忆，限制保留期限，并使用明确的记忆访问控制。
+
+12. [中] 高影响能力缺少已配置的沙箱
+   Finding ID：capability-finding-sha256:e647dbd571abeea41e3285807e5f1ed967d0760cce0077b846842826681fd275
+   规则：CAP-NOSANDBOX-001
+   类别：code_execution
+   分数：5.5
+   严重性：中
+   可能性：moderate
+   影响：high
+   证据置信度：B
+   Hard Gate：未启用（仅报告）
+   相关性：same_target
+   描述：状态变更权限的目标或父级没有 configured 或 enabled 的 sandbox 控制。
+   相关 ID：
+     - mcp-server:local_review
+   证据：
+     1. project:project:.codex/config.toml sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     2. project:project:.codex/config.toml$.mcp_servers.local_review:1-5 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     3. project:project:.codex/config.toml$.mcp_servers.local_review.bearer_token_env_var:4-4 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     4. project:project:.codex/config.toml$.mcp_servers.local_review.command:2-2 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     5. project:project:.codex/config.toml$.mcp_servers.local_review.default_tools_approval_mode:5-5 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     6. project:project:.codex/config.toml$.mcp_servers.local_review.enabled:3-3 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+   修复建议：
+     1. 在受限沙箱中运行高影响工具，并以有来源的配置记录隔离策略。
+
+13. [中] 持久化记忆与敏感能力组合出现
+   Finding ID：capability-finding-sha256:08c14e38dfc4342fed06278730ddbbccb4370238ee1a6881c03a2ca24a315a86
+   规则：CAP-PERSIST-001
+   类别：persistent_memory
+   分数：5.5
+   严重性：中
+   可能性：low
+   影响：very_high
+   证据置信度：D
+   Hard Gate：未启用（仅报告）
+   相关性：agent_wide
+   描述：存在 persists_memory 关系，同时存在 secret_access、外部网络、write 或 admin 能力。
+   相关 ID：
+     - permission:network:mcp-server:remote_release
+     - permission:secret_access:mcp-server:local_review
+     - relation:persists_memory:memory:release_state
+   证据：
+     1. project:project:.codex/config.toml$.mcp_servers.local_review.bearer_token_env_var:4-4 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     2. project:project:.codex/config.toml$.mcp_servers.remote_release:7-12 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     3. project:project:AGENTS.md$.frontmatter.persists_memory[0]:3-3 sha256=b844539124ae05c105a603aa56300522493749bfa0bfb12c72280411368c9e75
+   修复建议：
+     1. 限制保留数据，设置过期和删除控制，并禁止将 Secret 与不可信指令写入持久化记忆。
+
+14. [中] 必选外部 MCP 缺少工具过滤
+   Finding ID：capability-finding-sha256:10f1d5b18abbf58c7fcf806e580ddf9edaeb086dd065170dacf9425d2344b9b0
+   规则：CAP-REQUIREDNOFILTER-001
+   类别：external_tooling
+   分数：5.5
+   严重性：中
+   可能性：moderate
+   影响：high
+   证据置信度：B
+   Hard Gate：未启用（仅报告）
+   相关性：same_target
+   描述：已启用且必选的外部 MCP Server 自身或关联子工具没有 tool_filter 控制。
+   相关 ID：
+     - mcp-server:remote_release
+   证据：
+     1. project:project:.codex/config.toml$.mcp_servers.remote_release:7-12 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     2. project:project:.codex/config.toml$.mcp_servers.remote_release.auth:11-11 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     3. project:project:.codex/config.toml$.mcp_servers.remote_release.default_tools_approval_mode:12-12 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     4. project:project:.codex/config.toml$.mcp_servers.remote_release.enabled:9-9 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     5. project:project:.codex/config.toml$.mcp_servers.remote_release.required:10-10 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     6. project:project:.codex/config.toml$.mcp_servers.remote_release.url:8-8 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+   修复建议：
+     1. 仅允许工作流必需的工具，并分别复核每个有副作用的工具。
+
+15. [中] 必选外部 MCP 缺少超时控制
+   Finding ID：capability-finding-sha256:95e1a899fcc0553e8269c58ff2d317ddb52d24f5a77fbbcd1f7f770801a72d54
+   规则：CAP-REQUIREDNOTIMEOUT-001
+   类别：network_access
+   分数：5.5
+   严重性：中
+   可能性：moderate
+   影响：high
+   证据置信度：B
+   Hard Gate：未启用（仅报告）
+   相关性：same_target
+   描述：已启用且必选的外部 MCP Server 没有 configured 的 timeout 控制。
+   相关 ID：
+     - mcp-server:remote_release
+   证据：
+     1. project:project:.codex/config.toml$.mcp_servers.remote_release:7-12 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     2. project:project:.codex/config.toml$.mcp_servers.remote_release.auth:11-11 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     3. project:project:.codex/config.toml$.mcp_servers.remote_release.default_tools_approval_mode:12-12 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     4. project:project:.codex/config.toml$.mcp_servers.remote_release.enabled:9-9 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     5. project:project:.codex/config.toml$.mcp_servers.remote_release.required:10-10 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     6. project:project:.codex/config.toml$.mcp_servers.remote_release.url:8-8 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+   修复建议：
+     1. 设置有界的启动和工具超时；控制缺失时应 fail closed。
+
+16. [低] 委派与持久化记忆同时存在
+   Finding ID：capability-finding-sha256:aa1afa9406ca0850453568e7f2d7bbb8cc70e2f61156b6d7c93ad0665f3af5de
+   规则：CAP-DELEGATEPERSIST-001
+   类别：persistent_memory
+   分数：2.0
+   严重性：低
+   可能性：low
+   影响：high
+   证据置信度：D
+   Hard Gate：未启用（仅报告）
+   相关性：agent_wide
+   描述：Agent 同时声明了 delegates_to 与 persists_memory 关系。
+   相关 ID：
+     - relation:delegates_to:agent:deployer
+     - relation:persists_memory:memory:release_state
+   证据：
+     1. project:project:AGENTS.md$.frontmatter.delegates_to[0]:2-2 sha256=b844539124ae05c105a603aa56300522493749bfa0bfb12c72280411368c9e75
+     2. project:project:AGENTS.md$.frontmatter.persists_memory[0]:3-3 sha256=b844539124ae05c105a603aa56300522493749bfa0bfb12c72280411368c9e75
+   修复建议：
+     1. 在委派任务写入持久化记忆前定义所有权、保留和删除边界。
+
+17. [低] 记忆关系与外部网络访问同时存在
+   Finding ID：capability-finding-sha256:ca0a747e6f9d6ab65a7b9ad23143799c2a6d117f73204f97f381d29a1200da6c
+   规则：CAP-MEMORYNETWORK-001
+   类别：persistent_memory
+   分数：2.0
+   严重性：低
+   可能性：low
+   影响：high
+   证据置信度：D
+   Hard Gate：未启用（仅报告）
+   相关性：agent_wide
+   描述：reads_memory、writes_memory 或 persists_memory 关系与 network 权限同时存在。
+   相关 ID：
+     - permission:network:mcp-server:remote_release
+     - relation:persists_memory:memory:release_state
+   证据：
+     1. project:project:.codex/config.toml$.mcp_servers.remote_release:7-12 sha256=653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077
+     2. project:project:AGENTS.md$.frontmatter.persists_memory[0]:3-3 sha256=b844539124ae05c105a603aa56300522493749bfa0bfb12c72280411368c9e75
+   修复建议：
+     1. 在网络传输前对记忆数据分类，并要求明确的出站策略。
+
+边界说明
+  发现项仅描述静态声明和确定性关联。
+  本报告不代表运行时可达性或 Agent 全局安全已被证明。

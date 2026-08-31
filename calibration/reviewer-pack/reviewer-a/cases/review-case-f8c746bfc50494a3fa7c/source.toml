@@ -1,0 +1,69 @@
+title = "合成静态能力评审输入"
+synthetic = true
+review_case_id = "review-case-f8c746bfc50494a3fa7c"
+
+[[facts]]
+dimension = "permission"
+key = "state-changing"
+state = "present"
+target_id = "target:prodauto-3"
+
+[[facts]]
+dimension = "permission"
+key = "production-state-change"
+state = "present"
+target_id = "target:prodauto-3"
+
+[[facts]]
+dimension = "control"
+key = "human-approval"
+state = "absent"
+target_id = "target:prodauto-3"
+
+[[facts]]
+dimension = "control"
+key = "human-approval-allow"
+state = "present"
+target_id = "target:prodauto-3"
+
+[[facts]]
+dimension = "permission"
+key = "production-deploy"
+state = "present"
+target_id = "target:prodauto-3"
+
+[[facts]]
+dimension = "control"
+key = "sandbox"
+state = "present"
+target_id = "target:prodauto-3"
+
+[[facts]]
+dimension = "control"
+key = "network-policy"
+state = "absent"
+target_id = "target:prodauto-3"
+
+[[facts]]
+dimension = "control"
+key = "secret-handling"
+state = "absent"
+target_id = "target:prodauto-3"
+
+[[facts]]
+dimension = "tool"
+key = "mcp-enabled-required"
+state = "present"
+target_id = "target:prodauto-3"
+
+[[facts]]
+dimension = "runtime_identity"
+key = "identity-lifetime-reviewed"
+state = "present"
+target_id = "target:prodauto-3"
+
+[[facts]]
+dimension = "relationship"
+key = "delegates-to"
+state = "absent"
+target_id = "target:prodauto-3"

@@ -1,0 +1,233 @@
+{
+  "configuration": {
+    "candidates": [],
+    "effective_order": [],
+    "effective_sources": [],
+    "resolution": "unknown",
+    "resolution_trace": []
+  },
+  "controls": {
+    "controls": [],
+    "declaration_sources": [],
+    "resolution": "unknown"
+  },
+  "coverage": {
+    "complete": false,
+    "discovered_assets": 2,
+    "inspected_assets": 1,
+    "issues": [
+      {
+        "code": "unsupported_encoding",
+        "path": "AGENTS.override.md",
+        "root_id": "project"
+      }
+    ],
+    "skipped_assets": 1
+  },
+  "identity": {
+    "agent_id": "release-agent",
+    "declared_name": null,
+    "resolution": "partial",
+    "sources": [],
+    "subject_root_id": "project",
+    "subject_scope": "project"
+  },
+  "instructions": {
+    "candidates": [
+      {
+        "kind": "base",
+        "precedence_rank": 100,
+        "source": {
+          "end_line": null,
+          "field_path": null,
+          "locator": {
+            "path": "AGENTS.md",
+            "root_id": "project",
+            "scope": "project"
+          },
+          "start_line": null
+        }
+      }
+    ],
+    "effective_order": [
+      {
+        "end_line": null,
+        "field_path": null,
+        "locator": {
+          "path": "AGENTS.md",
+          "root_id": "project",
+          "scope": "project"
+        },
+        "start_line": null
+      }
+    ],
+    "effective_sources": [
+      {
+        "end_line": null,
+        "field_path": null,
+        "locator": {
+          "path": "AGENTS.md",
+          "root_id": "project",
+          "scope": "project"
+        },
+        "start_line": null
+      }
+    ],
+    "overridden_sources": [],
+    "resolution": "partial",
+    "resolution_trace": [
+      {
+        "action": "selected",
+        "chain_key": "project:project:.",
+        "precedence_rank": 100,
+        "reason": "only_candidate",
+        "source": {
+          "end_line": null,
+          "field_path": null,
+          "locator": {
+            "path": "AGENTS.md",
+            "root_id": "project",
+            "scope": "project"
+          },
+          "start_line": null
+        }
+      }
+    ]
+  },
+  "metadata": {
+    "adapter_version": "0.1.0",
+    "deterministic": true,
+    "framework_display_name": "Codex",
+    "framework_id": "codex",
+    "scanner_version": "0.2.0"
+  },
+  "permissions": {
+    "declaration_sources": [],
+    "permissions": [],
+    "resolution": "unknown"
+  },
+  "relationships": {
+    "declaration_sources": [
+      {
+        "end_line": null,
+        "field_path": null,
+        "locator": {
+          "path": "AGENTS.md",
+          "root_id": "project",
+          "scope": "project"
+        },
+        "start_line": null
+      }
+    ],
+    "relations": [],
+    "resolution": "partial"
+  },
+  "runtime_identities": {
+    "declaration_sources": [],
+    "identities": [],
+    "resolution": "unknown"
+  },
+  "schema_version": "0.3.0",
+  "sources": [
+    {
+      "content_sha256": "f81ce3b0242a2d55083d162a3a581cb66ec6ca2a00946e8d5452f6f1b01d6f9e",
+      "format": "markdown",
+      "line_count": 3,
+      "locator": {
+        "path": "AGENTS.md",
+        "root_id": "project",
+        "scope": "project"
+      },
+      "precedence_rank": 100,
+      "roles": [
+        "agent_instructions"
+      ],
+      "size_bytes": 59
+    }
+  ],
+  "tools": {
+    "declaration_sources": [],
+    "resolution": "unknown",
+    "tools": []
+  },
+  "unknowns": [
+    {
+      "dimension": "controls",
+      "field": "controls.resolution",
+      "reason": "missing_source",
+      "sources": [],
+      "unknown_id": "unknown:controls:21a0b7e5d41746fa"
+    },
+    {
+      "dimension": "coverage",
+      "field": "coverage",
+      "reason": "incomplete_coverage",
+      "sources": [],
+      "unknown_id": "unknown:coverage:8b150230ace4ecfa"
+    },
+    {
+      "dimension": "identity",
+      "field": "identity.resolution",
+      "reason": "incomplete_coverage",
+      "sources": [],
+      "unknown_id": "unknown:identity:5ec71700c2432d2a"
+    },
+    {
+      "dimension": "instructions",
+      "field": "instructions.resolution",
+      "reason": "incomplete_coverage",
+      "sources": [
+        {
+          "end_line": null,
+          "field_path": null,
+          "locator": {
+            "path": "AGENTS.md",
+            "root_id": "project",
+            "scope": "project"
+          },
+          "start_line": null
+        }
+      ],
+      "unknown_id": "unknown:instructions:98d6e4f16f2bdf59"
+    },
+    {
+      "dimension": "permissions",
+      "field": "permissions.resolution",
+      "reason": "missing_source",
+      "sources": [],
+      "unknown_id": "unknown:permissions:2be0c85c08af985b"
+    },
+    {
+      "dimension": "relationships",
+      "field": "relationships.resolution",
+      "reason": "incomplete_coverage",
+      "sources": [
+        {
+          "end_line": null,
+          "field_path": null,
+          "locator": {
+            "path": "AGENTS.md",
+            "root_id": "project",
+            "scope": "project"
+          },
+          "start_line": null
+        }
+      ],
+      "unknown_id": "unknown:relationships:69a07b4f200dc474"
+    },
+    {
+      "dimension": "runtime_identities",
+      "field": "runtime_identities.resolution",
+      "reason": "missing_source",
+      "sources": [],
+      "unknown_id": "unknown:runtime_identities:9af495e3982f8b99"
+    },
+    {
+      "dimension": "tools",
+      "field": "tools.resolution",
+      "reason": "missing_source",
+      "sources": [],
+      "unknown_id": "unknown:tools:02551c2704900e95"
+    }
+  ]
+}

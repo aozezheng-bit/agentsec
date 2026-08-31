@@ -1,0 +1,33 @@
+{
+  "corpus_binding_hash": "sha256:59e034541e3c1096f311404358031a5dc81fc880123351363713d66c2544ad79",
+  "format": "agentsec-independent-review-case",
+  "input_format": "manifest",
+  "language": "en",
+  "pack_id": "reviewer-pack-sha256:58295690c13861a763ed9c202d39fe37642ac0f8d9d2d6e416886184a4a86d90",
+  "question_set_sha256": "sha256:034bbe417bc2cc5e0449b028706af9a03e5b6895eda50fabc435781aa9579cac",
+  "review_case_fingerprint": "sha256:11f4d0ae65a9644b43be292030b18998944bf37a42424e452ae679b05623a46c",
+  "review_case_id": "review-case-1b6bda839ba9759bc419",
+  "review_questions": [
+    {
+      "condition": {
+        "en": "A secret_access permission has no configured secret_handling control on its target or parent."
+      },
+      "prompt": {
+        "en": "Independently label the human Rule condition as match, no_match, or uncertain; record your direct finding observation, policy/scope category, evidence location, Confidence, Correlation, disposition, rationale code, and notes. Do not calculate TP/FP/FN/TN."
+      },
+      "question_id": "question:review-case-1b6bda839ba9759bc419:CAP-NOSECRET-001",
+      "rule_id": "CAP-NOSECRET-001",
+      "title": {
+        "en": "Secret capability lacks a secret-handling control"
+      }
+    }
+  ],
+  "schema_version": "0.3.0",
+  "source_location": {
+    "end_line": 19,
+    "path": "source.manifest.json",
+    "start_line": 1
+  },
+  "source_sha256": "sha256:6f3f5767ad944e60ccdf56e0cd8f6ac392d203eae31eadf97a7b2a643f813419",
+  "synthetic_fixture": true
+}

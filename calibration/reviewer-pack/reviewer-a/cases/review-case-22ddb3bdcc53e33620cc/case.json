@@ -1,0 +1,52 @@
+{
+  "corpus_binding_hash": "sha256:59e034541e3c1096f311404358031a5dc81fc880123351363713d66c2544ad79",
+  "format": "agentsec-independent-review-case",
+  "input_format": "yaml",
+  "language": "bilingual",
+  "pack_id": "reviewer-pack-sha256:58295690c13861a763ed9c202d39fe37642ac0f8d9d2d6e416886184a4a86d90",
+  "question_set_sha256": "sha256:578b5a3b3803ebbedfb511c604e613d93272d9ff76d31797471cc8e1bc28d3df",
+  "review_case_fingerprint": "sha256:8ead9aedf6a36a6e5045132e6602f137ef320ecf2f560a1d354dbac613c87ca6",
+  "review_case_id": "review-case-22ddb3bdcc53e33620cc",
+  "review_questions": [
+    {
+      "condition": {
+        "en": "A write, execute, deploy, publish, or admin capability is enabled or not explicitly disabled while the correlated target has no prompt or deny approval control.",
+        "zh": "能力已启用或未明确禁用，但关联目标缺少 prompt 或 deny 人工审批控制。"
+      },
+      "prompt": {
+        "en": "Independently label the human Rule condition as match, no_match, or uncertain; record your direct finding observation, policy/scope category, evidence location, Confidence, Correlation, disposition, rationale code, and notes. Do not calculate TP/FP/FN/TN.",
+        "zh": "请独立将人工规则条件标记为 match、no_match 或 uncertain，并填写直接观察、策略或范围类别、证据位置、置信度、关联方式、处置意见、理由代码和备注。不要自行计算 TP/FP/FN/TN。"
+      },
+      "question_id": "question:review-case-22ddb3bdcc53e33620cc:CAP-APPROVAL-001",
+      "rule_id": "CAP-APPROVAL-001",
+      "title": {
+        "en": "State-changing capability lacks an effective human approval control",
+        "zh": "状态变更能力缺少有效人工审批控制"
+      }
+    },
+    {
+      "condition": {
+        "en": "A production write, execute, deploy, publish, or admin permission has an effective allow approval state.",
+        "zh": "生产 write、execute、deploy、publish 或 admin 权限的有效审批状态为 allow。"
+      },
+      "prompt": {
+        "en": "Independently label the human Rule condition as match, no_match, or uncertain; record your direct finding observation, policy/scope category, evidence location, Confidence, Correlation, disposition, rationale code, and notes. Do not calculate TP/FP/FN/TN.",
+        "zh": "请独立将人工规则条件标记为 match、no_match 或 uncertain，并填写直接观察、策略或范围类别、证据位置、置信度、关联方式、处置意见、理由代码和备注。不要自行计算 TP/FP/FN/TN。"
+      },
+      "question_id": "question:review-case-22ddb3bdcc53e33620cc:CAP-AUTOPROD-001",
+      "rule_id": "CAP-AUTOPROD-001",
+      "title": {
+        "en": "Production state-changing capability is allowed automatically",
+        "zh": "生产状态变更能力被自动允许"
+      }
+    }
+  ],
+  "schema_version": "0.3.0",
+  "source_location": {
+    "end_line": 48,
+    "path": "source.yaml",
+    "start_line": 1
+  },
+  "source_sha256": "sha256:be224e87cc414b8e10c6f0b52ba63915adaf05dc93f0ec8129e2708da33666e8",
+  "synthetic_fixture": true
+}

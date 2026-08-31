@@ -1,0 +1,1274 @@
+{
+  "acceptance_ready": false,
+  "all_standard_files_present": true,
+  "capabilities": [
+    {
+      "confidence": "D",
+      "method": "static_template_classification",
+      "signal_id": "camera_access",
+      "source_paths": [
+        "TOOLS.md"
+      ],
+      "state": "example_only"
+    },
+    {
+      "confidence": "D",
+      "method": "static_declaration",
+      "signal_id": "control_file_self_modification",
+      "source_paths": [
+        "AGENTS.md"
+      ],
+      "state": "present"
+    },
+    {
+      "confidence": "D",
+      "method": "runtime_unverified",
+      "signal_id": "cron_schedule",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "method": "static_declaration",
+      "signal_id": "external_message_send",
+      "source_paths": [
+        "AGENTS.md"
+      ],
+      "state": "conditional"
+    },
+    {
+      "confidence": "D",
+      "method": "static_declaration",
+      "signal_id": "external_network_read",
+      "source_paths": [
+        "AGENTS.md"
+      ],
+      "state": "present"
+    },
+    {
+      "confidence": "D",
+      "method": "static_declaration",
+      "signal_id": "group_chat_participation",
+      "source_paths": [
+        "AGENTS.md"
+      ],
+      "state": "present"
+    },
+    {
+      "confidence": "D",
+      "method": "static_declaration",
+      "signal_id": "heartbeat_schedule",
+      "source_paths": [
+        "HEARTBEAT.md"
+      ],
+      "state": "present"
+    },
+    {
+      "confidence": "D",
+      "method": "static_declaration",
+      "signal_id": "identity_self_modification",
+      "source_paths": [
+        "IDENTITY.md"
+      ],
+      "state": "present"
+    },
+    {
+      "confidence": "D",
+      "method": "runtime_unverified",
+      "signal_id": "mcp_access",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "method": "static_declaration",
+      "signal_id": "memory_read",
+      "source_paths": [
+        "AGENTS.md"
+      ],
+      "state": "present"
+    },
+    {
+      "confidence": "D",
+      "method": "static_declaration",
+      "signal_id": "memory_write",
+      "source_paths": [
+        "AGENTS.md"
+      ],
+      "state": "present"
+    },
+    {
+      "confidence": "D",
+      "method": "runtime_unverified",
+      "signal_id": "oauth_access",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "method": "static_declaration",
+      "signal_id": "persistent_memory",
+      "source_paths": [
+        "AGENTS.md"
+      ],
+      "state": "present"
+    },
+    {
+      "confidence": "D",
+      "method": "static_declaration",
+      "signal_id": "persona_self_modification",
+      "source_paths": [
+        "SOUL.md"
+      ],
+      "state": "present"
+    },
+    {
+      "confidence": "D",
+      "method": "runtime_unverified",
+      "signal_id": "secret_access",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "method": "runtime_unverified",
+      "signal_id": "shell_execution",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "method": "static_declaration",
+      "signal_id": "skill_tool_discovery",
+      "source_paths": [
+        "AGENTS.md"
+      ],
+      "state": "present"
+    },
+    {
+      "confidence": "D",
+      "method": "static_template_classification",
+      "signal_id": "ssh_access",
+      "source_paths": [
+        "TOOLS.md"
+      ],
+      "state": "example_only"
+    },
+    {
+      "confidence": "D",
+      "method": "static_template_classification",
+      "signal_id": "tts_output",
+      "source_paths": [
+        "TOOLS.md"
+      ],
+      "state": "example_only"
+    },
+    {
+      "confidence": "D",
+      "method": "static_declaration",
+      "signal_id": "user_profile_persistence",
+      "source_paths": [
+        "USER.md"
+      ],
+      "state": "present"
+    },
+    {
+      "confidence": "D",
+      "method": "static_declaration",
+      "signal_id": "workspace_read",
+      "source_paths": [
+        "AGENTS.md"
+      ],
+      "state": "present"
+    },
+    {
+      "confidence": "D",
+      "method": "runtime_unverified",
+      "signal_id": "workspace_write",
+      "source_paths": [],
+      "state": "unknown"
+    }
+  ],
+  "ci_blocked": false,
+  "combination": {
+    "complete": false,
+    "evaluated_rule_ids": [
+      "HOMI-COMB-001",
+      "HOMI-COMB-002",
+      "HOMI-COMB-003",
+      "HOMI-COMB-004",
+      "HOMI-COMB-005"
+    ],
+    "failures": [],
+    "findings": [
+      {
+        "category": "external_tooling",
+        "confidence": "D",
+        "evidence": [
+          {
+            "confidence": "D",
+            "method": "static_declaration",
+            "signal_id": "external_message_send",
+            "sources": [
+              {
+                "path": "AGENTS.md",
+                "root_id": "project",
+                "scope": "project"
+              }
+            ],
+            "state": "conditional"
+          },
+          {
+            "confidence": "D",
+            "method": "static_declaration",
+            "signal_id": "external_network_read",
+            "sources": [
+              {
+                "path": "AGENTS.md",
+                "root_id": "project",
+                "scope": "project"
+              }
+            ],
+            "state": "present"
+          },
+          {
+            "confidence": "D",
+            "method": "static_declaration",
+            "signal_id": "proactive",
+            "sources": [
+              {
+                "path": "SOUL.md",
+                "root_id": "project",
+                "scope": "project"
+              }
+            ],
+            "state": "present"
+          }
+        ],
+        "finding_id": "homi-combination-sha256:ec95dd1a76cbf9de0115ca749928d73cc6734993d3e3492f6593636d66a8767f",
+        "impact": "high",
+        "impact_ratings": [
+          {
+            "dimension": "confidentiality",
+            "level": "high",
+            "rationale": "主动行为与外部能力组合可能扩大敏感数据的主动外发范围。"
+          },
+          {
+            "dimension": "downstream_blast_radius",
+            "level": "high",
+            "rationale": "外部工具可能将 Agent 行为扩展到当前工作区之外。"
+          }
+        ],
+        "likelihood": "moderate",
+        "limitations": [
+          "Static declarations do not prove that the runtime can reach or use the capability."
+        ],
+        "mapping_basis": [
+          "NIST SP 800-30 Rev. 1 Table I-2 likelihood-impact matrix",
+          "FIPS 199 high-water-mark principle adapted to AgentSec impact dimensions",
+          "AgentSec project plan section 6.7.2 representative 0-10 base-score mapping",
+          "FIRST CVSS v4.0 qualitative severity rating scale",
+          "AgentSec P2-HOMI-04 deterministic cross-file combination policy 0.1.0",
+          "Static Homi combinations are report-only and do not prove runtime reachability"
+        ],
+        "rationale": [
+          "Proactive persona behavior and one or more active external capabilities are present."
+        ],
+        "related_signal_ids": [
+          "external_message_send",
+          "external_network_read",
+          "proactive"
+        ],
+        "report_only": true,
+        "rule_id": "HOMI-COMB-001",
+        "rule_pack_version": "0.1.0",
+        "runtime_verified": false,
+        "score": 5.5,
+        "severity": "medium",
+        "texts": [
+          {
+            "description": "The persona encourages proactive behavior while a network, message, or external tool capability is statically declared.",
+            "language": "en",
+            "recommendations": [
+              "Keep external capabilities least-privileged, require approval for side effects, and verify the runtime Tool Registry separately."
+            ],
+            "title": "Proactive behavior is combined with an active external capability"
+          },
+          {
+            "description": "人格规范鼓励主动行动，同时静态声明了网络、消息或外部工具能力。",
+            "language": "zh",
+            "recommendations": [
+              "限制外部能力权限，对副作用保留人工审批，并单独核验运行时 Tool Registry。"
+            ],
+            "title": "主动行为与外部能力组合出现"
+          }
+        ]
+      },
+      {
+        "category": "network_access",
+        "confidence": "D",
+        "evidence": [
+          {
+            "confidence": "D",
+            "method": "static_declaration",
+            "signal_id": "external_message_send",
+            "sources": [
+              {
+                "path": "AGENTS.md",
+                "root_id": "project",
+                "scope": "project"
+              }
+            ],
+            "state": "conditional"
+          },
+          {
+            "confidence": "D",
+            "method": "static_declaration",
+            "signal_id": "external_network_read",
+            "sources": [
+              {
+                "path": "AGENTS.md",
+                "root_id": "project",
+                "scope": "project"
+              }
+            ],
+            "state": "present"
+          },
+          {
+            "confidence": "D",
+            "method": "static_declaration",
+            "signal_id": "heartbeat_schedule",
+            "sources": [
+              {
+                "path": "HEARTBEAT.md",
+                "root_id": "project",
+                "scope": "project"
+              }
+            ],
+            "state": "present"
+          }
+        ],
+        "finding_id": "homi-combination-sha256:f7c273bc6e1f58bd0ba266c5501997782923c90f283e6a5d4b82184681ba760b",
+        "impact": "high",
+        "impact_ratings": [
+          {
+            "dimension": "confidentiality",
+            "level": "high",
+            "rationale": "Heartbeat 任务可在对话外周期性触发外部读取或访问。"
+          },
+          {
+            "dimension": "downstream_blast_radius",
+            "level": "high",
+            "rationale": "调度路径会把外部能力的影响扩展到多个时间点和上下文。"
+          }
+        ],
+        "likelihood": "high",
+        "limitations": [
+          "The file does not attest that a scheduler runs or that external access succeeds."
+        ],
+        "mapping_basis": [
+          "NIST SP 800-30 Rev. 1 Table I-2 likelihood-impact matrix",
+          "FIPS 199 high-water-mark principle adapted to AgentSec impact dimensions",
+          "AgentSec project plan section 6.7.2 representative 0-10 base-score mapping",
+          "FIRST CVSS v4.0 qualitative severity rating scale",
+          "AgentSec P2-HOMI-04 deterministic cross-file combination policy 0.1.0",
+          "Static Homi combinations are report-only and do not prove runtime reachability"
+        ],
+        "rationale": [
+          "Heartbeat contains task content and an active external access declaration is present."
+        ],
+        "related_signal_ids": [
+          "external_message_send",
+          "external_network_read",
+          "heartbeat_schedule"
+        ],
+        "report_only": true,
+        "rule_id": "HOMI-COMB-002",
+        "rule_pack_version": "0.1.0",
+        "runtime_verified": false,
+        "score": 8.0,
+        "severity": "high",
+        "texts": [
+          {
+            "description": "A non-empty Heartbeat declaration coexists with external network, message, or MCP capability.",
+            "language": "en",
+            "recommendations": [
+              "Make scheduled external access explicit, bounded, auditable, and independently attested by the runtime scheduler."
+            ],
+            "title": "Heartbeat tasks are combined with external access"
+          },
+          {
+            "description": "非空 Heartbeat 声明与外部网络、消息或 MCP 能力同时存在。",
+            "language": "zh",
+            "recommendations": [
+              "明确限制定时外部访问的目标、频率和审批，并单独核验运行时调度器。"
+            ],
+            "title": "Heartbeat 任务与外部访问组合出现"
+          }
+        ]
+      },
+      {
+        "category": "persistent_memory",
+        "confidence": "D",
+        "evidence": [
+          {
+            "confidence": "D",
+            "method": "static_declaration",
+            "signal_id": "persistent_memory",
+            "sources": [
+              {
+                "path": "AGENTS.md",
+                "root_id": "project",
+                "scope": "project"
+              }
+            ],
+            "state": "present"
+          },
+          {
+            "confidence": "D",
+            "method": "static_declaration",
+            "signal_id": "user_profile_persistence",
+            "sources": [
+              {
+                "path": "USER.md",
+                "root_id": "project",
+                "scope": "project"
+              }
+            ],
+            "state": "present"
+          }
+        ],
+        "finding_id": "homi-combination-sha256:ba6721a85a70661ab6f0a9fd2a5af7715aae05e6695d1d735b2d86ffda01d946",
+        "impact": "very_high",
+        "impact_ratings": [
+          {
+            "dimension": "confidentiality",
+            "level": "very_high",
+            "rationale": "用户画像与长期记忆组合可能延长敏感上下文的保留和暴露周期。"
+          },
+          {
+            "dimension": "integrity",
+            "level": "high",
+            "rationale": "持久化用户上下文可能影响未来任务和行为决策。"
+          }
+        ],
+        "likelihood": "moderate",
+        "limitations": [
+          "No user values are copied; retention and runtime memory behavior are not attested."
+        ],
+        "mapping_basis": [
+          "NIST SP 800-30 Rev. 1 Table I-2 likelihood-impact matrix",
+          "FIPS 199 high-water-mark principle adapted to AgentSec impact dimensions",
+          "AgentSec project plan section 6.7.2 representative 0-10 base-score mapping",
+          "FIRST CVSS v4.0 qualitative severity rating scale",
+          "AgentSec P2-HOMI-04 deterministic cross-file combination policy 0.1.0",
+          "Static Homi combinations are report-only and do not prove runtime reachability"
+        ],
+        "rationale": [
+          "USER.md persistence guidance and persistent memory behavior are both declared."
+        ],
+        "related_signal_ids": [
+          "persistent_memory",
+          "user_profile_persistence"
+        ],
+        "report_only": true,
+        "rule_id": "HOMI-COMB-003",
+        "rule_pack_version": "0.1.0",
+        "runtime_verified": false,
+        "score": 8.0,
+        "severity": "high",
+        "texts": [
+          {
+            "description": "USER.md persistence guidance coexists with persistent memory behavior.",
+            "language": "en",
+            "recommendations": [
+              "Define retention, deletion, access, and secret-exclusion controls for user context and persistent memory."
+            ],
+            "title": "User profile persistence is combined with long-term memory"
+          },
+          {
+            "description": "USER.md 持久化指引与长期记忆行为同时存在。",
+            "language": "zh",
+            "recommendations": [
+              "为用户上下文和长期记忆定义保留、删除、访问和 Secret 排除控制。"
+            ],
+            "title": "用户画像持久化与长期记忆组合出现"
+          }
+        ]
+      },
+      {
+        "category": "self_modification",
+        "confidence": "D",
+        "evidence": [
+          {
+            "confidence": "D",
+            "method": "static_declaration",
+            "signal_id": "control_file_self_modification",
+            "sources": [
+              {
+                "path": "AGENTS.md",
+                "root_id": "project",
+                "scope": "project"
+              }
+            ],
+            "state": "present"
+          },
+          {
+            "confidence": "D",
+            "method": "static_declaration",
+            "signal_id": "identity_self_modification",
+            "sources": [
+              {
+                "path": "IDENTITY.md",
+                "root_id": "project",
+                "scope": "project"
+              }
+            ],
+            "state": "present"
+          },
+          {
+            "confidence": "D",
+            "method": "static_declaration",
+            "signal_id": "self_evolution",
+            "sources": [
+              {
+                "path": "SOUL.md",
+                "root_id": "project",
+                "scope": "project"
+              }
+            ],
+            "state": "present"
+          }
+        ],
+        "finding_id": "homi-combination-sha256:9830ccb1db6235c107f29fbe8db89802fff11c52ad8edd89bcf83468f870716f",
+        "impact": "very_high",
+        "impact_ratings": [
+          {
+            "dimension": "downstream_blast_radius",
+            "level": "high",
+            "rationale": "被修改的控制文件可能影响后续会话和外部上下文。"
+          },
+          {
+            "dimension": "integrity",
+            "level": "very_high",
+            "rationale": "人格或身份文件自修改可能改变后续行为边界和身份声明。"
+          }
+        ],
+        "likelihood": "moderate",
+        "limitations": [
+          "Static guidance does not prove that the files are writable at runtime."
+        ],
+        "mapping_basis": [
+          "NIST SP 800-30 Rev. 1 Table I-2 likelihood-impact matrix",
+          "FIPS 199 high-water-mark principle adapted to AgentSec impact dimensions",
+          "AgentSec project plan section 6.7.2 representative 0-10 base-score mapping",
+          "FIRST CVSS v4.0 qualitative severity rating scale",
+          "AgentSec P2-HOMI-04 deterministic cross-file combination policy 0.1.0",
+          "Static Homi combinations are report-only and do not prove runtime reachability"
+        ],
+        "rationale": [
+          "SOUL.md self-evolution and IDENTITY.md self-assignment are both declared."
+        ],
+        "related_signal_ids": [
+          "control_file_self_modification",
+          "identity_self_modification",
+          "self_evolution"
+        ],
+        "report_only": true,
+        "rule_id": "HOMI-COMB-004",
+        "rule_pack_version": "0.1.0",
+        "runtime_verified": false,
+        "score": 8.0,
+        "severity": "high",
+        "texts": [
+          {
+            "description": "SOUL.md self-evolution guidance coexists with IDENTITY.md self-assignment guidance.",
+            "language": "en",
+            "recommendations": [
+              "Protect control files with review, integrity monitoring, and a separate runtime write authorization."
+            ],
+            "title": "Persona and identity self-modification are combined"
+          },
+          {
+            "description": "SOUL.md 的自我演化指引与 IDENTITY.md 的身份自赋值指引同时存在。",
+            "language": "zh",
+            "recommendations": [
+              "对控制文件启用评审、完整性监控，并单独配置运行时写入授权。"
+            ],
+            "title": "人格与身份自修改能力组合出现"
+          }
+        ]
+      }
+    ],
+    "profile_complete": false,
+    "rule_pack_version": "0.1.0",
+    "suppressed_example_capabilities": [
+      "camera_access",
+      "ssh_access",
+      "tts_output"
+    ]
+  },
+  "evidence_mode": "external_report_only",
+  "files": [
+    {
+      "content_sha256": "b57abca4965114aedd2fb27f84f46a1519d06aaf2ef0c4974961a0ae0956f4c3",
+      "issue_codes": [],
+      "line_count": 223,
+      "name": "AGENTS.md",
+      "size_bytes": 7944,
+      "state": "present"
+    },
+    {
+      "content_sha256": "ae5dd497a31760ed9ac448c23d2251aedbea4f42f54da68d335f942618eea1a3",
+      "issue_codes": [],
+      "line_count": 5,
+      "name": "HEARTBEAT.md",
+      "size_bytes": 164,
+      "state": "present"
+    },
+    {
+      "content_sha256": "c1b3b3d8d396a5a4738fde83423329392253f0e5fb09f0f86d072fe4eafbb48d",
+      "issue_codes": [],
+      "line_count": 27,
+      "name": "IDENTITY.md",
+      "size_bytes": 792,
+      "state": "present"
+    },
+    {
+      "content_sha256": "daab0d62045d0a00ea0f968f4463ea09fd06c71f59066f686b0e9b361f929b43",
+      "issue_codes": [],
+      "line_count": 42,
+      "name": "SOUL.md",
+      "size_bytes": 1806,
+      "state": "present"
+    },
+    {
+      "content_sha256": "15cdfe57fcfa6d83888e215176f40b415ff2b9a51afe96b4d4134f2f5a8cfe68",
+      "issue_codes": [],
+      "line_count": 44,
+      "name": "TOOLS.md",
+      "size_bytes": 920,
+      "state": "example_only"
+    },
+    {
+      "content_sha256": "e418ca9a680553b3ad8f54aecb0d403330810bb77826ab5251cc1dc13368fe16",
+      "issue_codes": [],
+      "line_count": 21,
+      "name": "USER.md",
+      "size_bytes": 537,
+      "state": "present"
+    }
+  ],
+  "format": "agentsec-homi-report-only-pilot",
+  "format_version": "0.1.0",
+  "heartbeat": {
+    "api_calls_enabled_by_file": true,
+    "runtime_verified": false,
+    "signal": {
+      "confidence": "D",
+      "method": "static_declaration",
+      "signal_id": "heartbeat_schedule",
+      "source_paths": [
+        "HEARTBEAT.md"
+      ],
+      "state": "present"
+    },
+    "state": "present",
+    "tasks_present": true
+  },
+  "identity": {
+    "avatar_kind": "remote_url",
+    "creature_present": true,
+    "emoji_present": true,
+    "identity_disclosure": {
+      "confidence": "D",
+      "method": "static_declaration",
+      "signal_id": "identity_disclosure",
+      "source_paths": [
+        "IDENTITY.md"
+      ],
+      "state": "present"
+    },
+    "name_present": true,
+    "self_assignment": {
+      "confidence": "D",
+      "method": "static_declaration",
+      "signal_id": "identity_self_modification",
+      "source_paths": [
+        "IDENTITY.md"
+      ],
+      "state": "present"
+    },
+    "vibe_present": true
+  },
+  "inspection_complete": true,
+  "limitations": [
+    "This is an external report-only Pilot; acceptance_ready is always false.",
+    "The target workspace is untrusted input and no project code, hooks, skills, commands, MCP, or scheduler was executed.",
+    "Static Homi declarations do not prove runtime Tool, OAuth, permission, identity, scheduler, or exploit reachability.",
+    "No raw User, tool, credential, IP address, URL, Avatar, or Secret value is included in the report.",
+    "Human review and real runtime attestation are outside this Pilot run."
+  ],
+  "observations": [
+    {
+      "code": "control_plane_self_modification",
+      "kind": "authority_boundary",
+      "resolution": "manual_approval_required_for_control_file_changes",
+      "roles": [
+        "persona",
+        "workspace_policy"
+      ],
+      "source_paths": [
+        "AGENTS.md",
+        "SOUL.md"
+      ]
+    },
+    {
+      "code": "identity_not_runtime_authority",
+      "kind": "authority_boundary",
+      "resolution": "identity_metadata_does_not_grant_runtime_authority",
+      "roles": [
+        "identity"
+      ],
+      "source_paths": [
+        "IDENTITY.md"
+      ]
+    },
+    {
+      "code": "startup_read_policy_conflict",
+      "kind": "conflict",
+      "resolution": "workspace_policy_wins_for_startup_loading",
+      "roles": [
+        "persona",
+        "workspace_policy"
+      ],
+      "source_paths": [
+        "AGENTS.md",
+        "SOUL.md"
+      ]
+    },
+    {
+      "code": "tools_not_authority",
+      "kind": "authority_boundary",
+      "resolution": "tools_notes_do_not_grant_runtime_tool_authority",
+      "roles": [
+        "tool_notes"
+      ],
+      "source_paths": [
+        "TOOLS.md"
+      ]
+    },
+    {
+      "code": "user_profile_main_session_only",
+      "kind": "authority_boundary",
+      "resolution": "user_profile_is_main_session_only",
+      "roles": [
+        "user_profile"
+      ],
+      "source_paths": [
+        "USER.md"
+      ]
+    }
+  ],
+  "owner": "homi-agent-platform-owner",
+  "persona_signals": [
+    {
+      "confidence": "D",
+      "method": "static_declaration",
+      "signal_id": "anti_sycophancy",
+      "source_paths": [
+        "SOUL.md"
+      ],
+      "state": "present"
+    },
+    {
+      "confidence": "D",
+      "method": "static_declaration",
+      "signal_id": "external_approval",
+      "source_paths": [
+        "SOUL.md"
+      ],
+      "state": "present"
+    },
+    {
+      "confidence": "D",
+      "method": "static_declaration",
+      "signal_id": "group_chat_non_proxy",
+      "source_paths": [
+        "SOUL.md"
+      ],
+      "state": "present"
+    },
+    {
+      "confidence": "D",
+      "method": "static_declaration",
+      "signal_id": "opinionated",
+      "source_paths": [
+        "SOUL.md"
+      ],
+      "state": "present"
+    },
+    {
+      "confidence": "D",
+      "method": "static_declaration",
+      "signal_id": "privacy_boundary",
+      "source_paths": [
+        "SOUL.md"
+      ],
+      "state": "present"
+    },
+    {
+      "confidence": "D",
+      "method": "static_declaration",
+      "signal_id": "proactive",
+      "source_paths": [
+        "SOUL.md"
+      ],
+      "state": "present"
+    },
+    {
+      "confidence": "D",
+      "method": "static_declaration",
+      "signal_id": "resourceful",
+      "source_paths": [
+        "SOUL.md"
+      ],
+      "state": "present"
+    },
+    {
+      "confidence": "D",
+      "method": "static_declaration",
+      "signal_id": "self_evolution",
+      "source_paths": [
+        "SOUL.md"
+      ],
+      "state": "present"
+    }
+  ],
+  "pilot_id": "pr-03-real-heartbeat-activation",
+  "profile_complete": false,
+  "project_name": "Homi PR Snapshot pr-03-real-heartbeat-activation",
+  "report_only": true,
+  "resolution_status": "conflict",
+  "reviewer_ids": [],
+  "runtime_verified": false,
+  "simulation": {
+    "combination_rule_failures": [],
+    "combination_rule_pack_version": "0.1.0",
+    "complete": false,
+    "executed": false,
+    "format": "agentsec-homi-safe-simulation",
+    "format_version": "0.1.0",
+    "limitations": [
+      "AgentSec P2-HOMI-05 deterministic dry-run simulation contract 0.1.0",
+      "Simulation is an in-memory plan and never executes source or external actions",
+      "Static declarations do not prove runtime reachability or scheduler execution",
+      "Example-only tool notes are suppressed rather than treated as active access"
+    ],
+    "mode": "dry_run",
+    "model_version": "0.1.0",
+    "outcome_counts": {
+      "blocked_example_only": 1,
+      "blocked_static_boundary": 0,
+      "declared_path": 4,
+      "not_declared": 0,
+      "unknown_coverage": 0
+    },
+    "profile_complete": false,
+    "runtime_verified": false,
+    "scenarios": [
+      {
+        "action": "external_network_read",
+        "description": "Preview whether a Heartbeat tick would reach a declared external network-read path.",
+        "scenario_id": "HOMI-SIM-001",
+        "trigger": "heartbeat_tick"
+      },
+      {
+        "action": "external_tool_use",
+        "description": "Preview whether proactive behavior would reach an active external capability.",
+        "scenario_id": "HOMI-SIM-002",
+        "trigger": "proactive_persona"
+      },
+      {
+        "action": "memory_persist",
+        "description": "Preview whether a user-profile update would enter persistent memory.",
+        "scenario_id": "HOMI-SIM-003",
+        "trigger": "user_profile_update"
+      },
+      {
+        "action": "control_file_write",
+        "description": "Preview whether persona and identity self-modification guidance forms a control-file write path.",
+        "scenario_id": "HOMI-SIM-004",
+        "trigger": "control_file_update"
+      },
+      {
+        "action": "tool_discovery",
+        "description": "Preview whether Skill discovery would reach an active local tool binding.",
+        "scenario_id": "HOMI-SIM-005",
+        "trigger": "skill_discovery"
+      }
+    ],
+    "side_effects": false,
+    "static_combination_finding_ids": [
+      "homi-combination-sha256:9830ccb1db6235c107f29fbe8db89802fff11c52ad8edd89bcf83468f870716f",
+      "homi-combination-sha256:ba6721a85a70661ab6f0a9fd2a5af7715aae05e6695d1d735b2d86ffda01d946",
+      "homi-combination-sha256:ec95dd1a76cbf9de0115ca749928d73cc6734993d3e3492f6593636d66a8767f",
+      "homi-combination-sha256:f7c273bc6e1f58bd0ba266c5501997782923c90f283e6a5d4b82184681ba760b"
+    ],
+    "steps": [
+      {
+        "action": "external_network_read",
+        "evidence": [
+          {
+            "confidence": "D",
+            "method": "static_declaration",
+            "signal_id": "external_network_read",
+            "sources": [
+              {
+                "path": "AGENTS.md",
+                "root_id": "project",
+                "scope": "project"
+              }
+            ],
+            "state": "present"
+          },
+          {
+            "confidence": "D",
+            "method": "static_declaration",
+            "signal_id": "heartbeat_schedule",
+            "sources": [
+              {
+                "path": "HEARTBEAT.md",
+                "root_id": "project",
+                "scope": "project"
+              }
+            ],
+            "state": "present"
+          }
+        ],
+        "executed": false,
+        "limitations": [
+          "This is a dry-run decision trace; no source, scheduler, tool, network, or file operation was executed."
+        ],
+        "outcome": "declared_path",
+        "rationale": [
+          "A Heartbeat task and external network-read declaration form a dry-run path."
+        ],
+        "related_signal_ids": [
+          "external_network_read",
+          "heartbeat_schedule"
+        ],
+        "runtime_verified": false,
+        "scenario_id": "HOMI-SIM-001",
+        "side_effects": false,
+        "trigger": "heartbeat_tick"
+      },
+      {
+        "action": "external_tool_use",
+        "evidence": [
+          {
+            "confidence": "D",
+            "method": "static_declaration",
+            "signal_id": "external_message_send",
+            "sources": [
+              {
+                "path": "AGENTS.md",
+                "root_id": "project",
+                "scope": "project"
+              }
+            ],
+            "state": "conditional"
+          },
+          {
+            "confidence": "D",
+            "method": "static_declaration",
+            "signal_id": "external_network_read",
+            "sources": [
+              {
+                "path": "AGENTS.md",
+                "root_id": "project",
+                "scope": "project"
+              }
+            ],
+            "state": "present"
+          },
+          {
+            "confidence": "D",
+            "method": "static_declaration",
+            "signal_id": "proactive",
+            "sources": [
+              {
+                "path": "SOUL.md",
+                "root_id": "project",
+                "scope": "project"
+              }
+            ],
+            "state": "present"
+          }
+        ],
+        "executed": false,
+        "limitations": [
+          "This is a dry-run decision trace; no source, scheduler, tool, network, or file operation was executed."
+        ],
+        "outcome": "declared_path",
+        "rationale": [
+          "Proactive behavior and an active external capability form a dry-run path; no tool is called."
+        ],
+        "related_signal_ids": [
+          "external_message_send",
+          "external_network_read",
+          "proactive"
+        ],
+        "runtime_verified": false,
+        "scenario_id": "HOMI-SIM-002",
+        "side_effects": false,
+        "trigger": "proactive_persona"
+      },
+      {
+        "action": "memory_persist",
+        "evidence": [
+          {
+            "confidence": "D",
+            "method": "static_declaration",
+            "signal_id": "persistent_memory",
+            "sources": [
+              {
+                "path": "AGENTS.md",
+                "root_id": "project",
+                "scope": "project"
+              }
+            ],
+            "state": "present"
+          },
+          {
+            "confidence": "D",
+            "method": "static_declaration",
+            "signal_id": "user_profile_persistence",
+            "sources": [
+              {
+                "path": "USER.md",
+                "root_id": "project",
+                "scope": "project"
+              }
+            ],
+            "state": "present"
+          }
+        ],
+        "executed": false,
+        "limitations": [
+          "This is a dry-run decision trace; no source, scheduler, tool, network, or file operation was executed."
+        ],
+        "outcome": "declared_path",
+        "rationale": [
+          "User-profile persistence and persistent memory form a dry-run path; no user value is stored."
+        ],
+        "related_signal_ids": [
+          "persistent_memory",
+          "user_profile_persistence"
+        ],
+        "runtime_verified": false,
+        "scenario_id": "HOMI-SIM-003",
+        "side_effects": false,
+        "trigger": "user_profile_update"
+      },
+      {
+        "action": "control_file_write",
+        "evidence": [
+          {
+            "confidence": "D",
+            "method": "static_declaration",
+            "signal_id": "identity_self_modification",
+            "sources": [
+              {
+                "path": "IDENTITY.md",
+                "root_id": "project",
+                "scope": "project"
+              }
+            ],
+            "state": "present"
+          },
+          {
+            "confidence": "D",
+            "method": "static_declaration",
+            "signal_id": "self_evolution",
+            "sources": [
+              {
+                "path": "SOUL.md",
+                "root_id": "project",
+                "scope": "project"
+              }
+            ],
+            "state": "present"
+          }
+        ],
+        "executed": false,
+        "limitations": [
+          "This is a dry-run decision trace; no source, scheduler, tool, network, or file operation was executed."
+        ],
+        "outcome": "declared_path",
+        "rationale": [
+          "Persona self-evolution and identity self-assignment form a dry-run control-file path; no file is written."
+        ],
+        "related_signal_ids": [
+          "identity_self_modification",
+          "self_evolution"
+        ],
+        "runtime_verified": false,
+        "scenario_id": "HOMI-SIM-004",
+        "side_effects": false,
+        "trigger": "control_file_update"
+      },
+      {
+        "action": "tool_discovery",
+        "evidence": [
+          {
+            "confidence": "D",
+            "method": "static_template_classification",
+            "signal_id": "camera_access",
+            "sources": [
+              {
+                "path": "TOOLS.md",
+                "root_id": "project",
+                "scope": "project"
+              }
+            ],
+            "state": "example_only"
+          },
+          {
+            "confidence": "D",
+            "method": "static_declaration",
+            "signal_id": "skill_tool_discovery",
+            "sources": [
+              {
+                "path": "AGENTS.md",
+                "root_id": "project",
+                "scope": "project"
+              }
+            ],
+            "state": "present"
+          },
+          {
+            "confidence": "D",
+            "method": "static_template_classification",
+            "signal_id": "ssh_access",
+            "sources": [
+              {
+                "path": "TOOLS.md",
+                "root_id": "project",
+                "scope": "project"
+              }
+            ],
+            "state": "example_only"
+          },
+          {
+            "confidence": "D",
+            "method": "static_template_classification",
+            "signal_id": "tts_output",
+            "sources": [
+              {
+                "path": "TOOLS.md",
+                "root_id": "project",
+                "scope": "project"
+              }
+            ],
+            "state": "example_only"
+          }
+        ],
+        "executed": false,
+        "limitations": [
+          "This is a dry-run decision trace; no source, scheduler, tool, network, or file operation was executed."
+        ],
+        "outcome": "blocked_example_only",
+        "rationale": [
+          "Only example-only tool notes are available, so Skill expansion is suppressed."
+        ],
+        "related_signal_ids": [
+          "camera_access",
+          "skill_tool_discovery",
+          "ssh_access",
+          "tts_output"
+        ],
+        "runtime_verified": false,
+        "scenario_id": "HOMI-SIM-005",
+        "side_effects": false,
+        "trigger": "skill_discovery"
+      }
+    ]
+  },
+  "status": "partial",
+  "tools": {
+    "bindings": {
+      "camera": {
+        "confidence": "D",
+        "method": "static_template_classification",
+        "signal_id": "camera_access",
+        "source_paths": [
+          "TOOLS.md"
+        ],
+        "state": "example_only"
+      },
+      "mcp": {
+        "confidence": "D",
+        "method": "runtime_unverified",
+        "signal_id": "mcp_access",
+        "source_paths": [],
+        "state": "unknown"
+      },
+      "oauth": {
+        "confidence": "D",
+        "method": "runtime_unverified",
+        "signal_id": "oauth_access",
+        "source_paths": [],
+        "state": "unknown"
+      },
+      "secret_access": {
+        "confidence": "D",
+        "method": "runtime_unverified",
+        "signal_id": "secret_access",
+        "source_paths": [],
+        "state": "unknown"
+      },
+      "ssh": {
+        "confidence": "D",
+        "method": "static_template_classification",
+        "signal_id": "ssh_access",
+        "source_paths": [
+          "TOOLS.md"
+        ],
+        "state": "example_only"
+      },
+      "tts": {
+        "confidence": "D",
+        "method": "static_template_classification",
+        "signal_id": "tts_output",
+        "source_paths": [
+          "TOOLS.md"
+        ],
+        "state": "example_only"
+      }
+    },
+    "runtime_authority": false
+  },
+  "user_privacy": {
+    "file_state": "present",
+    "main_session_only": true,
+    "observed_field_names": [
+      "context",
+      "name",
+      "notes",
+      "pronouns",
+      "timezone"
+    ],
+    "persistence": {
+      "confidence": "D",
+      "method": "static_declaration",
+      "signal_id": "user_profile_persistence",
+      "source_paths": [
+        "USER.md"
+      ],
+      "state": "present"
+    },
+    "shared_context_allowed": false,
+    "template_present": true
+  }
+}

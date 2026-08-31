@@ -1,0 +1,19 @@
+{
+  "case_id": "risky-obfuscated-instructions",
+  "category": "risky",
+  "purpose": "Exercise Base64-like, zero-width and mixed-script indicators without decoding or execution.",
+  "assets": [
+    "AGENTS.md"
+  ],
+  "expected": {
+    "coverage": "complete",
+    "signals": [
+      "base64_like",
+      "zero_width",
+      "mixed_script_confusable"
+    ],
+    "rule_ids": [
+      "MD-OBFUSC-001"
+    ]
+  }
+}

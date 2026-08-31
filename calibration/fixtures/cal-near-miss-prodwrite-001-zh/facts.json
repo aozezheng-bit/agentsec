@@ -1,0 +1,19 @@
+{
+  "case_id": "cal-near-miss-prodwrite-001-zh",
+  "facts": [
+    {
+      "dimension": "permission",
+      "evidence": [
+        {
+          "asset_path": "facts.json",
+          "field_path": "facts.0"
+        }
+      ],
+      "fact_id": "fact-01",
+      "key": "production-write",
+      "state": "absent",
+      "target_id": null
+    }
+  ],
+  "fixture_version": "0.1.0"
+}

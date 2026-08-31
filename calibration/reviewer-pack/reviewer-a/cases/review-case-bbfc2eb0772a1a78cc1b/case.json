@@ -1,0 +1,46 @@
+{
+  "corpus_binding_hash": "sha256:59e034541e3c1096f311404358031a5dc81fc880123351363713d66c2544ad79",
+  "format": "agentsec-independent-review-case",
+  "input_format": "json",
+  "language": "zh",
+  "pack_id": "reviewer-pack-sha256:58295690c13861a763ed9c202d39fe37642ac0f8d9d2d6e416886184a4a86d90",
+  "question_set_sha256": "sha256:47eac5eabbb3fa7527e7f7f8017e284e4616a37ff313a32186f6bf9cd818552b",
+  "review_case_fingerprint": "sha256:21519f7d43e60c47f9468ad1b389205d4c7f35d9c4a44f596e850a9c0fe30e91",
+  "review_case_id": "review-case-bbfc2eb0772a1a78cc1b",
+  "review_questions": [
+    {
+      "condition": {
+        "zh": "能力已启用或未明确禁用，但关联目标缺少 prompt 或 deny 人工审批控制。"
+      },
+      "prompt": {
+        "zh": "请独立将人工规则条件标记为 match、no_match 或 uncertain，并填写直接观察、策略或范围类别、证据位置、置信度、关联方式、处置意见、理由代码和备注。不要自行计算 TP/FP/FN/TN。"
+      },
+      "question_id": "question:review-case-bbfc2eb0772a1a78cc1b:CAP-APPROVAL-001",
+      "rule_id": "CAP-APPROVAL-001",
+      "title": {
+        "zh": "状态变更能力缺少有效人工审批控制"
+      }
+    },
+    {
+      "condition": {
+        "zh": "生产 write、execute、deploy、publish 或 admin 权限的有效审批状态为 allow。"
+      },
+      "prompt": {
+        "zh": "请独立将人工规则条件标记为 match、no_match 或 uncertain，并填写直接观察、策略或范围类别、证据位置、置信度、关联方式、处置意见、理由代码和备注。不要自行计算 TP/FP/FN/TN。"
+      },
+      "question_id": "question:review-case-bbfc2eb0772a1a78cc1b:CAP-AUTOPROD-001",
+      "rule_id": "CAP-AUTOPROD-001",
+      "title": {
+        "zh": "生产状态变更能力被自动允许"
+      }
+    }
+  ],
+  "schema_version": "0.3.0",
+  "source_location": {
+    "end_line": 73,
+    "path": "source.json",
+    "start_line": 1
+  },
+  "source_sha256": "sha256:c068ac1356ff097b5d5658172250beb7ee64043b18f48f533b5bf416352660fc",
+  "synthetic_fixture": true
+}

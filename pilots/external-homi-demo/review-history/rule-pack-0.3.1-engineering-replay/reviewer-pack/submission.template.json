@@ -1,0 +1,151 @@
+{
+  "case_manifest_sha256": "bf2e39679cfe3cf922e887455f54807a922db37cc812964e0899f0e34bba3fa8",
+  "cases": [
+    {
+      "case_id": "baseline-01",
+      "expected_coverage": null,
+      "expected_exit": null,
+      "expected_rule_ids": null,
+      "rationale": null
+    },
+    {
+      "case_id": "baseline-02",
+      "expected_coverage": null,
+      "expected_exit": null,
+      "expected_rule_ids": null,
+      "rationale": null
+    },
+    {
+      "case_id": "baseline-03",
+      "expected_coverage": null,
+      "expected_exit": null,
+      "expected_rule_ids": null,
+      "rationale": null
+    },
+    {
+      "case_id": "baseline-04",
+      "expected_coverage": null,
+      "expected_exit": null,
+      "expected_rule_ids": null,
+      "rationale": null
+    },
+    {
+      "case_id": "baseline-05",
+      "expected_coverage": null,
+      "expected_exit": null,
+      "expected_rule_ids": null,
+      "rationale": null
+    },
+    {
+      "case_id": "baseline-06",
+      "expected_coverage": null,
+      "expected_exit": null,
+      "expected_rule_ids": null,
+      "rationale": null
+    },
+    {
+      "case_id": "baseline-07",
+      "expected_coverage": null,
+      "expected_exit": null,
+      "expected_rule_ids": null,
+      "rationale": null
+    },
+    {
+      "case_id": "baseline-08",
+      "expected_coverage": null,
+      "expected_exit": null,
+      "expected_rule_ids": null,
+      "rationale": null
+    },
+    {
+      "case_id": "baseline-09",
+      "expected_coverage": null,
+      "expected_exit": null,
+      "expected_rule_ids": null,
+      "rationale": null
+    },
+    {
+      "case_id": "baseline-10",
+      "expected_coverage": null,
+      "expected_exit": null,
+      "expected_rule_ids": null,
+      "rationale": null
+    },
+    {
+      "case_id": "pr-01",
+      "expected_coverage": null,
+      "expected_exit": null,
+      "expected_rule_ids": null,
+      "rationale": null
+    },
+    {
+      "case_id": "pr-02",
+      "expected_coverage": null,
+      "expected_exit": null,
+      "expected_rule_ids": null,
+      "rationale": null
+    },
+    {
+      "case_id": "pr-03",
+      "expected_coverage": null,
+      "expected_exit": null,
+      "expected_rule_ids": null,
+      "rationale": null
+    },
+    {
+      "case_id": "pr-04",
+      "expected_coverage": null,
+      "expected_exit": null,
+      "expected_rule_ids": null,
+      "rationale": null
+    },
+    {
+      "case_id": "pr-05",
+      "expected_coverage": null,
+      "expected_exit": null,
+      "expected_rule_ids": null,
+      "rationale": null
+    },
+    {
+      "case_id": "pr-06",
+      "expected_coverage": null,
+      "expected_exit": null,
+      "expected_rule_ids": null,
+      "rationale": null
+    },
+    {
+      "case_id": "pr-07",
+      "expected_coverage": null,
+      "expected_exit": null,
+      "expected_rule_ids": null,
+      "rationale": null
+    },
+    {
+      "case_id": "pr-08",
+      "expected_coverage": null,
+      "expected_exit": null,
+      "expected_rule_ids": null,
+      "rationale": null
+    },
+    {
+      "case_id": "pr-09",
+      "expected_coverage": null,
+      "expected_exit": null,
+      "expected_rule_ids": null,
+      "rationale": null
+    },
+    {
+      "case_id": "pr-10",
+      "expected_coverage": null,
+      "expected_exit": null,
+      "expected_rule_ids": null,
+      "rationale": null
+    }
+  ],
+  "format": "agentsec-external-pilot-review-submission",
+  "independence_statement": null,
+  "pilot_id": "external-homi-final-pilot",
+  "reviewer_id": null,
+  "schema_version": "0.1.0",
+  "status": "draft"
+}

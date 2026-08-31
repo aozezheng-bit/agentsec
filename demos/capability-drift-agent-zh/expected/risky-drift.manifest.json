@@ -1,0 +1,1111 @@
+{
+  "configuration": {
+    "candidates": [
+      {
+        "chain_key": "project:project:.codex",
+        "kinds": [
+          "framework_config",
+          "mcp_config"
+        ],
+        "precedence_rank": 200,
+        "source": {
+          "end_line": null,
+          "field_path": null,
+          "locator": {
+            "path": ".codex/config.toml",
+            "root_id": "project",
+            "scope": "project"
+          },
+          "start_line": null
+        }
+      }
+    ],
+    "effective_order": [
+      {
+        "end_line": null,
+        "field_path": null,
+        "locator": {
+          "path": ".codex/config.toml",
+          "root_id": "project",
+          "scope": "project"
+        },
+        "start_line": null
+      }
+    ],
+    "effective_sources": [
+      {
+        "end_line": null,
+        "field_path": null,
+        "locator": {
+          "path": ".codex/config.toml",
+          "root_id": "project",
+          "scope": "project"
+        },
+        "start_line": null
+      }
+    ],
+    "resolution": "resolved",
+    "resolution_trace": [
+      {
+        "action": "selected",
+        "chain_key": "project:project:.codex",
+        "kinds": [
+          "framework_config",
+          "mcp_config"
+        ],
+        "precedence_rank": 200,
+        "reason": "project_root",
+        "source": {
+          "end_line": null,
+          "field_path": null,
+          "locator": {
+            "path": ".codex/config.toml",
+            "root_id": "project",
+            "scope": "project"
+          },
+          "start_line": null
+        }
+      }
+    ]
+  },
+  "controls": {
+    "controls": [
+      {
+        "control_id": "control:approval:mcp-server:local_review",
+        "kind": "human_approval",
+        "sources": [
+          {
+            "end_line": 5,
+            "field_path": "$.mcp_servers.local_review.default_tools_approval_mode",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 5
+          }
+        ],
+        "state": "allow",
+        "target": "mcp-server:local_review"
+      },
+      {
+        "control_id": "control:approval:mcp-server:remote_release",
+        "kind": "human_approval",
+        "sources": [
+          {
+            "end_line": 12,
+            "field_path": "$.mcp_servers.remote_release.default_tools_approval_mode",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 12
+          }
+        ],
+        "state": "allow",
+        "target": "mcp-server:remote_release"
+      },
+      {
+        "control_id": "control:mcp-enable:mcp-server:local_review",
+        "kind": "enablement",
+        "sources": [
+          {
+            "end_line": 3,
+            "field_path": "$.mcp_servers.local_review.enabled",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 3
+          }
+        ],
+        "state": "enabled",
+        "target": "mcp-server:local_review"
+      },
+      {
+        "control_id": "control:mcp-enable:mcp-server:remote_release",
+        "kind": "enablement",
+        "sources": [
+          {
+            "end_line": 9,
+            "field_path": "$.mcp_servers.remote_release.enabled",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 9
+          }
+        ],
+        "state": "enabled",
+        "target": "mcp-server:remote_release"
+      },
+      {
+        "control_id": "control:mcp-required:mcp-server:local_review",
+        "kind": "required",
+        "sources": [
+          {
+            "end_line": 5,
+            "field_path": "$.mcp_servers.local_review",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 1
+          }
+        ],
+        "state": "unknown",
+        "target": "mcp-server:local_review"
+      },
+      {
+        "control_id": "control:mcp-required:mcp-server:remote_release",
+        "kind": "required",
+        "sources": [
+          {
+            "end_line": 10,
+            "field_path": "$.mcp_servers.remote_release.required",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 10
+          }
+        ],
+        "state": "required",
+        "target": "mcp-server:remote_release"
+      },
+      {
+        "control_id": "control:network-policy:mcp-server:remote_release",
+        "kind": "network_policy",
+        "sources": [
+          {
+            "end_line": 8,
+            "field_path": "$.mcp_servers.remote_release.url",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 8
+          }
+        ],
+        "state": "configured",
+        "target": "mcp-server:remote_release"
+      },
+      {
+        "control_id": "control:secret-handling:mcp-server:local_review",
+        "kind": "secret_handling",
+        "sources": [
+          {
+            "end_line": 4,
+            "field_path": "$.mcp_servers.local_review.bearer_token_env_var",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 4
+          }
+        ],
+        "state": "configured",
+        "target": "mcp-server:local_review"
+      }
+    ],
+    "declaration_sources": [
+      {
+        "end_line": null,
+        "field_path": null,
+        "locator": {
+          "path": ".codex/config.toml",
+          "root_id": "project",
+          "scope": "project"
+        },
+        "start_line": null
+      }
+    ],
+    "resolution": "partial"
+  },
+  "coverage": {
+    "complete": true,
+    "discovered_assets": 3,
+    "inspected_assets": 3,
+    "issues": [],
+    "skipped_assets": 0
+  },
+  "identity": {
+    "agent_id": "release-agent",
+    "declared_name": null,
+    "resolution": "partial",
+    "sources": [
+      {
+        "end_line": null,
+        "field_path": null,
+        "locator": {
+          "path": ".codex/config.toml",
+          "root_id": "project",
+          "scope": "project"
+        },
+        "start_line": null
+      }
+    ],
+    "subject_root_id": "project",
+    "subject_scope": "project"
+  },
+  "instructions": {
+    "candidates": [
+      {
+        "kind": "base",
+        "precedence_rank": 100,
+        "source": {
+          "end_line": null,
+          "field_path": null,
+          "locator": {
+            "path": "AGENTS.md",
+            "root_id": "project",
+            "scope": "project"
+          },
+          "start_line": null
+        }
+      }
+    ],
+    "effective_order": [
+      {
+        "end_line": null,
+        "field_path": null,
+        "locator": {
+          "path": "AGENTS.md",
+          "root_id": "project",
+          "scope": "project"
+        },
+        "start_line": null
+      }
+    ],
+    "effective_sources": [
+      {
+        "end_line": null,
+        "field_path": null,
+        "locator": {
+          "path": "AGENTS.md",
+          "root_id": "project",
+          "scope": "project"
+        },
+        "start_line": null
+      }
+    ],
+    "overridden_sources": [],
+    "resolution": "resolved",
+    "resolution_trace": [
+      {
+        "action": "selected",
+        "chain_key": "project:project:.",
+        "precedence_rank": 100,
+        "reason": "only_candidate",
+        "source": {
+          "end_line": null,
+          "field_path": null,
+          "locator": {
+            "path": "AGENTS.md",
+            "root_id": "project",
+            "scope": "project"
+          },
+          "start_line": null
+        }
+      }
+    ]
+  },
+  "metadata": {
+    "adapter_version": "0.1.0",
+    "deterministic": true,
+    "framework_display_name": "Codex",
+    "framework_id": "codex",
+    "scanner_version": "0.2.0"
+  },
+  "permissions": {
+    "declaration_sources": [
+      {
+        "end_line": null,
+        "field_path": null,
+        "locator": {
+          "path": ".codex/config.toml",
+          "root_id": "project",
+          "scope": "project"
+        },
+        "start_line": null
+      }
+    ],
+    "permissions": [
+      {
+        "action": "execute",
+        "effect": "unknown",
+        "permission_id": "permission:execute:mcp-server:local_review",
+        "resource": "shell",
+        "scope": "project",
+        "sources": [
+          {
+            "end_line": 5,
+            "field_path": "$.mcp_servers.local_review",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 1
+          }
+        ],
+        "target": "mcp-server:local_review"
+      },
+      {
+        "action": "network",
+        "effect": "unknown",
+        "permission_id": "permission:network:mcp-server:remote_release",
+        "resource": "network",
+        "scope": "external",
+        "sources": [
+          {
+            "end_line": 12,
+            "field_path": "$.mcp_servers.remote_release",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 7
+          }
+        ],
+        "target": "mcp-server:remote_release"
+      },
+      {
+        "action": "secret_access",
+        "effect": "unknown",
+        "permission_id": "permission:secret_access:mcp-server:local_review",
+        "resource": "environment",
+        "scope": "project",
+        "sources": [
+          {
+            "end_line": 4,
+            "field_path": "$.mcp_servers.local_review.bearer_token_env_var",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 4
+          }
+        ],
+        "target": "mcp-server:local_review"
+      },
+      {
+        "action": "unknown",
+        "effect": "unknown",
+        "permission_id": "permission:unknown:skill:review",
+        "resource": "tool",
+        "scope": "project",
+        "sources": [
+          {
+            "end_line": null,
+            "field_path": null,
+            "locator": {
+              "path": ".agents/skills/review/SKILL.md",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": null
+          }
+        ],
+        "target": "skill:review"
+      }
+    ],
+    "resolution": "partial"
+  },
+  "relationships": {
+    "declaration_sources": [
+      {
+        "end_line": null,
+        "field_path": null,
+        "locator": {
+          "path": ".agents/skills/review/SKILL.md",
+          "root_id": "project",
+          "scope": "project"
+        },
+        "start_line": null
+      },
+      {
+        "end_line": null,
+        "field_path": null,
+        "locator": {
+          "path": ".codex/config.toml",
+          "root_id": "project",
+          "scope": "project"
+        },
+        "start_line": null
+      },
+      {
+        "end_line": null,
+        "field_path": null,
+        "locator": {
+          "path": "AGENTS.md",
+          "root_id": "project",
+          "scope": "project"
+        },
+        "start_line": null
+      }
+    ],
+    "relations": [
+      {
+        "kind": "delegates_to",
+        "relation_id": "relation:delegates_to:agent:deployer",
+        "source_agent_id": "release-agent",
+        "sources": [
+          {
+            "end_line": 2,
+            "field_path": "$.frontmatter.delegates_to[0]",
+            "locator": {
+              "path": "AGENTS.md",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 2
+          }
+        ],
+        "state": "declared",
+        "target_id": "agent:deployer"
+      },
+      {
+        "kind": "persists_memory",
+        "relation_id": "relation:persists_memory:memory:release_state",
+        "source_agent_id": "release-agent",
+        "sources": [
+          {
+            "end_line": 3,
+            "field_path": "$.frontmatter.persists_memory[0]",
+            "locator": {
+              "path": "AGENTS.md",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 3
+          }
+        ],
+        "state": "declared",
+        "target_id": "memory:release_state"
+      },
+      {
+        "kind": "uses_mcp",
+        "relation_id": "relation:uses-mcp:mcp-server:local_review",
+        "source_agent_id": "release-agent",
+        "sources": [
+          {
+            "end_line": 5,
+            "field_path": "$.mcp_servers.local_review",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 1
+          }
+        ],
+        "state": "declared",
+        "target_id": "mcp-server:local_review"
+      },
+      {
+        "kind": "uses_mcp",
+        "relation_id": "relation:uses-mcp:mcp-server:remote_release",
+        "source_agent_id": "release-agent",
+        "sources": [
+          {
+            "end_line": 12,
+            "field_path": "$.mcp_servers.remote_release",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 7
+          }
+        ],
+        "state": "declared",
+        "target_id": "mcp-server:remote_release"
+      },
+      {
+        "kind": "uses_skill",
+        "relation_id": "relation:uses-skill:skill:review",
+        "source_agent_id": "release-agent",
+        "sources": [
+          {
+            "end_line": null,
+            "field_path": null,
+            "locator": {
+              "path": ".agents/skills/review/SKILL.md",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": null
+          }
+        ],
+        "state": "declared",
+        "target_id": "skill:review"
+      }
+    ],
+    "resolution": "resolved"
+  },
+  "runtime_identities": {
+    "declaration_sources": [
+      {
+        "end_line": null,
+        "field_path": null,
+        "locator": {
+          "path": ".codex/config.toml",
+          "root_id": "project",
+          "scope": "project"
+        },
+        "start_line": null
+      }
+    ],
+    "identities": [
+      {
+        "authentication": "environment",
+        "environment": "local",
+        "identity_id": "identity:mcp-server:local_review",
+        "principal_kind": "api_client",
+        "privileged": null,
+        "sources": [
+          {
+            "end_line": 5,
+            "field_path": "$.mcp_servers.local_review",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 1
+          },
+          {
+            "end_line": 4,
+            "field_path": "$.mcp_servers.local_review.bearer_token_env_var",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 4
+          },
+          {
+            "end_line": 2,
+            "field_path": "$.mcp_servers.local_review.command",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 2
+          },
+          {
+            "end_line": 3,
+            "field_path": "$.mcp_servers.local_review.enabled",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 3
+          }
+        ]
+      },
+      {
+        "authentication": "oauth",
+        "environment": "external",
+        "identity_id": "identity:mcp-server:remote_release",
+        "principal_kind": "oauth_session",
+        "privileged": null,
+        "sources": [
+          {
+            "end_line": 12,
+            "field_path": "$.mcp_servers.remote_release",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 7
+          },
+          {
+            "end_line": 11,
+            "field_path": "$.mcp_servers.remote_release.auth",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 11
+          },
+          {
+            "end_line": 9,
+            "field_path": "$.mcp_servers.remote_release.enabled",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 9
+          },
+          {
+            "end_line": 10,
+            "field_path": "$.mcp_servers.remote_release.required",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 10
+          },
+          {
+            "end_line": 8,
+            "field_path": "$.mcp_servers.remote_release.url",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 8
+          }
+        ]
+      }
+    ],
+    "resolution": "resolved"
+  },
+  "schema_version": "0.3.0",
+  "sources": [
+    {
+      "content_sha256": "07fc7f833690e74af870b5901959a9f29f50e4c78d43ed1003ecf7f9f4f29d0f",
+      "format": "markdown",
+      "line_count": 4,
+      "locator": {
+        "path": ".agents/skills/review/SKILL.md",
+        "root_id": "project",
+        "scope": "project"
+      },
+      "precedence_rank": 200,
+      "roles": [
+        "skill"
+      ],
+      "size_bytes": 135
+    },
+    {
+      "content_sha256": "653f56d80082cb9296bb931397002926ea4cec29c1c66c27145f89a91171d077",
+      "format": "toml",
+      "line_count": 12,
+      "locator": {
+        "path": ".codex/config.toml",
+        "root_id": "project",
+        "scope": "project"
+      },
+      "precedence_rank": 200,
+      "roles": [
+        "framework_config",
+        "mcp_config"
+      ],
+      "size_bytes": 324
+    },
+    {
+      "content_sha256": "b844539124ae05c105a603aa56300522493749bfa0bfb12c72280411368c9e75",
+      "format": "markdown",
+      "line_count": 8,
+      "locator": {
+        "path": "AGENTS.md",
+        "root_id": "project",
+        "scope": "project"
+      },
+      "precedence_rank": 100,
+      "roles": [
+        "agent_instructions"
+      ],
+      "size_bytes": 188
+    }
+  ],
+  "tools": {
+    "declaration_sources": [
+      {
+        "end_line": null,
+        "field_path": null,
+        "locator": {
+          "path": ".agents/skills/review/SKILL.md",
+          "root_id": "project",
+          "scope": "project"
+        },
+        "start_line": null
+      },
+      {
+        "end_line": null,
+        "field_path": null,
+        "locator": {
+          "path": ".codex/config.toml",
+          "root_id": "project",
+          "scope": "project"
+        },
+        "start_line": null
+      }
+    ],
+    "resolution": "resolved",
+    "tools": [
+      {
+        "availability": "enabled",
+        "kind": "mcp_server",
+        "name": "local_review",
+        "parent_tool_id": null,
+        "side_effects": [
+          "execute"
+        ],
+        "sources": [
+          {
+            "end_line": 5,
+            "field_path": "$.mcp_servers.local_review",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 1
+          }
+        ],
+        "tool_id": "mcp-server:local_review"
+      },
+      {
+        "availability": "enabled",
+        "kind": "mcp_server",
+        "name": "remote_release",
+        "parent_tool_id": null,
+        "side_effects": [
+          "network"
+        ],
+        "sources": [
+          {
+            "end_line": 12,
+            "field_path": "$.mcp_servers.remote_release",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 7
+          }
+        ],
+        "tool_id": "mcp-server:remote_release"
+      },
+      {
+        "availability": "declared",
+        "kind": "skill",
+        "name": "review",
+        "parent_tool_id": null,
+        "side_effects": [
+          "unknown"
+        ],
+        "sources": [
+          {
+            "end_line": null,
+            "field_path": null,
+            "locator": {
+              "path": ".agents/skills/review/SKILL.md",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": null
+          }
+        ],
+        "tool_id": "skill:review"
+      }
+    ]
+  },
+  "unknowns": [
+    {
+      "dimension": "controls",
+      "field": "controls.control:mcp-required:mcp-server:local_review.state",
+      "reason": "unsupported_field",
+      "sources": [
+        {
+          "end_line": 5,
+          "field_path": "$.mcp_servers.local_review",
+          "locator": {
+            "path": ".codex/config.toml",
+            "root_id": "project",
+            "scope": "project"
+          },
+          "start_line": 1
+        }
+      ],
+      "unknown_id": "unknown:controls:149799341f5e288c"
+    },
+    {
+      "dimension": "controls",
+      "field": "controls.resolution",
+      "reason": "unsupported_field",
+      "sources": [
+        {
+          "end_line": null,
+          "field_path": null,
+          "locator": {
+            "path": ".codex/config.toml",
+            "root_id": "project",
+            "scope": "project"
+          },
+          "start_line": null
+        }
+      ],
+      "unknown_id": "unknown:controls:94261a6d7b79fe9f"
+    },
+    {
+      "dimension": "identity",
+      "field": "identity.resolution",
+      "reason": "unsupported_field",
+      "sources": [
+        {
+          "end_line": null,
+          "field_path": null,
+          "locator": {
+            "path": ".codex/config.toml",
+            "root_id": "project",
+            "scope": "project"
+          },
+          "start_line": null
+        }
+      ],
+      "unknown_id": "unknown:identity:c920ca1667e8c1ec"
+    },
+    {
+      "dimension": "permissions",
+      "field": "permissions.permission:unknown:skill:review.action",
+      "reason": "unsupported_field",
+      "sources": [
+        {
+          "end_line": null,
+          "field_path": null,
+          "locator": {
+            "path": ".agents/skills/review/SKILL.md",
+            "root_id": "project",
+            "scope": "project"
+          },
+          "start_line": null
+        }
+      ],
+      "unknown_id": "unknown:permissions:0481d8a855bc6071"
+    },
+    {
+      "dimension": "permissions",
+      "field": "permissions.permission:unknown:skill:review.effect",
+      "reason": "unsupported_field",
+      "sources": [
+        {
+          "end_line": null,
+          "field_path": null,
+          "locator": {
+            "path": ".agents/skills/review/SKILL.md",
+            "root_id": "project",
+            "scope": "project"
+          },
+          "start_line": null
+        }
+      ],
+      "unknown_id": "unknown:permissions:081a5d1ea12ed087"
+    },
+    {
+      "dimension": "permissions",
+      "field": "permissions.permission:network:mcp-server:remote_release.effect",
+      "reason": "unsupported_field",
+      "sources": [
+        {
+          "end_line": 12,
+          "field_path": "$.mcp_servers.remote_release",
+          "locator": {
+            "path": ".codex/config.toml",
+            "root_id": "project",
+            "scope": "project"
+          },
+          "start_line": 7
+        }
+      ],
+      "unknown_id": "unknown:permissions:7d935e6b768ef536"
+    },
+    {
+      "dimension": "permissions",
+      "field": "permissions.permission:secret_access:mcp-server:local_review.effect",
+      "reason": "unsupported_field",
+      "sources": [
+        {
+          "end_line": 4,
+          "field_path": "$.mcp_servers.local_review.bearer_token_env_var",
+          "locator": {
+            "path": ".codex/config.toml",
+            "root_id": "project",
+            "scope": "project"
+          },
+          "start_line": 4
+        }
+      ],
+      "unknown_id": "unknown:permissions:e52ed4c720997730"
+    },
+    {
+      "dimension": "permissions",
+      "field": "permissions.resolution",
+      "reason": "unsupported_field",
+      "sources": [
+        {
+          "end_line": null,
+          "field_path": null,
+          "locator": {
+            "path": ".codex/config.toml",
+            "root_id": "project",
+            "scope": "project"
+          },
+          "start_line": null
+        }
+      ],
+      "unknown_id": "unknown:permissions:e54c411ec89a1f22"
+    },
+    {
+      "dimension": "permissions",
+      "field": "permissions.permission:execute:mcp-server:local_review.effect",
+      "reason": "unsupported_field",
+      "sources": [
+        {
+          "end_line": 5,
+          "field_path": "$.mcp_servers.local_review",
+          "locator": {
+            "path": ".codex/config.toml",
+            "root_id": "project",
+            "scope": "project"
+          },
+          "start_line": 1
+        }
+      ],
+      "unknown_id": "unknown:permissions:f35f2c190bb8f0eb"
+    },
+    {
+      "dimension": "runtime_identities",
+      "field": "runtime_identities.identity:mcp-server:remote_release.privileged",
+      "reason": "runtime_verification_required",
+      "sources": [
+        {
+          "end_line": 12,
+          "field_path": "$.mcp_servers.remote_release",
+          "locator": {
+            "path": ".codex/config.toml",
+            "root_id": "project",
+            "scope": "project"
+          },
+          "start_line": 7
+        },
+        {
+          "end_line": 11,
+          "field_path": "$.mcp_servers.remote_release.auth",
+          "locator": {
+            "path": ".codex/config.toml",
+            "root_id": "project",
+            "scope": "project"
+          },
+          "start_line": 11
+        },
+        {
+          "end_line": 9,
+          "field_path": "$.mcp_servers.remote_release.enabled",
+          "locator": {
+            "path": ".codex/config.toml",
+            "root_id": "project",
+            "scope": "project"
+          },
+          "start_line": 9
+        },
+        {
+          "end_line": 10,
+          "field_path": "$.mcp_servers.remote_release.required",
+          "locator": {
+            "path": ".codex/config.toml",
+            "root_id": "project",
+            "scope": "project"
+          },
+          "start_line": 10
+        },
+        {
+          "end_line": 8,
+          "field_path": "$.mcp_servers.remote_release.url",
+          "locator": {
+            "path": ".codex/config.toml",
+            "root_id": "project",
+            "scope": "project"
+          },
+          "start_line": 8
+        }
+      ],
+      "unknown_id": "unknown:runtime_identities:9064e24bda5c282c"
+    },
+    {
+      "dimension": "runtime_identities",
+      "field": "runtime_identities.identity:mcp-server:local_review.privileged",
+      "reason": "runtime_verification_required",
+      "sources": [
+        {
+          "end_line": 5,
+          "field_path": "$.mcp_servers.local_review",
+          "locator": {
+            "path": ".codex/config.toml",
+            "root_id": "project",
+            "scope": "project"
+          },
+          "start_line": 1
+        },
+        {
+          "end_line": 4,
+          "field_path": "$.mcp_servers.local_review.bearer_token_env_var",
+          "locator": {
+            "path": ".codex/config.toml",
+            "root_id": "project",
+            "scope": "project"
+          },
+          "start_line": 4
+        },
+        {
+          "end_line": 2,
+          "field_path": "$.mcp_servers.local_review.command",
+          "locator": {
+            "path": ".codex/config.toml",
+            "root_id": "project",
+            "scope": "project"
+          },
+          "start_line": 2
+        },
+        {
+          "end_line": 3,
+          "field_path": "$.mcp_servers.local_review.enabled",
+          "locator": {
+            "path": ".codex/config.toml",
+            "root_id": "project",
+            "scope": "project"
+          },
+          "start_line": 3
+        }
+      ],
+      "unknown_id": "unknown:runtime_identities:efea430ca56cde7a"
+    },
+    {
+      "dimension": "tools",
+      "field": "tools.skill:review.side_effects",
+      "reason": "unsupported_field",
+      "sources": [
+        {
+          "end_line": null,
+          "field_path": null,
+          "locator": {
+            "path": ".agents/skills/review/SKILL.md",
+            "root_id": "project",
+            "scope": "project"
+          },
+          "start_line": null
+        }
+      ],
+      "unknown_id": "unknown:tools:dd8f12f4d887ff96"
+    }
+  ]
+}

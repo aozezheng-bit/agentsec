@@ -1,0 +1,33 @@
+{
+  "corpus_binding_hash": "sha256:59e034541e3c1096f311404358031a5dc81fc880123351363713d66c2544ad79",
+  "format": "agentsec-independent-review-case",
+  "input_format": "markdown",
+  "language": "zh",
+  "pack_id": "reviewer-pack-sha256:58295690c13861a763ed9c202d39fe37642ac0f8d9d2d6e416886184a4a86d90",
+  "question_set_sha256": "sha256:4674b1227e00c13dfbf866b2743e6417ca759d3e42225f2dfd4b584115da4848",
+  "review_case_fingerprint": "sha256:b8e5eca93a8e54d32677627b3e8b3b1e86e5271f44df756e41af6a5142535bca",
+  "review_case_id": "review-case-dce8660339f28e773c58",
+  "review_questions": [
+    {
+      "condition": {
+        "zh": "同一目标族或 Agent 声明同时具备 execute、secret_access 和 external network 权限。"
+      },
+      "prompt": {
+        "zh": "请独立将人工规则条件标记为 match、no_match 或 uncertain，并填写直接观察、策略或范围类别、证据位置、置信度、关联方式、处置意见、理由代码和备注。不要自行计算 TP/FP/FN/TN。"
+      },
+      "question_id": "question:review-case-dce8660339f28e773c58:CAP-CHAIN-001",
+      "rule_id": "CAP-CHAIN-001",
+      "title": {
+        "zh": "代码执行、Secret 访问与外部网络形成潜在链路"
+      }
+    }
+  ],
+  "schema_version": "0.3.0",
+  "source_location": {
+    "end_line": 16,
+    "path": "source.md",
+    "start_line": 1
+  },
+  "source_sha256": "sha256:1db48967f0b6ecfa3eed526c480d678c4b1b84404cf0d917b7a972a9234e46bc",
+  "synthetic_fixture": true
+}

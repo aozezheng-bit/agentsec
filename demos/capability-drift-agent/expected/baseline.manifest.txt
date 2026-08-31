@@ -1,0 +1,73 @@
+AgentSec Agent Manifest
+Status: COMPLETE
+Agent: release-agent
+Framework: Codex
+Policy: static declarations; report-only; runtime not verified
+Summary: sources=2 tools=1 permissions=0 controls=0 identities=0 relationships=1 unknowns=5
+
+Version Vector
+  package: 0.2.0
+  agent_manifest_schema: 0.3.0
+  adapter: 0.1.0
+  capability_rule_pack: 0.2.0
+  capability_risk_model: 0.1.0
+
+Coverage
+  discovered=2 inspected=2 skipped=0 issues=0
+
+Stage Trace
+  adapter_inspection: completed input=0 output=2
+  manifest_build: completed input=2 output=2
+  instruction_resolution: completed input=1 output=1
+  configuration_resolution: completed input=0 output=0
+  association_extraction: completed input=2 output=2
+  capability_extraction: completed input=1 output=0
+  relationship_extraction: completed input=2 output=1
+  unknown_extraction: completed input=5 output=5
+  final_validation: completed input=1 output=1
+
+Profile Resolution
+  identity: partial
+  instructions: resolved
+  configuration: unknown
+  tools: resolved
+  permissions: unknown
+  controls: unknown
+  runtime_identities: unknown
+  relationships: resolved
+
+Sources
+  project:project:.agents/skills/review/SKILL.md format=markdown sha256=85057a66f6987694362c41a4d3b746ad0d412a221470117be2bcbe0c5c3b16e8
+  project:project:AGENTS.md format=markdown sha256=85dbbe25cb35d4e259f9f88608adc79cf9bb51655b6a8bf1030989f2649ff3f7
+
+Effective Instructions
+  project:project:AGENTS.md:-
+
+Configuration Order
+  -
+
+Tools
+  skill:review kind=skill availability=declared side_effects=unknown parent=- source=project:project:.agents/skills/review/SKILL.md:-
+
+Permissions
+  -
+
+Controls
+  -
+
+Runtime Identities
+  -
+
+Relationships
+  relation:uses-skill:skill:review kind=uses_skill target=skill:review state=declared source=project:project:.agents/skills/review/SKILL.md:-
+
+Explicit Unknowns
+  unknown:controls:21a0b7e5d41746fa dimension=controls reason=missing_source field=controls.resolution source=-
+  unknown:identity:77d20c81b0e7afa5 dimension=identity reason=unsupported_field field=identity.resolution source=-
+  unknown:permissions:2be0c85c08af985b dimension=permissions reason=missing_source field=permissions.resolution source=-
+  unknown:runtime_identities:9af495e3982f8b99 dimension=runtime_identities reason=missing_source field=runtime_identities.resolution source=-
+  unknown:tools:dd8f12f4d887ff96 dimension=tools reason=unsupported_field field=tools.skill:review.side_effects source=project:project:.agents/skills/review/SKILL.md:-
+
+Boundary
+  This report does not prove that the Agent is globally safe.
+  Declared capability does not prove runtime availability or authorization.

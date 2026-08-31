@@ -1,0 +1,17 @@
+{
+  "case_id": "prompt-injection-hide-instruction",
+  "category": "prompt-injection",
+  "purpose": "Treat a request to hide controlling text as an instruction-integrity signal.",
+  "assets": [
+    "AGENTS.md"
+  ],
+  "expected": {
+    "coverage": "complete",
+    "signals": [
+      "instruction_integrity"
+    ],
+    "rule_ids": [
+      "MD-INSTR-002"
+    ]
+  }
+}

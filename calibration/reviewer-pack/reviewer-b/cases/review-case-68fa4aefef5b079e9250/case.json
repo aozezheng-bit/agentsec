@@ -1,0 +1,33 @@
+{
+  "corpus_binding_hash": "sha256:59e034541e3c1096f311404358031a5dc81fc880123351363713d66c2544ad79",
+  "format": "agentsec-independent-review-case",
+  "input_format": "manifest",
+  "language": "zh",
+  "pack_id": "reviewer-pack-sha256:58295690c13861a763ed9c202d39fe37642ac0f8d9d2d6e416886184a4a86d90",
+  "question_set_sha256": "sha256:fdba39523b5f3ece342de8defabe966e3baef94cac4d34f01fe5a9d2e89dcb0e",
+  "review_case_fingerprint": "sha256:7d092c4bb0680b13199fe76d9aa4e843dd6dd856f721d8adf4cd52fd7452dd0e",
+  "review_case_id": "review-case-68fa4aefef5b079e9250",
+  "review_questions": [
+    {
+      "condition": {
+        "zh": "delegates_to 关系与外部 network、write、execute 或 admin 权限同时存在。"
+      },
+      "prompt": {
+        "zh": "请独立将人工规则条件标记为 match、no_match 或 uncertain，并填写直接观察、策略或范围类别、证据位置、置信度、关联方式、处置意见、理由代码和备注。不要自行计算 TP/FP/FN/TN。"
+      },
+      "question_id": "question:review-case-68fa4aefef5b079e9250:CAP-DELEGATEEXTERNAL-001",
+      "rule_id": "CAP-DELEGATEEXTERNAL-001",
+      "title": {
+        "zh": "委派与外部能力同时存在"
+      }
+    }
+  ],
+  "schema_version": "0.3.0",
+  "source_location": {
+    "end_line": 19,
+    "path": "source.manifest.json",
+    "start_line": 1
+  },
+  "source_sha256": "sha256:746993a240a92bed06e7a3876ffb11470eafbf9d2e292eb28aad8344ac44a9fe",
+  "synthetic_fixture": true
+}

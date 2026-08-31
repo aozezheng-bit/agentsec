@@ -1,0 +1,57 @@
+title = "合成静态能力评审输入"
+synthetic = true
+case_id = "cal-positive-capchain-022-zh"
+
+[[facts]]
+dimension = "permission"
+key = "execute"
+state = "present"
+target_id = "target:capchain-3"
+
+[[facts]]
+dimension = "permission"
+key = "secret-access"
+state = "present"
+target_id = "target:capchain-3"
+
+[[facts]]
+dimension = "permission"
+key = "external-network"
+state = "present"
+target_id = "target:capchain-3"
+
+[[facts]]
+dimension = "control"
+key = "sandbox"
+state = "absent"
+target_id = "target:capchain-3"
+
+[[facts]]
+dimension = "control"
+key = "network-policy"
+state = "present"
+target_id = "target:capchain-3"
+
+[[facts]]
+dimension = "control"
+key = "secret-handling"
+state = "present"
+target_id = "target:capchain-3"
+
+[[facts]]
+dimension = "tool"
+key = "mcp-enabled-required"
+state = "absent"
+target_id = "target:capchain-3"
+
+[[facts]]
+dimension = "runtime_identity"
+key = "identity-lifetime-reviewed"
+state = "present"
+target_id = "target:capchain-3"
+
+[[facts]]
+dimension = "relationship"
+key = "memory"
+state = "absent"
+target_id = "target:capchain-3"

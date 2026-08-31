@@ -1,0 +1,93 @@
+{
+  "$defs": {
+    "CoverageIssue": {
+      "additionalProperties": false,
+      "description": "A visible reason that scan coverage is incomplete.",
+      "properties": {
+        "asset_path": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Asset Path"
+        },
+        "code": {
+          "$ref": "#/$defs/CoverageIssueCode"
+        },
+        "message": {
+          "minLength": 1,
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "title": "CoverageIssue",
+      "type": "object"
+    },
+    "CoverageIssueCode": {
+      "description": "Reasons an asset or part of a scan could not be evaluated.",
+      "enum": [
+        "unreadable",
+        "unsupported_encoding",
+        "too_large",
+        "depth_exceeded",
+        "asset_limit_exceeded",
+        "external_symlink",
+        "malformed_content",
+        "parse_error",
+        "rule_error",
+        "unknown"
+      ],
+      "title": "CoverageIssueCode",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Counts and issues describing how much of the target was evaluated.",
+  "properties": {
+    "complete": {
+      "title": "Complete",
+      "type": "boolean"
+    },
+    "discovered_assets": {
+      "minimum": 0,
+      "title": "Discovered Assets",
+      "type": "integer"
+    },
+    "issues": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/CoverageIssue"
+      },
+      "title": "Issues",
+      "type": "array"
+    },
+    "scanned_assets": {
+      "minimum": 0,
+      "title": "Scanned Assets",
+      "type": "integer"
+    },
+    "skipped_assets": {
+      "minimum": 0,
+      "title": "Skipped Assets",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "discovered_assets",
+    "scanned_assets",
+    "skipped_assets",
+    "complete"
+  ],
+  "title": "ScanCoverage",
+  "type": "object"
+}

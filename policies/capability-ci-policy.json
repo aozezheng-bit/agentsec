@@ -1,0 +1,11 @@
+{
+  "format": "agentsec-capability-ci-policy",
+  "schema_version": "0.2.0",
+  "policy_id": "org-default-capability-ci",
+  "policy_version": "0.2.0",
+  "enabled": false,
+  "enforcement_mode": "report_only",
+  "fail_on": {"qualified_gates": []},
+  "coverage": {"require_complete": true, "require_unknown_free": true},
+  "safety": {"allow_llm_authority": false, "allow_runtime_unverified_authority": false}
+}

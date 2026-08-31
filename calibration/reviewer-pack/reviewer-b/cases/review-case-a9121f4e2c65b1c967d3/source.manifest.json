@@ -1,0 +1,19 @@
+{
+  "facts": [
+    {
+      "dimension": "tool",
+      "key": "mcp-enabled-required",
+      "state": "present",
+      "target_id": "target:primary"
+    },
+    {
+      "dimension": "control",
+      "key": "timeout",
+      "state": "absent",
+      "target_id": null
+    }
+  ],
+  "format": "synthetic-agent-manifest-review-view",
+  "review_case_id": "review-case-a9121f4e2c65b1c967d3",
+  "synthetic": true
+}

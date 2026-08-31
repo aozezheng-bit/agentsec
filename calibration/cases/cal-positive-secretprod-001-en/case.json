@@ -1,0 +1,72 @@
+{
+  "case_id": "cal-positive-secretprod-001-en",
+  "case_kind": "positive",
+  "fixture": {
+    "formats": [
+      "json"
+    ],
+    "kind": "fact_bundle",
+    "path": "fixtures/cal-positive-secretprod-001-en/facts.json"
+  },
+  "format": "agentsec-capability-calibration-case",
+  "framework_id": "codex",
+  "ground_truth": {
+    "coverage": "complete",
+    "facts": [
+      {
+        "dimension": "permission",
+        "evidence": [
+          {
+            "asset_path": "facts.json",
+            "field_path": "facts.0"
+          }
+        ],
+        "fact_id": "fact-01",
+        "key": "production-secret-access",
+        "state": "present",
+        "target_id": "target:primary"
+      }
+    ],
+    "rule_expectations": [
+      {
+        "confidences": [
+          "B"
+        ],
+        "correlations": [
+          "same_target"
+        ],
+        "fact_ids": [
+          "fact-01"
+        ],
+        "max_findings": 4,
+        "min_findings": 1,
+        "outcome": "match",
+        "rationale_code": "production_secret_access",
+        "rule_id": "CAP-SECRETPROD-001"
+      }
+    ],
+    "runtime_verified": false,
+    "unknown_dimensions": []
+  },
+  "language": "en",
+  "purpose": "Reproduce CAP-SECRETPROD-001 with explicit normalized facts.",
+  "review": {
+    "disposition": "actionable",
+    "rationale_code": "seed_positive",
+    "reviewer_refs": [
+      "seed-labeler-1",
+      "seed-labeler-2"
+    ],
+    "status": "seeded"
+  },
+  "schema_version": "0.1.0",
+  "source_formats": [
+    "manifest",
+    "toml"
+  ],
+  "tags": [
+    "en",
+    "p2-cal-01",
+    "rule-family"
+  ]
+}

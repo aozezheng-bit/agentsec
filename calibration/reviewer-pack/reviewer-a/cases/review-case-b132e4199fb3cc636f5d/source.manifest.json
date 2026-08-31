@@ -1,0 +1,19 @@
+{
+  "facts": [
+    {
+      "dimension": "permission",
+      "key": "high-impact",
+      "state": "absent",
+      "target_id": null
+    },
+    {
+      "dimension": "coverage",
+      "key": "relevant-dimension",
+      "state": "present",
+      "target_id": "target:primary"
+    }
+  ],
+  "format": "synthetic-agent-manifest-review-view",
+  "review_case_id": "review-case-b132e4199fb3cc636f5d",
+  "synthetic": true
+}

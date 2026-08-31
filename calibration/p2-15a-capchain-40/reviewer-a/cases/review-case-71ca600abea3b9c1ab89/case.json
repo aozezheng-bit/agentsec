@@ -1,0 +1,36 @@
+{
+  "corpus_binding_hash": "sha256:59e034541e3c1096f311404358031a5dc81fc880123351363713d66c2544ad79",
+  "format": "agentsec-independent-review-case",
+  "input_format": "yaml",
+  "language": "bilingual",
+  "pack_id": "reviewer-pack-sha256:58295690c13861a763ed9c202d39fe37642ac0f8d9d2d6e416886184a4a86d90",
+  "question_set_sha256": "sha256:e83d836344692b2cc5b12ed9b741147222bb1937fc384d7d86e6e6f1cb8a6c0d",
+  "review_case_fingerprint": "sha256:20922ab336699c967639f669b23ee6e6ec4800c4775e4dc725deb9f4c33d3504",
+  "review_case_id": "review-case-71ca600abea3b9c1ab89",
+  "review_questions": [
+    {
+      "condition": {
+        "en": "The same target family or Agent declaration combines execute, secret access, and external network permissions.",
+        "zh": "同一目标族或 Agent 声明同时具备 execute、secret_access 和 external network 权限。"
+      },
+      "prompt": {
+        "en": "Independently label the human Rule condition as match, no_match, or uncertain; record your direct finding observation, policy/scope category, evidence location, Confidence, Correlation, disposition, rationale code, and notes. Do not calculate TP/FP/FN/TN.",
+        "zh": "请独立将人工规则条件标记为 match、no_match 或 uncertain，并填写直接观察、策略或范围类别、证据位置、置信度、关联方式、处置意见、理由代码和备注。不要自行计算 TP/FP/FN/TN。"
+      },
+      "question_id": "question:review-case-71ca600abea3b9c1ab89:CAP-CHAIN-001",
+      "rule_id": "CAP-CHAIN-001",
+      "title": {
+        "en": "Execution, secret access, and external network form a potential chain",
+        "zh": "代码执行、Secret 访问与外部网络形成潜在链路"
+      }
+    }
+  ],
+  "schema_version": "0.3.0",
+  "source_location": {
+    "end_line": 40,
+    "path": "source.yaml",
+    "start_line": 1
+  },
+  "source_sha256": "sha256:d142ece12729fa66359500be51bb11689af0d7fbcc9c8135a8aef30c638beba9",
+  "synthetic_fixture": true
+}

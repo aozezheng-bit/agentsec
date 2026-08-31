@@ -1,0 +1,52 @@
+{
+  "decision": {
+    "automatic_label_rewrite": false,
+    "calibrate_deterministic_rules": true,
+    "ci_authority_change": false,
+    "preserve_human_labels": true,
+    "risk_model_change": false
+  },
+  "differences": [
+    {
+      "case_id": "baseline-01",
+      "coverage_agreement": true,
+      "decision_agreement": true,
+      "expected_rule_ids": [
+        "MD-EXEC-001",
+        "MD-MEMORY-001",
+        "MD-NET-001",
+        "MD-SELF-001",
+        "MD-TOOL-001"
+      ],
+      "false_negative_rule_ids": [
+        "MD-EXEC-001",
+        "MD-NET-001",
+        "MD-SELF-001",
+        "MD-TOOL-001"
+      ],
+      "false_positive_rule_ids": [],
+      "observed_rule_ids": [
+        "MD-MEMORY-001"
+      ]
+    }
+  ],
+  "format": "agentsec-external-homi-human-review-gap-report",
+  "format_version": "0.1.0",
+  "metrics": {
+    "cases": 20,
+    "failed_cases": 1,
+    "false_negatives": 4,
+    "false_positives": 0,
+    "passed_cases": 19,
+    "precision": 1.0,
+    "recall": 0.84,
+    "true_positives": 21
+  },
+  "pilot_id": "external-homi-final-pilot",
+  "reviewer_ids": [
+    "codefuse-agentsec-expert-reviewer"
+  ],
+  "source_report_sha256": "44bf4dd5b2c7aa1dd70eb0b44878bf25082cd1be21e39a844a5d8ca5d87e89f9",
+  "status": "rule_calibration_required",
+  "task_id": "P2-EXIT-06-05A"
+}

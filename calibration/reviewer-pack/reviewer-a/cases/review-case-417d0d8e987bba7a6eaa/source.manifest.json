@@ -1,0 +1,19 @@
+{
+  "facts": [
+    {
+      "dimension": "permission",
+      "key": "production-state-change",
+      "state": "absent",
+      "target_id": null
+    },
+    {
+      "dimension": "runtime_identity",
+      "key": "external-session",
+      "state": "absent",
+      "target_id": null
+    }
+  ],
+  "format": "synthetic-agent-manifest-review-view",
+  "review_case_id": "review-case-417d0d8e987bba7a6eaa",
+  "synthetic": true
+}

@@ -1,0 +1,61 @@
+{
+  "collection_date": "2026-08-26",
+  "format": "agentsec-external-homi-final-pilot-evidence",
+  "format_version": "0.1.0",
+  "pilot_id": "external-homi-final-pilot",
+  "policy": {
+    "digest_pin_verified": true,
+    "separate_trust_root": true,
+    "sha256": "134a0722cc725cadd3f59008e0ef87ada628df2d8ec0830f3cda03275789a67a",
+    "target_controlled": false
+  },
+  "report": {
+    "acceptance_ready": false,
+    "cases": 20,
+    "failed_cases": 0,
+    "human_labels_complete": false,
+    "p95_duration_ms": 904,
+    "passed_cases": 20,
+    "path": "results/pilot-report.json",
+    "precision": 1.0,
+    "recall": 1.0,
+    "sha256": "be9e5569c16984b411c6292e48e01e1b25602c4eb1ae60880cb72a052f47b074",
+    "status": "evidence_pending"
+  },
+  "review": {
+    "acceptance_ready": false,
+    "engineering_expectations_complete": true,
+    "independent_human_labels_complete": false,
+    "reviewer_pack_path": "reviewer-pack"
+  },
+  "safety": {
+    "hooks_invoked": false,
+    "mcp_servers_connected": false,
+    "network_accessed": false,
+    "scanned_content_executed": false,
+    "skills_invoked": false,
+    "target_code_executed": false,
+    "target_unchanged": true
+  },
+  "scope": {
+    "baseline_states": 10,
+    "complete": true,
+    "pull_request_states": 10,
+    "required_drills": {
+      "incomplete_coverage": 1,
+      "risky_change": 1,
+      "waiver_lifecycle": 1
+    },
+    "required_drills_complete": true,
+    "states": 20
+  },
+  "source_archive_sha256": "46461ac4c891e03094aa5e5487a72ab5c09fb6f10495fe7ed3cf11bbef345824",
+  "task_id": "P2-EXIT-06-04",
+  "waiver_lifecycle": {
+    "active_waived_finding_remained_visible": true,
+    "active_waiver_applied": true,
+    "expired_waiver_reported": true,
+    "expired_waiver_restored_blocking": true,
+    "passed": true
+  }
+}

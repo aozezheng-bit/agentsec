@@ -1,0 +1,32 @@
+{
+  "case_id": "cal-incomplete-coverage-en",
+  "facts": [
+    {
+      "dimension": "permission",
+      "evidence": [
+        {
+          "asset_path": "facts.json",
+          "field_path": "facts.0"
+        }
+      ],
+      "fact_id": "fact-01",
+      "key": "high-impact",
+      "state": "present",
+      "target_id": "target:primary"
+    },
+    {
+      "dimension": "coverage",
+      "evidence": [
+        {
+          "asset_path": "facts.json",
+          "field_path": "facts.1"
+        }
+      ],
+      "fact_id": "fact-02",
+      "key": "relevant-dimension",
+      "state": "unknown",
+      "target_id": "target:primary"
+    }
+  ],
+  "fixture_version": "0.1.0"
+}

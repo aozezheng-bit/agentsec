@@ -1,0 +1,72 @@
+{
+  "corpus_binding_hash": "sha256:59e034541e3c1096f311404358031a5dc81fc880123351363713d66c2544ad79",
+  "format": "agentsec-independent-review-case",
+  "input_format": "json",
+  "language": "zh",
+  "pack_id": "reviewer-pack-sha256:58295690c13861a763ed9c202d39fe37642ac0f8d9d2d6e416886184a4a86d90",
+  "question_set_sha256": "sha256:dd7d2fa79ddb945c4b7589617e98be7394455712026ed907f4e95bb9b38b10c8",
+  "review_case_fingerprint": "sha256:3ac09fe4b2efaa8163fab151265a4bf6ad71276c6db33b0409fd4cb08441a2e2",
+  "review_case_id": "review-case-62b5bdc45ad0b341209f",
+  "review_questions": [
+    {
+      "condition": {
+        "zh": "外部 MCP Server 关联的运行时身份 privileged 标记为 true。"
+      },
+      "prompt": {
+        "zh": "请独立将人工规则条件标记为 match、no_match 或 uncertain，并填写直接观察、策略或范围类别、证据位置、置信度、关联方式、处置意见、理由代码和备注。不要自行计算 TP/FP/FN/TN。"
+      },
+      "question_id": "question:review-case-62b5bdc45ad0b341209f:CAP-EXTERNALPRIVILEGED-001",
+      "rule_id": "CAP-EXTERNALPRIVILEGED-001",
+      "title": {
+        "zh": "外部 MCP 使用明确的特权身份"
+      }
+    },
+    {
+      "condition": {
+        "zh": "非 deny 的 admin 权限指向 production 范围或生产资源。"
+      },
+      "prompt": {
+        "zh": "请独立将人工规则条件标记为 match、no_match 或 uncertain，并填写直接观察、策略或范围类别、证据位置、置信度、关联方式、处置意见、理由代码和备注。不要自行计算 TP/FP/FN/TN。"
+      },
+      "question_id": "question:review-case-62b5bdc45ad0b341209f:CAP-PRODADMIN-001",
+      "rule_id": "CAP-PRODADMIN-001",
+      "title": {
+        "zh": "声明了生产环境管理能力"
+      }
+    },
+    {
+      "condition": {
+        "zh": "生产状态变更权限关联了 external 环境、OAuth、ChatGPT 或环境凭证身份。"
+      },
+      "prompt": {
+        "zh": "请独立将人工规则条件标记为 match、no_match 或 uncertain，并填写直接观察、策略或范围类别、证据位置、置信度、关联方式、处置意见、理由代码和备注。不要自行计算 TP/FP/FN/TN。"
+      },
+      "question_id": "question:review-case-62b5bdc45ad0b341209f:CAP-PRODIDENTITY-001",
+      "rule_id": "CAP-PRODIDENTITY-001",
+      "title": {
+        "zh": "生产能力使用外部或会话身份"
+      }
+    },
+    {
+      "condition": {
+        "zh": "非 deny 的 write 权限指向 production 范围或生产资源。"
+      },
+      "prompt": {
+        "zh": "请独立将人工规则条件标记为 match、no_match 或 uncertain，并填写直接观察、策略或范围类别、证据位置、置信度、关联方式、处置意见、理由代码和备注。不要自行计算 TP/FP/FN/TN。"
+      },
+      "question_id": "question:review-case-62b5bdc45ad0b341209f:CAP-PRODWRITE-001",
+      "rule_id": "CAP-PRODWRITE-001",
+      "title": {
+        "zh": "声明了生产环境写入能力"
+      }
+    }
+  ],
+  "schema_version": "0.3.0",
+  "source_location": {
+    "end_line": 91,
+    "path": "source.json",
+    "start_line": 1
+  },
+  "source_sha256": "sha256:bb12375a44c690fa0709baa96a5870a3b10ef720ec941b62a529b8b731bb8bc1",
+  "synthetic_fixture": true
+}

@@ -1,0 +1,68 @@
+{
+  "case_id": "cal-near-miss-externalexec-001-zh",
+  "case_kind": "near_miss",
+  "fixture": {
+    "formats": [
+      "json"
+    ],
+    "kind": "fact_bundle",
+    "path": "fixtures/cal-near-miss-externalexec-001-zh/facts.json"
+  },
+  "format": "agentsec-capability-calibration-case",
+  "framework_id": "codex",
+  "ground_truth": {
+    "coverage": "complete",
+    "facts": [
+      {
+        "dimension": "permission",
+        "evidence": [
+          {
+            "asset_path": "facts.json",
+            "field_path": "facts.0"
+          }
+        ],
+        "fact_id": "fact-01",
+        "key": "external-execute",
+        "state": "absent",
+        "target_id": null
+      }
+    ],
+    "rule_expectations": [
+      {
+        "confidences": [],
+        "correlations": [],
+        "fact_ids": [
+          "fact-01"
+        ],
+        "max_findings": 0,
+        "min_findings": 0,
+        "outcome": "no_match",
+        "rationale_code": "external_execute_near_miss",
+        "rule_id": "CAP-EXTERNALEXEC-001"
+      }
+    ],
+    "runtime_verified": false,
+    "unknown_dimensions": []
+  },
+  "language": "zh",
+  "purpose": "Near-miss for CAP-EXTERNALEXEC-001; a required condition is intentionally absent or safe.",
+  "review": {
+    "disposition": "not_applicable",
+    "rationale_code": "seed_near_miss",
+    "reviewer_refs": [
+      "seed-labeler-1",
+      "seed-labeler-2"
+    ],
+    "status": "seeded"
+  },
+  "schema_version": "0.1.0",
+  "source_formats": [
+    "manifest",
+    "toml"
+  ],
+  "tags": [
+    "p2-cal-01",
+    "rule-family",
+    "zh"
+  ]
+}

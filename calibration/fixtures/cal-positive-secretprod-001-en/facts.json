@@ -1,0 +1,19 @@
+{
+  "case_id": "cal-positive-secretprod-001-en",
+  "facts": [
+    {
+      "dimension": "permission",
+      "evidence": [
+        {
+          "asset_path": "facts.json",
+          "field_path": "facts.0"
+        }
+      ],
+      "fact_id": "fact-01",
+      "key": "production-secret-access",
+      "state": "present",
+      "target_id": "target:primary"
+    }
+  ],
+  "fixture_version": "0.1.0"
+}

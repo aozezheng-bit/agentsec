@@ -1,0 +1,33 @@
+{
+  "corpus_binding_hash": "sha256:59e034541e3c1096f311404358031a5dc81fc880123351363713d66c2544ad79",
+  "format": "agentsec-independent-review-case",
+  "input_format": "toml",
+  "language": "en",
+  "pack_id": "reviewer-pack-sha256:58295690c13861a763ed9c202d39fe37642ac0f8d9d2d6e416886184a4a86d90",
+  "question_set_sha256": "sha256:f1b7d56d5b709d066a37264b0ddd430602b97b8229fc00bb76487f51162ef6cb",
+  "review_case_fingerprint": "sha256:525055a12df785c285a5880bdbcd8b6bd18c2f91a0b9847a4849d484c0596313",
+  "review_case_id": "review-case-e7d09ded7ee8bd050fa3",
+  "review_questions": [
+    {
+      "condition": {
+        "en": "The same target family or Agent declaration combines execute, secret access, and external network permissions."
+      },
+      "prompt": {
+        "en": "Independently label the human Rule condition as match, no_match, or uncertain; record your direct finding observation, policy/scope category, evidence location, Confidence, Correlation, disposition, rationale code, and notes. Do not calculate TP/FP/FN/TN."
+      },
+      "question_id": "question:review-case-e7d09ded7ee8bd050fa3:CAP-CHAIN-001",
+      "rule_id": "CAP-CHAIN-001",
+      "title": {
+        "en": "Execution, secret access, and external network form a potential chain"
+      }
+    }
+  ],
+  "schema_version": "0.3.0",
+  "source_location": {
+    "end_line": 57,
+    "path": "source.toml",
+    "start_line": 1
+  },
+  "source_sha256": "sha256:9aa153d26606c88616093480720c38623046c209a1bcd12f6dcf85192d32a912",
+  "synthetic_fixture": true
+}

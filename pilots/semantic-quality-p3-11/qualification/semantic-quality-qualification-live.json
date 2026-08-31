@@ -1,0 +1,40 @@
+{
+  "format": "agentsec-semantic-quality-qualification-report",
+  "schema_version": "0.1.0",
+  "reviewer_id": "呈屿",
+  "label_provenance": "ai_draft_human_confirmed",
+  "provider_id": "theta-public",
+  "model_id": "Kimi-K3-256K",
+  "status": "not_qualified",
+  "thresholds": {
+    "min_case_count": 20,
+    "min_precision": 0.95,
+    "min_recall": 0.95,
+    "min_f1": 0.95,
+    "min_evidence_binding_accuracy": 0.98,
+    "min_complete_coverage_rate": 1.0
+  },
+  "metrics": {
+    "case_count": 45.0,
+    "completed": 42.0,
+    "failed": 3.0,
+    "precision": 0.393617,
+    "recall": 0.377551,
+    "f1": 0.385417,
+    "evidence_binding_accuracy": 1.0,
+    "complete_coverage_rate": 0.933333
+  },
+  "failed_checks": [
+    "completed_cases",
+    "quality_metrics"
+  ],
+  "reasons": [
+    "evaluation_case_failures_present",
+    "quality_threshold_not_met"
+  ],
+  "report_only": true,
+  "policy_authority": false,
+  "ci_authority": false,
+  "release_authority": false,
+  "runtime_verified": false
+}

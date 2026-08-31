@@ -1,0 +1,20 @@
+AgentSec HG-CAPCHAIN-001 Report-only Gate 演示
+状态：通过
+Gate: HG-CAPCHAIN-001
+模式：仅报告；资格=accepted；blocks=false；hard_gate=false；不阻断 CI
+
+资格结果
+  状态：accepted
+  Precision：1.0
+  Recall：1.0
+  Confidence 校准：1.0
+
+实时 Report-only 场景
+  [命中] same-target-match correlation=same_target coverage_complete=True relevant_unknowns=0
+  [命中] parent-child-match correlation=parent_child coverage_complete=True relevant_unknowns=0
+  [未命中] agent-wide-no-match correlation=agent_wide coverage_complete=True relevant_unknowns=5
+  [未命中] unknown-no-match correlation=same_target coverage_complete=True relevant_unknowns=5
+  [未命中] incomplete-coverage-no-match correlation=same_target coverage_complete=False relevant_unknowns=1
+
+Report-only 命中：2；未命中：3
+边界：资格只影响展示；不证明运行时能力，不授权，不阻断 CI。

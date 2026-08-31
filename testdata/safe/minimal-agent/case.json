@@ -1,0 +1,13 @@
+{
+  "case_id": "safe-minimal-agent",
+  "category": "safe",
+  "purpose": "Represent a minimal instruction file without risky declarations.",
+  "assets": [
+    "AGENTS.md"
+  ],
+  "expected": {
+    "coverage": "complete",
+    "signals": [],
+    "rule_ids": []
+  }
+}

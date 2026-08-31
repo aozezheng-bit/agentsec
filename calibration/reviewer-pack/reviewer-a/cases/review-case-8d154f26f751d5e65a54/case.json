@@ -1,0 +1,33 @@
+{
+  "corpus_binding_hash": "sha256:59e034541e3c1096f311404358031a5dc81fc880123351363713d66c2544ad79",
+  "format": "agentsec-independent-review-case",
+  "input_format": "manifest",
+  "language": "en",
+  "pack_id": "reviewer-pack-sha256:58295690c13861a763ed9c202d39fe37642ac0f8d9d2d6e416886184a4a86d90",
+  "question_set_sha256": "sha256:d05019cd1f6fae1aef35b440f9a776145bef6ab1ad0d3a5a8698b4f80a3dd42c",
+  "review_case_fingerprint": "sha256:1bc47715795ab8a609600003cdb6322e2fb4e4aa045959e26d44fc6887b948e1",
+  "review_case_id": "review-case-8d154f26f751d5e65a54",
+  "review_questions": [
+    {
+      "condition": {
+        "en": "A non-denied write permission targets the production scope or production resource."
+      },
+      "prompt": {
+        "en": "Independently label the human Rule condition as match, no_match, or uncertain; record your direct finding observation, policy/scope category, evidence location, Confidence, Correlation, disposition, rationale code, and notes. Do not calculate TP/FP/FN/TN."
+      },
+      "question_id": "question:review-case-8d154f26f751d5e65a54:CAP-PRODWRITE-001",
+      "rule_id": "CAP-PRODWRITE-001",
+      "title": {
+        "en": "Production write capability is declared"
+      }
+    }
+  ],
+  "schema_version": "0.3.0",
+  "source_location": {
+    "end_line": 13,
+    "path": "source.manifest.json",
+    "start_line": 1
+  },
+  "source_sha256": "sha256:571a4e4be880802ea2e8a2545c24cd2f54396547d3dd0a491196a3dac1375e2c",
+  "synthetic_fixture": true
+}

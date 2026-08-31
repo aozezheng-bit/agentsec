@@ -1,0 +1,188 @@
+{
+  "case_id": "cal-near-miss-capchain-020-bilingual",
+  "case_kind": "near_miss",
+  "fixture": {
+    "formats": [
+      "json"
+    ],
+    "kind": "fact_bundle",
+    "path": "fixtures/cal-near-miss-capchain-020-bilingual/facts.json"
+  },
+  "format": "agentsec-capability-calibration-case",
+  "framework_id": "codex",
+  "ground_truth": {
+    "coverage": "complete",
+    "facts": [
+      {
+        "dimension": "control",
+        "evidence": [
+          {
+            "asset_path": "facts.json",
+            "field_path": "facts.0"
+          }
+        ],
+        "fact_id": "fact-01",
+        "key": "external-network-deny",
+        "state": "present",
+        "target_id": "target:capchain-1"
+      },
+      {
+        "dimension": "permission",
+        "evidence": [
+          {
+            "asset_path": "facts.json",
+            "field_path": "facts.1"
+          }
+        ],
+        "fact_id": "fact-02",
+        "key": "execute",
+        "state": "present",
+        "target_id": "target:capchain-1"
+      },
+      {
+        "dimension": "permission",
+        "evidence": [
+          {
+            "asset_path": "facts.json",
+            "field_path": "facts.2"
+          }
+        ],
+        "fact_id": "fact-03",
+        "key": "secret-access",
+        "state": "present",
+        "target_id": "target:capchain-1"
+      },
+      {
+        "dimension": "permission",
+        "evidence": [
+          {
+            "asset_path": "facts.json",
+            "field_path": "facts.3"
+          }
+        ],
+        "fact_id": "fact-04",
+        "key": "external-network",
+        "state": "absent",
+        "target_id": "target:capchain-1"
+      },
+      {
+        "dimension": "control",
+        "evidence": [
+          {
+            "asset_path": "facts.json",
+            "field_path": "facts.4"
+          }
+        ],
+        "fact_id": "fact-05",
+        "key": "sandbox",
+        "state": "absent",
+        "target_id": "target:capchain-1"
+      },
+      {
+        "dimension": "control",
+        "evidence": [
+          {
+            "asset_path": "facts.json",
+            "field_path": "facts.5"
+          }
+        ],
+        "fact_id": "fact-06",
+        "key": "network-policy",
+        "state": "absent",
+        "target_id": "target:capchain-1"
+      },
+      {
+        "dimension": "control",
+        "evidence": [
+          {
+            "asset_path": "facts.json",
+            "field_path": "facts.6"
+          }
+        ],
+        "fact_id": "fact-07",
+        "key": "secret-handling",
+        "state": "present",
+        "target_id": "target:capchain-1"
+      },
+      {
+        "dimension": "tool",
+        "evidence": [
+          {
+            "asset_path": "facts.json",
+            "field_path": "facts.7"
+          }
+        ],
+        "fact_id": "fact-08",
+        "key": "mcp-enabled-required",
+        "state": "absent",
+        "target_id": "target:capchain-1"
+      },
+      {
+        "dimension": "runtime_identity",
+        "evidence": [
+          {
+            "asset_path": "facts.json",
+            "field_path": "facts.8"
+          }
+        ],
+        "fact_id": "fact-09",
+        "key": "identity-lifetime-reviewed",
+        "state": "present",
+        "target_id": "target:capchain-1"
+      },
+      {
+        "dimension": "relationship",
+        "evidence": [
+          {
+            "asset_path": "facts.json",
+            "field_path": "facts.9"
+          }
+        ],
+        "fact_id": "fact-10",
+        "key": "memory",
+        "state": "absent",
+        "target_id": "target:capchain-1"
+      }
+    ],
+    "rule_expectations": [
+      {
+        "confidences": [],
+        "correlations": [],
+        "fact_ids": [
+          "fact-02",
+          "fact-03",
+          "fact-04"
+        ],
+        "max_findings": 0,
+        "min_findings": 0,
+        "outcome": "no_match",
+        "rationale_code": "capchain_external_network_absent_20",
+        "rule_id": "CAP-CHAIN-001"
+      }
+    ],
+    "runtime_verified": false,
+    "unknown_dimensions": []
+  },
+  "language": "bilingual",
+  "purpose": "HG-CAPCHAIN-001 known/Unknown boundary scenario 20; the complete chain is not established.",
+  "review": {
+    "disposition": "not_applicable",
+    "rationale_code": "machine-generated-draft-requires-human-review",
+    "reviewer_refs": [
+      "seed-labeler-1",
+      "seed-labeler-2"
+    ],
+    "status": "seeded"
+  },
+  "schema_version": "0.1.0",
+  "source_formats": [
+    "toml"
+  ],
+  "tags": [
+    "bilingual",
+    "gate-candidate",
+    "hg-capchain-001",
+    "machine-generated-draft",
+    "p2-cal-04a"
+  ]
+}

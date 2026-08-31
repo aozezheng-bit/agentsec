@@ -1,0 +1,17 @@
+{
+  "case_id": "risky-safety-check-disable-only",
+  "category": "risky",
+  "purpose": "Isolate the safety-check bypass rule.",
+  "assets": [
+    "AGENTS.md"
+  ],
+  "expected": {
+    "coverage": "complete",
+    "signals": [
+      "instruction_integrity"
+    ],
+    "rule_ids": [
+      "MD-INSTR-002"
+    ]
+  }
+}

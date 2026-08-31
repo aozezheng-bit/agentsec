@@ -1,0 +1,33 @@
+{
+  "corpus_binding_hash": "sha256:59e034541e3c1096f311404358031a5dc81fc880123351363713d66c2544ad79",
+  "format": "agentsec-independent-review-case",
+  "input_format": "manifest",
+  "language": "zh",
+  "pack_id": "reviewer-pack-sha256:58295690c13861a763ed9c202d39fe37642ac0f8d9d2d6e416886184a4a86d90",
+  "question_set_sha256": "sha256:07543ec240fc9b536460a242ad172097f55665411e9ce00a842888ec16dde914",
+  "review_case_fingerprint": "sha256:6dd0e7a0155cf49444afdb473b50c0e0cc7c3324e5e5f52f83126c5aaf9401b0",
+  "review_case_id": "review-case-0c6f0854a7a891149e05",
+  "review_questions": [
+    {
+      "condition": {
+        "zh": "外部 MCP Server 关联的运行时身份 privileged 标记为 true。"
+      },
+      "prompt": {
+        "zh": "请独立将人工规则条件标记为 match、no_match 或 uncertain，并填写直接观察、策略或范围类别、证据位置、置信度、关联方式、处置意见、理由代码和备注。不要自行计算 TP/FP/FN/TN。"
+      },
+      "question_id": "question:review-case-0c6f0854a7a891149e05:CAP-EXTERNALPRIVILEGED-001",
+      "rule_id": "CAP-EXTERNALPRIVILEGED-001",
+      "title": {
+        "zh": "外部 MCP 使用明确的特权身份"
+      }
+    }
+  ],
+  "schema_version": "0.3.0",
+  "source_location": {
+    "end_line": 13,
+    "path": "source.manifest.json",
+    "start_line": 1
+  },
+  "source_sha256": "sha256:8f8f44e18cf18740b927c73862f33f6150677e5a3f4ec90f8087b4873b1cfd40",
+  "synthetic_fixture": true
+}

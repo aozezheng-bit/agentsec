@@ -1,0 +1,33 @@
+{
+  "corpus_binding_hash": "sha256:59e034541e3c1096f311404358031a5dc81fc880123351363713d66c2544ad79",
+  "format": "agentsec-independent-review-case",
+  "input_format": "manifest",
+  "language": "en",
+  "pack_id": "reviewer-pack-sha256:58295690c13861a763ed9c202d39fe37642ac0f8d9d2d6e416886184a4a86d90",
+  "question_set_sha256": "sha256:99b13f249af68c38cf3352277c21b9afc7983212cde9b954a621a2af2f037402",
+  "review_case_fingerprint": "sha256:e0b11497d099ad01c9af36c5e3a3a361560f7b0caee60822826c823816ec42aa",
+  "review_case_id": "review-case-bbef2002301a60b50cb4",
+  "review_questions": [
+    {
+      "condition": {
+        "en": "The Agent declares both a delegates_to relationship and a persists_memory relationship."
+      },
+      "prompt": {
+        "en": "Independently label the human Rule condition as match, no_match, or uncertain; record your direct finding observation, policy/scope category, evidence location, Confidence, Correlation, disposition, rationale code, and notes. Do not calculate TP/FP/FN/TN."
+      },
+      "question_id": "question:review-case-bbef2002301a60b50cb4:CAP-DELEGATEPERSIST-001",
+      "rule_id": "CAP-DELEGATEPERSIST-001",
+      "title": {
+        "en": "Delegation is combined with persistent memory"
+      }
+    }
+  ],
+  "schema_version": "0.3.0",
+  "source_location": {
+    "end_line": 19,
+    "path": "source.manifest.json",
+    "start_line": 1
+  },
+  "source_sha256": "sha256:261b68f7df7af0e77d157b12e9913daf461eb85024d32d4f1165896e11c62bdb",
+  "synthetic_fixture": true
+}

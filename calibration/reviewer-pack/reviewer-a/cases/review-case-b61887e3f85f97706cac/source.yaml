@@ -1,0 +1,60 @@
+title: "合成静态能力评审输入"
+synthetic: true
+review_case_id: review-case-b61887e3f85f97706cac
+facts:
+  - dimension: runtime_identity
+    key: external-privileged
+    state: unknown
+    target_id: target:externalprod-3
+  - dimension: runtime_identity
+    key: external-session
+    state: unknown
+    target_id: target:externalprod-3
+  - dimension: permission
+    key: production-admin
+    state: absent
+    target_id: target:externalprod-3
+  - dimension: permission
+    key: production-state-change
+    state: present
+    target_id: target:externalprod-3
+  - dimension: permission
+    key: production-write
+    state: absent
+    target_id: target:externalprod-3
+  - dimension: tool
+    key: mcp-enabled-required
+    state: present
+    target_id: target:externalprod-3
+  - dimension: control
+    key: human-approval
+    state: absent
+    target_id: target:externalprod-3
+  - dimension: runtime_identity
+    key: authentication-chat-session
+    state: present
+    target_id: target:externalprod-3
+  - dimension: control
+    key: sandbox
+    state: absent
+    target_id: target:externalprod-3
+  - dimension: control
+    key: network-policy
+    state: present
+    target_id: target:externalprod-3
+  - dimension: control
+    key: secret-handling
+    state: absent
+    target_id: target:externalprod-3
+  - dimension: tool
+    key: mcp-enabled-required
+    state: absent
+    target_id: target:externalprod-3
+  - dimension: runtime_identity
+    key: identity-lifetime-reviewed
+    state: absent
+    target_id: target:externalprod-3
+  - dimension: relationship
+    key: memory
+    state: absent
+    target_id: target:externalprod-3

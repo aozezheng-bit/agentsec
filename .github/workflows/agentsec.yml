@@ -1,0 +1,114 @@
+name: AgentSec
+
+on:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      project_root:
+        description: Agent project root to scan
+        required: false
+        default: demos/release-agent/baseline
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  agentsec:
+    name: Deterministic Agent security policy
+    runs-on: ubuntu-latest
+    env:
+      AGENTSEC_PROJECT_ROOT: ${{ inputs.project_root || vars.AGENTSEC_PROJECT_ROOT || 'demos/release-agent/baseline' }}
+      AGENTSEC_POLICY_PATH: ${{ vars.AGENTSEC_POLICY_PATH || 'policies/organization-policy-enforce-example.yaml' }}
+      AGENTSEC_OUTPUT_DIR: .agentsec-ci
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - name: Install AgentSec
+        run: python -m pip install .
+
+      - name: Run AgentSec and preserve its decision
+        id: agentsec_scan
+        shell: bash
+        run: |
+          set +e
+          scripts/run-agentsec-ci.sh \
+            "$AGENTSEC_PROJECT_ROOT" \
+            "$AGENTSEC_POLICY_PATH" \
+            "$AGENTSEC_OUTPUT_DIR"
+          exit_code=$?
+          set -e
+          echo "exit_code=$exit_code" >> "$GITHUB_OUTPUT"
+          if [[ -s "$AGENTSEC_OUTPUT_DIR/agentsec-results.sarif" ]]; then
+            echo "sarif_ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "sarif_ready=false" >> "$GITHUB_OUTPUT"
+          fi
+          exit 0
+
+      - name: Upload AgentSec reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: agentsec-reports
+          path: .agentsec-ci/
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Upload SARIF to code scanning
+        if: >-
+          always() &&
+          steps.agentsec_scan.outputs.sarif_ready == 'true' &&
+          (github.event_name != 'pull_request' ||
+           github.event.pull_request.head.repo.full_name == github.repository)
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: .agentsec-ci/agentsec-results.sarif
+          category: agentsec
+
+      - name: Enforce the preserved AgentSec exit code
+        if: always()
+        shell: bash
+        env:
+          AGENTSEC_EXIT_CODE: ${{ steps.agentsec_scan.outputs.exit_code }}
+        run: |
+          case "$AGENTSEC_EXIT_CODE" in
+            0)
+              echo "AgentSec policy allows this change."
+              ;;
+            1)
+              echo "::error::AgentSec found policy-blocking deterministic risk."
+              exit 1
+              ;;
+            2)
+              echo "::error::AgentSec coverage is incomplete; CI fails closed."
+              exit 2
+              ;;
+            3)
+              echo "::error::AgentSec policy or configuration is invalid."
+              exit 3
+              ;;
+            4)
+              echo "::error::AgentSec could not produce a required artifact."
+              exit 4
+              ;;
+            5)
+              echo "::error::Required AgentSec analysis failed."
+              exit 5
+              ;;
+            64)
+              echo "::error::AgentSec CLI usage is invalid."
+              exit 64
+              ;;
+            *)
+              echo "::error::Missing or unexpected AgentSec exit code: $AGENTSEC_EXIT_CODE"
+              exit 5
+              ;;
+          esac

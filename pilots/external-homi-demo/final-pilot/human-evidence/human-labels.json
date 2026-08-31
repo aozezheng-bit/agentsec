@@ -1,0 +1,165 @@
+{
+  "cases": [
+    {
+      "case_id": "baseline-01",
+      "expected_coverage": "complete",
+      "expected_exit": 0,
+      "expected_rule_ids": [
+        "MD-EXEC-001",
+        "MD-MEMORY-001",
+        "MD-NET-001",
+        "MD-SELF-001",
+        "MD-TOOL-001"
+      ]
+    },
+    {
+      "case_id": "baseline-02",
+      "expected_coverage": "complete",
+      "expected_exit": 0,
+      "expected_rule_ids": []
+    },
+    {
+      "case_id": "baseline-03",
+      "expected_coverage": "complete",
+      "expected_exit": 0,
+      "expected_rule_ids": []
+    },
+    {
+      "case_id": "baseline-04",
+      "expected_coverage": "complete",
+      "expected_exit": 0,
+      "expected_rule_ids": []
+    },
+    {
+      "case_id": "baseline-05",
+      "expected_coverage": "complete",
+      "expected_exit": 0,
+      "expected_rule_ids": []
+    },
+    {
+      "case_id": "baseline-06",
+      "expected_coverage": "complete",
+      "expected_exit": 0,
+      "expected_rule_ids": []
+    },
+    {
+      "case_id": "baseline-07",
+      "expected_coverage": "complete",
+      "expected_exit": 0,
+      "expected_rule_ids": [
+        "MD-INSTR-001",
+        "MD-INSTR-002"
+      ]
+    },
+    {
+      "case_id": "baseline-08",
+      "expected_coverage": "complete",
+      "expected_exit": 0,
+      "expected_rule_ids": [
+        "MD-MEMORY-001"
+      ]
+    },
+    {
+      "case_id": "baseline-09",
+      "expected_coverage": "complete",
+      "expected_exit": 0,
+      "expected_rule_ids": []
+    },
+    {
+      "case_id": "baseline-10",
+      "expected_coverage": "complete",
+      "expected_exit": 0,
+      "expected_rule_ids": []
+    },
+    {
+      "case_id": "pr-01",
+      "expected_coverage": "complete",
+      "expected_exit": 1,
+      "expected_rule_ids": [
+        "MD-APPROVAL-001",
+        "MD-DEPLOY-001",
+        "MD-EXEC-001",
+        "MD-INSTR-001",
+        "MD-INSTR-002",
+        "MD-NET-001",
+        "MD-PRIV-001",
+        "MD-SECRET-001"
+      ]
+    },
+    {
+      "case_id": "pr-02",
+      "expected_coverage": "complete",
+      "expected_exit": 0,
+      "expected_rule_ids": [
+        "MD-EXEC-001"
+      ]
+    },
+    {
+      "case_id": "pr-03",
+      "expected_coverage": "complete",
+      "expected_exit": 0,
+      "expected_rule_ids": [
+        "MD-EXEC-001"
+      ]
+    },
+    {
+      "case_id": "pr-04",
+      "expected_coverage": "complete",
+      "expected_exit": 1,
+      "expected_rule_ids": [
+        "MD-SECRET-001"
+      ]
+    },
+    {
+      "case_id": "pr-05",
+      "expected_coverage": "complete",
+      "expected_exit": 1,
+      "expected_rule_ids": [
+        "MD-EXEC-001",
+        "MD-SECRET-001"
+      ]
+    },
+    {
+      "case_id": "pr-06",
+      "expected_coverage": "incomplete",
+      "expected_exit": 2,
+      "expected_rule_ids": []
+    },
+    {
+      "case_id": "pr-07",
+      "expected_coverage": "complete",
+      "expected_exit": 0,
+      "expected_rule_ids": [
+        "MD-DEPLOY-001",
+        "MD-PRIV-001"
+      ]
+    },
+    {
+      "case_id": "pr-08",
+      "expected_coverage": "complete",
+      "expected_exit": 0,
+      "expected_rule_ids": [
+        "MD-NET-001"
+      ]
+    },
+    {
+      "case_id": "pr-09",
+      "expected_coverage": "complete",
+      "expected_exit": 0,
+      "expected_rule_ids": [
+        "MD-SELF-001"
+      ]
+    },
+    {
+      "case_id": "pr-10",
+      "expected_coverage": "complete",
+      "expected_exit": 0,
+      "expected_rule_ids": []
+    }
+  ],
+  "format": "agentsec-pilot-human-labels",
+  "independence_statement": "I independently read all 20 state ZIPs (AGENTS.md as static text only), the rule reference, and the protected policy inside reviewer-pack/. I did not inspect pilot.yaml, AgentSec scanner reports, implementation code, engineering expectations, TP/FP/FN output, or any other reviewer's labels. My conclusions are based only on locatable static text evidence, the rule quick reference, and the protected policy with its waiver states. This review is a static deterministic expectation, not a runtime exploitability assessment, and does not authorize any release. No scanned content was executed.",
+  "pilot_id": "external-homi-final-pilot",
+  "reviewer_id": "codefuse-agentsec-expert-reviewer",
+  "schema_version": "0.1.0"
+}

@@ -1,0 +1,76 @@
+AgentSec Agent 清单
+状态：不完整
+Agent：release-agent
+框架：Codex
+策略：静态声明分析；仅报告；未验证运行时能力
+摘要：来源=1 工具=0 权限=0 控制=0 身份=0 关系=0 Unknown=8
+
+版本向量
+  package：0.2.0
+  agent_manifest_schema：0.3.0
+  adapter：0.1.0
+  capability_rule_pack：0.2.0
+  capability_risk_model：0.1.0
+
+Coverage
+  发现=2 已检查=1 跳过=1 问题=1
+  警告：Coverage 不完整，本清单不是穷尽结果。
+
+阶段轨迹
+  adapter_inspection：partial 输入=0 输出=1
+  manifest_build：partial 输入=1 输出=1
+  instruction_resolution：partial 输入=1 输出=1
+  configuration_resolution：partial 输入=0 输出=0
+  association_extraction：partial 输入=1 输出=0
+  capability_extraction：partial 输入=0 输出=0
+  relationship_extraction：partial 输入=1 输出=0
+  unknown_extraction：partial 输入=2 输出=8
+  final_validation：partial 输入=1 输出=1
+
+Profile Resolution
+  identity：partial
+  instructions：partial
+  configuration：unknown
+  tools：unknown
+  permissions：unknown
+  controls：unknown
+  runtime_identities：unknown
+  relationships：partial
+
+来源
+  project:project:AGENTS.md format=markdown sha256=f81ce3b0242a2d55083d162a3a581cb66ec6ca2a00946e8d5452f6f1b01d6f9e
+
+有效指令
+  project:project:AGENTS.md:-
+
+配置顺序
+  -
+
+工具
+  -
+
+权限
+  -
+
+控制
+  -
+
+运行时身份
+  -
+
+关系
+  -
+
+显式 Unknown
+  unknown:controls:21a0b7e5d41746fa dimension=controls reason=missing_source field=controls.resolution
+  unknown:coverage:8b150230ace4ecfa dimension=coverage reason=incomplete_coverage field=coverage
+  unknown:identity:5ec71700c2432d2a dimension=identity reason=incomplete_coverage field=identity.resolution
+  unknown:instructions:98d6e4f16f2bdf59 dimension=instructions reason=incomplete_coverage field=instructions.resolution
+  unknown:permissions:2be0c85c08af985b dimension=permissions reason=missing_source field=permissions.resolution
+  unknown:relationships:69a07b4f200dc474 dimension=relationships reason=incomplete_coverage field=relationships.resolution
+  unknown:runtime_identities:9af495e3982f8b99 dimension=runtime_identities reason=missing_source field=runtime_identities.resolution
+  unknown:tools:02551c2704900e95 dimension=tools reason=missing_source field=tools.resolution
+
+边界说明
+  本报告不代表该 Agent 已被证明为全局安全。
+  声明的能力不代表运行时一定可用或已经获得授权。

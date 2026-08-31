@@ -1,0 +1,161 @@
+{
+  "$defs": {
+    "ProviderPromotionState": {
+      "enum": [
+        "trial",
+        "review_pending",
+        "adjudication_pending",
+        "eligible_shadow",
+        "approved_shadow",
+        "rejected",
+        "revoked"
+      ],
+      "title": "ProviderPromotionState",
+      "type": "string"
+    },
+    "ProviderQualityThresholds": {
+      "additionalProperties": false,
+      "properties": {
+        "min_case_count": {
+          "default": 20,
+          "minimum": 1,
+          "title": "Min Case Count",
+          "type": "integer"
+        },
+        "min_complete_coverage_rate": {
+          "default": 1.0,
+          "title": "Min Complete Coverage Rate",
+          "type": "number"
+        },
+        "min_evidence_binding_accuracy": {
+          "default": 0.98,
+          "title": "Min Evidence Binding Accuracy",
+          "type": "number"
+        },
+        "min_f1": {
+          "default": 0.95,
+          "title": "Min F1",
+          "type": "number"
+        },
+        "min_precision": {
+          "default": 0.95,
+          "title": "Min Precision",
+          "type": "number"
+        },
+        "min_recall": {
+          "default": 0.95,
+          "title": "Min Recall",
+          "type": "number"
+        }
+      },
+      "title": "ProviderQualityThresholds",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "adjudication_required": {
+      "title": "Adjudication Required",
+      "type": "boolean"
+    },
+    "blocking_reasons": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Blocking Reasons",
+      "type": "array"
+    },
+    "ci_authority": {
+      "const": false,
+      "default": false,
+      "title": "Ci Authority",
+      "type": "boolean"
+    },
+    "evaluation_report_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Evaluation Report Sha256",
+      "type": "string"
+    },
+    "format": {
+      "const": "agentsec-semantic-provider-promotion-report",
+      "default": "agentsec-semantic-provider-promotion-report",
+      "title": "Format",
+      "type": "string"
+    },
+    "human_review_passed": {
+      "title": "Human Review Passed",
+      "type": "boolean"
+    },
+    "model_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "title": "Model Id",
+      "type": "string"
+    },
+    "policy_authority": {
+      "const": false,
+      "default": false,
+      "title": "Policy Authority",
+      "type": "boolean"
+    },
+    "production_authority": {
+      "const": false,
+      "default": false,
+      "title": "Production Authority",
+      "type": "boolean"
+    },
+    "provider_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "title": "Provider Id",
+      "type": "string"
+    },
+    "quality_passed": {
+      "title": "Quality Passed",
+      "type": "boolean"
+    },
+    "report_only": {
+      "const": true,
+      "default": true,
+      "title": "Report Only",
+      "type": "boolean"
+    },
+    "runtime_authority": {
+      "const": false,
+      "default": false,
+      "title": "Runtime Authority",
+      "type": "boolean"
+    },
+    "schema_version": {
+      "const": "0.1.0",
+      "default": "0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "shadow_only": {
+      "const": true,
+      "default": true,
+      "title": "Shadow Only",
+      "type": "boolean"
+    },
+    "state": {
+      "$ref": "#/$defs/ProviderPromotionState"
+    },
+    "thresholds": {
+      "$ref": "#/$defs/ProviderQualityThresholds"
+    }
+  },
+  "required": [
+    "provider_id",
+    "model_id",
+    "evaluation_report_sha256",
+    "state",
+    "quality_passed",
+    "human_review_passed",
+    "adjudication_required",
+    "blocking_reasons",
+    "thresholds"
+  ],
+  "title": "ProviderPromotionReport",
+  "type": "object"
+}

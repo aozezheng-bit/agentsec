@@ -1,0 +1,19 @@
+{
+  "case_id": "cal-near-miss-externalwrite-001-en",
+  "facts": [
+    {
+      "dimension": "permission",
+      "evidence": [
+        {
+          "asset_path": "facts.json",
+          "field_path": "facts.0"
+        }
+      ],
+      "fact_id": "fact-01",
+      "key": "external-write",
+      "state": "absent",
+      "target_id": null
+    }
+  ],
+  "fixture_version": "0.1.0"
+}

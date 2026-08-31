@@ -1,0 +1,166 @@
+{
+  "$defs": {
+    "FindingCategory": {
+      "description": "Initial Phase 1 security finding taxonomy.",
+      "enum": [
+        "instruction_integrity",
+        "human_approval",
+        "code_execution",
+        "network_access",
+        "secret_access",
+        "privileged_access",
+        "destructive_action",
+        "persistent_memory",
+        "self_modification",
+        "obfuscation",
+        "external_tooling",
+        "scan_coverage",
+        "other"
+      ],
+      "title": "FindingCategory",
+      "type": "string"
+    },
+    "SemanticCandidateDisposition": {
+      "description": "Probabilistic support state without enforcement meaning.",
+      "enum": [
+        "supported",
+        "not_supported",
+        "uncertain"
+      ],
+      "title": "SemanticCandidateDisposition",
+      "type": "string"
+    },
+    "SemanticCandidateKind": {
+      "description": "Bounded semantic judgment families; none is a published Finding.",
+      "enum": [
+        "capability_declaration",
+        "control_weakening",
+        "semantic_conflict",
+        "cross_file_chain",
+        "risky_intent",
+        "ambiguity"
+      ],
+      "title": "SemanticCandidateKind",
+      "type": "string"
+    },
+    "SemanticModelCandidate": {
+      "additionalProperties": false,
+      "description": "Untrusted structured model row without risk or authorization fields.",
+      "properties": {
+        "candidate_key": {
+          "pattern": "^[a-z][a-z0-9-]{0,63}$",
+          "title": "Candidate Key",
+          "type": "string"
+        },
+        "category": {
+          "$ref": "#/$defs/FindingCategory"
+        },
+        "disposition": {
+          "$ref": "#/$defs/SemanticCandidateDisposition"
+        },
+        "evidence_ids": {
+          "items": {
+            "pattern": "^semantic-evidence-sha256:[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Evidence Ids",
+          "type": "array"
+        },
+        "kind": {
+          "$ref": "#/$defs/SemanticCandidateKind"
+        },
+        "limitations": {
+          "default": [],
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 32,
+          "title": "Limitations",
+          "type": "array"
+        },
+        "runtime_verified": {
+          "const": false,
+          "default": false,
+          "title": "Runtime Verified",
+          "type": "boolean"
+        },
+        "summary": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Summary",
+          "type": "string"
+        }
+      },
+      "required": [
+        "candidate_key",
+        "kind",
+        "category",
+        "disposition",
+        "summary",
+        "evidence_ids"
+      ],
+      "title": "SemanticModelCandidate",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Untrusted constrained model response parsed before trusted validation.",
+  "properties": {
+    "analysis_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[a-z][a-z0-9._-]{0,127}$",
+      "title": "Analysis Id",
+      "type": "string"
+    },
+    "analyzed_evidence_ids": {
+      "items": {
+        "pattern": "^semantic-evidence-sha256:[0-9a-f]{64}$",
+        "type": "string"
+      },
+      "title": "Analyzed Evidence Ids",
+      "type": "array"
+    },
+    "candidates": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/SemanticModelCandidate"
+      },
+      "maxItems": 128,
+      "title": "Candidates",
+      "type": "array"
+    },
+    "format": {
+      "const": "agentsec-semantic-model-output",
+      "default": "agentsec-semantic-model-output",
+      "title": "Format",
+      "type": "string"
+    },
+    "limitations": {
+      "default": [],
+      "items": {
+        "maxLength": 512,
+        "minLength": 1,
+        "type": "string"
+      },
+      "maxItems": 32,
+      "title": "Limitations",
+      "type": "array"
+    },
+    "schema_version": {
+      "const": "0.1.0",
+      "default": "0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "analysis_id",
+    "analyzed_evidence_ids"
+  ],
+  "title": "SemanticModelOutput",
+  "type": "object"
+}

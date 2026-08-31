@@ -1,0 +1,33 @@
+# Python 构建与缓存
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist-cache/
+wheels/
+
+# 虚拟环境
+.venv/
+venv/
+
+# 工具缓存
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+coverage/
+htmlcov/
+*.cover
+
+# IDE 与系统
+.idea/
+.vscode/
+.DS_Store
+
+# 本地环境（凭据绝不入库）
+.env
+.env.*
+
+# 日志
+*.log

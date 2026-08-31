@@ -1,0 +1,63 @@
+title = "Synthetic static capability review input / 合成静态能力评审输入"
+synthetic = true
+case_id = "cal-negative-capchain-025-bilingual"
+
+[[facts]]
+dimension = "permission"
+key = "secret-access-other-target"
+state = "present"
+target_id = "target:isolated"
+
+[[facts]]
+dimension = "permission"
+key = "execute"
+state = "present"
+target_id = "target:capchain-1"
+
+[[facts]]
+dimension = "permission"
+key = "secret-access"
+state = "absent"
+target_id = "target:capchain-1"
+
+[[facts]]
+dimension = "permission"
+key = "external-network"
+state = "present"
+target_id = "target:capchain-1"
+
+[[facts]]
+dimension = "control"
+key = "sandbox"
+state = "present"
+target_id = "target:capchain-1"
+
+[[facts]]
+dimension = "control"
+key = "network-policy"
+state = "absent"
+target_id = "target:capchain-1"
+
+[[facts]]
+dimension = "control"
+key = "secret-handling"
+state = "absent"
+target_id = "target:capchain-1"
+
+[[facts]]
+dimension = "tool"
+key = "mcp-enabled-required"
+state = "present"
+target_id = "target:capchain-1"
+
+[[facts]]
+dimension = "runtime_identity"
+key = "identity-lifetime-reviewed"
+state = "present"
+target_id = "target:capchain-1"
+
+[[facts]]
+dimension = "relationship"
+key = "delegates-to"
+state = "absent"
+target_id = "target:capchain-1"

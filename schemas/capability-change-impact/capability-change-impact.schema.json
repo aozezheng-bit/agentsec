@@ -1,0 +1,1020 @@
+{
+  "$defs": {
+    "CapabilityChangeImpact": {
+      "additionalProperties": false,
+      "description": "Semantic before/after state plus deterministic exposure direction.",
+      "properties": {
+        "after": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CapabilitySemanticState"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "before": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CapabilitySemanticState"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "change_type": {
+          "$ref": "#/$defs/CapabilityChangeType"
+        },
+        "dimension": {
+          "$ref": "#/$defs/CapabilityDimension"
+        },
+        "direction": {
+          "$ref": "#/$defs/CapabilityImpactDirection"
+        },
+        "impact_id": {
+          "pattern": "^capability-impact-sha256:[a-f0-9]{64}$",
+          "title": "Impact Id",
+          "type": "string"
+        },
+        "item_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "title": "Item Id",
+          "type": "string"
+        },
+        "reasons": {
+          "items": {
+            "$ref": "#/$defs/CapabilityImpactReason"
+          },
+          "title": "Reasons",
+          "type": "array"
+        },
+        "related_finding_delta_ids": {
+          "default": [],
+          "items": {
+            "pattern": "^capability-finding-delta-sha256:[a-f0-9]{64}$",
+            "type": "string"
+          },
+          "title": "Related Finding Delta Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "impact_id",
+        "dimension",
+        "item_id",
+        "change_type",
+        "before",
+        "after",
+        "direction",
+        "reasons"
+      ],
+      "title": "CapabilityChangeImpact",
+      "type": "object"
+    },
+    "CapabilityChangeImpactPolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "ci_blocking_enabled": {
+          "const": false,
+          "title": "Ci Blocking Enabled",
+          "type": "boolean"
+        },
+        "enforcement_mode": {
+          "const": "report_only",
+          "title": "Enforcement Mode",
+          "type": "string"
+        },
+        "global_safety_claimed": {
+          "const": false,
+          "title": "Global Safety Claimed",
+          "type": "boolean"
+        },
+        "runtime_capability_verified": {
+          "const": false,
+          "title": "Runtime Capability Verified",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "enforcement_mode",
+        "ci_blocking_enabled",
+        "runtime_capability_verified",
+        "global_safety_claimed"
+      ],
+      "title": "CapabilityChangeImpactPolicy",
+      "type": "object"
+    },
+    "CapabilityChangeImpactSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "added_findings": {
+          "minimum": 0,
+          "title": "Added Findings",
+          "type": "integer"
+        },
+        "added_high_or_critical": {
+          "minimum": 0,
+          "title": "Added High Or Critical",
+          "type": "integer"
+        },
+        "after_findings": {
+          "minimum": 0,
+          "title": "After Findings",
+          "type": "integer"
+        },
+        "after_rule_execution_complete": {
+          "title": "After Rule Execution Complete",
+          "type": "boolean"
+        },
+        "assessed_change_impacts": {
+          "minimum": 0,
+          "title": "Assessed Change Impacts",
+          "type": "integer"
+        },
+        "before_findings": {
+          "minimum": 0,
+          "title": "Before Findings",
+          "type": "integer"
+        },
+        "before_rule_execution_complete": {
+          "title": "Before Rule Execution Complete",
+          "type": "boolean"
+        },
+        "capability_changes": {
+          "minimum": 0,
+          "title": "Capability Changes",
+          "type": "integer"
+        },
+        "capability_diff_complete": {
+          "title": "Capability Diff Complete",
+          "type": "boolean"
+        },
+        "changed_findings": {
+          "minimum": 0,
+          "title": "Changed Findings",
+          "type": "integer"
+        },
+        "highest_after_severity": {
+          "$ref": "#/$defs/Severity"
+        },
+        "highest_before_severity": {
+          "$ref": "#/$defs/Severity"
+        },
+        "increased_exposure": {
+          "minimum": 0,
+          "title": "Increased Exposure",
+          "type": "integer"
+        },
+        "mixed": {
+          "minimum": 0,
+          "title": "Mixed",
+          "type": "integer"
+        },
+        "neutral": {
+          "minimum": 0,
+          "title": "Neutral",
+          "type": "integer"
+        },
+        "reduced_exposure": {
+          "minimum": 0,
+          "title": "Reduced Exposure",
+          "type": "integer"
+        },
+        "resolved_findings": {
+          "minimum": 0,
+          "title": "Resolved Findings",
+          "type": "integer"
+        },
+        "resolved_high_or_critical": {
+          "minimum": 0,
+          "title": "Resolved High Or Critical",
+          "type": "integer"
+        },
+        "unassessed_capability_changes": {
+          "minimum": 0,
+          "title": "Unassessed Capability Changes",
+          "type": "integer"
+        },
+        "uncertain": {
+          "minimum": 0,
+          "title": "Uncertain",
+          "type": "integer"
+        },
+        "unchanged_findings": {
+          "minimum": 0,
+          "title": "Unchanged Findings",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "capability_changes",
+        "assessed_change_impacts",
+        "unassessed_capability_changes",
+        "increased_exposure",
+        "reduced_exposure",
+        "mixed",
+        "neutral",
+        "uncertain",
+        "before_findings",
+        "after_findings",
+        "added_findings",
+        "resolved_findings",
+        "changed_findings",
+        "unchanged_findings",
+        "added_high_or_critical",
+        "resolved_high_or_critical",
+        "highest_before_severity",
+        "highest_after_severity",
+        "capability_diff_complete",
+        "before_rule_execution_complete",
+        "after_rule_execution_complete"
+      ],
+      "title": "CapabilityChangeImpactSummary",
+      "type": "object"
+    },
+    "CapabilityChangeImpactVersions": {
+      "additionalProperties": false,
+      "properties": {
+        "agent_manifest_schema": {
+          "title": "Agent Manifest Schema",
+          "type": "string"
+        },
+        "capability_change_impact_output": {
+          "title": "Capability Change Impact Output",
+          "type": "string"
+        },
+        "capability_diff_schema": {
+          "title": "Capability Diff Schema",
+          "type": "string"
+        },
+        "capability_risk_model": {
+          "title": "Capability Risk Model",
+          "type": "string"
+        },
+        "capability_rule_pack": {
+          "title": "Capability Rule Pack",
+          "type": "string"
+        },
+        "package": {
+          "title": "Package",
+          "type": "string"
+        }
+      },
+      "required": [
+        "package",
+        "agent_manifest_schema",
+        "capability_diff_schema",
+        "capability_rule_pack",
+        "capability_risk_model",
+        "capability_change_impact_output"
+      ],
+      "title": "CapabilityChangeImpactVersions",
+      "type": "object"
+    },
+    "CapabilityChangeType": {
+      "description": "Set-level change type for one capability item.",
+      "enum": [
+        "added",
+        "removed",
+        "modified"
+      ],
+      "title": "CapabilityChangeType",
+      "type": "string"
+    },
+    "CapabilityCorrelation": {
+      "description": "Strength and scope of the deterministic fact correlation.",
+      "enum": [
+        "same_target",
+        "parent_child",
+        "same_source",
+        "explicit_relation",
+        "agent_wide",
+        "incomplete_coverage"
+      ],
+      "title": "CapabilityCorrelation",
+      "type": "string"
+    },
+    "CapabilityDiffResult": {
+      "additionalProperties": false,
+      "description": "Versioned deterministic difference between two compatible Manifests.",
+      "properties": {
+        "added_count": {
+          "minimum": 0,
+          "title": "Added Count",
+          "type": "integer"
+        },
+        "after_coverage_complete": {
+          "title": "After Coverage Complete",
+          "type": "boolean"
+        },
+        "agent_id": {
+          "minLength": 1,
+          "title": "Agent Id",
+          "type": "string"
+        },
+        "agent_manifest_schema_version": {
+          "minLength": 1,
+          "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+          "title": "Agent Manifest Schema Version",
+          "type": "string"
+        },
+        "before_coverage_complete": {
+          "title": "Before Coverage Complete",
+          "type": "boolean"
+        },
+        "changes": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/CapabilityItemChange"
+          },
+          "title": "Changes",
+          "type": "array"
+        },
+        "complete": {
+          "title": "Complete",
+          "type": "boolean"
+        },
+        "modified_count": {
+          "minimum": 0,
+          "title": "Modified Count",
+          "type": "integer"
+        },
+        "profile_changes": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/CapabilityProfileChange"
+          },
+          "title": "Profile Changes",
+          "type": "array"
+        },
+        "removed_count": {
+          "minimum": 0,
+          "title": "Removed Count",
+          "type": "integer"
+        },
+        "schema_version": {
+          "minLength": 1,
+          "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+          "title": "Schema Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "schema_version",
+        "agent_manifest_schema_version",
+        "agent_id",
+        "before_coverage_complete",
+        "after_coverage_complete",
+        "complete",
+        "added_count",
+        "removed_count",
+        "modified_count"
+      ],
+      "title": "CapabilityDiffResult",
+      "type": "object"
+    },
+    "CapabilityDimension": {
+      "description": "Manifest item collections compared by P2-11.",
+      "enum": [
+        "tool",
+        "permission",
+        "control",
+        "runtime_identity",
+        "relationship",
+        "unknown"
+      ],
+      "title": "CapabilityDimension",
+      "type": "string"
+    },
+    "CapabilityFindingDelta": {
+      "additionalProperties": false,
+      "description": "Added, resolved, changed, or unchanged logical Capability Finding.",
+      "properties": {
+        "after": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CapabilityFindingSnapshot"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "before": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CapabilityFindingSnapshot"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "changed_fields": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Changed Fields",
+          "type": "array"
+        },
+        "delta_id": {
+          "pattern": "^capability-finding-delta-sha256:[a-f0-9]{64}$",
+          "title": "Delta Id",
+          "type": "string"
+        },
+        "impacted_change_ids": {
+          "default": [],
+          "items": {
+            "pattern": "^capability-impact-sha256:[a-f0-9]{64}$",
+            "type": "string"
+          },
+          "title": "Impacted Change Ids",
+          "type": "array"
+        },
+        "related_ids": {
+          "items": {
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+            "type": "string"
+          },
+          "title": "Related Ids",
+          "type": "array"
+        },
+        "risk_direction": {
+          "$ref": "#/$defs/CapabilityFindingRiskDirection"
+        },
+        "rule_id": {
+          "pattern": "^CAP-[A-Z][A-Z0-9]*-[0-9]{3}$",
+          "title": "Rule Id",
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/$defs/CapabilityFindingDeltaStatus"
+        }
+      },
+      "required": [
+        "delta_id",
+        "rule_id",
+        "related_ids",
+        "status",
+        "risk_direction",
+        "before",
+        "after",
+        "changed_fields"
+      ],
+      "title": "CapabilityFindingDelta",
+      "type": "object"
+    },
+    "CapabilityFindingDeltaStatus": {
+      "description": "Lifecycle status of one logical deterministic Capability Finding.",
+      "enum": [
+        "added",
+        "resolved",
+        "changed",
+        "unchanged"
+      ],
+      "title": "CapabilityFindingDeltaStatus",
+      "type": "string"
+    },
+    "CapabilityFindingRiskDirection": {
+      "description": "Risk-direction interpretation without averaging Finding scores.",
+      "enum": [
+        "increased",
+        "decreased",
+        "unchanged",
+        "uncertain"
+      ],
+      "title": "CapabilityFindingRiskDirection",
+      "type": "string"
+    },
+    "CapabilityFindingSnapshot": {
+      "additionalProperties": false,
+      "description": "Value-free risk snapshot of one deterministic Capability Finding.",
+      "properties": {
+        "category": {
+          "$ref": "#/$defs/FindingCategory"
+        },
+        "confidence": {
+          "$ref": "#/$defs/EvidenceConfidence"
+        },
+        "correlation": {
+          "$ref": "#/$defs/CapabilityCorrelation"
+        },
+        "evidence_sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Evidence Sha256",
+          "type": "string"
+        },
+        "finding_id": {
+          "pattern": "^capability-finding-sha256:[a-f0-9]{64}$",
+          "title": "Finding Id",
+          "type": "string"
+        },
+        "hard_gate": {
+          "const": false,
+          "title": "Hard Gate",
+          "type": "boolean"
+        },
+        "related_ids": {
+          "items": {
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+            "type": "string"
+          },
+          "title": "Related Ids",
+          "type": "array"
+        },
+        "risk_level": {
+          "$ref": "#/$defs/NistRiskLevel"
+        },
+        "rule_id": {
+          "pattern": "^CAP-[A-Z][A-Z0-9]*-[0-9]{3}$",
+          "title": "Rule Id",
+          "type": "string"
+        },
+        "score": {
+          "maximum": 10,
+          "minimum": 0,
+          "title": "Score",
+          "type": "number"
+        },
+        "severity": {
+          "$ref": "#/$defs/Severity"
+        },
+        "title_en": {
+          "title": "Title En",
+          "type": "string"
+        },
+        "title_zh": {
+          "title": "Title Zh",
+          "type": "string"
+        }
+      },
+      "required": [
+        "finding_id",
+        "rule_id",
+        "category",
+        "title_en",
+        "title_zh",
+        "correlation",
+        "risk_level",
+        "score",
+        "severity",
+        "confidence",
+        "hard_gate",
+        "related_ids",
+        "evidence_sha256"
+      ],
+      "title": "CapabilityFindingSnapshot",
+      "type": "object"
+    },
+    "CapabilityImpactDirection": {
+      "description": "Deterministic exposure direction, separate from Finding Severity.",
+      "enum": [
+        "increased_exposure",
+        "reduced_exposure",
+        "mixed",
+        "neutral",
+        "uncertain"
+      ],
+      "title": "CapabilityImpactDirection",
+      "type": "string"
+    },
+    "CapabilityImpactReason": {
+      "description": "Stable, value-free reasons supporting one change-impact classification.",
+      "enum": [
+        "capability_added",
+        "capability_removed",
+        "tool_enabled",
+        "tool_disabled",
+        "sensitive_effect_added",
+        "sensitive_effect_removed",
+        "permission_granted",
+        "permission_revoked",
+        "permission_effect_weakened",
+        "permission_effect_strengthened",
+        "control_weakened",
+        "control_strengthened",
+        "semantic_state_changed",
+        "unknown_state"
+      ],
+      "title": "CapabilityImpactReason",
+      "type": "string"
+    },
+    "CapabilityItemChange": {
+      "additionalProperties": false,
+      "description": "One added, removed, or modified capability without raw item values.",
+      "properties": {
+        "after_sha256": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "After Sha256"
+        },
+        "after_sources": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ManifestSourceReference"
+          },
+          "title": "After Sources",
+          "type": "array"
+        },
+        "before_sha256": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Before Sha256"
+        },
+        "before_sources": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ManifestSourceReference"
+          },
+          "title": "Before Sources",
+          "type": "array"
+        },
+        "change_type": {
+          "$ref": "#/$defs/CapabilityChangeType"
+        },
+        "changed_fields": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Changed Fields",
+          "type": "array"
+        },
+        "dimension": {
+          "$ref": "#/$defs/CapabilityDimension"
+        },
+        "item_id": {
+          "minLength": 1,
+          "title": "Item Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "dimension",
+        "item_id",
+        "change_type",
+        "changed_fields"
+      ],
+      "title": "CapabilityItemChange",
+      "type": "object"
+    },
+    "CapabilityProfileChange": {
+      "additionalProperties": false,
+      "description": "One profile resolution or Coverage-completeness transition.",
+      "properties": {
+        "after": {
+          "minLength": 1,
+          "title": "After",
+          "type": "string"
+        },
+        "before": {
+          "minLength": 1,
+          "title": "Before",
+          "type": "string"
+        },
+        "profile": {
+          "$ref": "#/$defs/CapabilityProfileName"
+        }
+      },
+      "required": [
+        "profile",
+        "before",
+        "after"
+      ],
+      "title": "CapabilityProfileChange",
+      "type": "object"
+    },
+    "CapabilityProfileName": {
+      "description": "Resolution/coverage profiles compared independently from item changes.",
+      "enum": [
+        "identity",
+        "instructions",
+        "configuration",
+        "tools",
+        "permissions",
+        "controls",
+        "runtime_identities",
+        "relationships",
+        "coverage"
+      ],
+      "title": "CapabilityProfileName",
+      "type": "string"
+    },
+    "CapabilitySemanticAttribute": {
+      "additionalProperties": false,
+      "description": "One normalized semantic field with bounded trusted values.",
+      "properties": {
+        "field": {
+          "$ref": "#/$defs/CapabilitySemanticField"
+        },
+        "values": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Values",
+          "type": "array"
+        }
+      },
+      "required": [
+        "field",
+        "values"
+      ],
+      "title": "CapabilitySemanticAttribute",
+      "type": "object"
+    },
+    "CapabilitySemanticField": {
+      "description": "Reviewed normalized fields safe to expose as semantic before/after state.",
+      "enum": [
+        "action",
+        "availability",
+        "effect",
+        "kind",
+        "parent_tool_id",
+        "resource",
+        "scope",
+        "side_effects",
+        "state",
+        "target"
+      ],
+      "title": "CapabilitySemanticField",
+      "type": "string"
+    },
+    "CapabilitySemanticState": {
+      "additionalProperties": false,
+      "description": "Value-minimizing before or after state for Tool/Permission/Control.",
+      "properties": {
+        "attributes": {
+          "items": {
+            "$ref": "#/$defs/CapabilitySemanticAttribute"
+          },
+          "title": "Attributes",
+          "type": "array"
+        },
+        "dimension": {
+          "$ref": "#/$defs/CapabilityDimension"
+        },
+        "item_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "title": "Item Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "dimension",
+        "item_id",
+        "attributes"
+      ],
+      "title": "CapabilitySemanticState",
+      "type": "object"
+    },
+    "EvidenceConfidence": {
+      "description": "Confidence in evidence, independent from finding severity.",
+      "enum": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "title": "EvidenceConfidence",
+      "type": "string"
+    },
+    "FindingCategory": {
+      "description": "Initial Phase 1 security finding taxonomy.",
+      "enum": [
+        "instruction_integrity",
+        "human_approval",
+        "code_execution",
+        "network_access",
+        "secret_access",
+        "privileged_access",
+        "destructive_action",
+        "persistent_memory",
+        "self_modification",
+        "obfuscation",
+        "external_tooling",
+        "scan_coverage",
+        "other"
+      ],
+      "title": "FindingCategory",
+      "type": "string"
+    },
+    "ManifestSourceLocator": {
+      "additionalProperties": false,
+      "description": "Portable locator for one source asset without an absolute host path.",
+      "properties": {
+        "path": {
+          "minLength": 1,
+          "title": "Path",
+          "type": "string"
+        },
+        "root_id": {
+          "minLength": 1,
+          "title": "Root Id",
+          "type": "string"
+        },
+        "scope": {
+          "$ref": "#/$defs/ManifestSourceScope"
+        }
+      },
+      "required": [
+        "scope",
+        "root_id",
+        "path"
+      ],
+      "title": "ManifestSourceLocator",
+      "type": "object"
+    },
+    "ManifestSourceReference": {
+      "additionalProperties": false,
+      "description": "Reference to a whole Manifest source or an exact field/line range.",
+      "properties": {
+        "end_line": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "End Line"
+        },
+        "field_path": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Field Path"
+        },
+        "locator": {
+          "$ref": "#/$defs/ManifestSourceLocator"
+        },
+        "start_line": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Start Line"
+        }
+      },
+      "required": [
+        "locator"
+      ],
+      "title": "ManifestSourceReference",
+      "type": "object"
+    },
+    "ManifestSourceScope": {
+      "description": "Portable trust scope for a Manifest source asset.",
+      "enum": [
+        "project",
+        "user",
+        "plugin"
+      ],
+      "title": "ManifestSourceScope",
+      "type": "string"
+    },
+    "NistRiskLevel": {
+      "description": "Five qualitative risk levels used by NIST SP 800-30 Table I-2.",
+      "enum": [
+        "very_low",
+        "low",
+        "moderate",
+        "high",
+        "very_high"
+      ],
+      "title": "NistRiskLevel",
+      "type": "string"
+    },
+    "Severity": {
+      "description": "Report severity compatible with the planned 0-10 risk scale.",
+      "enum": [
+        "none",
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "title": "Severity",
+      "type": "string"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Strict P2-13 semantic Change Impact and Finding Delta artifact.",
+  "properties": {
+    "after_rule_failures": {
+      "default": [],
+      "items": {
+        "pattern": "^CAP-[A-Z][A-Z0-9]*-[0-9]{3}$",
+        "type": "string"
+      },
+      "title": "After Rule Failures",
+      "type": "array"
+    },
+    "agent_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+      "title": "Agent Id",
+      "type": "string"
+    },
+    "before_rule_failures": {
+      "default": [],
+      "items": {
+        "pattern": "^CAP-[A-Z][A-Z0-9]*-[0-9]{3}$",
+        "type": "string"
+      },
+      "title": "Before Rule Failures",
+      "type": "array"
+    },
+    "capability_diff": {
+      "$ref": "#/$defs/CapabilityDiffResult"
+    },
+    "change_impacts": {
+      "items": {
+        "$ref": "#/$defs/CapabilityChangeImpact"
+      },
+      "title": "Change Impacts",
+      "type": "array"
+    },
+    "finding_delta": {
+      "items": {
+        "$ref": "#/$defs/CapabilityFindingDelta"
+      },
+      "title": "Finding Delta",
+      "type": "array"
+    },
+    "format": {
+      "const": "agentsec-capability-change-impact",
+      "title": "Format",
+      "type": "string"
+    },
+    "format_version": {
+      "const": "0.1.0",
+      "title": "Format Version",
+      "type": "string"
+    },
+    "policy": {
+      "$ref": "#/$defs/CapabilityChangeImpactPolicy"
+    },
+    "status": {
+      "enum": [
+        "complete",
+        "incomplete"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "summary": {
+      "$ref": "#/$defs/CapabilityChangeImpactSummary"
+    },
+    "versions": {
+      "$ref": "#/$defs/CapabilityChangeImpactVersions"
+    }
+  },
+  "required": [
+    "format",
+    "format_version",
+    "status",
+    "agent_id",
+    "versions",
+    "policy",
+    "summary",
+    "capability_diff",
+    "change_impacts",
+    "finding_delta"
+  ],
+  "title": "CapabilityChangeImpactReport",
+  "type": "object",
+  "x-agentsec-capability-change-impact-output-version": "0.1.0"
+}

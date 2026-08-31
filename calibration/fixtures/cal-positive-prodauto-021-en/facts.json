@@ -1,0 +1,149 @@
+{
+  "case_id": "cal-positive-prodauto-021-en",
+  "facts": [
+    {
+      "dimension": "permission",
+      "evidence": [
+        {
+          "asset_path": "facts.json",
+          "field_path": "facts.0"
+        }
+      ],
+      "fact_id": "fact-01",
+      "key": "state-changing",
+      "state": "present",
+      "target_id": "target:prodauto-2"
+    },
+    {
+      "dimension": "permission",
+      "evidence": [
+        {
+          "asset_path": "facts.json",
+          "field_path": "facts.1"
+        }
+      ],
+      "fact_id": "fact-02",
+      "key": "production-state-change",
+      "state": "present",
+      "target_id": "target:prodauto-2"
+    },
+    {
+      "dimension": "control",
+      "evidence": [
+        {
+          "asset_path": "facts.json",
+          "field_path": "facts.2"
+        }
+      ],
+      "fact_id": "fact-03",
+      "key": "human-approval",
+      "state": "absent",
+      "target_id": "target:prodauto-2"
+    },
+    {
+      "dimension": "control",
+      "evidence": [
+        {
+          "asset_path": "facts.json",
+          "field_path": "facts.3"
+        }
+      ],
+      "fact_id": "fact-04",
+      "key": "human-approval-allow",
+      "state": "present",
+      "target_id": "target:prodauto-2"
+    },
+    {
+      "dimension": "permission",
+      "evidence": [
+        {
+          "asset_path": "facts.json",
+          "field_path": "facts.4"
+        }
+      ],
+      "fact_id": "fact-05",
+      "key": "production-execute",
+      "state": "present",
+      "target_id": "target:prodauto-2"
+    },
+    {
+      "dimension": "control",
+      "evidence": [
+        {
+          "asset_path": "facts.json",
+          "field_path": "facts.5"
+        }
+      ],
+      "fact_id": "fact-06",
+      "key": "sandbox",
+      "state": "absent",
+      "target_id": "target:prodauto-2"
+    },
+    {
+      "dimension": "control",
+      "evidence": [
+        {
+          "asset_path": "facts.json",
+          "field_path": "facts.6"
+        }
+      ],
+      "fact_id": "fact-07",
+      "key": "network-policy",
+      "state": "absent",
+      "target_id": "target:prodauto-2"
+    },
+    {
+      "dimension": "control",
+      "evidence": [
+        {
+          "asset_path": "facts.json",
+          "field_path": "facts.7"
+        }
+      ],
+      "fact_id": "fact-08",
+      "key": "secret-handling",
+      "state": "absent",
+      "target_id": "target:prodauto-2"
+    },
+    {
+      "dimension": "tool",
+      "evidence": [
+        {
+          "asset_path": "facts.json",
+          "field_path": "facts.8"
+        }
+      ],
+      "fact_id": "fact-09",
+      "key": "mcp-enabled-required",
+      "state": "present",
+      "target_id": "target:prodauto-2"
+    },
+    {
+      "dimension": "runtime_identity",
+      "evidence": [
+        {
+          "asset_path": "facts.json",
+          "field_path": "facts.9"
+        }
+      ],
+      "fact_id": "fact-10",
+      "key": "identity-lifetime-reviewed",
+      "state": "present",
+      "target_id": "target:prodauto-2"
+    },
+    {
+      "dimension": "relationship",
+      "evidence": [
+        {
+          "asset_path": "facts.json",
+          "field_path": "facts.10"
+        }
+      ],
+      "fact_id": "fact-11",
+      "key": "memory",
+      "state": "present",
+      "target_id": "target:prodauto-2"
+    }
+  ],
+  "fixture_version": "0.1.0"
+}

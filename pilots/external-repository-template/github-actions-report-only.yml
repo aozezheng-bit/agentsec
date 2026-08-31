@@ -1,0 +1,66 @@
+# Template only: adapt to the external project's protected branch and policy
+# repository. This workflow is report-only and must not be used as an
+# authorization source without a separate P2-EXIT review.
+name: AgentSec External Pilot (Report-only)
+
+on:
+  workflow_dispatch:
+  pull_request:
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  agentsec-external-pilot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out AgentSec control repository
+        uses: actions/checkout@v5
+        with:
+          path: agentsec
+
+      - name: Check out external Agent target (read-only)
+        uses: actions/checkout@v5
+        with:
+          path: external-agent
+          # Replace with the reviewed external repository/ref. Do not derive
+          # the trust root from this checkout.
+          repository: replace-owner/replace-agent-repository
+          ref: replace-reviewed-ref
+
+      - name: Check out protected security Policy root
+        uses: actions/checkout@v5
+        with:
+          path: security-policy
+          repository: replace-owner/replace-security-policy-repository
+          ref: replace-protected-policy-ref
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install AgentSec
+        working-directory: agentsec
+        run: python -m pip install .
+
+      - name: Run report-only Pilot
+        working-directory: agentsec
+        run: |
+          python scripts/run-pilot.py \
+            --plan pilots/external-repository-template/pilot.yaml \
+            --target-root "$GITHUB_WORKSPACE/external-agent" \
+            --trust-root "$GITHUB_WORKSPACE/security-policy" \
+            --expect-policy-sha256 "REPLACE_WITH_PROTECTED_DIGEST" \
+            --output-dir "$GITHUB_WORKSPACE/external-pilot-results" \
+            --allow-evidence-pending
+
+      - name: Upload report-only evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: agentsec-external-pilot-report-only
+          path: external-pilot-results/
+          if-no-files-found: error
+          retention-days: 30

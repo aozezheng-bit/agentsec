@@ -1,0 +1,33 @@
+{
+  "corpus_binding_hash": "sha256:59e034541e3c1096f311404358031a5dc81fc880123351363713d66c2544ad79",
+  "format": "agentsec-independent-review-case",
+  "input_format": "manifest",
+  "language": "zh",
+  "pack_id": "reviewer-pack-sha256:58295690c13861a763ed9c202d39fe37642ac0f8d9d2d6e416886184a4a86d90",
+  "question_set_sha256": "sha256:f15c7f6f75064e6f0bfaee17477f28739c3cf96c99ed57ddbf490d998199ba0b",
+  "review_case_fingerprint": "sha256:6e279212e1faa2d50988683909965c85e9a8020caa66cfda7417cf357945fdee",
+  "review_case_id": "review-case-df393e0705b331767408",
+  "review_questions": [
+    {
+      "condition": {
+        "zh": "非 deny 的 write 权限指向 external 资源或范围。"
+      },
+      "prompt": {
+        "zh": "请独立将人工规则条件标记为 match、no_match 或 uncertain，并填写直接观察、策略或范围类别、证据位置、置信度、关联方式、处置意见、理由代码和备注。不要自行计算 TP/FP/FN/TN。"
+      },
+      "question_id": "question:review-case-df393e0705b331767408:CAP-EXTERNALWRITE-001",
+      "rule_id": "CAP-EXTERNALWRITE-001",
+      "title": {
+        "zh": "外部写入能力跨越信任边界"
+      }
+    }
+  ],
+  "schema_version": "0.3.0",
+  "source_location": {
+    "end_line": 13,
+    "path": "source.manifest.json",
+    "start_line": 1
+  },
+  "source_sha256": "sha256:5a67360af2dc3a4b3fb8ea3c4a9d6da0bc5ed21e77cbf5cde4e29a627717581c",
+  "synthetic_fixture": true
+}

@@ -1,0 +1,33 @@
+{
+  "corpus_binding_hash": "sha256:59e034541e3c1096f311404358031a5dc81fc880123351363713d66c2544ad79",
+  "format": "agentsec-independent-review-case",
+  "input_format": "manifest",
+  "language": "zh",
+  "pack_id": "reviewer-pack-sha256:58295690c13861a763ed9c202d39fe37642ac0f8d9d2d6e416886184a4a86d90",
+  "question_set_sha256": "sha256:e2be733a0f695e3ce3e794fb7a2bfd800e757d2ea4d7b52c0b2af655592bc7df",
+  "review_case_fingerprint": "sha256:988e4110a093666f1b18050dfaa8bbb7ebd02b929774563470ae411a1c11b2ab",
+  "review_case_id": "review-case-179f0dc7141cfd138455",
+  "review_questions": [
+    {
+      "condition": {
+        "zh": "存在 delegation 或 memory 关系，但关系状态为 Unknown。"
+      },
+      "prompt": {
+        "zh": "请独立将人工规则条件标记为 match、no_match 或 uncertain，并填写直接观察、策略或范围类别、证据位置、置信度、关联方式、处置意见、理由代码和备注。不要自行计算 TP/FP/FN/TN。"
+      },
+      "question_id": "question:review-case-179f0dc7141cfd138455:CAP-RELATIONUNKNOWN-001",
+      "rule_id": "CAP-RELATIONUNKNOWN-001",
+      "title": {
+        "zh": "高影响关系未解析"
+      }
+    }
+  ],
+  "schema_version": "0.3.0",
+  "source_location": {
+    "end_line": 13,
+    "path": "source.manifest.json",
+    "start_line": 1
+  },
+  "source_sha256": "sha256:07f7e9f85ff9a24e4e96cbed24c6f75559504ea0a11de227992f018f01b3826f",
+  "synthetic_fixture": true
+}

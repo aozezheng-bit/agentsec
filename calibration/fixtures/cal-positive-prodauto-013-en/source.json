@@ -1,0 +1,73 @@
+{
+  "case_id": "cal-positive-prodauto-013-en",
+  "facts": [
+    {
+      "dimension": "permission",
+      "key": "state-changing",
+      "state": "present",
+      "target_id": "target:prodauto-4"
+    },
+    {
+      "dimension": "permission",
+      "key": "production-state-change",
+      "state": "present",
+      "target_id": "target:prodauto-4"
+    },
+    {
+      "dimension": "control",
+      "key": "human-approval",
+      "state": "absent",
+      "target_id": "target:prodauto-4"
+    },
+    {
+      "dimension": "control",
+      "key": "human-approval-allow",
+      "state": "present",
+      "target_id": "target:prodauto-4"
+    },
+    {
+      "dimension": "permission",
+      "key": "production-publish",
+      "state": "present",
+      "target_id": "target:prodauto-4"
+    },
+    {
+      "dimension": "control",
+      "key": "sandbox",
+      "state": "absent",
+      "target_id": "target:prodauto-4"
+    },
+    {
+      "dimension": "control",
+      "key": "network-policy",
+      "state": "absent",
+      "target_id": "target:prodauto-4"
+    },
+    {
+      "dimension": "control",
+      "key": "secret-handling",
+      "state": "absent",
+      "target_id": "target:prodauto-4"
+    },
+    {
+      "dimension": "tool",
+      "key": "mcp-enabled-required",
+      "state": "absent",
+      "target_id": "target:prodauto-4"
+    },
+    {
+      "dimension": "runtime_identity",
+      "key": "identity-lifetime-reviewed",
+      "state": "present",
+      "target_id": "target:prodauto-4"
+    },
+    {
+      "dimension": "relationship",
+      "key": "memory",
+      "state": "absent",
+      "target_id": "target:prodauto-4"
+    }
+  ],
+  "format": "synthetic-static-review-view",
+  "synthetic": true
+}

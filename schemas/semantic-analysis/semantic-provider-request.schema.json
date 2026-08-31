@@ -1,0 +1,183 @@
+{
+  "$defs": {
+    "SemanticInvocationLimits": {
+      "additionalProperties": false,
+      "description": "Trusted per-invocation limits; P3-02 permits one non-billable attempt.",
+      "properties": {
+        "billable_invocation_allowed": {
+          "const": false,
+          "default": false,
+          "title": "Billable Invocation Allowed",
+          "type": "boolean"
+        },
+        "fallback_allowed": {
+          "const": false,
+          "default": false,
+          "title": "Fallback Allowed",
+          "type": "boolean"
+        },
+        "max_attempts": {
+          "const": 1,
+          "default": 1,
+          "title": "Max Attempts",
+          "type": "integer"
+        },
+        "max_cost_microunits": {
+          "const": 0,
+          "default": 0,
+          "title": "Max Cost Microunits",
+          "type": "integer"
+        },
+        "max_input_characters": {
+          "default": 131072,
+          "maximum": 262144,
+          "minimum": 1,
+          "title": "Max Input Characters",
+          "type": "integer"
+        },
+        "max_input_tokens": {
+          "default": 32768,
+          "maximum": 1000000,
+          "minimum": 0,
+          "title": "Max Input Tokens",
+          "type": "integer"
+        },
+        "max_output_characters": {
+          "default": 65536,
+          "maximum": 131072,
+          "minimum": 1,
+          "title": "Max Output Characters",
+          "type": "integer"
+        },
+        "max_output_tokens": {
+          "default": 8192,
+          "maximum": 1000000,
+          "minimum": 0,
+          "title": "Max Output Tokens",
+          "type": "integer"
+        },
+        "timeout_ms": {
+          "default": 30000,
+          "maximum": 120000,
+          "minimum": 1,
+          "title": "Timeout Ms",
+          "type": "integer"
+        }
+      },
+      "title": "SemanticInvocationLimits",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Provider-ready request with physically separate instruction/data channels.",
+  "properties": {
+    "analysis_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Analysis Id",
+      "type": "string"
+    },
+    "data_channel_json": {
+      "maxLength": 262144,
+      "minLength": 1,
+      "title": "Data Channel Json",
+      "type": "string"
+    },
+    "format": {
+      "const": "agentsec-semantic-provider-request",
+      "default": "agentsec-semantic-provider-request",
+      "title": "Format",
+      "type": "string"
+    },
+    "input_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Input Sha256",
+      "type": "string"
+    },
+    "limits": {
+      "$ref": "#/$defs/SemanticInvocationLimits"
+    },
+    "model_filesystem_write": {
+      "const": false,
+      "default": false,
+      "title": "Model Filesystem Write",
+      "type": "boolean"
+    },
+    "model_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]{0,159}$",
+      "title": "Model Id",
+      "type": "string"
+    },
+    "model_network_access": {
+      "const": false,
+      "default": false,
+      "title": "Model Network Access",
+      "type": "boolean"
+    },
+    "model_tools_enabled": {
+      "const": false,
+      "default": false,
+      "title": "Model Tools Enabled",
+      "type": "boolean"
+    },
+    "output_schema_json": {
+      "maxLength": 262144,
+      "minLength": 1,
+      "title": "Output Schema Json",
+      "type": "string"
+    },
+    "prompt_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Prompt Sha256",
+      "type": "string"
+    },
+    "prompt_version": {
+      "const": "0.1.0",
+      "default": "0.1.0",
+      "title": "Prompt Version",
+      "type": "string"
+    },
+    "provider_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]{0,159}$",
+      "title": "Provider Id",
+      "type": "string"
+    },
+    "raw_request_retained": {
+      "const": false,
+      "default": false,
+      "title": "Raw Request Retained",
+      "type": "boolean"
+    },
+    "request_id": {
+      "pattern": "^semantic-provider-request-sha256:[0-9a-f]{64}$",
+      "title": "Request Id",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "0.1.0",
+      "default": "0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "system_channel": {
+      "maxLength": 4096,
+      "minLength": 1,
+      "title": "System Channel",
+      "type": "string"
+    }
+  },
+  "required": [
+    "provider_id",
+    "model_id",
+    "request_id",
+    "analysis_id",
+    "prompt_sha256",
+    "input_sha256",
+    "system_channel",
+    "data_channel_json",
+    "output_schema_json",
+    "limits"
+  ],
+  "title": "SemanticProviderRequest",
+  "type": "object"
+}

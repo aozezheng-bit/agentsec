@@ -1,0 +1,103 @@
+{
+  "actual": {
+    "added_findings": [],
+    "added_observations": [],
+    "capability_changes": {
+      "persistent_memory": [
+        "present",
+        "unknown"
+      ],
+      "user_profile_persistence": [
+        "present",
+        "unknown"
+      ]
+    },
+    "changed_findings": [],
+    "file_changes": {
+      "AGENTS.md": "modified",
+      "USER.md": "modified"
+    },
+    "persona_changes": {},
+    "removed_findings": [
+      "HOMI-COMB-003"
+    ],
+    "removed_observations": [],
+    "resolution_status": "conflict",
+    "simulation_changes": {
+      "HOMI-SIM-003": [
+        "declared_path",
+        "unknown_coverage"
+      ]
+    },
+    "status": "partial"
+  },
+  "after": {
+    "ci_blocked": false,
+    "report_only": true,
+    "resolution_status": "conflict",
+    "runtime_verified": false,
+    "status": "partial"
+  },
+  "before": {
+    "ci_blocked": false,
+    "report_only": true,
+    "resolution_status": "conflict",
+    "runtime_verified": false,
+    "status": "partial"
+  },
+  "drill": null,
+  "expected": {
+    "added_findings": [],
+    "added_observations": [],
+    "capability_changes": {
+      "persistent_memory": [
+        "present",
+        "unknown"
+      ],
+      "user_profile_persistence": [
+        "present",
+        "unknown"
+      ]
+    },
+    "changed_findings": [],
+    "file_changes": {
+      "AGENTS.md": "modified",
+      "USER.md": "modified"
+    },
+    "persona_changes": {},
+    "removed_findings": [
+      "HOMI-COMB-003"
+    ],
+    "removed_observations": [],
+    "resolution_status": "conflict",
+    "simulation_changes": {
+      "HOMI-SIM-003": [
+        "declared_path",
+        "unknown_coverage"
+      ]
+    },
+    "status": "partial"
+  },
+  "format": "agentsec-homi-capability-drift-evidence",
+  "format_version": "0.1.0",
+  "limitations": [
+    "Static Homi drift does not prove runtime reachability or execution.",
+    "Scenario-contract review is engineering evidence, not independent human TP/FP/FN adjudication.",
+    "No drift result authorizes CI blocking, release, Tool access, or a waiver."
+  ],
+  "provenance": {
+    "baseline_report_sha256": "78b4a257236b6a91b274b286b65298edc0bb26f8c40699ed94d78f4e959b4508",
+    "snapshot_archive_sha256": "f87ae8f4ddcacd9bf5abe2226d40d44b992aa2f1d08d8a368f280a6b5c3c6a93",
+    "snapshot_report_sha256": "60a7749fbea823588c537a4ccaef837c1c9cfd51b7633d6fe1e023a043a34648"
+  },
+  "review": {
+    "contract_pass": true,
+    "independent_human_review": false,
+    "mode": "deterministic_scenario_contract",
+    "outcome": "contract_pass"
+  },
+  "risk_direction": "hardening",
+  "scenario_id": "pr-08-disable-persistent-memory",
+  "task_id": "P2-EXIT-06-03",
+  "title": "关闭用户画像和跨会话长期记忆"
+}

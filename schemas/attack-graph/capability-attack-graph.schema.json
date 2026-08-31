@@ -1,0 +1,383 @@
+{
+  "$defs": {
+    "AttackGraphEdge": {
+      "additionalProperties": false,
+      "description": "One directed relation with value-free Evidence and no authority.",
+      "properties": {
+        "edge_id": {
+          "pattern": "^attack-edge-sha256:[0-9a-f]{64}$",
+          "title": "Edge Id",
+          "type": "string"
+        },
+        "edge_kind": {
+          "$ref": "#/$defs/AttackGraphEdgeKind"
+        },
+        "runtime_verified": {
+          "const": false,
+          "default": false,
+          "title": "Runtime Verified",
+          "type": "boolean"
+        },
+        "source_node_id": {
+          "pattern": "^attack-node-sha256:[0-9a-f]{64}$",
+          "title": "Source Node Id",
+          "type": "string"
+        },
+        "sources": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/AttackGraphSourceRef"
+          },
+          "maxItems": 16,
+          "title": "Sources",
+          "type": "array"
+        },
+        "target_node_id": {
+          "pattern": "^attack-node-sha256:[0-9a-f]{64}$",
+          "title": "Target Node Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "edge_id",
+        "edge_kind",
+        "source_node_id",
+        "target_node_id"
+      ],
+      "title": "AttackGraphEdge",
+      "type": "object"
+    },
+    "AttackGraphEdgeKind": {
+      "description": "Finite reviewed directed relations between Attack Graph nodes.",
+      "enum": [
+        "uses_tool",
+        "uses_skill",
+        "uses_mcp",
+        "reads_input",
+        "overrides_instruction",
+        "reads_secret",
+        "reads_data",
+        "writes_memory",
+        "reads_memory",
+        "writes_to",
+        "sends_to",
+        "delegates_to",
+        "installs",
+        "provides_tool"
+      ],
+      "title": "AttackGraphEdgeKind",
+      "type": "string"
+    },
+    "AttackGraphNode": {
+      "additionalProperties": false,
+      "description": "One Attack Graph entity with value-free Evidence and no authority.",
+      "properties": {
+        "label": {
+          "anyOf": [
+            {
+              "maxLength": 160,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Label"
+        },
+        "manifest_refs": {
+          "default": [],
+          "items": {
+            "maxLength": 160,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]{0,159}$",
+            "type": "string"
+          },
+          "maxItems": 16,
+          "title": "Manifest Refs",
+          "type": "array"
+        },
+        "node_id": {
+          "pattern": "^attack-node-sha256:[0-9a-f]{64}$",
+          "title": "Node Id",
+          "type": "string"
+        },
+        "node_kind": {
+          "$ref": "#/$defs/AttackGraphNodeKind"
+        },
+        "node_provenance": {
+          "$ref": "#/$defs/AttackGraphNodeProvenance"
+        },
+        "runtime_verified": {
+          "const": false,
+          "default": false,
+          "title": "Runtime Verified",
+          "type": "boolean"
+        },
+        "sources": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/AttackGraphSourceRef"
+          },
+          "maxItems": 16,
+          "title": "Sources",
+          "type": "array"
+        }
+      },
+      "required": [
+        "node_id",
+        "node_kind",
+        "node_provenance"
+      ],
+      "title": "AttackGraphNode",
+      "type": "object"
+    },
+    "AttackGraphNodeKind": {
+      "description": "Finite reviewed node families; none proves runtime behavior.",
+      "enum": [
+        "untrusted_input",
+        "tool",
+        "skill",
+        "mcp_server",
+        "agent",
+        "secret",
+        "data",
+        "memory",
+        "network",
+        "production_target",
+        "dependency"
+      ],
+      "title": "AttackGraphNodeKind",
+      "type": "string"
+    },
+    "AttackGraphNodeProvenance": {
+      "description": "How a node became part of the graph; never a runtime fact.",
+      "enum": [
+        "manifest_declared",
+        "manifest_inferred",
+        "synthetic"
+      ],
+      "title": "AttackGraphNodeProvenance",
+      "type": "string"
+    },
+    "AttackGraphPath": {
+      "additionalProperties": false,
+      "description": "One static declared path chain; never a runtime reachability proof.",
+      "properties": {
+        "edge_sequence": {
+          "items": {
+            "pattern": "^attack-edge-sha256:[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "maxItems": 31,
+          "minItems": 1,
+          "title": "Edge Sequence",
+          "type": "array"
+        },
+        "exploitability": {
+          "const": "not_proven",
+          "default": "not_proven",
+          "title": "Exploitability",
+          "type": "string"
+        },
+        "node_sequence": {
+          "items": {
+            "pattern": "^attack-node-sha256:[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "maxItems": 32,
+          "minItems": 2,
+          "title": "Node Sequence",
+          "type": "array"
+        },
+        "path_id": {
+          "pattern": "^attack-path-sha256:[0-9a-f]{64}$",
+          "title": "Path Id",
+          "type": "string"
+        },
+        "path_kind": {
+          "const": "static_declared_path",
+          "default": "static_declared_path",
+          "title": "Path Kind",
+          "type": "string"
+        },
+        "pattern_id": {
+          "maxLength": 64,
+          "minLength": 1,
+          "pattern": "^[a-z][a-z0-9-]{0,63}$",
+          "title": "Pattern Id",
+          "type": "string"
+        },
+        "reachability": {
+          "const": "not_proven",
+          "default": "not_proven",
+          "title": "Reachability",
+          "type": "string"
+        },
+        "runtime_verified": {
+          "const": false,
+          "default": false,
+          "title": "Runtime Verified",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "path_id",
+        "pattern_id",
+        "node_sequence",
+        "edge_sequence"
+      ],
+      "title": "AttackGraphPath",
+      "type": "object"
+    },
+    "AttackGraphSourceRef": {
+      "additionalProperties": false,
+      "description": "Value-free Manifest source locator; no raw text is retained.",
+      "properties": {
+        "asset_path": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Asset Path",
+          "type": "string"
+        },
+        "asset_sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Asset Sha256",
+          "type": "string"
+        },
+        "end_line": {
+          "minimum": 1,
+          "title": "End Line",
+          "type": "integer"
+        },
+        "start_line": {
+          "minimum": 1,
+          "title": "Start Line",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "asset_path",
+        "asset_sha256",
+        "start_line",
+        "end_line"
+      ],
+      "title": "AttackGraphSourceRef",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Deterministic static Capability Attack Graph with no enforcement authority.",
+  "properties": {
+    "blocks": {
+      "const": false,
+      "default": false,
+      "title": "Blocks",
+      "type": "boolean"
+    },
+    "ci_authority": {
+      "const": false,
+      "default": false,
+      "title": "Ci Authority",
+      "type": "boolean"
+    },
+    "edges": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/AttackGraphEdge"
+      },
+      "maxItems": 8192,
+      "title": "Edges",
+      "type": "array"
+    },
+    "finding_authority": {
+      "const": false,
+      "default": false,
+      "title": "Finding Authority",
+      "type": "boolean"
+    },
+    "format": {
+      "const": "agentsec-capability-attack-graph",
+      "default": "agentsec-capability-attack-graph",
+      "title": "Format",
+      "type": "string"
+    },
+    "hard_gate_authority": {
+      "const": false,
+      "default": false,
+      "title": "Hard Gate Authority",
+      "type": "boolean"
+    },
+    "manifest_schema_version": {
+      "pattern": "^(?:0|[1-9]\\d*)\\.(?:0|[1-9]\\d*)\\.(?:0|[1-9]\\d*)$",
+      "title": "Manifest Schema Version",
+      "type": "string"
+    },
+    "manifest_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Manifest Sha256",
+      "type": "string"
+    },
+    "nodes": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/AttackGraphNode"
+      },
+      "maxItems": 2048,
+      "title": "Nodes",
+      "type": "array"
+    },
+    "paths": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/AttackGraphPath"
+      },
+      "maxItems": 256,
+      "title": "Paths",
+      "type": "array"
+    },
+    "policy_authority": {
+      "const": false,
+      "default": false,
+      "title": "Policy Authority",
+      "type": "boolean"
+    },
+    "release_authority": {
+      "const": false,
+      "default": false,
+      "title": "Release Authority",
+      "type": "boolean"
+    },
+    "report_only": {
+      "const": true,
+      "default": true,
+      "title": "Report Only",
+      "type": "boolean"
+    },
+    "rule_publication_authority": {
+      "const": false,
+      "default": false,
+      "title": "Rule Publication Authority",
+      "type": "boolean"
+    },
+    "runtime_verified": {
+      "const": false,
+      "default": false,
+      "title": "Runtime Verified",
+      "type": "boolean"
+    },
+    "schema_version": {
+      "const": "0.1.0",
+      "default": "0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "manifest_schema_version",
+    "manifest_sha256"
+  ],
+  "title": "CapabilityAttackGraph",
+  "type": "object"
+}

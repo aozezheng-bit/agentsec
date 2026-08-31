@@ -1,0 +1,82 @@
+{
+  "assessment": {
+    "assets": [
+      {
+        "asset_type": "agents",
+        "encoding": "utf-8",
+        "git_status": null,
+        "line_count": 5,
+        "path": "AGENTS.md",
+        "sha256": "b9c1ee32b3119e73e54456c11018b3fed68ac02dbaf6f0a10489a0bc73748c34",
+        "size_bytes": 184,
+        "source": "discovered"
+      },
+      {
+        "asset_type": "skill",
+        "encoding": "utf-8",
+        "git_status": null,
+        "line_count": 4,
+        "path": "skills/review/SKILL.md",
+        "sha256": "633822810622e809dda5f3c3c0f78338655c0e1c4d349dc2023114257a02ee7e",
+        "size_bytes": 136,
+        "source": "discovered"
+      }
+    ],
+    "changes": [],
+    "coverage": {
+      "complete": true,
+      "discovered_assets": 2,
+      "issues": [],
+      "scanned_assets": 2,
+      "skipped_assets": 0
+    },
+    "findings": [],
+    "metadata": {
+      "completed_at": "2026-08-19T05:30:00Z",
+      "config_schema_version": "0.1.0",
+      "deterministic": true,
+      "git_commit": null,
+      "git_dirty": null,
+      "risk_model_version": "0.4.0",
+      "rule_pack_version": "0.3.0",
+      "scanner_version": "0.2.0",
+      "schema_version": "0.8.0",
+      "started_at": "2026-08-19T05:30:00Z",
+      "target_root": "demos/release-agent/remediated"
+    }
+  },
+  "format": "agentsec-assessment",
+  "format_version": "0.7.0",
+  "policy": {
+    "ci_blocking_enabled": false,
+    "enforcement_mode": "report_only",
+    "global_safety_claimed": false
+  },
+  "status": "complete",
+  "summary": {
+    "assets": 2,
+    "changes": 0,
+    "confidence_counts": {
+      "A": 0,
+      "B": 0,
+      "C": 0,
+      "D": 0
+    },
+    "coverage_complete": true,
+    "coverage_discovered_assets": 2,
+    "coverage_issues": 0,
+    "coverage_scanned_assets": 2,
+    "coverage_skipped_assets": 0,
+    "cvss_hard_gate_matches": 0,
+    "findings": 0,
+    "hard_gate_matches": 0,
+    "highest_severity": "none",
+    "severity_counts": {
+      "critical": 0,
+      "high": 0,
+      "low": 0,
+      "medium": 0,
+      "none": 0
+    }
+  }
+}

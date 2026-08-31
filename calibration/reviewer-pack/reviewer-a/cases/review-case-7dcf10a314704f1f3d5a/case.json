@@ -1,0 +1,46 @@
+{
+  "corpus_binding_hash": "sha256:59e034541e3c1096f311404358031a5dc81fc880123351363713d66c2544ad79",
+  "format": "agentsec-independent-review-case",
+  "input_format": "yaml",
+  "language": "en",
+  "pack_id": "reviewer-pack-sha256:58295690c13861a763ed9c202d39fe37642ac0f8d9d2d6e416886184a4a86d90",
+  "question_set_sha256": "sha256:7b4a7c6ad577e859c7b43a7a01cda5ca8bcaa2395071bbfcdccb0b9401e8a18b",
+  "review_case_fingerprint": "sha256:6c94a4216d38170f645240916eab8d4c1d3063e1822b1bd0bbf72ac31332aabc",
+  "review_case_id": "review-case-7dcf10a314704f1f3d5a",
+  "review_questions": [
+    {
+      "condition": {
+        "en": "A write, execute, deploy, publish, or admin capability is enabled or not explicitly disabled while the correlated target has no prompt or deny approval control."
+      },
+      "prompt": {
+        "en": "Independently label the human Rule condition as match, no_match, or uncertain; record your direct finding observation, policy/scope category, evidence location, Confidence, Correlation, disposition, rationale code, and notes. Do not calculate TP/FP/FN/TN."
+      },
+      "question_id": "question:review-case-7dcf10a314704f1f3d5a:CAP-APPROVAL-001",
+      "rule_id": "CAP-APPROVAL-001",
+      "title": {
+        "en": "State-changing capability lacks an effective human approval control"
+      }
+    },
+    {
+      "condition": {
+        "en": "A production write, execute, deploy, publish, or admin permission has an effective allow approval state."
+      },
+      "prompt": {
+        "en": "Independently label the human Rule condition as match, no_match, or uncertain; record your direct finding observation, policy/scope category, evidence location, Confidence, Correlation, disposition, rationale code, and notes. Do not calculate TP/FP/FN/TN."
+      },
+      "question_id": "question:review-case-7dcf10a314704f1f3d5a:CAP-AUTOPROD-001",
+      "rule_id": "CAP-AUTOPROD-001",
+      "title": {
+        "en": "Production state-changing capability is allowed automatically"
+      }
+    }
+  ],
+  "schema_version": "0.3.0",
+  "source_location": {
+    "end_line": 48,
+    "path": "source.yaml",
+    "start_line": 1
+  },
+  "source_sha256": "sha256:ebd597c67cd18fb42c9222d016c8f2d2b5eb29ae445747d7b4f48ed88dacf6e7",
+  "synthetic_fixture": true
+}

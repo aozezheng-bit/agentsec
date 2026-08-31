@@ -1,0 +1,44 @@
+title: "Synthetic static capability review input"
+synthetic: true
+review_case_id: review-case-789f1b7b0d4316c2ba29
+facts:
+  - dimension: control
+    key: external-network-deny
+    state: present
+    target_id: target:capchain-4
+  - dimension: permission
+    key: execute
+    state: present
+    target_id: target:capchain-4
+  - dimension: permission
+    key: secret-access
+    state: present
+    target_id: target:capchain-4
+  - dimension: permission
+    key: external-network
+    state: absent
+    target_id: target:capchain-4
+  - dimension: control
+    key: sandbox
+    state: absent
+    target_id: target:capchain-4
+  - dimension: control
+    key: network-policy
+    state: absent
+    target_id: target:capchain-4
+  - dimension: control
+    key: secret-handling
+    state: absent
+    target_id: target:capchain-4
+  - dimension: tool
+    key: mcp-enabled-required
+    state: present
+    target_id: target:capchain-4
+  - dimension: runtime_identity
+    key: identity-lifetime-reviewed
+    state: absent
+    target_id: target:capchain-4
+  - dimension: relationship
+    key: memory
+    state: absent
+    target_id: target:capchain-4

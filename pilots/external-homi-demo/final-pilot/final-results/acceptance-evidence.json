@@ -1,0 +1,28 @@
+{
+  "acceptance_ready": true,
+  "cases": 20,
+  "false_negatives": 0,
+  "false_positives": 0,
+  "format": "agentsec-external-homi-final-acceptance-evidence",
+  "format_version": "0.1.0",
+  "human_label_source": "independent_reviewer",
+  "human_labels_complete": true,
+  "human_reviewer_ids": [
+    "codefuse-agentsec-expert-reviewer"
+  ],
+  "p95_duration_ms": 692,
+  "package_version": "0.4.0.dev0",
+  "passed_cases": 20,
+  "phase3_entry_state": "ready_for_candidate",
+  "pilot_id": "external-homi-final-pilot",
+  "pilot_report_sha256": "3d4a9e2070a4f6e9dbd1f634789c812e4d7a9cf94a948dbbfbe6bfd9747813c2",
+  "precision": 1.0,
+  "ready_for_phase3_shadow": true,
+  "ready_for_release": false,
+  "recall": 1.0,
+  "risk_model_version": "0.4.0",
+  "rule_pack_version": "0.3.1",
+  "scope_complete": true,
+  "target_unchanged": true,
+  "task_id": "P2-EXIT-06-05"
+}

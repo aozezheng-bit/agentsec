@@ -1,0 +1,17 @@
+{
+  "case_id": "prompt-injection-disregard-prior",
+  "category": "prompt-injection",
+  "purpose": "Treat scanner-directed prior-instruction override text as evidence.",
+  "assets": [
+    "AGENTS.md"
+  ],
+  "expected": {
+    "coverage": "complete",
+    "signals": [
+      "instruction_integrity"
+    ],
+    "rule_ids": [
+      "MD-INSTR-001"
+    ]
+  }
+}

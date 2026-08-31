@@ -1,0 +1,13 @@
+{
+  "facts": [
+    {
+      "dimension": "runtime_identity",
+      "key": "external-runtime-verification",
+      "state": "unknown",
+      "target_id": "target:primary"
+    }
+  ],
+  "format": "synthetic-agent-manifest-review-view",
+  "review_case_id": "review-case-9a7f293fb5d5ee11bfc2",
+  "synthetic": true
+}

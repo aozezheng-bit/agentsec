@@ -1,0 +1,57 @@
+title = "Synthetic static capability review input / 合成静态能力评审输入"
+synthetic = true
+review_case_id = "review-case-8e27a7950c28998926f3"
+
+[[facts]]
+dimension = "permission"
+key = "execute"
+state = "present"
+target_id = "target:capchain-1"
+
+[[facts]]
+dimension = "permission"
+key = "secret-access"
+state = "absent"
+target_id = "target:capchain-1"
+
+[[facts]]
+dimension = "permission"
+key = "external-network"
+state = "present"
+target_id = "target:capchain-1"
+
+[[facts]]
+dimension = "control"
+key = "sandbox"
+state = "absent"
+target_id = "target:capchain-1"
+
+[[facts]]
+dimension = "control"
+key = "network-policy"
+state = "present"
+target_id = "target:capchain-1"
+
+[[facts]]
+dimension = "control"
+key = "secret-handling"
+state = "absent"
+target_id = "target:capchain-1"
+
+[[facts]]
+dimension = "tool"
+key = "mcp-enabled-required"
+state = "present"
+target_id = "target:capchain-1"
+
+[[facts]]
+dimension = "runtime_identity"
+key = "identity-lifetime-reviewed"
+state = "absent"
+target_id = "target:capchain-1"
+
+[[facts]]
+dimension = "relationship"
+key = "memory"
+state = "absent"
+target_id = "target:capchain-1"

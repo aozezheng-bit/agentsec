@@ -1,0 +1,88 @@
+{
+  "case_id": "cal-incomplete-coverage-en",
+  "case_kind": "incomplete",
+  "fixture": {
+    "formats": [
+      "json"
+    ],
+    "kind": "fact_bundle",
+    "path": "fixtures/cal-incomplete-coverage-en/facts.json"
+  },
+  "format": "agentsec-capability-calibration-case",
+  "framework_id": "codex",
+  "ground_truth": {
+    "coverage": "incomplete",
+    "facts": [
+      {
+        "dimension": "permission",
+        "evidence": [
+          {
+            "asset_path": "facts.json",
+            "field_path": "facts.0"
+          }
+        ],
+        "fact_id": "fact-01",
+        "key": "high-impact",
+        "state": "present",
+        "target_id": "target:primary"
+      },
+      {
+        "dimension": "coverage",
+        "evidence": [
+          {
+            "asset_path": "facts.json",
+            "field_path": "facts.1"
+          }
+        ],
+        "fact_id": "fact-02",
+        "key": "relevant-dimension",
+        "state": "unknown",
+        "target_id": "target:primary"
+      }
+    ],
+    "rule_expectations": [
+      {
+        "confidences": [
+          "D"
+        ],
+        "correlations": [
+          "incomplete_coverage"
+        ],
+        "fact_ids": [
+          "fact-01",
+          "fact-02"
+        ],
+        "max_findings": 4,
+        "min_findings": 1,
+        "outcome": "match",
+        "rationale_code": "incomplete_relevant_coverage",
+        "rule_id": "CAP-COVERAGE-001"
+      }
+    ],
+    "runtime_verified": false,
+    "unknown_dimensions": [
+      "coverage"
+    ]
+  },
+  "language": "en",
+  "purpose": "Adversarial calibration boundary for CAP-COVERAGE-001.",
+  "review": {
+    "disposition": "actionable",
+    "rationale_code": "seed_boundary_case",
+    "reviewer_refs": [
+      "seed-labeler-1",
+      "seed-labeler-2"
+    ],
+    "status": "seeded"
+  },
+  "schema_version": "0.1.0",
+  "source_formats": [
+    "json",
+    "manifest"
+  ],
+  "tags": [
+    "boundary",
+    "incomplete",
+    "p2-cal-01"
+  ]
+}

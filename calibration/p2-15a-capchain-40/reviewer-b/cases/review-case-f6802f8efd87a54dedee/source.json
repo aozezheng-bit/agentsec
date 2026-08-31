@@ -1,0 +1,67 @@
+{
+  "facts": [
+    {
+      "dimension": "permission",
+      "key": "secret-access-other-target",
+      "state": "present",
+      "target_id": "target:isolated"
+    },
+    {
+      "dimension": "permission",
+      "key": "execute",
+      "state": "present",
+      "target_id": "target:capchain-2"
+    },
+    {
+      "dimension": "permission",
+      "key": "secret-access",
+      "state": "absent",
+      "target_id": "target:capchain-2"
+    },
+    {
+      "dimension": "permission",
+      "key": "external-network",
+      "state": "present",
+      "target_id": "target:capchain-2"
+    },
+    {
+      "dimension": "control",
+      "key": "sandbox",
+      "state": "present",
+      "target_id": "target:capchain-2"
+    },
+    {
+      "dimension": "control",
+      "key": "network-policy",
+      "state": "absent",
+      "target_id": "target:capchain-2"
+    },
+    {
+      "dimension": "control",
+      "key": "secret-handling",
+      "state": "absent",
+      "target_id": "target:capchain-2"
+    },
+    {
+      "dimension": "tool",
+      "key": "mcp-enabled-required",
+      "state": "absent",
+      "target_id": "target:capchain-2"
+    },
+    {
+      "dimension": "runtime_identity",
+      "key": "identity-lifetime-reviewed",
+      "state": "absent",
+      "target_id": "target:capchain-2"
+    },
+    {
+      "dimension": "relationship",
+      "key": "delegates-to",
+      "state": "absent",
+      "target_id": "target:capchain-2"
+    }
+  ],
+  "format": "synthetic-static-review-view",
+  "review_case_id": "review-case-f6802f8efd87a54dedee",
+  "synthetic": true
+}

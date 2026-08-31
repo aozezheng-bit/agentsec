@@ -1,0 +1,33 @@
+{
+  "corpus_binding_hash": "sha256:59e034541e3c1096f311404358031a5dc81fc880123351363713d66c2544ad79",
+  "format": "agentsec-independent-review-case",
+  "input_format": "manifest",
+  "language": "en",
+  "pack_id": "reviewer-pack-sha256:58295690c13861a763ed9c202d39fe37642ac0f8d9d2d6e416886184a4a86d90",
+  "question_set_sha256": "sha256:b1cbb256eb1feaa5726f0207b3b0ba1241d370e3e43c836abec4850ba067bb3e",
+  "review_case_fingerprint": "sha256:aa330e9f6569bebccc3d8f60e63dd503d6eaa132adf05120f69f460298b4d1f1",
+  "review_case_id": "review-case-57fdc60d7a4e54964af0",
+  "review_questions": [
+    {
+      "condition": {
+        "en": "A memory relationship coexists with a production write, admin, deploy, or publish permission."
+      },
+      "prompt": {
+        "en": "Independently label the human Rule condition as match, no_match, or uncertain; record your direct finding observation, policy/scope category, evidence location, Confidence, Correlation, disposition, rationale code, and notes. Do not calculate TP/FP/FN/TN."
+      },
+      "question_id": "question:review-case-57fdc60d7a4e54964af0:CAP-MEMORYPROD-001",
+      "rule_id": "CAP-MEMORYPROD-001",
+      "title": {
+        "en": "Memory relationship coexists with production state change"
+      }
+    }
+  ],
+  "schema_version": "0.3.0",
+  "source_location": {
+    "end_line": 19,
+    "path": "source.manifest.json",
+    "start_line": 1
+  },
+  "source_sha256": "sha256:fb93133a98120c0c9c62f2a44e720e5a5969f3185b1887385f2d5c1aa5821101",
+  "synthetic_fixture": true
+}

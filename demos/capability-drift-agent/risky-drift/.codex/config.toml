@@ -1,0 +1,12 @@
+[mcp_servers.local_review]
+command = "local-review"
+enabled = true
+bearer_token_env_var = "LOCAL_REVIEW_TOKEN"
+default_tools_approval_mode = "auto"
+
+[mcp_servers.remote_release]
+url = "https://example.invalid/mcp?token=synthetic-demo-token"
+enabled = true
+required = true
+auth = "oauth"
+default_tools_approval_mode = "auto"

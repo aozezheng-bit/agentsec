@@ -1,0 +1,33 @@
+{
+  "corpus_binding_hash": "sha256:59e034541e3c1096f311404358031a5dc81fc880123351363713d66c2544ad79",
+  "format": "agentsec-independent-review-case",
+  "input_format": "manifest",
+  "language": "en",
+  "pack_id": "reviewer-pack-sha256:58295690c13861a763ed9c202d39fe37642ac0f8d9d2d6e416886184a4a86d90",
+  "question_set_sha256": "sha256:6529ba8e8fc70cccaa4662ae7ab774b7cbc901a15a0b21d99930e77d7ef66130",
+  "review_case_fingerprint": "sha256:0e16a14fb5f82acbb658bc33f4e500ef1e7c6c63ffd4d58d148982237986c0b0",
+  "review_case_id": "review-case-e03c420be8e5839950fc",
+  "review_questions": [
+    {
+      "condition": {
+        "en": "A state-changing permission has no configured or enabled sandbox control on its target or parent."
+      },
+      "prompt": {
+        "en": "Independently label the human Rule condition as match, no_match, or uncertain; record your direct finding observation, policy/scope category, evidence location, Confidence, Correlation, disposition, rationale code, and notes. Do not calculate TP/FP/FN/TN."
+      },
+      "question_id": "question:review-case-e03c420be8e5839950fc:CAP-NOSANDBOX-001",
+      "rule_id": "CAP-NOSANDBOX-001",
+      "title": {
+        "en": "High-impact capability lacks a configured sandbox"
+      }
+    }
+  ],
+  "schema_version": "0.3.0",
+  "source_location": {
+    "end_line": 19,
+    "path": "source.manifest.json",
+    "start_line": 1
+  },
+  "source_sha256": "sha256:0e3edeafd9b8386dbd92e8bfbaaefea9ff96b009f3b34e59921b8d12766e5c77",
+  "synthetic_fixture": true
+}

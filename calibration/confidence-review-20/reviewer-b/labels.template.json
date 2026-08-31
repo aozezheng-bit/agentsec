@@ -1,0 +1,172 @@
+{
+  "format": "agentsec-confidence-recalibration-submission",
+  "gate_id": "HG-CAPCHAIN-001",
+  "package_id": "confidence-review-package-sha256:b489bbc1503049453d2c1d336dd660eb4e1507df2fd6f48b16aa2e79e370c6b7",
+  "reviewer_id": "reviewer-b",
+  "reviews": [
+    {
+      "confidence": null,
+      "confidence_rationale": null,
+      "review_case_fingerprint": "sha256:aabb38a949abd3c34c9780cd613b4edd93b69e7e78762171dc07f86aee410685",
+      "review_case_id": "review-case-00ae928f46d9cf409d26",
+      "source_sha256": "sha256:06fffb0d157b82ffda1762b2bdb9d75e69a37052d9576f9e770313d6ab6ad5bf",
+      "status": null
+    },
+    {
+      "confidence": null,
+      "confidence_rationale": null,
+      "review_case_fingerprint": "sha256:c49931eaa088eb0e31dff70a31504b0df394c1359b33c7fe266d0fb0c274f0f2",
+      "review_case_id": "review-case-07b5af6d2e9751112094",
+      "source_sha256": "sha256:4fb5ff4dd4c068fbfc19f6d3f49e4cb399313376d1ca52772a018646678e83cf",
+      "status": null
+    },
+    {
+      "confidence": null,
+      "confidence_rationale": null,
+      "review_case_fingerprint": "sha256:886dc375e25845b563d4b60057d8e8f89afd57ce1ee344907acb74df0100f191",
+      "review_case_id": "review-case-10cac34e3c5aa3f50781",
+      "source_sha256": "sha256:4bf34ee9d926f8b410dbd828ae3b2b9a2c4ec334478c52489381882148cf7b49",
+      "status": null
+    },
+    {
+      "confidence": null,
+      "confidence_rationale": null,
+      "review_case_fingerprint": "sha256:62d92954cc8a1f73920b44ac2a2855407747161d553714ba3e2a379d2067495c",
+      "review_case_id": "review-case-3d175c4543b41a9d762e",
+      "source_sha256": "sha256:eaad8f8c920c3e56aa8d96b23f4ede1e91907da36583cc4242e2a8e7cdcf8d4b",
+      "status": null
+    },
+    {
+      "confidence": null,
+      "confidence_rationale": null,
+      "review_case_fingerprint": "sha256:960574b61909b84528903bd3ab57a16e535f82853f98eef93422c79b3803189c",
+      "review_case_id": "review-case-4934a357278a2bae5e40",
+      "source_sha256": "sha256:038b141bccb5dfc7eaa0a3ce31eee0fc6fd51fb21b9c437ea3a46368fe397e6d",
+      "status": null
+    },
+    {
+      "confidence": null,
+      "confidence_rationale": null,
+      "review_case_fingerprint": "sha256:c38a92d901bb044f4b95431862747450c71bfc5a11000a92fce561aa3dcb9971",
+      "review_case_id": "review-case-5ab82f461824f821505b",
+      "source_sha256": "sha256:4c0cb15d76011bffc2c7e0b311c921f24f6c523c821fdde767f6a26eeb56e80c",
+      "status": null
+    },
+    {
+      "confidence": null,
+      "confidence_rationale": null,
+      "review_case_fingerprint": "sha256:0e2d9a2664ee7ab12831c5dc3f3147730ea179be91cec645de1260f58784e217",
+      "review_case_id": "review-case-5db83bb2029f3bfc3a61",
+      "source_sha256": "sha256:582d26e2d30ec07a066e411b4d13c29408f6c5166271607de159e895c7ca1746",
+      "status": null
+    },
+    {
+      "confidence": null,
+      "confidence_rationale": null,
+      "review_case_fingerprint": "sha256:14c0cd5df02f4b2e51477ce59318432a111c7e1725907e4370aaf975e4983746",
+      "review_case_id": "review-case-618d9b4c58c484258529",
+      "source_sha256": "sha256:51d167c8f76e75718a79b5b0ffd67b857eedc4da30f37cd477a3a6aae13cc5f0",
+      "status": null
+    },
+    {
+      "confidence": null,
+      "confidence_rationale": null,
+      "review_case_fingerprint": "sha256:057581ff16a8ddbcc19a1bc40300ed62dec01d125b1c90ce07468dcb84796334",
+      "review_case_id": "review-case-63ad8b6f1347ecb10b4d",
+      "source_sha256": "sha256:5bcf05caa1d9df77eb6cfa739f93247c5d312761423d92c9051fe3bf26a4f881",
+      "status": null
+    },
+    {
+      "confidence": null,
+      "confidence_rationale": null,
+      "review_case_fingerprint": "sha256:7fac75b46076fbcfe79873c51d9bd76d110aeddea0f3d13dee027bc8834b5505",
+      "review_case_id": "review-case-685066e8291eeb5abdb6",
+      "source_sha256": "sha256:0c312e93f28ffa5fc0cedf60e013e675fa5ddfc3b9a264dc38773eb500f0c6c8",
+      "status": null
+    },
+    {
+      "confidence": null,
+      "confidence_rationale": null,
+      "review_case_fingerprint": "sha256:20922ab336699c967639f669b23ee6e6ec4800c4775e4dc725deb9f4c33d3504",
+      "review_case_id": "review-case-71ca600abea3b9c1ab89",
+      "source_sha256": "sha256:d142ece12729fa66359500be51bb11689af0d7fbcc9c8135a8aef30c638beba9",
+      "status": null
+    },
+    {
+      "confidence": null,
+      "confidence_rationale": null,
+      "review_case_fingerprint": "sha256:2381c47d108e18191dda44433c781280871fa59c7a972f6dffce527871045c79",
+      "review_case_id": "review-case-9ab94822fa5f070b89c7",
+      "source_sha256": "sha256:2bef0b8b48a78be36f983fe1a813bc09541563c03cec90654ea10cf44a07ab27",
+      "status": null
+    },
+    {
+      "confidence": null,
+      "confidence_rationale": null,
+      "review_case_fingerprint": "sha256:febc7381c2cf163c86d07f6d8036878b8cafb5eecca0202135c5287037b06146",
+      "review_case_id": "review-case-be2c93e14bd68bde17cf",
+      "source_sha256": "sha256:02ea457fda096ed76598c588b110a8056a85d1602de33bfebc717a456b4cf22f",
+      "status": null
+    },
+    {
+      "confidence": null,
+      "confidence_rationale": null,
+      "review_case_fingerprint": "sha256:47a4688107dae7219d94c1219d040a98c5c01d29a6ede05e2efe61e81b6bc7e5",
+      "review_case_id": "review-case-c5d64066eb407dd3a640",
+      "source_sha256": "sha256:efd852c9c18d84e7e2208e665b9f5b5381cae784ffd3bf202b8980b79512fc9b",
+      "status": null
+    },
+    {
+      "confidence": null,
+      "confidence_rationale": null,
+      "review_case_fingerprint": "sha256:34f134cc1e4ae68b0277ec1ade4d298ce6535accdc61d52d48bb80dea3f45bd5",
+      "review_case_id": "review-case-cd72f50cf70ed7c35d40",
+      "source_sha256": "sha256:c9ed6b18193f5a6c09e6ecb531307ab0e19f72316909d72c9b35be8483724c4f",
+      "status": null
+    },
+    {
+      "confidence": null,
+      "confidence_rationale": null,
+      "review_case_fingerprint": "sha256:525055a12df785c285a5880bdbcd8b6bd18c2f91a0b9847a4849d484c0596313",
+      "review_case_id": "review-case-e7d09ded7ee8bd050fa3",
+      "source_sha256": "sha256:9aa153d26606c88616093480720c38623046c209a1bcd12f6dcf85192d32a912",
+      "status": null
+    },
+    {
+      "confidence": null,
+      "confidence_rationale": null,
+      "review_case_fingerprint": "sha256:f1800b106efa5b656b4150c754762e301817accb6e143a0745548346ee187c5a",
+      "review_case_id": "review-case-e9254f57e24f42237c8a",
+      "source_sha256": "sha256:3e70385ef2197f82763b0e8e7196f747fe415ae41919337c2acb8b09fcf77fd5",
+      "status": null
+    },
+    {
+      "confidence": null,
+      "confidence_rationale": null,
+      "review_case_fingerprint": "sha256:33f68f9187ed902ad289333f78da03360891e8a7489493e9c3c53c7070ae6082",
+      "review_case_id": "review-case-ee81efa9a591a74c2820",
+      "source_sha256": "sha256:ec5c14b045fdea45655270c805b294a1ddfca6b364263a987763657f800dbeaf",
+      "status": null
+    },
+    {
+      "confidence": null,
+      "confidence_rationale": null,
+      "review_case_fingerprint": "sha256:ea36132f9f79ee03c2a98687222ad76331fabd21ab841191aa319bbb03593732",
+      "review_case_id": "review-case-f7ddbb1ee23b4059457f",
+      "source_sha256": "sha256:bf65696f2bc46068191e738d430760bc77b8c202d06e32d62823b0a7b81086d3",
+      "status": null
+    },
+    {
+      "confidence": null,
+      "confidence_rationale": null,
+      "review_case_fingerprint": "sha256:ab33e0cc8add2036a3edd0bcf90d042d79a4a63e0aeacdc038c6ce771374684c",
+      "review_case_id": "review-case-fd52db965a0e631b55e4",
+      "source_sha256": "sha256:b5a4bfe5172e512609e83047260f92b8d1d0a8acc3fe7ab5c1edefba0a49fe1d",
+      "status": null
+    }
+  ],
+  "rule_id": "CAP-CHAIN-001",
+  "schema_version": "0.1.0",
+  "selection_id": "confidence-selection-sha256:7d15023d866a0af3a70fcd15534cccfa8f174ec14c6191b2151c0e3f16027536",
+  "task_id": "P2-15A-QUAL-02"
+}

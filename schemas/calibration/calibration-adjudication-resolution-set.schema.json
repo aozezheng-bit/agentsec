@@ -1,0 +1,162 @@
+{
+  "$defs": {
+    "AdjudicationCategory": {
+      "description": "Reviewer interpretation of a deterministic classification.",
+      "enum": [
+        "confirmed_true_positive",
+        "confirmed_true_negative",
+        "detection_false_positive",
+        "policy_accepted_risk",
+        "in_scope_false_negative",
+        "out_of_scope",
+        "runtime_uncertainty",
+        "unresolved"
+      ],
+      "title": "AdjudicationCategory",
+      "type": "string"
+    },
+    "AdjudicationResolution": {
+      "additionalProperties": false,
+      "description": "One final human resolution that never replaces independent labels.",
+      "properties": {
+        "case_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Case Id",
+          "type": "string"
+        },
+        "final_category": {
+          "$ref": "#/$defs/AdjudicationCategory"
+        },
+        "final_classification": {
+          "$ref": "#/$defs/CalibrationClassification"
+        },
+        "final_disposition": {
+          "$ref": "#/$defs/RuleDisposition"
+        },
+        "rationale_code": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Rationale Code",
+          "type": "string"
+        },
+        "resolution_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Resolution Id",
+          "type": "string"
+        },
+        "reviewer_ids": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Reviewer Ids",
+          "type": "array"
+        },
+        "rule_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Rule Id",
+          "type": "string"
+        },
+        "status": {
+          "const": "adjudicated",
+          "default": "adjudicated",
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "resolution_id",
+        "case_id",
+        "rule_id",
+        "reviewer_ids",
+        "final_classification",
+        "final_category",
+        "final_disposition",
+        "rationale_code"
+      ],
+      "title": "AdjudicationResolution",
+      "type": "object"
+    },
+    "CalibrationClassification": {
+      "enum": [
+        "true_positive",
+        "false_positive",
+        "false_negative",
+        "true_negative"
+      ],
+      "title": "CalibrationClassification",
+      "type": "string"
+    },
+    "RuleDisposition": {
+      "description": "Deterministic recommendation, never an automatic Rule mutation.",
+      "enum": [
+        "keep",
+        "tune",
+        "shadow",
+        "retire",
+        "more_data"
+      ],
+      "title": "RuleDisposition",
+      "type": "string"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Optional final resolutions kept separate from independent Reviewer labels.",
+  "properties": {
+    "corpus_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Corpus Id",
+      "type": "string"
+    },
+    "format": {
+      "const": "agentsec-capability-calibration-adjudication-resolution-set",
+      "default": "agentsec-capability-calibration-adjudication-resolution-set",
+      "title": "Format",
+      "type": "string"
+    },
+    "labels_version": {
+      "minLength": 1,
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+      "title": "Labels Version",
+      "type": "string"
+    },
+    "resolutions": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/AdjudicationResolution"
+      },
+      "title": "Resolutions",
+      "type": "array"
+    },
+    "reviewer_ids": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Reviewer Ids",
+      "type": "array"
+    },
+    "schema_version": {
+      "default": "0.1.0",
+      "minLength": 1,
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+      "title": "Schema Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "corpus_id",
+    "labels_version",
+    "reviewer_ids"
+  ],
+  "title": "AdjudicationResolutionSet",
+  "type": "object",
+  "x-agentsec-adjudication-resolution-schema-version": "0.1.0"
+}

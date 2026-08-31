@@ -1,0 +1,20 @@
+AgentSec HG-CAPCHAIN-001 Report-only Gate Demo
+Status: PASSED
+Gate: HG-CAPCHAIN-001
+Mode: report_only; qualification=accepted; blocks=false; hard_gate=false; CI blocking=false
+
+Qualification
+  Status: accepted
+  Precision: 1.0
+  Recall: 1.0
+  Confidence calibration: 1.0
+
+Live Report-only Scenarios
+  [MATCH] same-target-match correlation=same_target coverage_complete=True relevant_unknowns=0
+  [MATCH] parent-child-match correlation=parent_child coverage_complete=True relevant_unknowns=0
+  [NO-MATCH] agent-wide-no-match correlation=agent_wide coverage_complete=True relevant_unknowns=5
+  [NO-MATCH] unknown-no-match correlation=same_target coverage_complete=True relevant_unknowns=5
+  [NO-MATCH] incomplete-coverage-no-match correlation=same_target coverage_complete=False relevant_unknowns=1
+
+Report-only matches: 2; no-match: 3
+Boundary: qualification affects presentation only; no runtime proof, authorization, or CI enforcement.

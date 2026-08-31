@@ -1,0 +1,851 @@
+{
+  "expected_labels_included": false,
+  "files": [
+    {
+      "bytes": 2247,
+      "path": "reviewer-a/WORK_PLAN.md",
+      "sha256": "sha256:96be719424cc9c89aedcf1d6d4dea195a290466ad6fb62fc4d63691770af9d40"
+    },
+    {
+      "bytes": 1501,
+      "path": "reviewer-a/cases/review-case-00ae928f46d9cf409d26/case.json",
+      "sha256": "sha256:7226f086248c2395ec25fd71f3b4962adfee140302685ddd177954c32be5a864"
+    },
+    {
+      "bytes": 1413,
+      "path": "reviewer-a/cases/review-case-00ae928f46d9cf409d26/source.manifest.json",
+      "sha256": "sha256:06fffb0d157b82ffda1762b2bdb9d75e69a37052d9576f9e770313d6ab6ad5bf"
+    },
+    {
+      "bytes": 1488,
+      "path": "reviewer-a/cases/review-case-06f4894ec3df67a05c59/case.json",
+      "sha256": "sha256:d89a45f6e106fdd23b14413dca490c634a07851016b88a2d967ba7f28a53971a"
+    },
+    {
+      "bytes": 1135,
+      "path": "reviewer-a/cases/review-case-06f4894ec3df67a05c59/source.yaml",
+      "sha256": "sha256:d45399e4d637dbeb934386d50f04bdbbc2023ade623b31cdc7dc5f28d9bec5b2"
+    },
+    {
+      "bytes": 1488,
+      "path": "reviewer-a/cases/review-case-07b5af6d2e9751112094/case.json",
+      "sha256": "sha256:242a92c9779ed84e54f0548d88d05a541c263d4a91d2a364be8108163aff88cb"
+    },
+    {
+      "bytes": 1077,
+      "path": "reviewer-a/cases/review-case-07b5af6d2e9751112094/source.toml",
+      "sha256": "sha256:4fb5ff4dd4c068fbfc19f6d3f49e4cb399313376d1ca52772a018646678e83cf"
+    },
+    {
+      "bytes": 1488,
+      "path": "reviewer-a/cases/review-case-10cac34e3c5aa3f50781/case.json",
+      "sha256": "sha256:e5ea29593b8fc96f99605270f4f83aa29c9bf3c26316f1a99e9aa4635831cd1c"
+    },
+    {
+      "bytes": 1079,
+      "path": "reviewer-a/cases/review-case-10cac34e3c5aa3f50781/source.toml",
+      "sha256": "sha256:4bf34ee9d926f8b410dbd828ae3b2b9a2c4ec334478c52489381882148cf7b49"
+    },
+    {
+      "bytes": 1501,
+      "path": "reviewer-a/cases/review-case-2249fc3afc6776e5c877/case.json",
+      "sha256": "sha256:d67fc50e7e953d9239bc14bc420983be5eb8ab0eb34b596b54f2d4d3c3b1c84e"
+    },
+    {
+      "bytes": 1420,
+      "path": "reviewer-a/cases/review-case-2249fc3afc6776e5c877/source.manifest.json",
+      "sha256": "sha256:80bac43f364c404fb72f613478603ff2ed043ed912748beeebd64586076f05ae"
+    },
+    {
+      "bytes": 1488,
+      "path": "reviewer-a/cases/review-case-30f35a946e1d25c530d7/case.json",
+      "sha256": "sha256:350501106d0205c97bd102402edf71bcfb04a6ef212ac3a457b8312f34ba7652"
+    },
+    {
+      "bytes": 1412,
+      "path": "reviewer-a/cases/review-case-30f35a946e1d25c530d7/source.json",
+      "sha256": "sha256:ab3102228e43346fc02fd1d101db27cb72e16048b69f40abe7bb91f5a0f232bb"
+    },
+    {
+      "bytes": 1490,
+      "path": "reviewer-a/cases/review-case-3d175c4543b41a9d762e/case.json",
+      "sha256": "sha256:fbd8e893326e63cc67456ce156b6c2a325820f213dbd415e268da4e00bfe1ce2"
+    },
+    {
+      "bytes": 721,
+      "path": "reviewer-a/cases/review-case-3d175c4543b41a9d762e/source.md",
+      "sha256": "sha256:eaad8f8c920c3e56aa8d96b23f4ede1e91907da36583cc4242e2a8e7cdcf8d4b"
+    },
+    {
+      "bytes": 1488,
+      "path": "reviewer-a/cases/review-case-3ee41000015a4bbbebd2/case.json",
+      "sha256": "sha256:bcafa1fe710830cda669905752c597e591bb466c02f3318e8b869b1246e8ffa1"
+    },
+    {
+      "bytes": 1559,
+      "path": "reviewer-a/cases/review-case-3ee41000015a4bbbebd2/source.json",
+      "sha256": "sha256:4c18f25604f60ce5370d5c61d9bf92aa726e8b5edf703540d2bb4a1fa9e21d4f"
+    },
+    {
+      "bytes": 1530,
+      "path": "reviewer-a/cases/review-case-4934a357278a2bae5e40/case.json",
+      "sha256": "sha256:1595ec05ca3f421e2a5ae4e475b4e24b89f8868567f81bf6425e2b9fc8c60b73"
+    },
+    {
+      "bytes": 737,
+      "path": "reviewer-a/cases/review-case-4934a357278a2bae5e40/source.md",
+      "sha256": "sha256:038b141bccb5dfc7eaa0a3ce31eee0fc6fd51fb21b9c437ea3a46368fe397e6d"
+    },
+    {
+      "bytes": 1983,
+      "path": "reviewer-a/cases/review-case-538d26e339f9f158fc6a/case.json",
+      "sha256": "sha256:6cc8e7d069e1afe4e2c45f2e346c1c81ba83ec24868a96f1732c9abf2ce54f4e"
+    },
+    {
+      "bytes": 1248,
+      "path": "reviewer-a/cases/review-case-538d26e339f9f158fc6a/source.toml",
+      "sha256": "sha256:84d1fb3b1d6dcecbb51578124a8bbb0b5cc8fa1331974a325022b2ac8a3152d7"
+    },
+    {
+      "bytes": 1983,
+      "path": "reviewer-a/cases/review-case-5ab82f461824f821505b/case.json",
+      "sha256": "sha256:f2a0025af35933f898792b13db2544f71ac78b93690dbdb6c70e6c68bc695f6b"
+    },
+    {
+      "bytes": 1060,
+      "path": "reviewer-a/cases/review-case-5ab82f461824f821505b/source.yaml",
+      "sha256": "sha256:4c0cb15d76011bffc2c7e0b311c921f24f6c523c821fdde767f6a26eeb56e80c"
+    },
+    {
+      "bytes": 1528,
+      "path": "reviewer-a/cases/review-case-5db83bb2029f3bfc3a61/case.json",
+      "sha256": "sha256:3702bca6db14e903971eb226e089920ee489272a24f4dfb533dc6c75367d5f42"
+    },
+    {
+      "bytes": 1413,
+      "path": "reviewer-a/cases/review-case-5db83bb2029f3bfc3a61/source.json",
+      "sha256": "sha256:582d26e2d30ec07a066e411b4d13c29408f6c5166271607de159e895c7ca1746"
+    },
+    {
+      "bytes": 1528,
+      "path": "reviewer-a/cases/review-case-618d9b4c58c484258529/case.json",
+      "sha256": "sha256:58578b5c6ec1b4d6143a100fbd75f7ccd18ae09f629960a45ebc039e68b5ff91"
+    },
+    {
+      "bytes": 1094,
+      "path": "reviewer-a/cases/review-case-618d9b4c58c484258529/source.toml",
+      "sha256": "sha256:51d167c8f76e75718a79b5b0ffd67b857eedc4da30f37cd477a3a6aae13cc5f0"
+    },
+    {
+      "bytes": 1528,
+      "path": "reviewer-a/cases/review-case-63ad8b6f1347ecb10b4d/case.json",
+      "sha256": "sha256:7224f701216c33cb8619fb5883700f2ddaa2d1c49416f1a3aa1b32179f031d44"
+    },
+    {
+      "bytes": 1413,
+      "path": "reviewer-a/cases/review-case-63ad8b6f1347ecb10b4d/source.json",
+      "sha256": "sha256:5bcf05caa1d9df77eb6cfa739f93247c5d312761423d92c9051fe3bf26a4f881"
+    },
+    {
+      "bytes": 1528,
+      "path": "reviewer-a/cases/review-case-685066e8291eeb5abdb6/case.json",
+      "sha256": "sha256:872eb67bc0b26e4cf6c720375380646131d61daa61aa4ac54fdb282cd4cf1353"
+    },
+    {
+      "bytes": 1414,
+      "path": "reviewer-a/cases/review-case-685066e8291eeb5abdb6/source.json",
+      "sha256": "sha256:0c312e93f28ffa5fc0cedf60e013e675fa5ddfc3b9a264dc38773eb500f0c6c8"
+    },
+    {
+      "bytes": 1983,
+      "path": "reviewer-a/cases/review-case-71ca600abea3b9c1ab89/case.json",
+      "sha256": "sha256:83b19aa3b57fcb98804becf6b331dbb3b27735c9684772ac2d0325e58ed5022e"
+    },
+    {
+      "bytes": 1066,
+      "path": "reviewer-a/cases/review-case-71ca600abea3b9c1ab89/source.yaml",
+      "sha256": "sha256:d142ece12729fa66359500be51bb11689af0d7fbcc9c8135a8aef30c638beba9"
+    },
+    {
+      "bytes": 1528,
+      "path": "reviewer-a/cases/review-case-779ef1a2b669f19850c2/case.json",
+      "sha256": "sha256:88991745126d2d7a93139155b1eda71fcdef3d13d3df0f0e62471a30a3522bc9"
+    },
+    {
+      "bytes": 1406,
+      "path": "reviewer-a/cases/review-case-779ef1a2b669f19850c2/source.json",
+      "sha256": "sha256:435c43ebcac97624abcc28d916d006f68e2d620b734b8e5964738895c3159bf0"
+    },
+    {
+      "bytes": 1528,
+      "path": "reviewer-a/cases/review-case-789f1b7b0d4316c2ba29/case.json",
+      "sha256": "sha256:8c5b28311c9f20410db61249b4112dcad3097403bc7d774081ece540ef3a577c"
+    },
+    {
+      "bytes": 1131,
+      "path": "reviewer-a/cases/review-case-789f1b7b0d4316c2ba29/source.yaml",
+      "sha256": "sha256:0686218fe29a39f9c3d6704655b59e78c3f98682c241aa01fd6378792956487b"
+    },
+    {
+      "bytes": 1983,
+      "path": "reviewer-a/cases/review-case-8e27a7950c28998926f3/case.json",
+      "sha256": "sha256:1e82decd546a190f63e63b1b1df2e508397098426d15f8bdc9fffc290de64107"
+    },
+    {
+      "bytes": 1120,
+      "path": "reviewer-a/cases/review-case-8e27a7950c28998926f3/source.toml",
+      "sha256": "sha256:2103c18d64ff34c38c9bd55b5942f16f988abf741981fce83c902366c019aac0"
+    },
+    {
+      "bytes": 1501,
+      "path": "reviewer-a/cases/review-case-9ab94822fa5f070b89c7/case.json",
+      "sha256": "sha256:549edcaa985ae5c438d71a4b99dbbe757b4194948f805244863e143266925c0b"
+    },
+    {
+      "bytes": 1415,
+      "path": "reviewer-a/cases/review-case-9ab94822fa5f070b89c7/source.manifest.json",
+      "sha256": "sha256:2bef0b8b48a78be36f983fe1a813bc09541563c03cec90654ea10cf44a07ab27"
+    },
+    {
+      "bytes": 1530,
+      "path": "reviewer-a/cases/review-case-be2c93e14bd68bde17cf/case.json",
+      "sha256": "sha256:af97833bcd708611a1513ed4b6db696bfb15307a1d5d7ccb496d714526569ad3"
+    },
+    {
+      "bytes": 739,
+      "path": "reviewer-a/cases/review-case-be2c93e14bd68bde17cf/source.md",
+      "sha256": "sha256:02ea457fda096ed76598c588b110a8056a85d1602de33bfebc717a456b4cf22f"
+    },
+    {
+      "bytes": 1488,
+      "path": "reviewer-a/cases/review-case-c5be1e165866fc77039f/case.json",
+      "sha256": "sha256:8eb836758147e7f2fe3c6de6f7907d01c0c1a2d5f9dcfbac6106cc8cbeb13422"
+    },
+    {
+      "bytes": 1024,
+      "path": "reviewer-a/cases/review-case-c5be1e165866fc77039f/source.yaml",
+      "sha256": "sha256:38d2562ab983ad6c1dfbe2366f5d478942f71f864fd642173ef577f23d0cc9a0"
+    },
+    {
+      "bytes": 1541,
+      "path": "reviewer-a/cases/review-case-c5d64066eb407dd3a640/case.json",
+      "sha256": "sha256:c8f45303b4f4349735250daec50361f4464cdb48cb600857e0eae586baf071a1"
+    },
+    {
+      "bytes": 1421,
+      "path": "reviewer-a/cases/review-case-c5d64066eb407dd3a640/source.manifest.json",
+      "sha256": "sha256:efd852c9c18d84e7e2208e665b9f5b5381cae784ffd3bf202b8980b79512fc9b"
+    },
+    {
+      "bytes": 1983,
+      "path": "reviewer-a/cases/review-case-cd72f50cf70ed7c35d40/case.json",
+      "sha256": "sha256:afe80fab1993d7f13c9d24fb6d6d40e47992a54d7d3b09dc8e3bca2ee587e686"
+    },
+    {
+      "bytes": 1069,
+      "path": "reviewer-a/cases/review-case-cd72f50cf70ed7c35d40/source.yaml",
+      "sha256": "sha256:c9ed6b18193f5a6c09e6ecb531307ab0e19f72316909d72c9b35be8483724c4f"
+    },
+    {
+      "bytes": 1983,
+      "path": "reviewer-a/cases/review-case-cee899072ebe62cdc070/case.json",
+      "sha256": "sha256:f85a52042edc8d81623bc0320ac0985e8fb9a80dad92906a19178ee0615008d2"
+    },
+    {
+      "bytes": 1129,
+      "path": "reviewer-a/cases/review-case-cee899072ebe62cdc070/source.toml",
+      "sha256": "sha256:748c28d9977b99797b60b506bcbf591fae2fa558dff19d109447868dde401b69"
+    },
+    {
+      "bytes": 1983,
+      "path": "reviewer-a/cases/review-case-d35b8832bcc4078c8418/case.json",
+      "sha256": "sha256:314af16782ab27b6ae31b627302c98bd3b75487c61366c6ec19814afee61b166"
+    },
+    {
+      "bytes": 1233,
+      "path": "reviewer-a/cases/review-case-d35b8832bcc4078c8418/source.toml",
+      "sha256": "sha256:df6eaf3f504c6526030c204e0f81380a62179c218113dd2082e3c34273892257"
+    },
+    {
+      "bytes": 1530,
+      "path": "reviewer-a/cases/review-case-d618b1fc0b034446716e/case.json",
+      "sha256": "sha256:a522597524c8c647c4598b527709d3e88446b703b0cb10ed4e300969feb96b53"
+    },
+    {
+      "bytes": 732,
+      "path": "reviewer-a/cases/review-case-d618b1fc0b034446716e/source.md",
+      "sha256": "sha256:0691b872197b98eeff6c88fe1c005c7181d1a2169c3fb56f69c789e1e3298163"
+    },
+    {
+      "bytes": 1541,
+      "path": "reviewer-a/cases/review-case-d945358c8696e2cbafb3/case.json",
+      "sha256": "sha256:d2adba7e9534fc33d47ea29496b9fbf8e8a484b88025f43374ea6f84c4ae354e"
+    },
+    {
+      "bytes": 1551,
+      "path": "reviewer-a/cases/review-case-d945358c8696e2cbafb3/source.manifest.json",
+      "sha256": "sha256:2fd082fa1c12d7a967ea3a119805d9d69fecc730dcb2bc737dbd97f3fee18ae1"
+    },
+    {
+      "bytes": 1490,
+      "path": "reviewer-a/cases/review-case-dce8660339f28e773c58/case.json",
+      "sha256": "sha256:08ab8a4cb374b5b87cb2ace8e9f85a6e33d5c2eca7a0350d36421448fb88c801"
+    },
+    {
+      "bytes": 800,
+      "path": "reviewer-a/cases/review-case-dce8660339f28e773c58/source.md",
+      "sha256": "sha256:1db48967f0b6ecfa3eed526c480d678c4b1b84404cf0d917b7a972a9234e46bc"
+    },
+    {
+      "bytes": 1528,
+      "path": "reviewer-a/cases/review-case-e7d09ded7ee8bd050fa3/case.json",
+      "sha256": "sha256:f9d1eff900aa473a2408db78dcc5ab33629fd256b98eba0fb2a51124c9029c40"
+    },
+    {
+      "bytes": 1095,
+      "path": "reviewer-a/cases/review-case-e7d09ded7ee8bd050fa3/source.toml",
+      "sha256": "sha256:9aa153d26606c88616093480720c38623046c209a1bcd12f6dcf85192d32a912"
+    },
+    {
+      "bytes": 1488,
+      "path": "reviewer-a/cases/review-case-e86bbe30e3ee05f90364/case.json",
+      "sha256": "sha256:461ad66d5b2d299d1657ffa8488b2b6aa353ff8becd43bd22a372822f9da1b9b"
+    },
+    {
+      "bytes": 1023,
+      "path": "reviewer-a/cases/review-case-e86bbe30e3ee05f90364/source.yaml",
+      "sha256": "sha256:819ee1848b127ca648074210deb0c0d18c323857304c6f8d3e593e4474240499"
+    },
+    {
+      "bytes": 1541,
+      "path": "reviewer-a/cases/review-case-e9254f57e24f42237c8a/case.json",
+      "sha256": "sha256:6fb08fb5bb1ab8efdf32decf2d54c7f5d9d56fb3d314d5317d73f3c3b38fa2c8"
+    },
+    {
+      "bytes": 1421,
+      "path": "reviewer-a/cases/review-case-e9254f57e24f42237c8a/source.manifest.json",
+      "sha256": "sha256:3e70385ef2197f82763b0e8e7196f747fe415ae41919337c2acb8b09fcf77fd5"
+    },
+    {
+      "bytes": 1541,
+      "path": "reviewer-a/cases/review-case-ebf2dbdf96d1321f4b78/case.json",
+      "sha256": "sha256:f7cb11e3dc6a819099ad3577325dc280cec64772dc641483577d33562b9a30c4"
+    },
+    {
+      "bytes": 1414,
+      "path": "reviewer-a/cases/review-case-ebf2dbdf96d1321f4b78/source.manifest.json",
+      "sha256": "sha256:7b182e39df3072547d8cb92e5a7b5476e791ac2edc774530f4178431cf75a400"
+    },
+    {
+      "bytes": 1488,
+      "path": "reviewer-a/cases/review-case-ee81efa9a591a74c2820/case.json",
+      "sha256": "sha256:0acdf427956889ed0f5ccd879fad21bdfb5174070dc4bb7f0576f57f96a55a37"
+    },
+    {
+      "bytes": 1405,
+      "path": "reviewer-a/cases/review-case-ee81efa9a591a74c2820/source.json",
+      "sha256": "sha256:ec5c14b045fdea45655270c805b294a1ddfca6b364263a987763657f800dbeaf"
+    },
+    {
+      "bytes": 1530,
+      "path": "reviewer-a/cases/review-case-f07ce82ea1cc80dc0654/case.json",
+      "sha256": "sha256:113fbb6d65f1736cf621e64c466155fca78e05ba33849ee83b1b48006c5d4d69"
+    },
+    {
+      "bytes": 795,
+      "path": "reviewer-a/cases/review-case-f07ce82ea1cc80dc0654/source.md",
+      "sha256": "sha256:6aaacf14a87785b6e06e9431421322a56b0d2f7333e371c85396b9ec5b0a6f01"
+    },
+    {
+      "bytes": 1541,
+      "path": "reviewer-a/cases/review-case-f5379b8fd04acd18f3ab/case.json",
+      "sha256": "sha256:6cda6bf88cfdc6cdc44ed202c7687db798c2db178a5c2bd71f23cf71393b17e7"
+    },
+    {
+      "bytes": 1412,
+      "path": "reviewer-a/cases/review-case-f5379b8fd04acd18f3ab/source.manifest.json",
+      "sha256": "sha256:dcc3c4cf2ae18033070d35b7d06d89b0acc29083304ce6da4e0184c059e1b07e"
+    },
+    {
+      "bytes": 1530,
+      "path": "reviewer-a/cases/review-case-f66b609179b823e411a5/case.json",
+      "sha256": "sha256:0707257b260d73d525e7cb0fbcaaee5a5aa2d79585e942901f7a831bdd7c4a68"
+    },
+    {
+      "bytes": 799,
+      "path": "reviewer-a/cases/review-case-f66b609179b823e411a5/source.md",
+      "sha256": "sha256:01e1369cae2a25c29618895d610315d4839faad6171a9115a3519401a1fbf44f"
+    },
+    {
+      "bytes": 1488,
+      "path": "reviewer-a/cases/review-case-f6802f8efd87a54dedee/case.json",
+      "sha256": "sha256:25decf48e400a00b268317a6eb9ed330471c171ac6629665d26d997765d82bc6"
+    },
+    {
+      "bytes": 1562,
+      "path": "reviewer-a/cases/review-case-f6802f8efd87a54dedee/source.json",
+      "sha256": "sha256:749cabca156512ffe60e45b47b6cdafd0e97aaaef9d68e0a80b6120b92b90c4b"
+    },
+    {
+      "bytes": 1490,
+      "path": "reviewer-a/cases/review-case-f7ddbb1ee23b4059457f/case.json",
+      "sha256": "sha256:b4e665f9ee4dc0d533468ac4cd317b31e5c8ad479006bbaf384e3ec5d595e004"
+    },
+    {
+      "bytes": 723,
+      "path": "reviewer-a/cases/review-case-f7ddbb1ee23b4059457f/source.md",
+      "sha256": "sha256:bf65696f2bc46068191e738d430760bc77b8c202d06e32d62823b0a7b81086d3"
+    },
+    {
+      "bytes": 1488,
+      "path": "reviewer-a/cases/review-case-fd52db965a0e631b55e4/case.json",
+      "sha256": "sha256:ef14c16646184438ea551deb8e90d82d7047eb35dbab2ae51886a13af8127a6a"
+    },
+    {
+      "bytes": 1407,
+      "path": "reviewer-a/cases/review-case-fd52db965a0e631b55e4/source.json",
+      "sha256": "sha256:b5a4bfe5172e512609e83047260f92b8d1d0a8acc3fe7ab5c1edefba0a49fe1d"
+    },
+    {
+      "bytes": 44022,
+      "path": "reviewer-a/labels.template.json",
+      "sha256": "sha256:f5b9b19dcf5be2af3c1a196ca8925ee16ac96ab8bca1608d458c98e45d5310c0"
+    },
+    {
+      "bytes": 2247,
+      "path": "reviewer-b/WORK_PLAN.md",
+      "sha256": "sha256:73781d9db689a21f75e79c43a662de8db24eaf58ea46e4eaef50f4449b8d8d18"
+    },
+    {
+      "bytes": 1501,
+      "path": "reviewer-b/cases/review-case-00ae928f46d9cf409d26/case.json",
+      "sha256": "sha256:7226f086248c2395ec25fd71f3b4962adfee140302685ddd177954c32be5a864"
+    },
+    {
+      "bytes": 1413,
+      "path": "reviewer-b/cases/review-case-00ae928f46d9cf409d26/source.manifest.json",
+      "sha256": "sha256:06fffb0d157b82ffda1762b2bdb9d75e69a37052d9576f9e770313d6ab6ad5bf"
+    },
+    {
+      "bytes": 1488,
+      "path": "reviewer-b/cases/review-case-06f4894ec3df67a05c59/case.json",
+      "sha256": "sha256:d89a45f6e106fdd23b14413dca490c634a07851016b88a2d967ba7f28a53971a"
+    },
+    {
+      "bytes": 1135,
+      "path": "reviewer-b/cases/review-case-06f4894ec3df67a05c59/source.yaml",
+      "sha256": "sha256:d45399e4d637dbeb934386d50f04bdbbc2023ade623b31cdc7dc5f28d9bec5b2"
+    },
+    {
+      "bytes": 1488,
+      "path": "reviewer-b/cases/review-case-07b5af6d2e9751112094/case.json",
+      "sha256": "sha256:242a92c9779ed84e54f0548d88d05a541c263d4a91d2a364be8108163aff88cb"
+    },
+    {
+      "bytes": 1077,
+      "path": "reviewer-b/cases/review-case-07b5af6d2e9751112094/source.toml",
+      "sha256": "sha256:4fb5ff4dd4c068fbfc19f6d3f49e4cb399313376d1ca52772a018646678e83cf"
+    },
+    {
+      "bytes": 1488,
+      "path": "reviewer-b/cases/review-case-10cac34e3c5aa3f50781/case.json",
+      "sha256": "sha256:e5ea29593b8fc96f99605270f4f83aa29c9bf3c26316f1a99e9aa4635831cd1c"
+    },
+    {
+      "bytes": 1079,
+      "path": "reviewer-b/cases/review-case-10cac34e3c5aa3f50781/source.toml",
+      "sha256": "sha256:4bf34ee9d926f8b410dbd828ae3b2b9a2c4ec334478c52489381882148cf7b49"
+    },
+    {
+      "bytes": 1501,
+      "path": "reviewer-b/cases/review-case-2249fc3afc6776e5c877/case.json",
+      "sha256": "sha256:d67fc50e7e953d9239bc14bc420983be5eb8ab0eb34b596b54f2d4d3c3b1c84e"
+    },
+    {
+      "bytes": 1420,
+      "path": "reviewer-b/cases/review-case-2249fc3afc6776e5c877/source.manifest.json",
+      "sha256": "sha256:80bac43f364c404fb72f613478603ff2ed043ed912748beeebd64586076f05ae"
+    },
+    {
+      "bytes": 1488,
+      "path": "reviewer-b/cases/review-case-30f35a946e1d25c530d7/case.json",
+      "sha256": "sha256:350501106d0205c97bd102402edf71bcfb04a6ef212ac3a457b8312f34ba7652"
+    },
+    {
+      "bytes": 1412,
+      "path": "reviewer-b/cases/review-case-30f35a946e1d25c530d7/source.json",
+      "sha256": "sha256:ab3102228e43346fc02fd1d101db27cb72e16048b69f40abe7bb91f5a0f232bb"
+    },
+    {
+      "bytes": 1490,
+      "path": "reviewer-b/cases/review-case-3d175c4543b41a9d762e/case.json",
+      "sha256": "sha256:fbd8e893326e63cc67456ce156b6c2a325820f213dbd415e268da4e00bfe1ce2"
+    },
+    {
+      "bytes": 721,
+      "path": "reviewer-b/cases/review-case-3d175c4543b41a9d762e/source.md",
+      "sha256": "sha256:eaad8f8c920c3e56aa8d96b23f4ede1e91907da36583cc4242e2a8e7cdcf8d4b"
+    },
+    {
+      "bytes": 1488,
+      "path": "reviewer-b/cases/review-case-3ee41000015a4bbbebd2/case.json",
+      "sha256": "sha256:bcafa1fe710830cda669905752c597e591bb466c02f3318e8b869b1246e8ffa1"
+    },
+    {
+      "bytes": 1559,
+      "path": "reviewer-b/cases/review-case-3ee41000015a4bbbebd2/source.json",
+      "sha256": "sha256:4c18f25604f60ce5370d5c61d9bf92aa726e8b5edf703540d2bb4a1fa9e21d4f"
+    },
+    {
+      "bytes": 1530,
+      "path": "reviewer-b/cases/review-case-4934a357278a2bae5e40/case.json",
+      "sha256": "sha256:1595ec05ca3f421e2a5ae4e475b4e24b89f8868567f81bf6425e2b9fc8c60b73"
+    },
+    {
+      "bytes": 737,
+      "path": "reviewer-b/cases/review-case-4934a357278a2bae5e40/source.md",
+      "sha256": "sha256:038b141bccb5dfc7eaa0a3ce31eee0fc6fd51fb21b9c437ea3a46368fe397e6d"
+    },
+    {
+      "bytes": 1983,
+      "path": "reviewer-b/cases/review-case-538d26e339f9f158fc6a/case.json",
+      "sha256": "sha256:6cc8e7d069e1afe4e2c45f2e346c1c81ba83ec24868a96f1732c9abf2ce54f4e"
+    },
+    {
+      "bytes": 1248,
+      "path": "reviewer-b/cases/review-case-538d26e339f9f158fc6a/source.toml",
+      "sha256": "sha256:84d1fb3b1d6dcecbb51578124a8bbb0b5cc8fa1331974a325022b2ac8a3152d7"
+    },
+    {
+      "bytes": 1983,
+      "path": "reviewer-b/cases/review-case-5ab82f461824f821505b/case.json",
+      "sha256": "sha256:f2a0025af35933f898792b13db2544f71ac78b93690dbdb6c70e6c68bc695f6b"
+    },
+    {
+      "bytes": 1060,
+      "path": "reviewer-b/cases/review-case-5ab82f461824f821505b/source.yaml",
+      "sha256": "sha256:4c0cb15d76011bffc2c7e0b311c921f24f6c523c821fdde767f6a26eeb56e80c"
+    },
+    {
+      "bytes": 1528,
+      "path": "reviewer-b/cases/review-case-5db83bb2029f3bfc3a61/case.json",
+      "sha256": "sha256:3702bca6db14e903971eb226e089920ee489272a24f4dfb533dc6c75367d5f42"
+    },
+    {
+      "bytes": 1413,
+      "path": "reviewer-b/cases/review-case-5db83bb2029f3bfc3a61/source.json",
+      "sha256": "sha256:582d26e2d30ec07a066e411b4d13c29408f6c5166271607de159e895c7ca1746"
+    },
+    {
+      "bytes": 1528,
+      "path": "reviewer-b/cases/review-case-618d9b4c58c484258529/case.json",
+      "sha256": "sha256:58578b5c6ec1b4d6143a100fbd75f7ccd18ae09f629960a45ebc039e68b5ff91"
+    },
+    {
+      "bytes": 1094,
+      "path": "reviewer-b/cases/review-case-618d9b4c58c484258529/source.toml",
+      "sha256": "sha256:51d167c8f76e75718a79b5b0ffd67b857eedc4da30f37cd477a3a6aae13cc5f0"
+    },
+    {
+      "bytes": 1528,
+      "path": "reviewer-b/cases/review-case-63ad8b6f1347ecb10b4d/case.json",
+      "sha256": "sha256:7224f701216c33cb8619fb5883700f2ddaa2d1c49416f1a3aa1b32179f031d44"
+    },
+    {
+      "bytes": 1413,
+      "path": "reviewer-b/cases/review-case-63ad8b6f1347ecb10b4d/source.json",
+      "sha256": "sha256:5bcf05caa1d9df77eb6cfa739f93247c5d312761423d92c9051fe3bf26a4f881"
+    },
+    {
+      "bytes": 1528,
+      "path": "reviewer-b/cases/review-case-685066e8291eeb5abdb6/case.json",
+      "sha256": "sha256:872eb67bc0b26e4cf6c720375380646131d61daa61aa4ac54fdb282cd4cf1353"
+    },
+    {
+      "bytes": 1414,
+      "path": "reviewer-b/cases/review-case-685066e8291eeb5abdb6/source.json",
+      "sha256": "sha256:0c312e93f28ffa5fc0cedf60e013e675fa5ddfc3b9a264dc38773eb500f0c6c8"
+    },
+    {
+      "bytes": 1983,
+      "path": "reviewer-b/cases/review-case-71ca600abea3b9c1ab89/case.json",
+      "sha256": "sha256:83b19aa3b57fcb98804becf6b331dbb3b27735c9684772ac2d0325e58ed5022e"
+    },
+    {
+      "bytes": 1066,
+      "path": "reviewer-b/cases/review-case-71ca600abea3b9c1ab89/source.yaml",
+      "sha256": "sha256:d142ece12729fa66359500be51bb11689af0d7fbcc9c8135a8aef30c638beba9"
+    },
+    {
+      "bytes": 1528,
+      "path": "reviewer-b/cases/review-case-779ef1a2b669f19850c2/case.json",
+      "sha256": "sha256:88991745126d2d7a93139155b1eda71fcdef3d13d3df0f0e62471a30a3522bc9"
+    },
+    {
+      "bytes": 1406,
+      "path": "reviewer-b/cases/review-case-779ef1a2b669f19850c2/source.json",
+      "sha256": "sha256:435c43ebcac97624abcc28d916d006f68e2d620b734b8e5964738895c3159bf0"
+    },
+    {
+      "bytes": 1528,
+      "path": "reviewer-b/cases/review-case-789f1b7b0d4316c2ba29/case.json",
+      "sha256": "sha256:8c5b28311c9f20410db61249b4112dcad3097403bc7d774081ece540ef3a577c"
+    },
+    {
+      "bytes": 1131,
+      "path": "reviewer-b/cases/review-case-789f1b7b0d4316c2ba29/source.yaml",
+      "sha256": "sha256:0686218fe29a39f9c3d6704655b59e78c3f98682c241aa01fd6378792956487b"
+    },
+    {
+      "bytes": 1983,
+      "path": "reviewer-b/cases/review-case-8e27a7950c28998926f3/case.json",
+      "sha256": "sha256:1e82decd546a190f63e63b1b1df2e508397098426d15f8bdc9fffc290de64107"
+    },
+    {
+      "bytes": 1120,
+      "path": "reviewer-b/cases/review-case-8e27a7950c28998926f3/source.toml",
+      "sha256": "sha256:2103c18d64ff34c38c9bd55b5942f16f988abf741981fce83c902366c019aac0"
+    },
+    {
+      "bytes": 1501,
+      "path": "reviewer-b/cases/review-case-9ab94822fa5f070b89c7/case.json",
+      "sha256": "sha256:549edcaa985ae5c438d71a4b99dbbe757b4194948f805244863e143266925c0b"
+    },
+    {
+      "bytes": 1415,
+      "path": "reviewer-b/cases/review-case-9ab94822fa5f070b89c7/source.manifest.json",
+      "sha256": "sha256:2bef0b8b48a78be36f983fe1a813bc09541563c03cec90654ea10cf44a07ab27"
+    },
+    {
+      "bytes": 1530,
+      "path": "reviewer-b/cases/review-case-be2c93e14bd68bde17cf/case.json",
+      "sha256": "sha256:af97833bcd708611a1513ed4b6db696bfb15307a1d5d7ccb496d714526569ad3"
+    },
+    {
+      "bytes": 739,
+      "path": "reviewer-b/cases/review-case-be2c93e14bd68bde17cf/source.md",
+      "sha256": "sha256:02ea457fda096ed76598c588b110a8056a85d1602de33bfebc717a456b4cf22f"
+    },
+    {
+      "bytes": 1488,
+      "path": "reviewer-b/cases/review-case-c5be1e165866fc77039f/case.json",
+      "sha256": "sha256:8eb836758147e7f2fe3c6de6f7907d01c0c1a2d5f9dcfbac6106cc8cbeb13422"
+    },
+    {
+      "bytes": 1024,
+      "path": "reviewer-b/cases/review-case-c5be1e165866fc77039f/source.yaml",
+      "sha256": "sha256:38d2562ab983ad6c1dfbe2366f5d478942f71f864fd642173ef577f23d0cc9a0"
+    },
+    {
+      "bytes": 1541,
+      "path": "reviewer-b/cases/review-case-c5d64066eb407dd3a640/case.json",
+      "sha256": "sha256:c8f45303b4f4349735250daec50361f4464cdb48cb600857e0eae586baf071a1"
+    },
+    {
+      "bytes": 1421,
+      "path": "reviewer-b/cases/review-case-c5d64066eb407dd3a640/source.manifest.json",
+      "sha256": "sha256:efd852c9c18d84e7e2208e665b9f5b5381cae784ffd3bf202b8980b79512fc9b"
+    },
+    {
+      "bytes": 1983,
+      "path": "reviewer-b/cases/review-case-cd72f50cf70ed7c35d40/case.json",
+      "sha256": "sha256:afe80fab1993d7f13c9d24fb6d6d40e47992a54d7d3b09dc8e3bca2ee587e686"
+    },
+    {
+      "bytes": 1069,
+      "path": "reviewer-b/cases/review-case-cd72f50cf70ed7c35d40/source.yaml",
+      "sha256": "sha256:c9ed6b18193f5a6c09e6ecb531307ab0e19f72316909d72c9b35be8483724c4f"
+    },
+    {
+      "bytes": 1983,
+      "path": "reviewer-b/cases/review-case-cee899072ebe62cdc070/case.json",
+      "sha256": "sha256:f85a52042edc8d81623bc0320ac0985e8fb9a80dad92906a19178ee0615008d2"
+    },
+    {
+      "bytes": 1129,
+      "path": "reviewer-b/cases/review-case-cee899072ebe62cdc070/source.toml",
+      "sha256": "sha256:748c28d9977b99797b60b506bcbf591fae2fa558dff19d109447868dde401b69"
+    },
+    {
+      "bytes": 1983,
+      "path": "reviewer-b/cases/review-case-d35b8832bcc4078c8418/case.json",
+      "sha256": "sha256:314af16782ab27b6ae31b627302c98bd3b75487c61366c6ec19814afee61b166"
+    },
+    {
+      "bytes": 1233,
+      "path": "reviewer-b/cases/review-case-d35b8832bcc4078c8418/source.toml",
+      "sha256": "sha256:df6eaf3f504c6526030c204e0f81380a62179c218113dd2082e3c34273892257"
+    },
+    {
+      "bytes": 1530,
+      "path": "reviewer-b/cases/review-case-d618b1fc0b034446716e/case.json",
+      "sha256": "sha256:a522597524c8c647c4598b527709d3e88446b703b0cb10ed4e300969feb96b53"
+    },
+    {
+      "bytes": 732,
+      "path": "reviewer-b/cases/review-case-d618b1fc0b034446716e/source.md",
+      "sha256": "sha256:0691b872197b98eeff6c88fe1c005c7181d1a2169c3fb56f69c789e1e3298163"
+    },
+    {
+      "bytes": 1541,
+      "path": "reviewer-b/cases/review-case-d945358c8696e2cbafb3/case.json",
+      "sha256": "sha256:d2adba7e9534fc33d47ea29496b9fbf8e8a484b88025f43374ea6f84c4ae354e"
+    },
+    {
+      "bytes": 1551,
+      "path": "reviewer-b/cases/review-case-d945358c8696e2cbafb3/source.manifest.json",
+      "sha256": "sha256:2fd082fa1c12d7a967ea3a119805d9d69fecc730dcb2bc737dbd97f3fee18ae1"
+    },
+    {
+      "bytes": 1490,
+      "path": "reviewer-b/cases/review-case-dce8660339f28e773c58/case.json",
+      "sha256": "sha256:08ab8a4cb374b5b87cb2ace8e9f85a6e33d5c2eca7a0350d36421448fb88c801"
+    },
+    {
+      "bytes": 800,
+      "path": "reviewer-b/cases/review-case-dce8660339f28e773c58/source.md",
+      "sha256": "sha256:1db48967f0b6ecfa3eed526c480d678c4b1b84404cf0d917b7a972a9234e46bc"
+    },
+    {
+      "bytes": 1528,
+      "path": "reviewer-b/cases/review-case-e7d09ded7ee8bd050fa3/case.json",
+      "sha256": "sha256:f9d1eff900aa473a2408db78dcc5ab33629fd256b98eba0fb2a51124c9029c40"
+    },
+    {
+      "bytes": 1095,
+      "path": "reviewer-b/cases/review-case-e7d09ded7ee8bd050fa3/source.toml",
+      "sha256": "sha256:9aa153d26606c88616093480720c38623046c209a1bcd12f6dcf85192d32a912"
+    },
+    {
+      "bytes": 1488,
+      "path": "reviewer-b/cases/review-case-e86bbe30e3ee05f90364/case.json",
+      "sha256": "sha256:461ad66d5b2d299d1657ffa8488b2b6aa353ff8becd43bd22a372822f9da1b9b"
+    },
+    {
+      "bytes": 1023,
+      "path": "reviewer-b/cases/review-case-e86bbe30e3ee05f90364/source.yaml",
+      "sha256": "sha256:819ee1848b127ca648074210deb0c0d18c323857304c6f8d3e593e4474240499"
+    },
+    {
+      "bytes": 1541,
+      "path": "reviewer-b/cases/review-case-e9254f57e24f42237c8a/case.json",
+      "sha256": "sha256:6fb08fb5bb1ab8efdf32decf2d54c7f5d9d56fb3d314d5317d73f3c3b38fa2c8"
+    },
+    {
+      "bytes": 1421,
+      "path": "reviewer-b/cases/review-case-e9254f57e24f42237c8a/source.manifest.json",
+      "sha256": "sha256:3e70385ef2197f82763b0e8e7196f747fe415ae41919337c2acb8b09fcf77fd5"
+    },
+    {
+      "bytes": 1541,
+      "path": "reviewer-b/cases/review-case-ebf2dbdf96d1321f4b78/case.json",
+      "sha256": "sha256:f7cb11e3dc6a819099ad3577325dc280cec64772dc641483577d33562b9a30c4"
+    },
+    {
+      "bytes": 1414,
+      "path": "reviewer-b/cases/review-case-ebf2dbdf96d1321f4b78/source.manifest.json",
+      "sha256": "sha256:7b182e39df3072547d8cb92e5a7b5476e791ac2edc774530f4178431cf75a400"
+    },
+    {
+      "bytes": 1488,
+      "path": "reviewer-b/cases/review-case-ee81efa9a591a74c2820/case.json",
+      "sha256": "sha256:0acdf427956889ed0f5ccd879fad21bdfb5174070dc4bb7f0576f57f96a55a37"
+    },
+    {
+      "bytes": 1405,
+      "path": "reviewer-b/cases/review-case-ee81efa9a591a74c2820/source.json",
+      "sha256": "sha256:ec5c14b045fdea45655270c805b294a1ddfca6b364263a987763657f800dbeaf"
+    },
+    {
+      "bytes": 1530,
+      "path": "reviewer-b/cases/review-case-f07ce82ea1cc80dc0654/case.json",
+      "sha256": "sha256:113fbb6d65f1736cf621e64c466155fca78e05ba33849ee83b1b48006c5d4d69"
+    },
+    {
+      "bytes": 795,
+      "path": "reviewer-b/cases/review-case-f07ce82ea1cc80dc0654/source.md",
+      "sha256": "sha256:6aaacf14a87785b6e06e9431421322a56b0d2f7333e371c85396b9ec5b0a6f01"
+    },
+    {
+      "bytes": 1541,
+      "path": "reviewer-b/cases/review-case-f5379b8fd04acd18f3ab/case.json",
+      "sha256": "sha256:6cda6bf88cfdc6cdc44ed202c7687db798c2db178a5c2bd71f23cf71393b17e7"
+    },
+    {
+      "bytes": 1412,
+      "path": "reviewer-b/cases/review-case-f5379b8fd04acd18f3ab/source.manifest.json",
+      "sha256": "sha256:dcc3c4cf2ae18033070d35b7d06d89b0acc29083304ce6da4e0184c059e1b07e"
+    },
+    {
+      "bytes": 1530,
+      "path": "reviewer-b/cases/review-case-f66b609179b823e411a5/case.json",
+      "sha256": "sha256:0707257b260d73d525e7cb0fbcaaee5a5aa2d79585e942901f7a831bdd7c4a68"
+    },
+    {
+      "bytes": 799,
+      "path": "reviewer-b/cases/review-case-f66b609179b823e411a5/source.md",
+      "sha256": "sha256:01e1369cae2a25c29618895d610315d4839faad6171a9115a3519401a1fbf44f"
+    },
+    {
+      "bytes": 1488,
+      "path": "reviewer-b/cases/review-case-f6802f8efd87a54dedee/case.json",
+      "sha256": "sha256:25decf48e400a00b268317a6eb9ed330471c171ac6629665d26d997765d82bc6"
+    },
+    {
+      "bytes": 1562,
+      "path": "reviewer-b/cases/review-case-f6802f8efd87a54dedee/source.json",
+      "sha256": "sha256:749cabca156512ffe60e45b47b6cdafd0e97aaaef9d68e0a80b6120b92b90c4b"
+    },
+    {
+      "bytes": 1490,
+      "path": "reviewer-b/cases/review-case-f7ddbb1ee23b4059457f/case.json",
+      "sha256": "sha256:b4e665f9ee4dc0d533468ac4cd317b31e5c8ad479006bbaf384e3ec5d595e004"
+    },
+    {
+      "bytes": 723,
+      "path": "reviewer-b/cases/review-case-f7ddbb1ee23b4059457f/source.md",
+      "sha256": "sha256:bf65696f2bc46068191e738d430760bc77b8c202d06e32d62823b0a7b81086d3"
+    },
+    {
+      "bytes": 1488,
+      "path": "reviewer-b/cases/review-case-fd52db965a0e631b55e4/case.json",
+      "sha256": "sha256:ef14c16646184438ea551deb8e90d82d7047eb35dbab2ae51886a13af8127a6a"
+    },
+    {
+      "bytes": 1407,
+      "path": "reviewer-b/cases/review-case-fd52db965a0e631b55e4/source.json",
+      "sha256": "sha256:b5a4bfe5172e512609e83047260f92b8d1d0a8acc3fe7ab5c1edefba0a49fe1d"
+    },
+    {
+      "bytes": 44022,
+      "path": "reviewer-b/labels.template.json",
+      "sha256": "sha256:553938a93d220b0405c8e4142cf1f9d57f4ad49f666d148e418c42de4dc25a9f"
+    },
+    {
+      "bytes": 2344,
+      "path": "reviewer-instructions.md",
+      "sha256": "sha256:f02d4546a5eb1d2676bc6453197eadd92fa289973e6bfc8c8d549048905dcbf8"
+    },
+    {
+      "bytes": 9095,
+      "path": "reviewer-label-schema.json",
+      "sha256": "sha256:382a45423bc50dc653976bdad577c558991edc3a03fa16f75980ecd2c5319a1e"
+    },
+    {
+      "bytes": 19260,
+      "path": "selection.json",
+      "sha256": "sha256:5770a0d7ad0a901acff299b1a0975da18ba5fa92d73073b9bc8b1bd432e08110"
+    }
+  ],
+  "format": "agentsec-gate-scoped-review-package",
+  "gate_id": "HG-CAPCHAIN-001",
+  "ground_truth_included": false,
+  "joint_evidence_included": false,
+  "package_id": "gate-review-package-sha256:4bebfb271060eab3b638e5d229d3e8fb6d0c1c8284f4daaab77b961372787997",
+  "review_count": 40,
+  "reviewer_count": 2,
+  "schema_version": "0.1.0",
+  "selection_id": "gate-subset-selection-sha256:4ef30e1a30ca4e6d4c87b32f07328946e8fdef4034ca78e48f8aef203104b2ae",
+  "source_corpus_binding_hash": "sha256:59e034541e3c1096f311404358031a5dc81fc880123351363713d66c2544ad79",
+  "source_pack_id": "reviewer-pack-sha256:58295690c13861a763ed9c202d39fe37642ac0f8d9d2d6e416886184a4a86d90"
+}

@@ -1,0 +1,73 @@
+{
+  "actual": {
+    "added_findings": [],
+    "added_observations": [],
+    "capability_changes": {},
+    "changed_findings": [],
+    "file_changes": {
+      "SOUL.md": "modified"
+    },
+    "persona_changes": {},
+    "removed_findings": [],
+    "removed_observations": [
+      "startup_read_policy_conflict"
+    ],
+    "resolution_status": "resolved",
+    "simulation_changes": {},
+    "status": "complete"
+  },
+  "after": {
+    "ci_blocked": false,
+    "report_only": true,
+    "resolution_status": "resolved",
+    "runtime_verified": false,
+    "status": "complete"
+  },
+  "before": {
+    "ci_blocked": false,
+    "report_only": true,
+    "resolution_status": "conflict",
+    "runtime_verified": false,
+    "status": "partial"
+  },
+  "drill": null,
+  "expected": {
+    "added_findings": [],
+    "added_observations": [],
+    "capability_changes": {},
+    "changed_findings": [],
+    "file_changes": {
+      "SOUL.md": "modified"
+    },
+    "persona_changes": {},
+    "removed_findings": [],
+    "removed_observations": [
+      "startup_read_policy_conflict"
+    ],
+    "resolution_status": "resolved",
+    "simulation_changes": {},
+    "status": "complete"
+  },
+  "format": "agentsec-homi-capability-drift-evidence",
+  "format_version": "0.1.0",
+  "limitations": [
+    "Static Homi drift does not prove runtime reachability or execution.",
+    "Scenario-contract review is engineering evidence, not independent human TP/FP/FN adjudication.",
+    "No drift result authorizes CI blocking, release, Tool access, or a waiver."
+  ],
+  "provenance": {
+    "baseline_report_sha256": "78b4a257236b6a91b274b286b65298edc0bb26f8c40699ed94d78f4e959b4508",
+    "snapshot_archive_sha256": "2a999363b3f672b4e7aa88da5d822d741a9ff29d4eedbebf0359c56fc10dd8b1",
+    "snapshot_report_sha256": "8cc92887a56551ca33ba6ea7211c9504e86238cbd9ba9795c1683d0db29fcbb7"
+  },
+  "review": {
+    "contract_pass": true,
+    "independent_human_review": false,
+    "mode": "deterministic_scenario_contract",
+    "outcome": "contract_pass"
+  },
+  "risk_direction": "governance_hardening",
+  "scenario_id": "pr-02-startup-policy-alignment",
+  "task_id": "P2-EXIT-06-03",
+  "title": "统一 AGENTS 与 SOUL 的启动上下文加载策略"
+}

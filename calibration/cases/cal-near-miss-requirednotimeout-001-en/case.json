@@ -1,0 +1,82 @@
+{
+  "case_id": "cal-near-miss-requirednotimeout-001-en",
+  "case_kind": "near_miss",
+  "fixture": {
+    "formats": [
+      "json"
+    ],
+    "kind": "fact_bundle",
+    "path": "fixtures/cal-near-miss-requirednotimeout-001-en/facts.json"
+  },
+  "format": "agentsec-capability-calibration-case",
+  "framework_id": "codex",
+  "ground_truth": {
+    "coverage": "complete",
+    "facts": [
+      {
+        "dimension": "tool",
+        "evidence": [
+          {
+            "asset_path": "facts.json",
+            "field_path": "facts.0"
+          }
+        ],
+        "fact_id": "fact-01",
+        "key": "mcp-enabled-required",
+        "state": "absent",
+        "target_id": null
+      },
+      {
+        "dimension": "control",
+        "evidence": [
+          {
+            "asset_path": "facts.json",
+            "field_path": "facts.1"
+          }
+        ],
+        "fact_id": "fact-02",
+        "key": "timeout",
+        "state": "present",
+        "target_id": "target:primary"
+      }
+    ],
+    "rule_expectations": [
+      {
+        "confidences": [],
+        "correlations": [],
+        "fact_ids": [
+          "fact-01",
+          "fact-02"
+        ],
+        "max_findings": 0,
+        "min_findings": 0,
+        "outcome": "no_match",
+        "rationale_code": "required_mcp_without_timeout_near_miss",
+        "rule_id": "CAP-REQUIREDNOTIMEOUT-001"
+      }
+    ],
+    "runtime_verified": false,
+    "unknown_dimensions": []
+  },
+  "language": "en",
+  "purpose": "Near-miss for CAP-REQUIREDNOTIMEOUT-001; a required condition is intentionally absent or safe.",
+  "review": {
+    "disposition": "not_applicable",
+    "rationale_code": "seed_near_miss",
+    "reviewer_refs": [
+      "seed-labeler-1",
+      "seed-labeler-2"
+    ],
+    "status": "seeded"
+  },
+  "schema_version": "0.1.0",
+  "source_formats": [
+    "manifest",
+    "toml"
+  ],
+  "tags": [
+    "en",
+    "p2-cal-01",
+    "rule-family"
+  ]
+}

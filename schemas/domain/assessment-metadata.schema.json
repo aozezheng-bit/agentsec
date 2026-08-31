@@ -1,0 +1,88 @@
+{
+  "additionalProperties": false,
+  "description": "Version and execution metadata needed for reproducible reports.",
+  "properties": {
+    "completed_at": {
+      "format": "date-time",
+      "title": "Completed At",
+      "type": "string"
+    },
+    "config_schema_version": {
+      "minLength": 1,
+      "title": "Config Schema Version",
+      "type": "string"
+    },
+    "deterministic": {
+      "default": true,
+      "title": "Deterministic",
+      "type": "boolean"
+    },
+    "git_commit": {
+      "anyOf": [
+        {
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Git Commit"
+    },
+    "git_dirty": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Git Dirty"
+    },
+    "risk_model_version": {
+      "minLength": 1,
+      "title": "Risk Model Version",
+      "type": "string"
+    },
+    "rule_pack_version": {
+      "minLength": 1,
+      "title": "Rule Pack Version",
+      "type": "string"
+    },
+    "scanner_version": {
+      "minLength": 1,
+      "title": "Scanner Version",
+      "type": "string"
+    },
+    "schema_version": {
+      "minLength": 1,
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "started_at": {
+      "format": "date-time",
+      "title": "Started At",
+      "type": "string"
+    },
+    "target_root": {
+      "minLength": 1,
+      "title": "Target Root",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "scanner_version",
+    "config_schema_version",
+    "rule_pack_version",
+    "risk_model_version",
+    "target_root",
+    "started_at",
+    "completed_at"
+  ],
+  "title": "AssessmentMetadata",
+  "type": "object"
+}

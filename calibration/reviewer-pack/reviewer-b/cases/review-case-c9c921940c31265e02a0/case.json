@@ -1,0 +1,33 @@
+{
+  "corpus_binding_hash": "sha256:59e034541e3c1096f311404358031a5dc81fc880123351363713d66c2544ad79",
+  "format": "agentsec-independent-review-case",
+  "input_format": "manifest",
+  "language": "en",
+  "pack_id": "reviewer-pack-sha256:58295690c13861a763ed9c202d39fe37642ac0f8d9d2d6e416886184a4a86d90",
+  "question_set_sha256": "sha256:b98cfa5771fd4b09c599ed466cad6e6ae6c4157702caab458e55a1c22b5e38d4",
+  "review_case_fingerprint": "sha256:0ee56d161fc29c3f4f77859f5b9d9fafe04ed4f2d2969ad1ee154ecc8c6b2113",
+  "review_case_id": "review-case-c9c921940c31265e02a0",
+  "review_questions": [
+    {
+      "condition": {
+        "en": "A persists_memory relationship coexists with secret access, external network, write, or admin capability."
+      },
+      "prompt": {
+        "en": "Independently label the human Rule condition as match, no_match, or uncertain; record your direct finding observation, policy/scope category, evidence location, Confidence, Correlation, disposition, rationale code, and notes. Do not calculate TP/FP/FN/TN."
+      },
+      "question_id": "question:review-case-c9c921940c31265e02a0:CAP-PERSIST-001",
+      "rule_id": "CAP-PERSIST-001",
+      "title": {
+        "en": "Persistent memory is combined with a sensitive capability"
+      }
+    }
+  ],
+  "schema_version": "0.3.0",
+  "source_location": {
+    "end_line": 19,
+    "path": "source.manifest.json",
+    "start_line": 1
+  },
+  "source_sha256": "sha256:fae0105046568eda0d9b385720317c3afaaffa535cc1bd9e8cd9edaaf14bf2e7",
+  "synthetic_fixture": true
+}

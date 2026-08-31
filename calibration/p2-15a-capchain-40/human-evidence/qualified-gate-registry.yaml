@@ -1,0 +1,12 @@
+format: agentsec-qualified-gate-registry
+schema_version: "0.1.0"
+registry_id: internal-approved-gates
+registry_version: "2026.08.25"
+gates:
+  - gate_id: HG-CAPCHAIN-001
+    qualification_report_path: hg-capchain-001-qualification-report-v2.json
+    qualification_artifact_id: qualification-report-sha256:6a05ad9b8938dc9c3fbe4a73087ba4cf14e55208fa9c192113fe5e7bf360418c
+    qualification_sha256: 2c1dac9daab75debed5f8e98737a5e9b2a2e5439bcb7e02d965abc19d42e6f3a
+    evidence_mode: human
+    qualification_status: accepted
+    allowed_floor: high

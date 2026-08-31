@@ -1,0 +1,2165 @@
+{
+  "after_rule_failures": [],
+  "agent_id": "release-agent",
+  "before_rule_failures": [],
+  "capability_diff": {
+    "added_count": 4,
+    "after_coverage_complete": true,
+    "agent_id": "release-agent",
+    "agent_manifest_schema_version": "0.3.0",
+    "before_coverage_complete": true,
+    "changes": [
+      {
+        "after_sha256": null,
+        "after_sources": [],
+        "before_sha256": "cf4884477c7ac5ec9f2d7f003d327eebc78b4d16f99c312f618e8e12d07e7f54",
+        "before_sources": [
+          {
+            "end_line": 5,
+            "field_path": "$.mcp_servers.local_review.default_tools_approval_mode",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 5
+          }
+        ],
+        "change_type": "removed",
+        "changed_fields": [
+          "item"
+        ],
+        "dimension": "control",
+        "item_id": "control:approval:mcp-server:local_review"
+      },
+      {
+        "after_sha256": null,
+        "after_sources": [],
+        "before_sha256": "9b80b2956facf74d57ec4cfecb8b6329bd3148989228090c5bdf5b3c0153404c",
+        "before_sources": [
+          {
+            "end_line": 12,
+            "field_path": "$.mcp_servers.remote_release.default_tools_approval_mode",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 12
+          }
+        ],
+        "change_type": "removed",
+        "changed_fields": [
+          "item"
+        ],
+        "dimension": "control",
+        "item_id": "control:approval:mcp-server:remote_release"
+      },
+      {
+        "after_sha256": null,
+        "after_sources": [],
+        "before_sha256": "d992c299167c7f6a412769105dc6ee3617528d47cf962e7cfc83708c13604703",
+        "before_sources": [
+          {
+            "end_line": 3,
+            "field_path": "$.mcp_servers.local_review.enabled",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 3
+          }
+        ],
+        "change_type": "removed",
+        "changed_fields": [
+          "item"
+        ],
+        "dimension": "control",
+        "item_id": "control:mcp-enable:mcp-server:local_review"
+      },
+      {
+        "after_sha256": null,
+        "after_sources": [],
+        "before_sha256": "f659123059b18f237a5531497f739699b41b65d1a39485c0caa2d2365f5d148a",
+        "before_sources": [
+          {
+            "end_line": 9,
+            "field_path": "$.mcp_servers.remote_release.enabled",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 9
+          }
+        ],
+        "change_type": "removed",
+        "changed_fields": [
+          "item"
+        ],
+        "dimension": "control",
+        "item_id": "control:mcp-enable:mcp-server:remote_release"
+      },
+      {
+        "after_sha256": null,
+        "after_sources": [],
+        "before_sha256": "c41a464babeefb00a4c45f7635587bd5b0e5ea8b9e078ee64bb9517aa2803612",
+        "before_sources": [
+          {
+            "end_line": 5,
+            "field_path": "$.mcp_servers.local_review",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 1
+          }
+        ],
+        "change_type": "removed",
+        "changed_fields": [
+          "item"
+        ],
+        "dimension": "control",
+        "item_id": "control:mcp-required:mcp-server:local_review"
+      },
+      {
+        "after_sha256": null,
+        "after_sources": [],
+        "before_sha256": "476e02dcaa403ebfb2321b7f2167c4fa1d57bcf6d22368f86481df73bc6f6e93",
+        "before_sources": [
+          {
+            "end_line": 10,
+            "field_path": "$.mcp_servers.remote_release.required",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 10
+          }
+        ],
+        "change_type": "removed",
+        "changed_fields": [
+          "item"
+        ],
+        "dimension": "control",
+        "item_id": "control:mcp-required:mcp-server:remote_release"
+      },
+      {
+        "after_sha256": null,
+        "after_sources": [],
+        "before_sha256": "3434a2fe8e497247634b163b09143a5411573301572900cebc4f2af4aeac1dc8",
+        "before_sources": [
+          {
+            "end_line": 8,
+            "field_path": "$.mcp_servers.remote_release.url",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 8
+          }
+        ],
+        "change_type": "removed",
+        "changed_fields": [
+          "item"
+        ],
+        "dimension": "control",
+        "item_id": "control:network-policy:mcp-server:remote_release"
+      },
+      {
+        "after_sha256": null,
+        "after_sources": [],
+        "before_sha256": "7a96f1be8629488acf1b52b6166b51a78e7509a67345aec699eb56a2bae30ab9",
+        "before_sources": [
+          {
+            "end_line": 4,
+            "field_path": "$.mcp_servers.local_review.bearer_token_env_var",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 4
+          }
+        ],
+        "change_type": "removed",
+        "changed_fields": [
+          "item"
+        ],
+        "dimension": "control",
+        "item_id": "control:secret-handling:mcp-server:local_review"
+      },
+      {
+        "after_sha256": null,
+        "after_sources": [],
+        "before_sha256": "6809bad0e7949fa16850bd9d17ecbed3984bc77790e2f0e68dc78338c164abde",
+        "before_sources": [
+          {
+            "end_line": 5,
+            "field_path": "$.mcp_servers.local_review",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 1
+          }
+        ],
+        "change_type": "removed",
+        "changed_fields": [
+          "item"
+        ],
+        "dimension": "permission",
+        "item_id": "permission:execute:mcp-server:local_review"
+      },
+      {
+        "after_sha256": null,
+        "after_sources": [],
+        "before_sha256": "5ab5a5cd015d722ceec60cdc2ddf1ab37009b0535b1b95c367706385c79fdff9",
+        "before_sources": [
+          {
+            "end_line": 12,
+            "field_path": "$.mcp_servers.remote_release",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 7
+          }
+        ],
+        "change_type": "removed",
+        "changed_fields": [
+          "item"
+        ],
+        "dimension": "permission",
+        "item_id": "permission:network:mcp-server:remote_release"
+      },
+      {
+        "after_sha256": null,
+        "after_sources": [],
+        "before_sha256": "77b605267b4c67f4d168d887fdd305fa32145a3e944a47209245ccc079e101ba",
+        "before_sources": [
+          {
+            "end_line": 4,
+            "field_path": "$.mcp_servers.local_review.bearer_token_env_var",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 4
+          }
+        ],
+        "change_type": "removed",
+        "changed_fields": [
+          "item"
+        ],
+        "dimension": "permission",
+        "item_id": "permission:secret_access:mcp-server:local_review"
+      },
+      {
+        "after_sha256": null,
+        "after_sources": [],
+        "before_sha256": "4cff1d5d6de44e1386c7cba07b24769a38ab1c5cd07729c6fcff1f2044e8f89e",
+        "before_sources": [
+          {
+            "end_line": null,
+            "field_path": null,
+            "locator": {
+              "path": ".agents/skills/review/SKILL.md",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": null
+          }
+        ],
+        "change_type": "removed",
+        "changed_fields": [
+          "item"
+        ],
+        "dimension": "permission",
+        "item_id": "permission:unknown:skill:review"
+      },
+      {
+        "after_sha256": null,
+        "after_sources": [],
+        "before_sha256": "872c61e16401ff5c3e5bc83fa61bc8a63bd9e0a30364f7ae5f99054d46714da9",
+        "before_sources": [
+          {
+            "end_line": 2,
+            "field_path": "$.frontmatter.delegates_to[0]",
+            "locator": {
+              "path": "AGENTS.md",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 2
+          }
+        ],
+        "change_type": "removed",
+        "changed_fields": [
+          "item"
+        ],
+        "dimension": "relationship",
+        "item_id": "relation:delegates_to:agent:deployer"
+      },
+      {
+        "after_sha256": null,
+        "after_sources": [],
+        "before_sha256": "9fbb934bd04878c268d470d29b8b07975cedbc712a2942ba3409b525d0065d62",
+        "before_sources": [
+          {
+            "end_line": 3,
+            "field_path": "$.frontmatter.persists_memory[0]",
+            "locator": {
+              "path": "AGENTS.md",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 3
+          }
+        ],
+        "change_type": "removed",
+        "changed_fields": [
+          "item"
+        ],
+        "dimension": "relationship",
+        "item_id": "relation:persists_memory:memory:release_state"
+      },
+      {
+        "after_sha256": null,
+        "after_sources": [],
+        "before_sha256": "2fbd260111275239ad63d016abe30dc657662304128921558a3fa3256d4e3175",
+        "before_sources": [
+          {
+            "end_line": 5,
+            "field_path": "$.mcp_servers.local_review",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 1
+          }
+        ],
+        "change_type": "removed",
+        "changed_fields": [
+          "item"
+        ],
+        "dimension": "relationship",
+        "item_id": "relation:uses-mcp:mcp-server:local_review"
+      },
+      {
+        "after_sha256": null,
+        "after_sources": [],
+        "before_sha256": "620d79e524fc3904a3100d76785737d4d2ec4066cc6c1ae3600d1d7172c41bdd",
+        "before_sources": [
+          {
+            "end_line": 12,
+            "field_path": "$.mcp_servers.remote_release",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 7
+          }
+        ],
+        "change_type": "removed",
+        "changed_fields": [
+          "item"
+        ],
+        "dimension": "relationship",
+        "item_id": "relation:uses-mcp:mcp-server:remote_release"
+      },
+      {
+        "after_sha256": null,
+        "after_sources": [],
+        "before_sha256": "bbd6b9c55fd6ce2f2bbf46d8d876bf22412e8d71098b5ad1fcbf5fc5dc2274b5",
+        "before_sources": [
+          {
+            "end_line": 5,
+            "field_path": "$.mcp_servers.local_review",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 1
+          },
+          {
+            "end_line": 4,
+            "field_path": "$.mcp_servers.local_review.bearer_token_env_var",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 4
+          },
+          {
+            "end_line": 2,
+            "field_path": "$.mcp_servers.local_review.command",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 2
+          },
+          {
+            "end_line": 3,
+            "field_path": "$.mcp_servers.local_review.enabled",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 3
+          }
+        ],
+        "change_type": "removed",
+        "changed_fields": [
+          "item"
+        ],
+        "dimension": "runtime_identity",
+        "item_id": "identity:mcp-server:local_review"
+      },
+      {
+        "after_sha256": null,
+        "after_sources": [],
+        "before_sha256": "eb3d82cc50ab9f35763839c5b2ea2460a8b50dd64d36ac2cf01e9f0359416189",
+        "before_sources": [
+          {
+            "end_line": 12,
+            "field_path": "$.mcp_servers.remote_release",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 7
+          },
+          {
+            "end_line": 11,
+            "field_path": "$.mcp_servers.remote_release.auth",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 11
+          },
+          {
+            "end_line": 9,
+            "field_path": "$.mcp_servers.remote_release.enabled",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 9
+          },
+          {
+            "end_line": 10,
+            "field_path": "$.mcp_servers.remote_release.required",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 10
+          },
+          {
+            "end_line": 8,
+            "field_path": "$.mcp_servers.remote_release.url",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 8
+          }
+        ],
+        "change_type": "removed",
+        "changed_fields": [
+          "item"
+        ],
+        "dimension": "runtime_identity",
+        "item_id": "identity:mcp-server:remote_release"
+      },
+      {
+        "after_sha256": null,
+        "after_sources": [],
+        "before_sha256": "9b091f900e06e4c02ef300b03f37b1d8a1dda924f41769db994db4a89495f7cd",
+        "before_sources": [
+          {
+            "end_line": 5,
+            "field_path": "$.mcp_servers.local_review",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 1
+          }
+        ],
+        "change_type": "removed",
+        "changed_fields": [
+          "item"
+        ],
+        "dimension": "tool",
+        "item_id": "mcp-server:local_review"
+      },
+      {
+        "after_sha256": null,
+        "after_sources": [],
+        "before_sha256": "fec87e43404c7e3493ad7563ab7a5c793f0e66ee059a660165346579ff945b2b",
+        "before_sources": [
+          {
+            "end_line": 12,
+            "field_path": "$.mcp_servers.remote_release",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 7
+          }
+        ],
+        "change_type": "removed",
+        "changed_fields": [
+          "item"
+        ],
+        "dimension": "tool",
+        "item_id": "mcp-server:remote_release"
+      },
+      {
+        "after_sha256": null,
+        "after_sources": [],
+        "before_sha256": "3d2cfa265c9a62fe9b91c8ee1488f00a7af40f7a2cc5ab0998d23ac78d56b649",
+        "before_sources": [
+          {
+            "end_line": 5,
+            "field_path": "$.mcp_servers.local_review",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 1
+          }
+        ],
+        "change_type": "removed",
+        "changed_fields": [
+          "item"
+        ],
+        "dimension": "unknown",
+        "item_id": "unknown:controls:149799341f5e288c"
+      },
+      {
+        "after_sha256": "7bb012486a4d698d3dfdea01be130d1b8a7345ab3d798591a284f57502a0a561",
+        "after_sources": [],
+        "before_sha256": null,
+        "before_sources": [],
+        "change_type": "added",
+        "changed_fields": [
+          "item"
+        ],
+        "dimension": "unknown",
+        "item_id": "unknown:controls:21a0b7e5d41746fa"
+      },
+      {
+        "after_sha256": null,
+        "after_sources": [],
+        "before_sha256": "b6658ac547d61d1935c33b148f1c2259206df29977992759cfd31eb6e4f8aac0",
+        "before_sources": [
+          {
+            "end_line": null,
+            "field_path": null,
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": null
+          }
+        ],
+        "change_type": "removed",
+        "changed_fields": [
+          "item"
+        ],
+        "dimension": "unknown",
+        "item_id": "unknown:controls:94261a6d7b79fe9f"
+      },
+      {
+        "after_sha256": "719c90db3a81abcb72ae3b9886f609e5ece7df179cfb51de9f6c82f4ba189da3",
+        "after_sources": [],
+        "before_sha256": null,
+        "before_sources": [],
+        "change_type": "added",
+        "changed_fields": [
+          "item"
+        ],
+        "dimension": "unknown",
+        "item_id": "unknown:identity:77d20c81b0e7afa5"
+      },
+      {
+        "after_sha256": null,
+        "after_sources": [],
+        "before_sha256": "233537da952b2fae24a082e877dcca4f48af85065df59c39651b1c9a94867fb9",
+        "before_sources": [
+          {
+            "end_line": null,
+            "field_path": null,
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": null
+          }
+        ],
+        "change_type": "removed",
+        "changed_fields": [
+          "item"
+        ],
+        "dimension": "unknown",
+        "item_id": "unknown:identity:c920ca1667e8c1ec"
+      },
+      {
+        "after_sha256": null,
+        "after_sources": [],
+        "before_sha256": "d934e993fc813a9bad794abb1435aeba70bb8ebedb4275f129fc4ee3997fd45c",
+        "before_sources": [
+          {
+            "end_line": null,
+            "field_path": null,
+            "locator": {
+              "path": ".agents/skills/review/SKILL.md",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": null
+          }
+        ],
+        "change_type": "removed",
+        "changed_fields": [
+          "item"
+        ],
+        "dimension": "unknown",
+        "item_id": "unknown:permissions:0481d8a855bc6071"
+      },
+      {
+        "after_sha256": null,
+        "after_sources": [],
+        "before_sha256": "c5c8a491a32bae6fbd1b2e02426e8ef7d535ed238d4129810e5e7e954ebd3208",
+        "before_sources": [
+          {
+            "end_line": null,
+            "field_path": null,
+            "locator": {
+              "path": ".agents/skills/review/SKILL.md",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": null
+          }
+        ],
+        "change_type": "removed",
+        "changed_fields": [
+          "item"
+        ],
+        "dimension": "unknown",
+        "item_id": "unknown:permissions:081a5d1ea12ed087"
+      },
+      {
+        "after_sha256": "d7a55abefe62b954c04142f918801de4d0e8cded863ba6a2eb57a83bc4d348a1",
+        "after_sources": [],
+        "before_sha256": null,
+        "before_sources": [],
+        "change_type": "added",
+        "changed_fields": [
+          "item"
+        ],
+        "dimension": "unknown",
+        "item_id": "unknown:permissions:2be0c85c08af985b"
+      },
+      {
+        "after_sha256": null,
+        "after_sources": [],
+        "before_sha256": "9275350b0b9fdb95f1d812a42c77604327929874ed14416db141d289d53cef0d",
+        "before_sources": [
+          {
+            "end_line": 12,
+            "field_path": "$.mcp_servers.remote_release",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 7
+          }
+        ],
+        "change_type": "removed",
+        "changed_fields": [
+          "item"
+        ],
+        "dimension": "unknown",
+        "item_id": "unknown:permissions:7d935e6b768ef536"
+      },
+      {
+        "after_sha256": null,
+        "after_sources": [],
+        "before_sha256": "28406dd6371b75dfa9236bfaf2f9cb2dc63c75526f3e24ea4372a137ecb455d1",
+        "before_sources": [
+          {
+            "end_line": 4,
+            "field_path": "$.mcp_servers.local_review.bearer_token_env_var",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 4
+          }
+        ],
+        "change_type": "removed",
+        "changed_fields": [
+          "item"
+        ],
+        "dimension": "unknown",
+        "item_id": "unknown:permissions:e52ed4c720997730"
+      },
+      {
+        "after_sha256": null,
+        "after_sources": [],
+        "before_sha256": "cd525896a98afb9b409adecff737a5f61fa71d48268c4ef201e07891cc63c693",
+        "before_sources": [
+          {
+            "end_line": null,
+            "field_path": null,
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": null
+          }
+        ],
+        "change_type": "removed",
+        "changed_fields": [
+          "item"
+        ],
+        "dimension": "unknown",
+        "item_id": "unknown:permissions:e54c411ec89a1f22"
+      },
+      {
+        "after_sha256": null,
+        "after_sources": [],
+        "before_sha256": "92b4ad8dde44adad653a99edf4d74733a42a408955e31091043d905ac121f0a0",
+        "before_sources": [
+          {
+            "end_line": 5,
+            "field_path": "$.mcp_servers.local_review",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 1
+          }
+        ],
+        "change_type": "removed",
+        "changed_fields": [
+          "item"
+        ],
+        "dimension": "unknown",
+        "item_id": "unknown:permissions:f35f2c190bb8f0eb"
+      },
+      {
+        "after_sha256": null,
+        "after_sources": [],
+        "before_sha256": "96e83d31b183f94589dbd0df10e02c8fefd7a891ebeb666fe6fb508a5f81ccbe",
+        "before_sources": [
+          {
+            "end_line": 12,
+            "field_path": "$.mcp_servers.remote_release",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 7
+          },
+          {
+            "end_line": 11,
+            "field_path": "$.mcp_servers.remote_release.auth",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 11
+          },
+          {
+            "end_line": 9,
+            "field_path": "$.mcp_servers.remote_release.enabled",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 9
+          },
+          {
+            "end_line": 10,
+            "field_path": "$.mcp_servers.remote_release.required",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 10
+          },
+          {
+            "end_line": 8,
+            "field_path": "$.mcp_servers.remote_release.url",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 8
+          }
+        ],
+        "change_type": "removed",
+        "changed_fields": [
+          "item"
+        ],
+        "dimension": "unknown",
+        "item_id": "unknown:runtime_identities:9064e24bda5c282c"
+      },
+      {
+        "after_sha256": "77e02ef10a9c6fca87d10278e765bd1802b46cdb7065c4f78506ee6cbae9bdc0",
+        "after_sources": [],
+        "before_sha256": null,
+        "before_sources": [],
+        "change_type": "added",
+        "changed_fields": [
+          "item"
+        ],
+        "dimension": "unknown",
+        "item_id": "unknown:runtime_identities:9af495e3982f8b99"
+      },
+      {
+        "after_sha256": null,
+        "after_sources": [],
+        "before_sha256": "bc53c7ba45461e009d5ea2339eeb87c46ef7121530ef4c870c4c3dcd82e232ec",
+        "before_sources": [
+          {
+            "end_line": 5,
+            "field_path": "$.mcp_servers.local_review",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 1
+          },
+          {
+            "end_line": 4,
+            "field_path": "$.mcp_servers.local_review.bearer_token_env_var",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 4
+          },
+          {
+            "end_line": 2,
+            "field_path": "$.mcp_servers.local_review.command",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 2
+          },
+          {
+            "end_line": 3,
+            "field_path": "$.mcp_servers.local_review.enabled",
+            "locator": {
+              "path": ".codex/config.toml",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": 3
+          }
+        ],
+        "change_type": "removed",
+        "changed_fields": [
+          "item"
+        ],
+        "dimension": "unknown",
+        "item_id": "unknown:runtime_identities:efea430ca56cde7a"
+      }
+    ],
+    "complete": true,
+    "modified_count": 0,
+    "profile_changes": [
+      {
+        "after": "unknown",
+        "before": "resolved",
+        "profile": "configuration"
+      },
+      {
+        "after": "unknown",
+        "before": "partial",
+        "profile": "controls"
+      },
+      {
+        "after": "unknown",
+        "before": "partial",
+        "profile": "permissions"
+      },
+      {
+        "after": "unknown",
+        "before": "resolved",
+        "profile": "runtime_identities"
+      }
+    ],
+    "removed_count": 31,
+    "schema_version": "0.1.0"
+  },
+  "change_impacts": [
+    {
+      "after": null,
+      "before": {
+        "attributes": [
+          {
+            "field": "kind",
+            "values": [
+              "human_approval"
+            ]
+          },
+          {
+            "field": "state",
+            "values": [
+              "allow"
+            ]
+          },
+          {
+            "field": "target",
+            "values": [
+              "mcp-server:local_review"
+            ]
+          }
+        ],
+        "dimension": "control",
+        "item_id": "control:approval:mcp-server:local_review"
+      },
+      "change_type": "removed",
+      "dimension": "control",
+      "direction": "reduced_exposure",
+      "impact_id": "capability-impact-sha256:58fad816eb438379c55a9f1ee2b80733c666cfc7cb945acce6b3fc6e7ae7b358",
+      "item_id": "control:approval:mcp-server:local_review",
+      "reasons": [
+        "capability_removed",
+        "control_strengthened"
+      ],
+      "related_finding_delta_ids": []
+    },
+    {
+      "after": null,
+      "before": {
+        "attributes": [
+          {
+            "field": "kind",
+            "values": [
+              "human_approval"
+            ]
+          },
+          {
+            "field": "state",
+            "values": [
+              "allow"
+            ]
+          },
+          {
+            "field": "target",
+            "values": [
+              "mcp-server:remote_release"
+            ]
+          }
+        ],
+        "dimension": "control",
+        "item_id": "control:approval:mcp-server:remote_release"
+      },
+      "change_type": "removed",
+      "dimension": "control",
+      "direction": "reduced_exposure",
+      "impact_id": "capability-impact-sha256:ef80e7d031af6de0cfff33b8c00b0f1bc3afc12e550ab0f30e31bb1c459f1cfa",
+      "item_id": "control:approval:mcp-server:remote_release",
+      "reasons": [
+        "capability_removed",
+        "control_strengthened"
+      ],
+      "related_finding_delta_ids": []
+    },
+    {
+      "after": null,
+      "before": {
+        "attributes": [
+          {
+            "field": "kind",
+            "values": [
+              "enablement"
+            ]
+          },
+          {
+            "field": "state",
+            "values": [
+              "enabled"
+            ]
+          },
+          {
+            "field": "target",
+            "values": [
+              "mcp-server:local_review"
+            ]
+          }
+        ],
+        "dimension": "control",
+        "item_id": "control:mcp-enable:mcp-server:local_review"
+      },
+      "change_type": "removed",
+      "dimension": "control",
+      "direction": "reduced_exposure",
+      "impact_id": "capability-impact-sha256:a8fd8cd9385c2cf5c0d9970991d75deca3389d36d04fb92df9bc6e2680f0df11",
+      "item_id": "control:mcp-enable:mcp-server:local_review",
+      "reasons": [
+        "capability_removed",
+        "control_strengthened"
+      ],
+      "related_finding_delta_ids": []
+    },
+    {
+      "after": null,
+      "before": {
+        "attributes": [
+          {
+            "field": "kind",
+            "values": [
+              "enablement"
+            ]
+          },
+          {
+            "field": "state",
+            "values": [
+              "enabled"
+            ]
+          },
+          {
+            "field": "target",
+            "values": [
+              "mcp-server:remote_release"
+            ]
+          }
+        ],
+        "dimension": "control",
+        "item_id": "control:mcp-enable:mcp-server:remote_release"
+      },
+      "change_type": "removed",
+      "dimension": "control",
+      "direction": "reduced_exposure",
+      "impact_id": "capability-impact-sha256:9b18a05097e22436f9f018184c59e45638f57e53e954f3b4d0ec9f719fb068dc",
+      "item_id": "control:mcp-enable:mcp-server:remote_release",
+      "reasons": [
+        "capability_removed",
+        "control_strengthened"
+      ],
+      "related_finding_delta_ids": []
+    },
+    {
+      "after": null,
+      "before": {
+        "attributes": [
+          {
+            "field": "kind",
+            "values": [
+              "required"
+            ]
+          },
+          {
+            "field": "state",
+            "values": [
+              "unknown"
+            ]
+          },
+          {
+            "field": "target",
+            "values": [
+              "mcp-server:local_review"
+            ]
+          }
+        ],
+        "dimension": "control",
+        "item_id": "control:mcp-required:mcp-server:local_review"
+      },
+      "change_type": "removed",
+      "dimension": "control",
+      "direction": "uncertain",
+      "impact_id": "capability-impact-sha256:390d220240754d8fed02a398c5eab0eca6ae0f0700a5df1478c3c2e26a469a4f",
+      "item_id": "control:mcp-required:mcp-server:local_review",
+      "reasons": [
+        "capability_removed",
+        "unknown_state"
+      ],
+      "related_finding_delta_ids": []
+    },
+    {
+      "after": null,
+      "before": {
+        "attributes": [
+          {
+            "field": "kind",
+            "values": [
+              "required"
+            ]
+          },
+          {
+            "field": "state",
+            "values": [
+              "required"
+            ]
+          },
+          {
+            "field": "target",
+            "values": [
+              "mcp-server:remote_release"
+            ]
+          }
+        ],
+        "dimension": "control",
+        "item_id": "control:mcp-required:mcp-server:remote_release"
+      },
+      "change_type": "removed",
+      "dimension": "control",
+      "direction": "reduced_exposure",
+      "impact_id": "capability-impact-sha256:07fa6b1ffece4a5e5f0ac9edaa87de05b2e6b71d9d0df03a6cbc59d1ebbb5422",
+      "item_id": "control:mcp-required:mcp-server:remote_release",
+      "reasons": [
+        "capability_removed",
+        "control_strengthened"
+      ],
+      "related_finding_delta_ids": []
+    },
+    {
+      "after": null,
+      "before": {
+        "attributes": [
+          {
+            "field": "kind",
+            "values": [
+              "network_policy"
+            ]
+          },
+          {
+            "field": "state",
+            "values": [
+              "configured"
+            ]
+          },
+          {
+            "field": "target",
+            "values": [
+              "mcp-server:remote_release"
+            ]
+          }
+        ],
+        "dimension": "control",
+        "item_id": "control:network-policy:mcp-server:remote_release"
+      },
+      "change_type": "removed",
+      "dimension": "control",
+      "direction": "increased_exposure",
+      "impact_id": "capability-impact-sha256:87c4184676cd717d31273960133b1cc696ba8981a0ba4410b664637fea52dccf",
+      "item_id": "control:network-policy:mcp-server:remote_release",
+      "reasons": [
+        "capability_removed",
+        "control_weakened"
+      ],
+      "related_finding_delta_ids": []
+    },
+    {
+      "after": null,
+      "before": {
+        "attributes": [
+          {
+            "field": "kind",
+            "values": [
+              "secret_handling"
+            ]
+          },
+          {
+            "field": "state",
+            "values": [
+              "configured"
+            ]
+          },
+          {
+            "field": "target",
+            "values": [
+              "mcp-server:local_review"
+            ]
+          }
+        ],
+        "dimension": "control",
+        "item_id": "control:secret-handling:mcp-server:local_review"
+      },
+      "change_type": "removed",
+      "dimension": "control",
+      "direction": "increased_exposure",
+      "impact_id": "capability-impact-sha256:c4e71995505b4c6e5e23a5635ce65a1950eeb67e6f674e43a9ace1c62d69c0b9",
+      "item_id": "control:secret-handling:mcp-server:local_review",
+      "reasons": [
+        "capability_removed",
+        "control_weakened"
+      ],
+      "related_finding_delta_ids": []
+    },
+    {
+      "after": null,
+      "before": {
+        "attributes": [
+          {
+            "field": "action",
+            "values": [
+              "execute"
+            ]
+          },
+          {
+            "field": "effect",
+            "values": [
+              "unknown"
+            ]
+          },
+          {
+            "field": "resource",
+            "values": [
+              "shell"
+            ]
+          },
+          {
+            "field": "scope",
+            "values": [
+              "project"
+            ]
+          },
+          {
+            "field": "target",
+            "values": [
+              "mcp-server:local_review"
+            ]
+          }
+        ],
+        "dimension": "permission",
+        "item_id": "permission:execute:mcp-server:local_review"
+      },
+      "change_type": "removed",
+      "dimension": "permission",
+      "direction": "uncertain",
+      "impact_id": "capability-impact-sha256:54846d5bd4455353b3dc8a099e34d3f7abd6062f86518cba7ef3f411ff804a29",
+      "item_id": "permission:execute:mcp-server:local_review",
+      "reasons": [
+        "capability_removed",
+        "permission_effect_strengthened",
+        "permission_revoked",
+        "unknown_state"
+      ],
+      "related_finding_delta_ids": [
+        "capability-finding-delta-sha256:1f10a13ea2b3c072ee77f9b2bf8033be20b5ced4b99c3b718b4c392d101757f0",
+        "capability-finding-delta-sha256:37d7190de4f73361b6023569bc2bed3aea4e51f4908a1669c7bee8d74aefdf63"
+      ]
+    },
+    {
+      "after": null,
+      "before": {
+        "attributes": [
+          {
+            "field": "action",
+            "values": [
+              "network"
+            ]
+          },
+          {
+            "field": "effect",
+            "values": [
+              "unknown"
+            ]
+          },
+          {
+            "field": "resource",
+            "values": [
+              "network"
+            ]
+          },
+          {
+            "field": "scope",
+            "values": [
+              "external"
+            ]
+          },
+          {
+            "field": "target",
+            "values": [
+              "mcp-server:remote_release"
+            ]
+          }
+        ],
+        "dimension": "permission",
+        "item_id": "permission:network:mcp-server:remote_release"
+      },
+      "change_type": "removed",
+      "dimension": "permission",
+      "direction": "uncertain",
+      "impact_id": "capability-impact-sha256:25e87ea0db3c1a43bfe54c678675abb1456cda8160279296a49c974ae20a0356",
+      "item_id": "permission:network:mcp-server:remote_release",
+      "reasons": [
+        "capability_removed",
+        "permission_effect_strengthened",
+        "permission_revoked",
+        "unknown_state"
+      ],
+      "related_finding_delta_ids": [
+        "capability-finding-delta-sha256:0cc3d91f8049e626bf44c28256b8602b608f0850243e2848aa983198453dc8d2",
+        "capability-finding-delta-sha256:37d7190de4f73361b6023569bc2bed3aea4e51f4908a1669c7bee8d74aefdf63",
+        "capability-finding-delta-sha256:6ef01a21c0964a4b641f39f22798760f09ca1cb289d7e9780c21276f284b8ede",
+        "capability-finding-delta-sha256:a804467c87580135c06b4c26c5b1397cad84d9d956e6c8d100c68a0fbd156b24"
+      ]
+    },
+    {
+      "after": null,
+      "before": {
+        "attributes": [
+          {
+            "field": "action",
+            "values": [
+              "secret_access"
+            ]
+          },
+          {
+            "field": "effect",
+            "values": [
+              "unknown"
+            ]
+          },
+          {
+            "field": "resource",
+            "values": [
+              "environment"
+            ]
+          },
+          {
+            "field": "scope",
+            "values": [
+              "project"
+            ]
+          },
+          {
+            "field": "target",
+            "values": [
+              "mcp-server:local_review"
+            ]
+          }
+        ],
+        "dimension": "permission",
+        "item_id": "permission:secret_access:mcp-server:local_review"
+      },
+      "change_type": "removed",
+      "dimension": "permission",
+      "direction": "uncertain",
+      "impact_id": "capability-impact-sha256:5e48ddae5f5c256ca16b86d09b63e0dc6b8861838c37add6857e756af90d25f7",
+      "item_id": "permission:secret_access:mcp-server:local_review",
+      "reasons": [
+        "capability_removed",
+        "permission_effect_strengthened",
+        "permission_revoked",
+        "unknown_state"
+      ],
+      "related_finding_delta_ids": [
+        "capability-finding-delta-sha256:37d7190de4f73361b6023569bc2bed3aea4e51f4908a1669c7bee8d74aefdf63",
+        "capability-finding-delta-sha256:9618628e5712f585cff3a8acf3d3d8ea3244cea43fbcc046f2d30257254c660f",
+        "capability-finding-delta-sha256:a804467c87580135c06b4c26c5b1397cad84d9d956e6c8d100c68a0fbd156b24"
+      ]
+    },
+    {
+      "after": null,
+      "before": {
+        "attributes": [
+          {
+            "field": "action",
+            "values": [
+              "unknown"
+            ]
+          },
+          {
+            "field": "effect",
+            "values": [
+              "unknown"
+            ]
+          },
+          {
+            "field": "resource",
+            "values": [
+              "tool"
+            ]
+          },
+          {
+            "field": "scope",
+            "values": [
+              "project"
+            ]
+          },
+          {
+            "field": "target",
+            "values": [
+              "skill:review"
+            ]
+          }
+        ],
+        "dimension": "permission",
+        "item_id": "permission:unknown:skill:review"
+      },
+      "change_type": "removed",
+      "dimension": "permission",
+      "direction": "uncertain",
+      "impact_id": "capability-impact-sha256:efb75e3c496fe8b6d34711853b34cf7049f9c6b5bae06050be0b767cc082beae",
+      "item_id": "permission:unknown:skill:review",
+      "reasons": [
+        "capability_removed",
+        "permission_effect_strengthened",
+        "permission_revoked",
+        "unknown_state"
+      ],
+      "related_finding_delta_ids": []
+    },
+    {
+      "after": null,
+      "before": {
+        "attributes": [
+          {
+            "field": "availability",
+            "values": [
+              "enabled"
+            ]
+          },
+          {
+            "field": "kind",
+            "values": [
+              "mcp_server"
+            ]
+          },
+          {
+            "field": "side_effects",
+            "values": [
+              "execute"
+            ]
+          }
+        ],
+        "dimension": "tool",
+        "item_id": "mcp-server:local_review"
+      },
+      "change_type": "removed",
+      "dimension": "tool",
+      "direction": "reduced_exposure",
+      "impact_id": "capability-impact-sha256:c05251179adcbf5a5097e685c6c0cf57f40c3d8975ed4e192d201f5069348210",
+      "item_id": "mcp-server:local_review",
+      "reasons": [
+        "capability_removed",
+        "sensitive_effect_removed",
+        "tool_disabled"
+      ],
+      "related_finding_delta_ids": [
+        "capability-finding-delta-sha256:3925b8c7c1c0f521362a86ecadbb4da5d1dd88031319395b642cf18dabfd3621",
+        "capability-finding-delta-sha256:4f388169520d64bf94dd14f7975c9e82da9cc02ba302bb37fabe74b15a6a76a3",
+        "capability-finding-delta-sha256:c02efd07891a7412b3c1ec265231d45c6faa08c7288218c3e2f89972e0cb87ff",
+        "capability-finding-delta-sha256:c97264626ab6b682e98416a9d8c30da9cb87661842da77b774ceaeb14339dcce"
+      ]
+    },
+    {
+      "after": null,
+      "before": {
+        "attributes": [
+          {
+            "field": "availability",
+            "values": [
+              "enabled"
+            ]
+          },
+          {
+            "field": "kind",
+            "values": [
+              "mcp_server"
+            ]
+          },
+          {
+            "field": "side_effects",
+            "values": [
+              "network"
+            ]
+          }
+        ],
+        "dimension": "tool",
+        "item_id": "mcp-server:remote_release"
+      },
+      "change_type": "removed",
+      "dimension": "tool",
+      "direction": "reduced_exposure",
+      "impact_id": "capability-impact-sha256:cd04aa51b1f18268bb3a55f33c2ee788df960c0998b2f9bf7697444e55cd49b3",
+      "item_id": "mcp-server:remote_release",
+      "reasons": [
+        "capability_removed",
+        "sensitive_effect_removed",
+        "tool_disabled"
+      ],
+      "related_finding_delta_ids": [
+        "capability-finding-delta-sha256:0fbbc6125727fbc121bc62cc5af9ecd6e5b106ae1b0c7a9c84a557946d581c64",
+        "capability-finding-delta-sha256:173d7115dfbfc722c86cf22cb018e0d91700c1c93311b88c47c135837c936c25",
+        "capability-finding-delta-sha256:634d8061e95aa7128cb72e7cf716a9971ed6c8db0987280432a389e8f140a8a0",
+        "capability-finding-delta-sha256:88e88ec736ddafba55ad21691aeb863c0aa0e77ae8cc3fde97d60f4c51a4c7de",
+        "capability-finding-delta-sha256:b4b8ca9ed69b68d93055a5cd7b2b75f47fbe1d1ed81b7078c496e6d8a22f7e5a",
+        "capability-finding-delta-sha256:c61e110222a861eaa708db536cf5d3394e8f84708c07e38d17e33ac057bfc1cb"
+      ]
+    }
+  ],
+  "finding_delta": [
+    {
+      "after": null,
+      "before": {
+        "category": "human_approval",
+        "confidence": "B",
+        "correlation": "same_target",
+        "evidence_sha256": "2798585a2648f6045258db8f35312071884bebd21c0cc0ede6c545f0d79aa42d",
+        "finding_id": "capability-finding-sha256:373e08c2d29f96c712f7aec7edb21fa0640b3d7ef137745e08cfdad369072e2a",
+        "hard_gate": false,
+        "related_ids": [
+          "mcp-server:local_review"
+        ],
+        "risk_level": "high",
+        "rule_id": "CAP-APPROVAL-001",
+        "score": 8.0,
+        "severity": "high",
+        "title_en": "State-changing capability lacks an effective human approval control",
+        "title_zh": "状态变更能力缺少有效人工审批控制"
+      },
+      "changed_fields": [
+        "finding"
+      ],
+      "delta_id": "capability-finding-delta-sha256:c97264626ab6b682e98416a9d8c30da9cb87661842da77b774ceaeb14339dcce",
+      "impacted_change_ids": [
+        "capability-impact-sha256:c05251179adcbf5a5097e685c6c0cf57f40c3d8975ed4e192d201f5069348210"
+      ],
+      "related_ids": [
+        "mcp-server:local_review"
+      ],
+      "risk_direction": "decreased",
+      "rule_id": "CAP-APPROVAL-001",
+      "status": "resolved"
+    },
+    {
+      "after": null,
+      "before": {
+        "category": "network_access",
+        "confidence": "B",
+        "correlation": "same_target",
+        "evidence_sha256": "91475512261b4ccbe4241f1c38188d7407430515b9c718bac8f154e1f1c73ea0",
+        "finding_id": "capability-finding-sha256:04effd631596af33f6160edfdb54a4758970f237ad3354d88bdab08d48fc7ec8",
+        "hard_gate": false,
+        "related_ids": [
+          "mcp-server:remote_release"
+        ],
+        "risk_level": "moderate",
+        "rule_id": "CAP-AUTONETWORK-001",
+        "score": 5.5,
+        "severity": "medium",
+        "title_en": "Network access is allowed without human approval",
+        "title_zh": "网络访问被允许且无需人工审批"
+      },
+      "changed_fields": [
+        "finding"
+      ],
+      "delta_id": "capability-finding-delta-sha256:173d7115dfbfc722c86cf22cb018e0d91700c1c93311b88c47c135837c936c25",
+      "impacted_change_ids": [
+        "capability-impact-sha256:cd04aa51b1f18268bb3a55f33c2ee788df960c0998b2f9bf7697444e55cd49b3"
+      ],
+      "related_ids": [
+        "mcp-server:remote_release"
+      ],
+      "risk_direction": "decreased",
+      "rule_id": "CAP-AUTONETWORK-001",
+      "status": "resolved"
+    },
+    {
+      "after": null,
+      "before": {
+        "category": "secret_access",
+        "confidence": "B",
+        "correlation": "same_target",
+        "evidence_sha256": "2798585a2648f6045258db8f35312071884bebd21c0cc0ede6c545f0d79aa42d",
+        "finding_id": "capability-finding-sha256:d10b8674fa02c02d94e9160cc5a7b0551117ab3ec64928f243f9c6bfec067064",
+        "hard_gate": false,
+        "related_ids": [
+          "mcp-server:local_review"
+        ],
+        "risk_level": "high",
+        "rule_id": "CAP-AUTOSECRET-001",
+        "score": 8.0,
+        "severity": "high",
+        "title_en": "Secret access is allowed without human approval",
+        "title_zh": "Secret 访问被允许且无需人工审批"
+      },
+      "changed_fields": [
+        "finding"
+      ],
+      "delta_id": "capability-finding-delta-sha256:3925b8c7c1c0f521362a86ecadbb4da5d1dd88031319395b642cf18dabfd3621",
+      "impacted_change_ids": [
+        "capability-impact-sha256:c05251179adcbf5a5097e685c6c0cf57f40c3d8975ed4e192d201f5069348210"
+      ],
+      "related_ids": [
+        "mcp-server:local_review"
+      ],
+      "risk_direction": "decreased",
+      "rule_id": "CAP-AUTOSECRET-001",
+      "status": "resolved"
+    },
+    {
+      "after": null,
+      "before": {
+        "category": "secret_access",
+        "confidence": "D",
+        "correlation": "agent_wide",
+        "evidence_sha256": "6dba446f466cdceb0da8fddcf900f3cce9bcc8110eb00bbfecd43b61cc17185c",
+        "finding_id": "capability-finding-sha256:54c5eb4276d9ac9677cf38d028d2c93af09461e9db172841be8e71bf275499b9",
+        "hard_gate": false,
+        "related_ids": [
+          "permission:execute:mcp-server:local_review",
+          "permission:network:mcp-server:remote_release",
+          "permission:secret_access:mcp-server:local_review"
+        ],
+        "risk_level": "moderate",
+        "rule_id": "CAP-CHAIN-001",
+        "score": 5.5,
+        "severity": "medium",
+        "title_en": "Execution, secret access, and external network form a potential chain",
+        "title_zh": "代码执行、Secret 访问与外部网络形成潜在链路"
+      },
+      "changed_fields": [
+        "finding"
+      ],
+      "delta_id": "capability-finding-delta-sha256:37d7190de4f73361b6023569bc2bed3aea4e51f4908a1669c7bee8d74aefdf63",
+      "impacted_change_ids": [
+        "capability-impact-sha256:25e87ea0db3c1a43bfe54c678675abb1456cda8160279296a49c974ae20a0356",
+        "capability-impact-sha256:54846d5bd4455353b3dc8a099e34d3f7abd6062f86518cba7ef3f411ff804a29",
+        "capability-impact-sha256:5e48ddae5f5c256ca16b86d09b63e0dc6b8861838c37add6857e756af90d25f7"
+      ],
+      "related_ids": [
+        "permission:execute:mcp-server:local_review",
+        "permission:network:mcp-server:remote_release",
+        "permission:secret_access:mcp-server:local_review"
+      ],
+      "risk_direction": "decreased",
+      "rule_id": "CAP-CHAIN-001",
+      "status": "resolved"
+    },
+    {
+      "after": null,
+      "before": {
+        "category": "scan_coverage",
+        "confidence": "D",
+        "correlation": "incomplete_coverage",
+        "evidence_sha256": "00588baedbf6c9ecfd32f31cd9101c17e92f4d2288f0564ad43bb5e931790209",
+        "finding_id": "capability-finding-sha256:b4522c7b9f4261683061d1f5f5a7c0c7d8907355d45f1e5737a1a07d807928b9",
+        "hard_gate": false,
+        "related_ids": [
+          "mcp-server:local_review"
+        ],
+        "risk_level": "moderate",
+        "rule_id": "CAP-COVERAGE-001",
+        "score": 5.5,
+        "severity": "medium",
+        "title_en": "High-impact capability is visible under incomplete analysis",
+        "title_zh": "分析不完整时发现高影响能力"
+      },
+      "changed_fields": [
+        "finding"
+      ],
+      "delta_id": "capability-finding-delta-sha256:c02efd07891a7412b3c1ec265231d45c6faa08c7288218c3e2f89972e0cb87ff",
+      "impacted_change_ids": [
+        "capability-impact-sha256:c05251179adcbf5a5097e685c6c0cf57f40c3d8975ed4e192d201f5069348210"
+      ],
+      "related_ids": [
+        "mcp-server:local_review"
+      ],
+      "risk_direction": "decreased",
+      "rule_id": "CAP-COVERAGE-001",
+      "status": "resolved"
+    },
+    {
+      "after": null,
+      "before": {
+        "category": "scan_coverage",
+        "confidence": "D",
+        "correlation": "incomplete_coverage",
+        "evidence_sha256": "0f72845963f6bc46c108b4cfb1afb3da7263a8597ddf09cb886ceaf083300174",
+        "finding_id": "capability-finding-sha256:c1c83b68c9dc845db86d2337fab63ba043af41d20f39fd422cc08d6504524a92",
+        "hard_gate": false,
+        "related_ids": [
+          "mcp-server:remote_release"
+        ],
+        "risk_level": "moderate",
+        "rule_id": "CAP-COVERAGE-001",
+        "score": 5.5,
+        "severity": "medium",
+        "title_en": "High-impact capability is visible under incomplete analysis",
+        "title_zh": "分析不完整时发现高影响能力"
+      },
+      "changed_fields": [
+        "finding"
+      ],
+      "delta_id": "capability-finding-delta-sha256:634d8061e95aa7128cb72e7cf716a9971ed6c8db0987280432a389e8f140a8a0",
+      "impacted_change_ids": [
+        "capability-impact-sha256:cd04aa51b1f18268bb3a55f33c2ee788df960c0998b2f9bf7697444e55cd49b3"
+      ],
+      "related_ids": [
+        "mcp-server:remote_release"
+      ],
+      "risk_direction": "decreased",
+      "rule_id": "CAP-COVERAGE-001",
+      "status": "resolved"
+    },
+    {
+      "after": null,
+      "before": {
+        "category": "privileged_access",
+        "confidence": "D",
+        "correlation": "agent_wide",
+        "evidence_sha256": "0d7e82f720d1b80520527fd268273634765b9ac2d234f1417a2c601a402547bf",
+        "finding_id": "capability-finding-sha256:c2f3714360ad582e0a16646c5f06254a065fde75a49b4709902ca15a07ade69c",
+        "hard_gate": false,
+        "related_ids": [
+          "permission:execute:mcp-server:local_review",
+          "relation:delegates_to:agent:deployer"
+        ],
+        "risk_level": "moderate",
+        "rule_id": "CAP-DELEGATE-001",
+        "score": 5.5,
+        "severity": "medium",
+        "title_en": "Delegation reaches a powerful capability without approval evidence",
+        "title_zh": "委派可触达高权限能力但缺少审批证据"
+      },
+      "changed_fields": [
+        "finding"
+      ],
+      "delta_id": "capability-finding-delta-sha256:1f10a13ea2b3c072ee77f9b2bf8033be20b5ced4b99c3b718b4c392d101757f0",
+      "impacted_change_ids": [
+        "capability-impact-sha256:54846d5bd4455353b3dc8a099e34d3f7abd6062f86518cba7ef3f411ff804a29"
+      ],
+      "related_ids": [
+        "permission:execute:mcp-server:local_review",
+        "relation:delegates_to:agent:deployer"
+      ],
+      "risk_direction": "decreased",
+      "rule_id": "CAP-DELEGATE-001",
+      "status": "resolved"
+    },
+    {
+      "after": null,
+      "before": {
+        "category": "privileged_access",
+        "confidence": "D",
+        "correlation": "agent_wide",
+        "evidence_sha256": "0f3c79e3b82314ebd8c7b772814a6f7b182a4bacd26af5910350c6a8c1aa1c81",
+        "finding_id": "capability-finding-sha256:ced93b2709c7a005977fc426c23b2838a8d3dd623961edef1c448096165b62cf",
+        "hard_gate": false,
+        "related_ids": [
+          "permission:network:mcp-server:remote_release",
+          "relation:delegates_to:agent:deployer"
+        ],
+        "risk_level": "moderate",
+        "rule_id": "CAP-DELEGATEEXTERNAL-001",
+        "score": 5.5,
+        "severity": "medium",
+        "title_en": "Delegation is combined with an external capability",
+        "title_zh": "委派与外部能力同时存在"
+      },
+      "changed_fields": [
+        "finding"
+      ],
+      "delta_id": "capability-finding-delta-sha256:6ef01a21c0964a4b641f39f22798760f09ca1cb289d7e9780c21276f284b8ede",
+      "impacted_change_ids": [
+        "capability-impact-sha256:25e87ea0db3c1a43bfe54c678675abb1456cda8160279296a49c974ae20a0356"
+      ],
+      "related_ids": [
+        "permission:network:mcp-server:remote_release",
+        "relation:delegates_to:agent:deployer"
+      ],
+      "risk_direction": "decreased",
+      "rule_id": "CAP-DELEGATEEXTERNAL-001",
+      "status": "resolved"
+    },
+    {
+      "after": null,
+      "before": {
+        "category": "persistent_memory",
+        "confidence": "D",
+        "correlation": "agent_wide",
+        "evidence_sha256": "bb615216b215cbe29fbf8aa18e84b978a370fbd8155a3e3ae5f907fdf0dd22c2",
+        "finding_id": "capability-finding-sha256:a0dd947c9043824ccd659d5cf76d67a104054fe87e70ef0e28b98e8b8bf04023",
+        "hard_gate": false,
+        "related_ids": [
+          "relation:delegates_to:agent:deployer",
+          "relation:persists_memory:memory:release_state"
+        ],
+        "risk_level": "low",
+        "rule_id": "CAP-DELEGATEPERSIST-001",
+        "score": 2.0,
+        "severity": "low",
+        "title_en": "Delegation is combined with persistent memory",
+        "title_zh": "委派与持久化记忆同时存在"
+      },
+      "changed_fields": [
+        "finding"
+      ],
+      "delta_id": "capability-finding-delta-sha256:bbaa2ceb8311aefc0db5d4c9f7cf0a185b43e5f27e56393f4f3844e1a0b3a0ae",
+      "impacted_change_ids": [],
+      "related_ids": [
+        "relation:delegates_to:agent:deployer",
+        "relation:persists_memory:memory:release_state"
+      ],
+      "risk_direction": "decreased",
+      "rule_id": "CAP-DELEGATEPERSIST-001",
+      "status": "resolved"
+    },
+    {
+      "after": null,
+      "before": {
+        "category": "network_access",
+        "confidence": "B",
+        "correlation": "same_target",
+        "evidence_sha256": "91475512261b4ccbe4241f1c38188d7407430515b9c718bac8f154e1f1c73ea0",
+        "finding_id": "capability-finding-sha256:2d3a3a50b0c665b174d7a301ebf3e2b3fb4b78c3e7f77ccd39efb174133ee7e8",
+        "hard_gate": false,
+        "related_ids": [
+          "mcp-server:remote_release"
+        ],
+        "risk_level": "high",
+        "rule_id": "CAP-EXTERNAL-001",
+        "score": 8.0,
+        "severity": "high",
+        "title_en": "Required enabled external MCP uses a credentialed identity",
+        "title_zh": "必选启用的外部 MCP 使用凭证化身份"
+      },
+      "changed_fields": [
+        "finding"
+      ],
+      "delta_id": "capability-finding-delta-sha256:88e88ec736ddafba55ad21691aeb863c0aa0e77ae8cc3fde97d60f4c51a4c7de",
+      "impacted_change_ids": [
+        "capability-impact-sha256:cd04aa51b1f18268bb3a55f33c2ee788df960c0998b2f9bf7697444e55cd49b3"
+      ],
+      "related_ids": [
+        "mcp-server:remote_release"
+      ],
+      "risk_direction": "decreased",
+      "rule_id": "CAP-EXTERNAL-001",
+      "status": "resolved"
+    },
+    {
+      "after": null,
+      "before": {
+        "category": "network_access",
+        "confidence": "B",
+        "correlation": "same_target",
+        "evidence_sha256": "91475512261b4ccbe4241f1c38188d7407430515b9c718bac8f154e1f1c73ea0",
+        "finding_id": "capability-finding-sha256:97b96ffb8cc03ecbfb85b06c8d3f36784e3639489e55d3a0fe80a25fe439a977",
+        "hard_gate": false,
+        "related_ids": [
+          "mcp-server:remote_release"
+        ],
+        "risk_level": "moderate",
+        "rule_id": "CAP-EXTERNALUNVERIFIED-001",
+        "score": 5.5,
+        "severity": "medium",
+        "title_en": "External MCP identity or availability is not runtime-verified",
+        "title_zh": "外部 MCP 身份或可用性尚未运行时验证"
+      },
+      "changed_fields": [
+        "finding"
+      ],
+      "delta_id": "capability-finding-delta-sha256:0fbbc6125727fbc121bc62cc5af9ecd6e5b106ae1b0c7a9c84a557946d581c64",
+      "impacted_change_ids": [
+        "capability-impact-sha256:cd04aa51b1f18268bb3a55f33c2ee788df960c0998b2f9bf7697444e55cd49b3"
+      ],
+      "related_ids": [
+        "mcp-server:remote_release"
+      ],
+      "risk_direction": "decreased",
+      "rule_id": "CAP-EXTERNALUNVERIFIED-001",
+      "status": "resolved"
+    },
+    {
+      "after": null,
+      "before": {
+        "category": "persistent_memory",
+        "confidence": "D",
+        "correlation": "agent_wide",
+        "evidence_sha256": "aab036af4ad2c4e56428c5d6afa02fdc39eaa2364fd89daa3efc308e4e39d15d",
+        "finding_id": "capability-finding-sha256:0eaec2935a17fd7ef586fffe80ac14fdf2e7fd53972d054ebb342c09ace58e7e",
+        "hard_gate": false,
+        "related_ids": [
+          "permission:network:mcp-server:remote_release",
+          "relation:persists_memory:memory:release_state"
+        ],
+        "risk_level": "low",
+        "rule_id": "CAP-MEMORYNETWORK-001",
+        "score": 2.0,
+        "severity": "low",
+        "title_en": "Memory relationship coexists with external network access",
+        "title_zh": "记忆关系与外部网络访问同时存在"
+      },
+      "changed_fields": [
+        "finding"
+      ],
+      "delta_id": "capability-finding-delta-sha256:0cc3d91f8049e626bf44c28256b8602b608f0850243e2848aa983198453dc8d2",
+      "impacted_change_ids": [
+        "capability-impact-sha256:25e87ea0db3c1a43bfe54c678675abb1456cda8160279296a49c974ae20a0356"
+      ],
+      "related_ids": [
+        "permission:network:mcp-server:remote_release",
+        "relation:persists_memory:memory:release_state"
+      ],
+      "risk_direction": "decreased",
+      "rule_id": "CAP-MEMORYNETWORK-001",
+      "status": "resolved"
+    },
+    {
+      "after": null,
+      "before": {
+        "category": "persistent_memory",
+        "confidence": "D",
+        "correlation": "agent_wide",
+        "evidence_sha256": "ba0819c4fa62bd5d7433dce9adc750d6d0c0e4d7f855caef19a764b7ec62a873",
+        "finding_id": "capability-finding-sha256:aeef5a93f9d4ce1100c6abfaa2df522dca67111cfb272a827c85ed836a9eb33c",
+        "hard_gate": false,
+        "related_ids": [
+          "permission:secret_access:mcp-server:local_review",
+          "relation:persists_memory:memory:release_state"
+        ],
+        "risk_level": "moderate",
+        "rule_id": "CAP-MEMORYSECRET-001",
+        "score": 5.5,
+        "severity": "medium",
+        "title_en": "Memory relationship coexists with secret access",
+        "title_zh": "记忆关系与 Secret 访问同时存在"
+      },
+      "changed_fields": [
+        "finding"
+      ],
+      "delta_id": "capability-finding-delta-sha256:9618628e5712f585cff3a8acf3d3d8ea3244cea43fbcc046f2d30257254c660f",
+      "impacted_change_ids": [
+        "capability-impact-sha256:5e48ddae5f5c256ca16b86d09b63e0dc6b8861838c37add6857e756af90d25f7"
+      ],
+      "related_ids": [
+        "permission:secret_access:mcp-server:local_review",
+        "relation:persists_memory:memory:release_state"
+      ],
+      "risk_direction": "decreased",
+      "rule_id": "CAP-MEMORYSECRET-001",
+      "status": "resolved"
+    },
+    {
+      "after": null,
+      "before": {
+        "category": "code_execution",
+        "confidence": "B",
+        "correlation": "same_target",
+        "evidence_sha256": "9573f73bc6a2293e4a445b40b431936155e269fe4bc34a3ba4bb67fd4a869eae",
+        "finding_id": "capability-finding-sha256:e647dbd571abeea41e3285807e5f1ed967d0760cce0077b846842826681fd275",
+        "hard_gate": false,
+        "related_ids": [
+          "mcp-server:local_review"
+        ],
+        "risk_level": "moderate",
+        "rule_id": "CAP-NOSANDBOX-001",
+        "score": 5.5,
+        "severity": "medium",
+        "title_en": "High-impact capability lacks a configured sandbox",
+        "title_zh": "高影响能力缺少已配置的沙箱"
+      },
+      "changed_fields": [
+        "finding"
+      ],
+      "delta_id": "capability-finding-delta-sha256:4f388169520d64bf94dd14f7975c9e82da9cc02ba302bb37fabe74b15a6a76a3",
+      "impacted_change_ids": [
+        "capability-impact-sha256:c05251179adcbf5a5097e685c6c0cf57f40c3d8975ed4e192d201f5069348210"
+      ],
+      "related_ids": [
+        "mcp-server:local_review"
+      ],
+      "risk_direction": "decreased",
+      "rule_id": "CAP-NOSANDBOX-001",
+      "status": "resolved"
+    },
+    {
+      "after": null,
+      "before": {
+        "category": "persistent_memory",
+        "confidence": "D",
+        "correlation": "agent_wide",
+        "evidence_sha256": "7350e0b73e106239b385a099712c3410ce1a3f28c3b90e6905a6365ff3d9abf9",
+        "finding_id": "capability-finding-sha256:d7476d2545dd50df080d23299cc7a59812992543cbdb96a1a26798fa817f10ea",
+        "hard_gate": false,
+        "related_ids": [
+          "permission:network:mcp-server:remote_release",
+          "permission:secret_access:mcp-server:local_review",
+          "relation:persists_memory:memory:release_state"
+        ],
+        "risk_level": "moderate",
+        "rule_id": "CAP-PERSIST-001",
+        "score": 5.5,
+        "severity": "medium",
+        "title_en": "Persistent memory is combined with a sensitive capability",
+        "title_zh": "持久化记忆与敏感能力组合出现"
+      },
+      "changed_fields": [
+        "finding"
+      ],
+      "delta_id": "capability-finding-delta-sha256:a804467c87580135c06b4c26c5b1397cad84d9d956e6c8d100c68a0fbd156b24",
+      "impacted_change_ids": [
+        "capability-impact-sha256:25e87ea0db3c1a43bfe54c678675abb1456cda8160279296a49c974ae20a0356",
+        "capability-impact-sha256:5e48ddae5f5c256ca16b86d09b63e0dc6b8861838c37add6857e756af90d25f7"
+      ],
+      "related_ids": [
+        "permission:network:mcp-server:remote_release",
+        "permission:secret_access:mcp-server:local_review",
+        "relation:persists_memory:memory:release_state"
+      ],
+      "risk_direction": "decreased",
+      "rule_id": "CAP-PERSIST-001",
+      "status": "resolved"
+    },
+    {
+      "after": null,
+      "before": {
+        "category": "external_tooling",
+        "confidence": "B",
+        "correlation": "same_target",
+        "evidence_sha256": "91475512261b4ccbe4241f1c38188d7407430515b9c718bac8f154e1f1c73ea0",
+        "finding_id": "capability-finding-sha256:10f1d5b18abbf58c7fcf806e580ddf9edaeb086dd065170dacf9425d2344b9b0",
+        "hard_gate": false,
+        "related_ids": [
+          "mcp-server:remote_release"
+        ],
+        "risk_level": "moderate",
+        "rule_id": "CAP-REQUIREDNOFILTER-001",
+        "score": 5.5,
+        "severity": "medium",
+        "title_en": "Required external MCP has no tool filter",
+        "title_zh": "必选外部 MCP 缺少工具过滤"
+      },
+      "changed_fields": [
+        "finding"
+      ],
+      "delta_id": "capability-finding-delta-sha256:c61e110222a861eaa708db536cf5d3394e8f84708c07e38d17e33ac057bfc1cb",
+      "impacted_change_ids": [
+        "capability-impact-sha256:cd04aa51b1f18268bb3a55f33c2ee788df960c0998b2f9bf7697444e55cd49b3"
+      ],
+      "related_ids": [
+        "mcp-server:remote_release"
+      ],
+      "risk_direction": "decreased",
+      "rule_id": "CAP-REQUIREDNOFILTER-001",
+      "status": "resolved"
+    },
+    {
+      "after": null,
+      "before": {
+        "category": "network_access",
+        "confidence": "B",
+        "correlation": "same_target",
+        "evidence_sha256": "91475512261b4ccbe4241f1c38188d7407430515b9c718bac8f154e1f1c73ea0",
+        "finding_id": "capability-finding-sha256:95e1a899fcc0553e8269c58ff2d317ddb52d24f5a77fbbcd1f7f770801a72d54",
+        "hard_gate": false,
+        "related_ids": [
+          "mcp-server:remote_release"
+        ],
+        "risk_level": "moderate",
+        "rule_id": "CAP-REQUIREDNOTIMEOUT-001",
+        "score": 5.5,
+        "severity": "medium",
+        "title_en": "Required external MCP has no timeout control",
+        "title_zh": "必选外部 MCP 缺少超时控制"
+      },
+      "changed_fields": [
+        "finding"
+      ],
+      "delta_id": "capability-finding-delta-sha256:b4b8ca9ed69b68d93055a5cd7b2b75f47fbe1d1ed81b7078c496e6d8a22f7e5a",
+      "impacted_change_ids": [
+        "capability-impact-sha256:cd04aa51b1f18268bb3a55f33c2ee788df960c0998b2f9bf7697444e55cd49b3"
+      ],
+      "related_ids": [
+        "mcp-server:remote_release"
+      ],
+      "risk_direction": "decreased",
+      "rule_id": "CAP-REQUIREDNOTIMEOUT-001",
+      "status": "resolved"
+    }
+  ],
+  "format": "agentsec-capability-change-impact",
+  "format_version": "0.1.0",
+  "policy": {
+    "ci_blocking_enabled": false,
+    "enforcement_mode": "report_only",
+    "global_safety_claimed": false,
+    "runtime_capability_verified": false
+  },
+  "status": "complete",
+  "summary": {
+    "added_findings": 0,
+    "added_high_or_critical": 0,
+    "after_findings": 0,
+    "after_rule_execution_complete": true,
+    "assessed_change_impacts": 14,
+    "before_findings": 17,
+    "before_rule_execution_complete": true,
+    "capability_changes": 35,
+    "capability_diff_complete": true,
+    "changed_findings": 0,
+    "highest_after_severity": "none",
+    "highest_before_severity": "high",
+    "increased_exposure": 2,
+    "mixed": 0,
+    "neutral": 0,
+    "reduced_exposure": 7,
+    "resolved_findings": 17,
+    "resolved_high_or_critical": 3,
+    "unassessed_capability_changes": 21,
+    "uncertain": 5,
+    "unchanged_findings": 0
+  },
+  "versions": {
+    "agent_manifest_schema": "0.3.0",
+    "capability_change_impact_output": "0.1.0",
+    "capability_diff_schema": "0.1.0",
+    "capability_risk_model": "0.1.0",
+    "capability_rule_pack": "0.2.0",
+    "package": "0.2.0"
+  }
+}

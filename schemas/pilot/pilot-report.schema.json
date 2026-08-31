@@ -1,0 +1,434 @@
+{
+  "$defs": {
+    "PilotCaseResult": {
+      "additionalProperties": false,
+      "properties": {
+        "case_id": {
+          "title": "Case Id",
+          "type": "string"
+        },
+        "coverage_agreement": {
+          "title": "Coverage Agreement",
+          "type": "boolean"
+        },
+        "decision_agreement": {
+          "title": "Decision Agreement",
+          "type": "boolean"
+        },
+        "detection_agreement": {
+          "title": "Detection Agreement",
+          "type": "boolean"
+        },
+        "drill": {
+          "anyOf": [
+            {
+              "enum": [
+                "incomplete_coverage",
+                "risky_change",
+                "waiver_lifecycle"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Drill"
+        },
+        "duration_ms": {
+          "title": "Duration Ms",
+          "type": "integer"
+        },
+        "expected_coverage": {
+          "enum": [
+            "complete",
+            "incomplete"
+          ],
+          "title": "Expected Coverage",
+          "type": "string"
+        },
+        "expected_exit": {
+          "enum": [
+            0,
+            1,
+            2
+          ],
+          "title": "Expected Exit",
+          "type": "integer"
+        },
+        "expected_rule_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Expected Rule Ids",
+          "type": "array"
+        },
+        "false_negative_rule_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "False Negative Rule Ids",
+          "type": "array"
+        },
+        "false_positive_rule_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "False Positive Rule Ids",
+          "type": "array"
+        },
+        "json_bytes": {
+          "title": "Json Bytes",
+          "type": "integer"
+        },
+        "max_duration_ms": {
+          "title": "Max Duration Ms",
+          "type": "integer"
+        },
+        "observed_coverage": {
+          "enum": [
+            "complete",
+            "incomplete",
+            "unavailable"
+          ],
+          "title": "Observed Coverage",
+          "type": "string"
+        },
+        "observed_exit": {
+          "title": "Observed Exit",
+          "type": "integer"
+        },
+        "observed_rule_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Observed Rule Ids",
+          "type": "array"
+        },
+        "passed": {
+          "title": "Passed",
+          "type": "boolean"
+        },
+        "performance_within_limit": {
+          "title": "Performance Within Limit",
+          "type": "boolean"
+        },
+        "sarif_bytes": {
+          "title": "Sarif Bytes",
+          "type": "integer"
+        },
+        "sarif_valid": {
+          "title": "Sarif Valid",
+          "type": "boolean"
+        },
+        "scan_kind": {
+          "default": "baseline",
+          "enum": [
+            "baseline",
+            "pull_request"
+          ],
+          "title": "Scan Kind",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "true_positive_rule_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "True Positive Rule Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "case_id",
+        "title",
+        "expected_exit",
+        "observed_exit",
+        "expected_coverage",
+        "observed_coverage",
+        "expected_rule_ids",
+        "observed_rule_ids",
+        "true_positive_rule_ids",
+        "false_positive_rule_ids",
+        "false_negative_rule_ids",
+        "duration_ms",
+        "max_duration_ms",
+        "json_bytes",
+        "sarif_bytes",
+        "sarif_valid",
+        "decision_agreement",
+        "coverage_agreement",
+        "detection_agreement",
+        "performance_within_limit",
+        "passed"
+      ],
+      "title": "PilotCaseResult",
+      "type": "object"
+    },
+    "PilotMetrics": {
+      "additionalProperties": false,
+      "properties": {
+        "acceptance_ready": {
+          "default": false,
+          "title": "Acceptance Ready",
+          "type": "boolean"
+        },
+        "baseline_scans": {
+          "default": 0,
+          "title": "Baseline Scans",
+          "type": "integer"
+        },
+        "cases": {
+          "title": "Cases",
+          "type": "integer"
+        },
+        "coverage_accuracy": {
+          "title": "Coverage Accuracy",
+          "type": "number"
+        },
+        "decision_accuracy": {
+          "title": "Decision Accuracy",
+          "type": "number"
+        },
+        "detection_accuracy": {
+          "title": "Detection Accuracy",
+          "type": "number"
+        },
+        "drill_counts": {
+          "additionalProperties": {
+            "type": "integer"
+          },
+          "title": "Drill Counts",
+          "type": "object"
+        },
+        "failed_cases": {
+          "title": "Failed Cases",
+          "type": "integer"
+        },
+        "false_negatives": {
+          "title": "False Negatives",
+          "type": "integer"
+        },
+        "false_positives": {
+          "title": "False Positives",
+          "type": "integer"
+        },
+        "human_labels_complete": {
+          "default": false,
+          "title": "Human Labels Complete",
+          "type": "boolean"
+        },
+        "max_duration_ms": {
+          "title": "Max Duration Ms",
+          "type": "integer"
+        },
+        "mean_duration_ms": {
+          "title": "Mean Duration Ms",
+          "type": "number"
+        },
+        "p50_duration_ms": {
+          "title": "P50 Duration Ms",
+          "type": "integer"
+        },
+        "p95_duration_ms": {
+          "title": "P95 Duration Ms",
+          "type": "integer"
+        },
+        "passed_cases": {
+          "title": "Passed Cases",
+          "type": "integer"
+        },
+        "precision": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Precision"
+        },
+        "pull_request_scans": {
+          "default": 0,
+          "title": "Pull Request Scans",
+          "type": "integer"
+        },
+        "recall": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Recall"
+        },
+        "scope_complete": {
+          "default": false,
+          "title": "Scope Complete",
+          "type": "boolean"
+        },
+        "scope_pr_scans_target": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Scope Pr Scans Target"
+        },
+        "scope_scans_target": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Scope Scans Target"
+        },
+        "total_duration_ms": {
+          "title": "Total Duration Ms",
+          "type": "integer"
+        },
+        "true_positives": {
+          "title": "True Positives",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "cases",
+        "passed_cases",
+        "failed_cases",
+        "true_positives",
+        "false_positives",
+        "false_negatives",
+        "precision",
+        "recall",
+        "decision_accuracy",
+        "coverage_accuracy",
+        "detection_accuracy",
+        "total_duration_ms",
+        "mean_duration_ms",
+        "p50_duration_ms",
+        "p95_duration_ms",
+        "max_duration_ms"
+      ],
+      "title": "PilotMetrics",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "agentsec_executable": {
+      "title": "Agentsec Executable",
+      "type": "string"
+    },
+    "cases": {
+      "items": {
+        "$ref": "#/$defs/PilotCaseResult"
+      },
+      "title": "Cases",
+      "type": "array"
+    },
+    "evidence_mode": {
+      "enum": [
+        "internal_integration",
+        "external_repository"
+      ],
+      "title": "Evidence Mode",
+      "type": "string"
+    },
+    "format": {
+      "const": "agentsec-pilot-report",
+      "default": "agentsec-pilot-report",
+      "title": "Format",
+      "type": "string"
+    },
+    "format_version": {
+      "const": "0.1.0",
+      "default": "0.1.0",
+      "title": "Format Version",
+      "type": "string"
+    },
+    "human_label_source": {
+      "default": "none",
+      "enum": [
+        "none",
+        "plan",
+        "independent_reviewer"
+      ],
+      "title": "Human Label Source",
+      "type": "string"
+    },
+    "human_reviewer_ids": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Human Reviewer Ids",
+      "type": "array"
+    },
+    "limitations": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Limitations",
+      "type": "array"
+    },
+    "metrics": {
+      "$ref": "#/$defs/PilotMetrics"
+    },
+    "owner": {
+      "title": "Owner",
+      "type": "string"
+    },
+    "pilot_id": {
+      "title": "Pilot Id",
+      "type": "string"
+    },
+    "plan_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Plan Sha256",
+      "type": "string"
+    },
+    "project_name": {
+      "title": "Project Name",
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "complete",
+        "failed",
+        "evidence_pending"
+      ],
+      "title": "Status",
+      "type": "string"
+    }
+  },
+  "required": [
+    "status",
+    "pilot_id",
+    "project_name",
+    "owner",
+    "evidence_mode",
+    "plan_sha256",
+    "agentsec_executable",
+    "metrics",
+    "cases",
+    "limitations"
+  ],
+  "title": "PilotReport",
+  "type": "object"
+}

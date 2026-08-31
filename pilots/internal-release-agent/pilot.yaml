@@ -1,0 +1,100 @@
+format: agentsec-pilot-plan
+schema_version: "0.1.0"
+pilot_id: internal-release-agent-pilot
+project_name: Internal Release Agent Integration Pilot
+owner: agentsec-security-team
+evidence_mode: internal_integration
+cases:
+  - case_id: active-waiver
+    title: Risk remains visible while an active reviewed waiver removes blocking
+    project_root: demos/release-agent/risky-drift
+    policy_path: policies/ci/organization-policy-active-waiver.yaml
+    expected_exit: 0
+    expected_coverage: complete
+    expected_rule_ids:
+      - MD-APPROVAL-001
+      - MD-DEPLOY-001
+      - MD-EXEC-001
+      - MD-INSTR-001
+      - MD-INSTR-002
+      - MD-NET-001
+      - MD-PRIV-001
+      - MD-SECRET-001
+      - MD-TOOL-001
+    max_duration_ms: 10000
+  - case_id: expired-waiver
+    title: Expired waiver automatically restores blocking
+    project_root: demos/release-agent/risky-drift
+    policy_path: policies/ci/organization-policy-expired-waiver.yaml
+    expected_exit: 1
+    expected_coverage: complete
+    expected_rule_ids:
+      - MD-APPROVAL-001
+      - MD-DEPLOY-001
+      - MD-EXEC-001
+      - MD-INSTR-001
+      - MD-INSTR-002
+      - MD-NET-001
+      - MD-PRIV-001
+      - MD-SECRET-001
+      - MD-TOOL-001
+    max_duration_ms: 10000
+  - case_id: incomplete
+    title: Malformed Agent assets fail closed on incomplete Coverage
+    project_root: demos/release-agent/malformed
+    policy_path: policies/organization-policy-enforce-example.yaml
+    expected_exit: 2
+    expected_coverage: incomplete
+    expected_rule_ids: []
+    max_duration_ms: 10000
+  - case_id: near-miss
+    title: Documentation about shell syntax does not declare execution authority
+    project_root: testdata/safe/shell-explanation
+    policy_path: policies/organization-policy-enforce-example.yaml
+    expected_exit: 0
+    expected_coverage: complete
+    expected_rule_ids: []
+    max_duration_ms: 10000
+  - case_id: prompt-injection
+    title: Prompt injection declarations remain inert scanner input
+    project_root: demos/release-agent/prompt-injection
+    policy_path: policies/organization-policy-enforce-example.yaml
+    expected_exit: 0
+    expected_coverage: complete
+    expected_rule_ids:
+      - MD-INSTR-001
+      - MD-INSTR-002
+    max_duration_ms: 10000
+  - case_id: remediated
+    title: Remediated Agent returns to complete zero-finding state
+    project_root: demos/release-agent/remediated
+    policy_path: policies/organization-policy-enforce-example.yaml
+    expected_exit: 0
+    expected_coverage: complete
+    expected_rule_ids: []
+    max_duration_ms: 10000
+  - case_id: risky-block
+    title: Risky Agent is blocked by deterministic organization Policy
+    project_root: demos/release-agent/risky-drift
+    policy_path: policies/organization-policy-enforce-example.yaml
+    expected_exit: 1
+    expected_coverage: complete
+    expected_rule_ids:
+      - MD-APPROVAL-001
+      - MD-DEPLOY-001
+      - MD-EXEC-001
+      - MD-INSTR-001
+      - MD-INSTR-002
+      - MD-NET-001
+      - MD-PRIV-001
+      - MD-SECRET-001
+      - MD-TOOL-001
+    max_duration_ms: 10000
+  - case_id: safe-baseline
+    title: Safe baseline passes with complete Coverage and zero Findings
+    project_root: demos/release-agent/baseline
+    policy_path: policies/organization-policy-enforce-example.yaml
+    expected_exit: 0
+    expected_coverage: complete
+    expected_rule_ids: []
+    max_duration_ms: 10000

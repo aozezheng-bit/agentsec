@@ -1,0 +1,97 @@
+{
+  "actual": {
+    "added_findings": [],
+    "added_observations": [
+      "heartbeat_activation_path"
+    ],
+    "capability_changes": {
+      "heartbeat_schedule": [
+        "present",
+        "absent"
+      ]
+    },
+    "changed_findings": [],
+    "file_changes": {
+      "HEARTBEAT.md": "modified"
+    },
+    "persona_changes": {},
+    "removed_findings": [
+      "HOMI-COMB-002"
+    ],
+    "removed_observations": [],
+    "resolution_status": "conflict",
+    "simulation_changes": {
+      "HOMI-SIM-001": [
+        "declared_path",
+        "blocked_static_boundary"
+      ]
+    },
+    "status": "partial"
+  },
+  "after": {
+    "ci_blocked": false,
+    "report_only": true,
+    "resolution_status": "conflict",
+    "runtime_verified": false,
+    "status": "partial"
+  },
+  "before": {
+    "ci_blocked": false,
+    "report_only": true,
+    "resolution_status": "conflict",
+    "runtime_verified": false,
+    "status": "partial"
+  },
+  "drill": null,
+  "expected": {
+    "added_findings": [],
+    "added_observations": [
+      "heartbeat_activation_path"
+    ],
+    "capability_changes": {
+      "heartbeat_schedule": [
+        "present",
+        "absent"
+      ]
+    },
+    "changed_findings": [],
+    "file_changes": {
+      "HEARTBEAT.md": "modified"
+    },
+    "persona_changes": {},
+    "removed_findings": [
+      "HOMI-COMB-002"
+    ],
+    "removed_observations": [],
+    "resolution_status": "conflict",
+    "simulation_changes": {
+      "HOMI-SIM-001": [
+        "declared_path",
+        "blocked_static_boundary"
+      ]
+    },
+    "status": "partial"
+  },
+  "format": "agentsec-homi-capability-drift-evidence",
+  "format_version": "0.1.0",
+  "limitations": [
+    "Static Homi drift does not prove runtime reachability or execution.",
+    "Scenario-contract review is engineering evidence, not independent human TP/FP/FN adjudication.",
+    "No drift result authorizes CI blocking, release, Tool access, or a waiver."
+  ],
+  "provenance": {
+    "baseline_report_sha256": "78b4a257236b6a91b274b286b65298edc0bb26f8c40699ed94d78f4e959b4508",
+    "snapshot_archive_sha256": "f7d1c6b704c2f0312ba58b775e32044af09a170636a9d3c6a6df3a98407e7596",
+    "snapshot_report_sha256": "e1772a9930ea2fda63f7f71536f560e805b10f75dc6986a2652a6d6ce77c1cce"
+  },
+  "review": {
+    "contract_pass": true,
+    "independent_human_review": false,
+    "mode": "deterministic_scenario_contract",
+    "outcome": "contract_pass"
+  },
+  "risk_direction": "hardening",
+  "scenario_id": "pr-01-heartbeat-template-disabled",
+  "task_id": "P2-EXIT-06-03",
+  "title": "将文档型 Heartbeat 明确改为禁用状态"
+}

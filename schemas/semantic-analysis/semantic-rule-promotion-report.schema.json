@@ -1,0 +1,239 @@
+{
+  "$defs": {
+    "RulePackDiff": {
+      "additionalProperties": false,
+      "description": "Value-free deterministic before/after Rule ID inventory.",
+      "properties": {
+        "added_rule_ids": {
+          "items": {
+            "pattern": "^[A-Z][A-Z0-9]*-[A-Z][A-Z0-9]*-[0-9]{3}$",
+            "type": "string"
+          },
+          "title": "Added Rule Ids",
+          "type": "array"
+        },
+        "after_rule_ids": {
+          "items": {
+            "pattern": "^[A-Z][A-Z0-9]*-[A-Z][A-Z0-9]*-[0-9]{3}$",
+            "type": "string"
+          },
+          "title": "After Rule Ids",
+          "type": "array"
+        },
+        "base_rule_pack_version": {
+          "maxLength": 32,
+          "minLength": 1,
+          "title": "Base Rule Pack Version",
+          "type": "string"
+        },
+        "before_rule_ids": {
+          "items": {
+            "pattern": "^[A-Z][A-Z0-9]*-[A-Z][A-Z0-9]*-[0-9]{3}$",
+            "type": "string"
+          },
+          "title": "Before Rule Ids",
+          "type": "array"
+        },
+        "changed_rule_ids": {
+          "default": [],
+          "items": {
+            "pattern": "^[A-Z][A-Z0-9]*-[A-Z][A-Z0-9]*-[0-9]{3}$",
+            "type": "string"
+          },
+          "title": "Changed Rule Ids",
+          "type": "array"
+        },
+        "removed_rule_ids": {
+          "items": {
+            "pattern": "^[A-Z][A-Z0-9]*-[A-Z][A-Z0-9]*-[0-9]{3}$",
+            "type": "string"
+          },
+          "title": "Removed Rule Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "base_rule_pack_version",
+        "before_rule_ids",
+        "after_rule_ids",
+        "added_rule_ids",
+        "removed_rule_ids"
+      ],
+      "title": "RulePackDiff",
+      "type": "object"
+    },
+    "RulePromotionCheck": {
+      "additionalProperties": false,
+      "properties": {
+        "check_id": {
+          "pattern": "^[a-z][a-z0-9_.-]{1,63}$",
+          "title": "Check Id",
+          "type": "string"
+        },
+        "passed": {
+          "title": "Passed",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "check_id",
+        "passed"
+      ],
+      "title": "RulePromotionCheck",
+      "type": "object"
+    },
+    "RulePromotionStatus": {
+      "enum": [
+        "rejected",
+        "eligible_for_staging",
+        "staged"
+      ],
+      "title": "RulePromotionStatus",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Owner-reviewed, report-only staging decision.",
+  "properties": {
+    "approval_id": {
+      "anyOf": [
+        {
+          "maxLength": 160,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Approval Id"
+    },
+    "approval_reason": {
+      "anyOf": [
+        {
+          "maxLength": 512,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Approval Reason"
+    },
+    "automatic_publication": {
+      "const": false,
+      "default": false,
+      "title": "Automatic Publication",
+      "type": "boolean"
+    },
+    "checks": {
+      "items": {
+        "$ref": "#/$defs/RulePromotionCheck"
+      },
+      "title": "Checks",
+      "type": "array"
+    },
+    "ci_authority": {
+      "const": false,
+      "default": false,
+      "title": "Ci Authority",
+      "type": "boolean"
+    },
+    "finding_authority": {
+      "const": false,
+      "default": false,
+      "title": "Finding Authority",
+      "type": "boolean"
+    },
+    "format": {
+      "const": "agentsec-semantic-rule-promotion-report",
+      "default": "agentsec-semantic-rule-promotion-report",
+      "title": "Format",
+      "type": "string"
+    },
+    "hard_gate_authority": {
+      "const": false,
+      "default": false,
+      "title": "Hard Gate Authority",
+      "type": "boolean"
+    },
+    "implementation_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Implementation Sha256",
+      "type": "string"
+    },
+    "implemented_rule_id": {
+      "pattern": "^[A-Z][A-Z0-9]*-[A-Z][A-Z0-9]*-[0-9]{3}$",
+      "title": "Implemented Rule Id",
+      "type": "string"
+    },
+    "owner_id": {
+      "anyOf": [
+        {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Owner Id"
+    },
+    "policy_authority": {
+      "const": false,
+      "default": false,
+      "title": "Policy Authority",
+      "type": "boolean"
+    },
+    "proposal_id": {
+      "pattern": "^semantic-rule-proposal-sha256:[0-9a-f]{64}$",
+      "title": "Proposal Id",
+      "type": "string"
+    },
+    "release_authority": {
+      "const": false,
+      "default": false,
+      "title": "Release Authority",
+      "type": "boolean"
+    },
+    "replay_report_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Replay Report Sha256",
+      "type": "string"
+    },
+    "rule_pack_diff": {
+      "$ref": "#/$defs/RulePackDiff"
+    },
+    "rule_pack_mutated": {
+      "const": false,
+      "default": false,
+      "title": "Rule Pack Mutated",
+      "type": "boolean"
+    },
+    "schema_version": {
+      "const": "0.1.0",
+      "default": "0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "status": {
+      "$ref": "#/$defs/RulePromotionStatus"
+    }
+  },
+  "required": [
+    "proposal_id",
+    "replay_report_sha256",
+    "implementation_sha256",
+    "implemented_rule_id",
+    "checks",
+    "rule_pack_diff",
+    "status"
+  ],
+  "title": "SemanticRulePromotionReport",
+  "type": "object"
+}

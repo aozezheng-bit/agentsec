@@ -1,0 +1,33 @@
+{
+  "corpus_binding_hash": "sha256:59e034541e3c1096f311404358031a5dc81fc880123351363713d66c2544ad79",
+  "format": "agentsec-independent-review-case",
+  "input_format": "manifest",
+  "language": "en",
+  "pack_id": "reviewer-pack-sha256:58295690c13861a763ed9c202d39fe37642ac0f8d9d2d6e416886184a4a86d90",
+  "question_set_sha256": "sha256:7cd9a7fcedee35bbae70cdbd00ee06a3eab5cad12d0e1fd1bfe027ab9eec46ea",
+  "review_case_fingerprint": "sha256:58dd07a7dbcd60201ed892d950f006332b93aa6aafbae3340167c98c627ca538",
+  "review_case_id": "review-case-2f19d36371e70a662a63",
+  "review_questions": [
+    {
+      "condition": {
+        "en": "A non-denied admin permission targets the production scope or production resource."
+      },
+      "prompt": {
+        "en": "Independently label the human Rule condition as match, no_match, or uncertain; record your direct finding observation, policy/scope category, evidence location, Confidence, Correlation, disposition, rationale code, and notes. Do not calculate TP/FP/FN/TN."
+      },
+      "question_id": "question:review-case-2f19d36371e70a662a63:CAP-PRODADMIN-001",
+      "rule_id": "CAP-PRODADMIN-001",
+      "title": {
+        "en": "Production administrative capability is declared"
+      }
+    }
+  ],
+  "schema_version": "0.3.0",
+  "source_location": {
+    "end_line": 13,
+    "path": "source.manifest.json",
+    "start_line": 1
+  },
+  "source_sha256": "sha256:4e0177535383fda754892209079ac8b6616aa3075083613b3b2bd20e36358a83",
+  "synthetic_fixture": true
+}

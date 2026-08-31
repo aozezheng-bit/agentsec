@@ -1,0 +1,46 @@
+{
+  "corpus_binding_hash": "sha256:59e034541e3c1096f311404358031a5dc81fc880123351363713d66c2544ad79",
+  "format": "agentsec-independent-review-case",
+  "input_format": "toml",
+  "language": "en",
+  "pack_id": "reviewer-pack-sha256:58295690c13861a763ed9c202d39fe37642ac0f8d9d2d6e416886184a4a86d90",
+  "question_set_sha256": "sha256:e3dec0b26491af7aa75b2bc72cfb7056dd27a1be5a3a434787cce5d94e50b7ac",
+  "review_case_fingerprint": "sha256:6ba0bbb91bca09c2d38542088cd9b315e210df213f2ca36ecf47e89bf1ff0dfa",
+  "review_case_id": "review-case-fa40699a10043643bc21",
+  "review_questions": [
+    {
+      "condition": {
+        "en": "A write, execute, deploy, publish, or admin capability is enabled or not explicitly disabled while the correlated target has no prompt or deny approval control."
+      },
+      "prompt": {
+        "en": "Independently label the human Rule condition as match, no_match, or uncertain; record your direct finding observation, policy/scope category, evidence location, Confidence, Correlation, disposition, rationale code, and notes. Do not calculate TP/FP/FN/TN."
+      },
+      "question_id": "question:review-case-fa40699a10043643bc21:CAP-APPROVAL-001",
+      "rule_id": "CAP-APPROVAL-001",
+      "title": {
+        "en": "State-changing capability lacks an effective human approval control"
+      }
+    },
+    {
+      "condition": {
+        "en": "A production write, execute, deploy, publish, or admin permission has an effective allow approval state."
+      },
+      "prompt": {
+        "en": "Independently label the human Rule condition as match, no_match, or uncertain; record your direct finding observation, policy/scope category, evidence location, Confidence, Correlation, disposition, rationale code, and notes. Do not calculate TP/FP/FN/TN."
+      },
+      "question_id": "question:review-case-fa40699a10043643bc21:CAP-AUTOPROD-001",
+      "rule_id": "CAP-AUTOPROD-001",
+      "title": {
+        "en": "Production state-changing capability is allowed automatically"
+      }
+    }
+  ],
+  "schema_version": "0.3.0",
+  "source_location": {
+    "end_line": 69,
+    "path": "source.toml",
+    "start_line": 1
+  },
+  "source_sha256": "sha256:9bbf17a0eecb10e4645a66aaef651d6b15e77ad215f1208ba11b60e959f69e9c",
+  "synthetic_fixture": true
+}

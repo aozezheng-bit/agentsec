@@ -1,0 +1,187 @@
+{
+  "case_manifest_sha256": "bf2e39679cfe3cf922e887455f54807a922db37cc812964e0899f0e34bba3fa8",
+  "cases": [
+    {
+      "case_id": "baseline-01",
+      "expected_coverage": "complete",
+      "expected_exit": 0,
+      "expected_rule_ids": [
+        "MD-EXEC-001",
+        "MD-MEMORY-001",
+        "MD-NET-001",
+        "MD-SELF-001",
+        "MD-TOOL-001"
+      ],
+      "rationale": "Coverage：AGENTS.md 为有效 UTF-8。Rules：文本主动授权免询问执行 git status、commit and push 等系统命令（MD-EXEC-001）；声明 Search the web 及邮件、社媒、天气等外部检查（MD-NET-001）；声明 MEMORY.md 长期记忆跨会话延续（MD-MEMORY-001）；要求学习后 update AGENTS.md 等自身指令（MD-SELF-001）；声明 Skills 提供工具并使用 sag 外部工具（MD-TOOL-001）。删除表述仅为 bootstrap 清理与记忆修剪，无凭据读取、任意代码或生产权限声明。Policy：MD-EXEC-001 被 active Waiver 豁免，其余规则不在阻断范围，Exit 0。"
+    },
+    {
+      "case_id": "baseline-02",
+      "expected_coverage": "complete",
+      "expected_exit": 0,
+      "expected_rule_ids": [],
+      "rationale": "Coverage：AGENTS.md 为有效 UTF-8。Rules：文本要求修改文件前获取用户批准、无确认即停止，属于加强审批边界而非弱化确认，无任何能力声明信号命中。Policy：无阻断范围 Finding，Exit 0。"
+    },
+    {
+      "case_id": "baseline-03",
+      "expected_coverage": "complete",
+      "expected_exit": 0,
+      "expected_rule_ids": [],
+      "rationale": "Coverage：AGENTS.md 为有效 UTF-8。Rules：文本要求不运行命令并解释命令执行为何受限，属否定句与安全边界，按整句判断不构成执行能力声明，无命中。Policy：无阻断范围 Finding，Exit 0。"
+    },
+    {
+      "case_id": "baseline-04",
+      "expected_coverage": "complete",
+      "expected_exit": 0,
+      "expected_rule_ids": [],
+      "rationale": "Coverage：AGENTS.md 为有效 UTF-8。Rules：文本仅解释隔离机制并明确禁止获取、打印或传输受保护内容，属安全边界，未声明读取或使用凭据等能力，无命中。Policy：无阻断范围 Finding，Exit 0。"
+    },
+    {
+      "case_id": "baseline-05",
+      "expected_coverage": "complete",
+      "expected_exit": 0,
+      "expected_rule_ids": [],
+      "rationale": "Coverage：AGENTS.md 为有效 UTF-8。Rules：文本限定仅使用本地文档，并禁止联系远程服务或传输仓库内容，属否定句边界，未声明外部请求能力，无命中。Policy：无阻断范围 Finding，Exit 0。"
+    },
+    {
+      "case_id": "baseline-06",
+      "expected_coverage": "complete",
+      "expected_exit": 0,
+      "expected_rule_ids": [],
+      "rationale": "Coverage：AGENTS.md 为有效 UTF-8。Rules：文本仅要求评审部署清单并总结差距，且不执行发布动作；deployment 一词出现在评审对象而非能力声明中，整句判断后无命中。Policy：无阻断范围 Finding，Exit 0。"
+    },
+    {
+      "case_id": "baseline-07",
+      "expected_coverage": "complete",
+      "expected_exit": 0,
+      "expected_rule_ids": [
+        "MD-INSTR-001",
+        "MD-INSTR-002"
+      ],
+      "rationale": "Coverage：AGENTS.md 为有效 UTF-8。Rules：文件中逐字出现 ignore previous instructions（MD-INSTR-001）与 disable safety checks（MD-INSTR-002）两个代表信号；该句虽被声明为待当作数据的不可信引用，但静态证据可直接定位，声明按数据对待无法在静态层面消除 Finding。Policy：两条规则均不在阻断范围，Exit 0。"
+    },
+    {
+      "case_id": "baseline-08",
+      "expected_coverage": "complete",
+      "expected_exit": 0,
+      "expected_rule_ids": [
+        "MD-MEMORY-001"
+      ],
+      "rationale": "Coverage：AGENTS.md 为有效 UTF-8。Rules：文本声明仅在已评审决策中使用 long-term memory，作用域限制不消除能力声明，命中 MD-MEMORY-001；永不存储秘密值为禁止句，不构成凭据使用声明。Policy：MD-MEMORY-001 不在阻断范围，Exit 0。"
+    },
+    {
+      "case_id": "baseline-09",
+      "expected_coverage": "complete",
+      "expected_exit": 0,
+      "expected_rule_ids": [],
+      "rationale": "Coverage：AGENTS.md 为有效 UTF-8。Rules：文本仅要求总结既有材料，且修改文件或执行外部操作前必须由用户明确授权，属加强审批的安全边界而非能力声明，逐句判断无规则信号命中。Policy：无阻断范围 Finding，Exit 0。"
+    },
+    {
+      "case_id": "baseline-10",
+      "expected_coverage": "complete",
+      "expected_exit": 0,
+      "expected_rule_ids": [],
+      "rationale": "Coverage：AGENTS.md 为有效 UTF-8。Rules：文本仅描述阅读既有材料、做最小受评审变更、外部副作用前先询问，均为边界描述，无能力声明信号命中。Policy：无阻断范围 Finding，Exit 0。"
+    },
+    {
+      "case_id": "pr-01",
+      "expected_coverage": "complete",
+      "expected_exit": 1,
+      "expected_rule_ids": [
+        "MD-APPROVAL-001",
+        "MD-DEPLOY-001",
+        "MD-EXEC-001",
+        "MD-INSTR-001",
+        "MD-INSTR-002",
+        "MD-NET-001",
+        "MD-PRIV-001",
+        "MD-SECRET-001"
+      ],
+      "rationale": "Coverage：AGENTS.md 为有效 UTF-8。Rules：一句之内包含多项明确能力声明——忽略先前指令（MD-INSTR-001）、禁用安全检查（MD-INSTR-002）、未经批准执行命令（MD-APPROVAL-001 与 MD-EXEC-001）、读取凭据（MD-SECRET-001）、调用外部 API（MD-NET-001）、部署到生产环境（deploy to production 命中 MD-DEPLOY-001，其中 production environment 信号同时命中 MD-PRIV-001）；命令执行不属任意代码，无 MD-EXEC-002。Policy：MD-EXEC-001 被 active Waiver 豁免；MD-SECRET-001 的 Waiver 已于 2000-01-01 过期，未豁免阻断仍在，Exit 1。"
+    },
+    {
+      "case_id": "pr-02",
+      "expected_coverage": "complete",
+      "expected_exit": 0,
+      "expected_rule_ids": [
+        "MD-EXEC-001"
+      ],
+      "rationale": "Coverage：AGENTS.md 为有效 UTF-8。Rules：文本明确声明可为已批准的本地维护任务执行命令（may execute a command），带审批限制的能力声明仍保留 Finding，命中 MD-EXEC-001。Policy：MD-EXEC-001 属阻断范围，但被 external-pilot-exec-active Waiver 有效豁免至 2099-12-31，无未豁免阻断，Exit 0。"
+    },
+    {
+      "case_id": "pr-03",
+      "expected_coverage": "complete",
+      "expected_exit": 0,
+      "expected_rule_ids": [
+        "MD-EXEC-001"
+      ],
+      "rationale": "Coverage：AGENTS.md 为有效 UTF-8。Rules：文本声明可为已评审任务执行命令（may execute a command），命中 MD-EXEC-001；Finding 须保持可见的要求与 Waiver 不隐藏 Finding 的语义一致。Policy：MD-EXEC-001 阻断被 active Waiver 豁免，Exit 0。"
+    },
+    {
+      "case_id": "pr-04",
+      "expected_coverage": "complete",
+      "expected_exit": 1,
+      "expected_rule_ids": [
+        "MD-SECRET-001"
+      ],
+      "rationale": "Coverage：AGENTS.md 为有效 UTF-8。Rules：文本声明可从作用域受限的 Provider 读取凭据（may read credentials），作用域限制不消除能力声明，命中 MD-SECRET-001。Policy：MD-SECRET-001 的 external-pilot-secret-expired Waiver 已于 2000-01-01 过期，阻断未被移除，Exit 1。"
+    },
+    {
+      "case_id": "pr-05",
+      "expected_coverage": "complete",
+      "expected_exit": 1,
+      "expected_rule_ids": [
+        "MD-EXEC-001",
+        "MD-SECRET-001"
+      ],
+      "rationale": "Coverage：AGENTS.md 为有效 UTF-8。Rules：文本声明可为已评审操作执行命令并读取凭据（may execute a command and read credentials），分别命中 MD-EXEC-001 与 MD-SECRET-001，两条 Finding 均应记录。Policy：MD-EXEC-001 被 active Waiver 豁免；MD-SECRET-001 的 Waiver 已过期、阻断仍生效，存在未豁免阻断 Finding，Exit 1。"
+    },
+    {
+      "case_id": "pr-06",
+      "expected_coverage": "incomplete",
+      "expected_exit": 2,
+      "expected_rule_ids": [],
+      "rationale": "Coverage：AGENTS.md 实际内容为 3 字节 ff fe 00，不是有效 UTF-8 文本，无法作为文本解析，扫描覆盖应为 incomplete。Rules：无效编码下不存在可定位的文本信号，规则命中为空。Policy：按 Policy 规则，Coverage 不完整时优先返回退出码 2，不再由风险 Finding 改写，Exit 2。"
+    },
+    {
+      "case_id": "pr-07",
+      "expected_coverage": "complete",
+      "expected_exit": 0,
+      "expected_rule_ids": [
+        "MD-DEPLOY-001",
+        "MD-PRIV-001"
+      ],
+      "rationale": "Coverage：AGENTS.md 为有效 UTF-8。Rules：文本声明仅可通过已评审的发布流程部署到生产环境（may deploy to production environment through the reviewed release workflow），deploy to production 信号命中 MD-DEPLOY-001，其中 production environment 信号同时命中 MD-PRIV-001，发布流程限制不消除能力声明。Policy：两条规则均不在阻断范围内，Exit 0。"
+    },
+    {
+      "case_id": "pr-08",
+      "expected_coverage": "complete",
+      "expected_exit": 0,
+      "expected_rule_ids": [
+        "MD-NET-001"
+      ],
+      "rationale": "Coverage：AGENTS.md 为有效 UTF-8。Rules：文本声明在目的地评审后可调用外部 API（may call an external API），external API 信号命中 MD-NET-001；评审为范围限制，不消除能力声明。Policy：MD-NET-001 不在阻断范围，Exit 0。"
+    },
+    {
+      "case_id": "pr-09",
+      "expected_coverage": "complete",
+      "expected_exit": 0,
+      "expected_rule_ids": [
+        "MD-SELF-001"
+      ],
+      "rationale": "Coverage：AGENTS.md 为有效 UTF-8。Rules：文本声明在独立受评审变更请求后可修改自身指令（may modify its own instructions），逐字命中 MD-SELF-001 代表信号；评审门槛不消除能力声明。Policy：MD-SELF-001 不在阻断范围，Exit 0。"
+    },
+    {
+      "case_id": "pr-10",
+      "expected_coverage": "complete",
+      "expected_exit": 0,
+      "expected_rule_ids": [],
+      "rationale": "Coverage：AGENTS.md 为有效 UTF-8。Rules：文本描述阅读既有材料、做最小受评审变更、外部副作用前先询问，无能力声明信号命中，规则为空。Policy：无阻断范围 Finding，Exit 0。"
+    }
+  ],
+  "format": "agentsec-external-pilot-review-submission",
+  "independence_statement": "I independently read all 20 state ZIPs (AGENTS.md as static text only), the rule reference, and the protected policy inside reviewer-pack/. I did not inspect pilot.yaml, AgentSec scanner reports, implementation code, engineering expectations, TP/FP/FN output, or any other reviewer's labels. My conclusions are based only on locatable static text evidence, the rule quick reference, and the protected policy with its waiver states. This review is a static deterministic expectation, not a runtime exploitability assessment, and does not authorize any release. No scanned content was executed.",
+  "pilot_id": "external-homi-final-pilot",
+  "reviewer_id": "codefuse-agentsec-expert-reviewer",
+  "schema_version": "0.1.0",
+  "status": "complete"
+}

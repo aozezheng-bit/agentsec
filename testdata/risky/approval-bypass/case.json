@@ -1,0 +1,20 @@
+{
+  "case_id": "risky-approval-bypass",
+  "category": "risky",
+  "purpose": "Exercise instruction-integrity and human-approval rules.",
+  "assets": [
+    "AGENTS.md"
+  ],
+  "expected": {
+    "coverage": "complete",
+    "signals": [
+      "instruction_integrity",
+      "human_approval"
+    ],
+    "rule_ids": [
+      "MD-APPROVAL-001",
+      "MD-INSTR-001",
+      "MD-INSTR-002"
+    ]
+  }
+}

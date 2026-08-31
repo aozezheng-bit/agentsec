@@ -1,0 +1,72 @@
+{
+  "corpus_binding_hash": "sha256:59e034541e3c1096f311404358031a5dc81fc880123351363713d66c2544ad79",
+  "format": "agentsec-independent-review-case",
+  "input_format": "toml",
+  "language": "en",
+  "pack_id": "reviewer-pack-sha256:58295690c13861a763ed9c202d39fe37642ac0f8d9d2d6e416886184a4a86d90",
+  "question_set_sha256": "sha256:cb0edd27a96e918d2be0972b1b834715eb86f594fa4122d72e99ed779bcbadd4",
+  "review_case_fingerprint": "sha256:dc8baa2d1f2b53def807635adb9991333987800d81870fca6478217cd620cd54",
+  "review_case_id": "review-case-1495e222027c2eb2f751",
+  "review_questions": [
+    {
+      "condition": {
+        "en": "An external MCP server is associated with a runtime identity whose privileged flag is true."
+      },
+      "prompt": {
+        "en": "Independently label the human Rule condition as match, no_match, or uncertain; record your direct finding observation, policy/scope category, evidence location, Confidence, Correlation, disposition, rationale code, and notes. Do not calculate TP/FP/FN/TN."
+      },
+      "question_id": "question:review-case-1495e222027c2eb2f751:CAP-EXTERNALPRIVILEGED-001",
+      "rule_id": "CAP-EXTERNALPRIVILEGED-001",
+      "title": {
+        "en": "External MCP uses an explicitly privileged identity"
+      }
+    },
+    {
+      "condition": {
+        "en": "A non-denied admin permission targets the production scope or production resource."
+      },
+      "prompt": {
+        "en": "Independently label the human Rule condition as match, no_match, or uncertain; record your direct finding observation, policy/scope category, evidence location, Confidence, Correlation, disposition, rationale code, and notes. Do not calculate TP/FP/FN/TN."
+      },
+      "question_id": "question:review-case-1495e222027c2eb2f751:CAP-PRODADMIN-001",
+      "rule_id": "CAP-PRODADMIN-001",
+      "title": {
+        "en": "Production administrative capability is declared"
+      }
+    },
+    {
+      "condition": {
+        "en": "A production state-changing permission is associated with an external environment, OAuth, ChatGPT, or environment-backed identity."
+      },
+      "prompt": {
+        "en": "Independently label the human Rule condition as match, no_match, or uncertain; record your direct finding observation, policy/scope category, evidence location, Confidence, Correlation, disposition, rationale code, and notes. Do not calculate TP/FP/FN/TN."
+      },
+      "question_id": "question:review-case-1495e222027c2eb2f751:CAP-PRODIDENTITY-001",
+      "rule_id": "CAP-PRODIDENTITY-001",
+      "title": {
+        "en": "Production capability uses an external or session identity"
+      }
+    },
+    {
+      "condition": {
+        "en": "A non-denied write permission targets the production scope or production resource."
+      },
+      "prompt": {
+        "en": "Independently label the human Rule condition as match, no_match, or uncertain; record your direct finding observation, policy/scope category, evidence location, Confidence, Correlation, disposition, rationale code, and notes. Do not calculate TP/FP/FN/TN."
+      },
+      "question_id": "question:review-case-1495e222027c2eb2f751:CAP-PRODWRITE-001",
+      "rule_id": "CAP-PRODWRITE-001",
+      "title": {
+        "en": "Production write capability is declared"
+      }
+    }
+  ],
+  "schema_version": "0.3.0",
+  "source_location": {
+    "end_line": 87,
+    "path": "source.toml",
+    "start_line": 1
+  },
+  "source_sha256": "sha256:b5775f9dcef3e59df104a9ccd1068a3edefd7f175560c101febcd933fa64ee20",
+  "synthetic_fixture": true
+}

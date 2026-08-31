@@ -1,0 +1,247 @@
+{
+  "artifact_id": "report-only-gate-demo-sha256:3eb0dc9f64c24107e0770d5dd11384fd21cf85444646a55fb3470a25f858de67",
+  "boundary": {
+    "ci_blocking_enabled": false,
+    "enforcement_mode": "report_only",
+    "fail_on_enabled": false,
+    "global_safety_claimed": false,
+    "hard_gate_enabled": false,
+    "llm_used": false,
+    "runtime_capability_verified": false,
+    "source_evaluation_is_deterministic": true
+  },
+  "format": "agentsec-report-only-gate-demo",
+  "gate": {
+    "blocks": false,
+    "ci_blocking": false,
+    "component_rule_id": "CAP-CHAIN-001",
+    "floor": "high",
+    "gate_id": "HG-CAPCHAIN-001",
+    "hard_gate": false,
+    "mode": "report_only",
+    "qualification": "accepted",
+    "qualification_report_artifact_id": "qualification-report-sha256:6a05ad9b8938dc9c3fbe4a73087ba4cf14e55208fa9c192113fe5e7bf360418c"
+  },
+  "qualification": {
+    "confidence_calibration": {
+      "detector_distribution": {
+        "B": 20
+      },
+      "human_distribution": {
+        "A": 20,
+        "B": 20
+      },
+      "human_vs_detector_agreement_count": 20,
+      "human_vs_detector_agreement_rate": 1.0,
+      "human_vs_detector_kappa": 1.0,
+      "items": 20,
+      "reviewer_confidence_kappa": 1.0
+    },
+    "eligible_for_report_only_gate": true,
+    "metrics": {
+      "f1": 1.0,
+      "false_positive_rate": 0.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "sample_scope": {
+      "adjudication_count": 5,
+      "case_count": 40,
+      "case_kinds": {
+        "near_miss": 17,
+        "negative": 3,
+        "positive": 20
+      },
+      "coverage_complete": true,
+      "negative_or_near_miss_count": 20,
+      "positive_count": 20,
+      "unknown_free": true
+    },
+    "status": "accepted"
+  },
+  "scenarios": [
+    {
+      "actual_match": true,
+      "blocks": false,
+      "coverage_complete": true,
+      "expected_match": true,
+      "finding_correlation": "same_target",
+      "gate_id": "HG-CAPCHAIN-001",
+      "gate_version": "0.1.0",
+      "hard_gate": false,
+      "mode": "shadow",
+      "passed": true,
+      "qualification": "pilot_only",
+      "rejection_reason": "matched",
+      "rejection_reasons": [
+        "matched"
+      ],
+      "related_ids": [
+        "mcp-server:remote"
+      ],
+      "relevant_unknowns": 0,
+      "report_only_mode": "report_only",
+      "report_only_qualified": true,
+      "risk_unchanged": {
+        "confidence_unchanged": true,
+        "finding_id_unchanged": true,
+        "hard_gate_remains_false": true,
+        "score_unchanged": true,
+        "severity_unchanged": true
+      },
+      "scenario_id": "same-target-match",
+      "title": "Complete same-target chain"
+    },
+    {
+      "actual_match": true,
+      "blocks": false,
+      "coverage_complete": true,
+      "expected_match": true,
+      "finding_correlation": "parent_child",
+      "gate_id": "HG-CAPCHAIN-001",
+      "gate_version": "0.1.0",
+      "hard_gate": false,
+      "mode": "shadow",
+      "passed": true,
+      "qualification": "pilot_only",
+      "rejection_reason": "matched",
+      "rejection_reasons": [
+        "matched"
+      ],
+      "related_ids": [
+        "mcp-server:remote",
+        "mcp-tool:remote:execute"
+      ],
+      "relevant_unknowns": 0,
+      "report_only_mode": "report_only",
+      "report_only_qualified": true,
+      "risk_unchanged": {
+        "confidence_unchanged": true,
+        "finding_id_unchanged": true,
+        "hard_gate_remains_false": true,
+        "score_unchanged": true,
+        "severity_unchanged": true
+      },
+      "scenario_id": "parent-child-match",
+      "title": "Complete parent-child chain"
+    },
+    {
+      "actual_match": false,
+      "blocks": false,
+      "coverage_complete": true,
+      "expected_match": false,
+      "finding_correlation": "agent_wide",
+      "gate_id": "HG-CAPCHAIN-001",
+      "gate_version": "0.1.0",
+      "hard_gate": false,
+      "mode": "shadow",
+      "passed": true,
+      "qualification": "pilot_only",
+      "rejection_reason": "relevant_unknown,ineligible_correlation",
+      "rejection_reasons": [
+        "relevant_unknown",
+        "ineligible_correlation"
+      ],
+      "related_ids": [
+        "permission:execute:mcp-server:local",
+        "permission:network:mcp-server:remote",
+        "permission:secret_access:mcp-server:remote"
+      ],
+      "relevant_unknowns": 5,
+      "report_only_mode": "report_only",
+      "report_only_qualified": true,
+      "risk_unchanged": {
+        "confidence_unchanged": true,
+        "finding_id_unchanged": true,
+        "hard_gate_remains_false": true,
+        "score_unchanged": true,
+        "severity_unchanged": true
+      },
+      "scenario_id": "agent-wide-no-match",
+      "title": "Agent-wide declarations without target reachability"
+    },
+    {
+      "actual_match": false,
+      "blocks": false,
+      "coverage_complete": true,
+      "expected_match": false,
+      "finding_correlation": "same_target",
+      "gate_id": "HG-CAPCHAIN-001",
+      "gate_version": "0.1.0",
+      "hard_gate": false,
+      "mode": "shadow",
+      "passed": true,
+      "qualification": "pilot_only",
+      "rejection_reason": "relevant_unknown",
+      "rejection_reasons": [
+        "relevant_unknown"
+      ],
+      "related_ids": [
+        "mcp-server:remote"
+      ],
+      "relevant_unknowns": 5,
+      "report_only_mode": "report_only",
+      "report_only_qualified": true,
+      "risk_unchanged": {
+        "confidence_unchanged": true,
+        "finding_id_unchanged": true,
+        "hard_gate_remains_false": true,
+        "score_unchanged": true,
+        "severity_unchanged": true
+      },
+      "scenario_id": "unknown-no-match",
+      "title": "Relevant Unknown prevents a match"
+    },
+    {
+      "actual_match": false,
+      "blocks": false,
+      "coverage_complete": false,
+      "expected_match": false,
+      "finding_correlation": "same_target",
+      "gate_id": "HG-CAPCHAIN-001",
+      "gate_version": "0.1.0",
+      "hard_gate": false,
+      "mode": "shadow",
+      "passed": true,
+      "qualification": "pilot_only",
+      "rejection_reason": "incomplete_coverage,relevant_unknown",
+      "rejection_reasons": [
+        "incomplete_coverage",
+        "relevant_unknown"
+      ],
+      "related_ids": [
+        "mcp-server:remote"
+      ],
+      "relevant_unknowns": 1,
+      "report_only_mode": "report_only",
+      "report_only_qualified": true,
+      "risk_unchanged": {
+        "confidence_unchanged": true,
+        "finding_id_unchanged": true,
+        "hard_gate_remains_false": true,
+        "score_unchanged": true,
+        "severity_unchanged": true
+      },
+      "scenario_id": "incomplete-coverage-no-match",
+      "title": "Incomplete Coverage prevents a match"
+    }
+  ],
+  "schema_version": "0.1.0",
+  "source_evaluation": {
+    "format": "agentsec-capability-shadow-gate-demo",
+    "gate_version": "0.1.0",
+    "mode": "shadow_evaluation",
+    "status": "passed"
+  },
+  "status": "passed",
+  "summary": {
+    "blocks": false,
+    "ci_blocking": false,
+    "hard_gate": false,
+    "qualification_eligible": true,
+    "qualification_status": "accepted",
+    "report_only_match_count": 2,
+    "report_only_no_match_count": 3,
+    "scenario_count": 5
+  }
+}

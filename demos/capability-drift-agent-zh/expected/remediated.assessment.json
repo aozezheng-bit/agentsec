@@ -1,0 +1,399 @@
+{
+  "findings": [],
+  "format": "agentsec-capability-assessment",
+  "format_version": "0.2.0",
+  "manifest": {
+    "configuration": {
+      "candidates": [],
+      "effective_order": [],
+      "effective_sources": [],
+      "resolution": "unknown",
+      "resolution_trace": []
+    },
+    "controls": {
+      "controls": [],
+      "declaration_sources": [],
+      "resolution": "unknown"
+    },
+    "coverage": {
+      "complete": true,
+      "discovered_assets": 2,
+      "inspected_assets": 2,
+      "issues": [],
+      "skipped_assets": 0
+    },
+    "identity": {
+      "agent_id": "release-agent",
+      "declared_name": null,
+      "resolution": "partial",
+      "sources": [],
+      "subject_root_id": "project",
+      "subject_scope": "project"
+    },
+    "instructions": {
+      "candidates": [
+        {
+          "kind": "base",
+          "precedence_rank": 100,
+          "source": {
+            "end_line": null,
+            "field_path": null,
+            "locator": {
+              "path": "AGENTS.md",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": null
+          }
+        }
+      ],
+      "effective_order": [
+        {
+          "end_line": null,
+          "field_path": null,
+          "locator": {
+            "path": "AGENTS.md",
+            "root_id": "project",
+            "scope": "project"
+          },
+          "start_line": null
+        }
+      ],
+      "effective_sources": [
+        {
+          "end_line": null,
+          "field_path": null,
+          "locator": {
+            "path": "AGENTS.md",
+            "root_id": "project",
+            "scope": "project"
+          },
+          "start_line": null
+        }
+      ],
+      "overridden_sources": [],
+      "resolution": "resolved",
+      "resolution_trace": [
+        {
+          "action": "selected",
+          "chain_key": "project:project:.",
+          "precedence_rank": 100,
+          "reason": "only_candidate",
+          "source": {
+            "end_line": null,
+            "field_path": null,
+            "locator": {
+              "path": "AGENTS.md",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": null
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "adapter_version": "0.1.0",
+      "deterministic": true,
+      "framework_display_name": "Codex",
+      "framework_id": "codex",
+      "scanner_version": "0.2.0"
+    },
+    "permissions": {
+      "declaration_sources": [],
+      "permissions": [],
+      "resolution": "unknown"
+    },
+    "relationships": {
+      "declaration_sources": [
+        {
+          "end_line": null,
+          "field_path": null,
+          "locator": {
+            "path": ".agents/skills/review/SKILL.md",
+            "root_id": "project",
+            "scope": "project"
+          },
+          "start_line": null
+        },
+        {
+          "end_line": null,
+          "field_path": null,
+          "locator": {
+            "path": "AGENTS.md",
+            "root_id": "project",
+            "scope": "project"
+          },
+          "start_line": null
+        }
+      ],
+      "relations": [
+        {
+          "kind": "uses_skill",
+          "relation_id": "relation:uses-skill:skill:review",
+          "source_agent_id": "release-agent",
+          "sources": [
+            {
+              "end_line": null,
+              "field_path": null,
+              "locator": {
+                "path": ".agents/skills/review/SKILL.md",
+                "root_id": "project",
+                "scope": "project"
+              },
+              "start_line": null
+            }
+          ],
+          "state": "declared",
+          "target_id": "skill:review"
+        }
+      ],
+      "resolution": "resolved"
+    },
+    "runtime_identities": {
+      "declaration_sources": [],
+      "identities": [],
+      "resolution": "unknown"
+    },
+    "schema_version": "0.3.0",
+    "sources": [
+      {
+        "content_sha256": "07fc7f833690e74af870b5901959a9f29f50e4c78d43ed1003ecf7f9f4f29d0f",
+        "format": "markdown",
+        "line_count": 4,
+        "locator": {
+          "path": ".agents/skills/review/SKILL.md",
+          "root_id": "project",
+          "scope": "project"
+        },
+        "precedence_rank": 200,
+        "roles": [
+          "skill"
+        ],
+        "size_bytes": 135
+      },
+      {
+        "content_sha256": "540eaa7783f4747a7fdd748d3c31ac14fb28827fcd2842e0068357e51fa35663",
+        "format": "markdown",
+        "line_count": 5,
+        "locator": {
+          "path": "AGENTS.md",
+          "root_id": "project",
+          "scope": "project"
+        },
+        "precedence_rank": 100,
+        "roles": [
+          "agent_instructions"
+        ],
+        "size_bytes": 142
+      }
+    ],
+    "tools": {
+      "declaration_sources": [
+        {
+          "end_line": null,
+          "field_path": null,
+          "locator": {
+            "path": ".agents/skills/review/SKILL.md",
+            "root_id": "project",
+            "scope": "project"
+          },
+          "start_line": null
+        }
+      ],
+      "resolution": "resolved",
+      "tools": [
+        {
+          "availability": "declared",
+          "kind": "skill",
+          "name": "review",
+          "parent_tool_id": null,
+          "side_effects": [
+            "unknown"
+          ],
+          "sources": [
+            {
+              "end_line": null,
+              "field_path": null,
+              "locator": {
+                "path": ".agents/skills/review/SKILL.md",
+                "root_id": "project",
+                "scope": "project"
+              },
+              "start_line": null
+            }
+          ],
+          "tool_id": "skill:review"
+        }
+      ]
+    },
+    "unknowns": [
+      {
+        "dimension": "controls",
+        "field": "controls.resolution",
+        "reason": "missing_source",
+        "sources": [],
+        "unknown_id": "unknown:controls:21a0b7e5d41746fa"
+      },
+      {
+        "dimension": "identity",
+        "field": "identity.resolution",
+        "reason": "unsupported_field",
+        "sources": [],
+        "unknown_id": "unknown:identity:77d20c81b0e7afa5"
+      },
+      {
+        "dimension": "permissions",
+        "field": "permissions.resolution",
+        "reason": "missing_source",
+        "sources": [],
+        "unknown_id": "unknown:permissions:2be0c85c08af985b"
+      },
+      {
+        "dimension": "runtime_identities",
+        "field": "runtime_identities.resolution",
+        "reason": "missing_source",
+        "sources": [],
+        "unknown_id": "unknown:runtime_identities:9af495e3982f8b99"
+      },
+      {
+        "dimension": "tools",
+        "field": "tools.skill:review.side_effects",
+        "reason": "unsupported_field",
+        "sources": [
+          {
+            "end_line": null,
+            "field_path": null,
+            "locator": {
+              "path": ".agents/skills/review/SKILL.md",
+              "root_id": "project",
+              "scope": "project"
+            },
+            "start_line": null
+          }
+        ],
+        "unknown_id": "unknown:tools:dd8f12f4d887ff96"
+      }
+    ]
+  },
+  "policy": {
+    "ci_blocking_enabled": false,
+    "enforcement_mode": "report_only",
+    "global_safety_claimed": false,
+    "runtime_capability_verified": false
+  },
+  "rule_failures": [],
+  "stage_trace": [
+    {
+      "error_code": null,
+      "input_items": 0,
+      "output_items": 2,
+      "stage": "adapter_inspection",
+      "status": "completed"
+    },
+    {
+      "error_code": null,
+      "input_items": 2,
+      "output_items": 2,
+      "stage": "manifest_build",
+      "status": "completed"
+    },
+    {
+      "error_code": null,
+      "input_items": 1,
+      "output_items": 1,
+      "stage": "instruction_resolution",
+      "status": "completed"
+    },
+    {
+      "error_code": null,
+      "input_items": 0,
+      "output_items": 0,
+      "stage": "configuration_resolution",
+      "status": "completed"
+    },
+    {
+      "error_code": null,
+      "input_items": 2,
+      "output_items": 2,
+      "stage": "association_extraction",
+      "status": "completed"
+    },
+    {
+      "error_code": null,
+      "input_items": 1,
+      "output_items": 0,
+      "stage": "capability_extraction",
+      "status": "completed"
+    },
+    {
+      "error_code": null,
+      "input_items": 2,
+      "output_items": 1,
+      "stage": "relationship_extraction",
+      "status": "completed"
+    },
+    {
+      "error_code": null,
+      "input_items": 5,
+      "output_items": 5,
+      "stage": "unknown_extraction",
+      "status": "completed"
+    },
+    {
+      "error_code": null,
+      "input_items": 1,
+      "output_items": 1,
+      "stage": "final_validation",
+      "status": "completed"
+    }
+  ],
+  "status": "complete",
+  "summary": {
+    "confidence_counts": {
+      "A": 0,
+      "B": 0,
+      "C": 0,
+      "D": 0
+    },
+    "controls": 0,
+    "coverage_issues": 0,
+    "findings": 0,
+    "hard_gate_matches": 0,
+    "high_impact_permissions": 0,
+    "highest_severity": "none",
+    "manifest_coverage_complete": true,
+    "permissions": 0,
+    "relationships": 1,
+    "rule_execution_complete": true,
+    "rule_failures": 0,
+    "runtime_identities": 0,
+    "severity_counts": {
+      "critical": 0,
+      "high": 0,
+      "low": 0,
+      "medium": 0,
+      "none": 0
+    },
+    "shadow_gate_matches": 0,
+    "sources": 2,
+    "tools": 1,
+    "unknowns": 5
+  },
+  "versions": {
+    "agent_manifest_schema": "0.3.0",
+    "assessment_output": "0.7.0",
+    "baseline_schema": "0.1.0",
+    "capability_assessment_output": "0.2.0",
+    "capability_diff_schema": "0.1.0",
+    "capability_risk_model": "0.1.0",
+    "capability_rule_pack": "0.2.0",
+    "capability_shadow_gate": "0.1.0",
+    "config_schema": "0.1.0",
+    "diff_output": "0.1.0",
+    "domain_schema": "0.8.0",
+    "package": "0.2.0",
+    "risk_model": "0.4.0",
+    "rule_pack": "0.3.0"
+  }
+}

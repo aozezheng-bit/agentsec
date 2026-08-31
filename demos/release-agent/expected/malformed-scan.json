@@ -1,0 +1,67 @@
+{
+  "assessment": {
+    "assets": [],
+    "changes": [],
+    "coverage": {
+      "complete": false,
+      "discovered_assets": 1,
+      "issues": [
+        {
+          "asset_path": "AGENTS.md",
+          "code": "unsupported_encoding",
+          "message": "Supported asset is not valid UTF-8."
+        }
+      ],
+      "scanned_assets": 0,
+      "skipped_assets": 1
+    },
+    "findings": [],
+    "metadata": {
+      "completed_at": "2026-08-19T05:30:00Z",
+      "config_schema_version": "0.1.0",
+      "deterministic": true,
+      "git_commit": null,
+      "git_dirty": null,
+      "risk_model_version": "0.4.0",
+      "rule_pack_version": "0.3.0",
+      "scanner_version": "0.2.0",
+      "schema_version": "0.8.0",
+      "started_at": "2026-08-19T05:30:00Z",
+      "target_root": "demos/release-agent/malformed"
+    }
+  },
+  "format": "agentsec-assessment",
+  "format_version": "0.7.0",
+  "policy": {
+    "ci_blocking_enabled": false,
+    "enforcement_mode": "report_only",
+    "global_safety_claimed": false
+  },
+  "status": "incomplete",
+  "summary": {
+    "assets": 0,
+    "changes": 0,
+    "confidence_counts": {
+      "A": 0,
+      "B": 0,
+      "C": 0,
+      "D": 0
+    },
+    "coverage_complete": false,
+    "coverage_discovered_assets": 1,
+    "coverage_issues": 1,
+    "coverage_scanned_assets": 0,
+    "coverage_skipped_assets": 1,
+    "cvss_hard_gate_matches": 0,
+    "findings": 0,
+    "hard_gate_matches": 0,
+    "highest_severity": "none",
+    "severity_counts": {
+      "critical": 0,
+      "high": 0,
+      "low": 0,
+      "medium": 0,
+      "none": 0
+    }
+  }
+}

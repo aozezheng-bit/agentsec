@@ -1,0 +1,114 @@
+{
+  "$defs": {
+    "ProviderReviewDecision": {
+      "additionalProperties": false,
+      "properties": {
+        "case_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Case Id",
+          "type": "string"
+        },
+        "evidence_binding_acceptable": {
+          "title": "Evidence Binding Acceptable",
+          "type": "boolean"
+        },
+        "rationale_code": {
+          "pattern": "^[a-z][a-z0-9._-]{0,63}$",
+          "title": "Rationale Code",
+          "type": "string"
+        },
+        "reviewer_confidence": {
+          "enum": [
+            "high",
+            "medium",
+            "low"
+          ],
+          "title": "Reviewer Confidence",
+          "type": "string"
+        },
+        "semantic_disposition": {
+          "$ref": "#/$defs/ProviderReviewDisposition"
+        }
+      },
+      "required": [
+        "case_id",
+        "semantic_disposition",
+        "evidence_binding_acceptable",
+        "reviewer_confidence",
+        "rationale_code"
+      ],
+      "title": "ProviderReviewDecision",
+      "type": "object"
+    },
+    "ProviderReviewDisposition": {
+      "enum": [
+        "accept",
+        "reject",
+        "uncertain"
+      ],
+      "title": "ProviderReviewDisposition",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "decisions": {
+      "items": {
+        "$ref": "#/$defs/ProviderReviewDecision"
+      },
+      "title": "Decisions",
+      "type": "array"
+    },
+    "evaluation_report_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Evaluation Report Sha256",
+      "type": "string"
+    },
+    "format": {
+      "const": "agentsec-semantic-human-review-submission",
+      "default": "agentsec-semantic-human-review-submission",
+      "title": "Format",
+      "type": "string"
+    },
+    "independent": {
+      "const": true,
+      "default": true,
+      "title": "Independent",
+      "type": "boolean"
+    },
+    "model_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "title": "Model Id",
+      "type": "string"
+    },
+    "provider_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "title": "Provider Id",
+      "type": "string"
+    },
+    "reviewer_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Reviewer Id",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "0.1.0",
+      "default": "0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "provider_id",
+    "model_id",
+    "evaluation_report_sha256",
+    "reviewer_id",
+    "decisions"
+  ],
+  "title": "SemanticHumanReviewSubmission",
+  "type": "object"
+}

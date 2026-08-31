@@ -1,0 +1,33 @@
+{
+  "corpus_binding_hash": "sha256:59e034541e3c1096f311404358031a5dc81fc880123351363713d66c2544ad79",
+  "format": "agentsec-independent-review-case",
+  "input_format": "manifest",
+  "language": "zh",
+  "pack_id": "reviewer-pack-sha256:58295690c13861a763ed9c202d39fe37642ac0f8d9d2d6e416886184a4a86d90",
+  "question_set_sha256": "sha256:5512ab2eb408bdba041ebded503015fd28be8f63e6615e7c7d667db660b6fe87",
+  "review_case_fingerprint": "sha256:5b5013fc63791754150553ff55eca61ec4da2fac1a2310b7b8abfbebe1585865",
+  "review_case_id": "review-case-a9121f4e2c65b1c967d3",
+  "review_questions": [
+    {
+      "condition": {
+        "zh": "已启用且必选的外部 MCP Server 没有 configured 的 timeout 控制。"
+      },
+      "prompt": {
+        "zh": "请独立将人工规则条件标记为 match、no_match 或 uncertain，并填写直接观察、策略或范围类别、证据位置、置信度、关联方式、处置意见、理由代码和备注。不要自行计算 TP/FP/FN/TN。"
+      },
+      "question_id": "question:review-case-a9121f4e2c65b1c967d3:CAP-REQUIREDNOTIMEOUT-001",
+      "rule_id": "CAP-REQUIREDNOTIMEOUT-001",
+      "title": {
+        "zh": "必选外部 MCP 缺少超时控制"
+      }
+    }
+  ],
+  "schema_version": "0.3.0",
+  "source_location": {
+    "end_line": 19,
+    "path": "source.manifest.json",
+    "start_line": 1
+  },
+  "source_sha256": "sha256:d2e8c6f897b874b0ef590ebfd398e061014fae5164e7c0bb81afca6692d7d0d7",
+  "synthetic_fixture": true
+}

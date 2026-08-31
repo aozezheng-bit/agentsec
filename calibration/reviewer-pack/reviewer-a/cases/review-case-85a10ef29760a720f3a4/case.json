@@ -1,0 +1,33 @@
+{
+  "corpus_binding_hash": "sha256:59e034541e3c1096f311404358031a5dc81fc880123351363713d66c2544ad79",
+  "format": "agentsec-independent-review-case",
+  "input_format": "manifest",
+  "language": "en",
+  "pack_id": "reviewer-pack-sha256:58295690c13861a763ed9c202d39fe37642ac0f8d9d2d6e416886184a4a86d90",
+  "question_set_sha256": "sha256:6d444c29eec7c4d9e1cc4b0df378f87503bdbf6000cab5e965bb03a9c0fd4d67",
+  "review_case_fingerprint": "sha256:74c1cd69ec7a8556064835bc03cfcec48a26cb9824eaf06ed2079f605ea80e82",
+  "review_case_id": "review-case-85a10ef29760a720f3a4",
+  "review_questions": [
+    {
+      "condition": {
+        "en": "A secret_access permission has an effective allow approval state rather than prompt or deny."
+      },
+      "prompt": {
+        "en": "Independently label the human Rule condition as match, no_match, or uncertain; record your direct finding observation, policy/scope category, evidence location, Confidence, Correlation, disposition, rationale code, and notes. Do not calculate TP/FP/FN/TN."
+      },
+      "question_id": "question:review-case-85a10ef29760a720f3a4:CAP-AUTOSECRET-001",
+      "rule_id": "CAP-AUTOSECRET-001",
+      "title": {
+        "en": "Secret access is allowed without human approval"
+      }
+    }
+  ],
+  "schema_version": "0.3.0",
+  "source_location": {
+    "end_line": 19,
+    "path": "source.manifest.json",
+    "start_line": 1
+  },
+  "source_sha256": "sha256:40d4ff945cf27d4918875b28fbbc27fbc0b49f9202055753c80950204fe0a979",
+  "synthetic_fixture": true
+}

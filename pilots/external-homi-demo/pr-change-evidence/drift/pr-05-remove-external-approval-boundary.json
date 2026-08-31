@@ -1,0 +1,79 @@
+{
+  "actual": {
+    "added_findings": [],
+    "added_observations": [],
+    "capability_changes": {},
+    "changed_findings": [],
+    "file_changes": {
+      "SOUL.md": "modified"
+    },
+    "persona_changes": {
+      "external_approval": [
+        "present",
+        "unknown"
+      ]
+    },
+    "removed_findings": [],
+    "removed_observations": [],
+    "resolution_status": "conflict",
+    "simulation_changes": {},
+    "status": "partial"
+  },
+  "after": {
+    "ci_blocked": false,
+    "report_only": true,
+    "resolution_status": "conflict",
+    "runtime_verified": false,
+    "status": "partial"
+  },
+  "before": {
+    "ci_blocked": false,
+    "report_only": true,
+    "resolution_status": "conflict",
+    "runtime_verified": false,
+    "status": "partial"
+  },
+  "drill": null,
+  "expected": {
+    "added_findings": [],
+    "added_observations": [],
+    "capability_changes": {},
+    "changed_findings": [],
+    "file_changes": {
+      "SOUL.md": "modified"
+    },
+    "persona_changes": {
+      "external_approval": [
+        "present",
+        "unknown"
+      ]
+    },
+    "removed_findings": [],
+    "removed_observations": [],
+    "resolution_status": "conflict",
+    "simulation_changes": {},
+    "status": "partial"
+  },
+  "format": "agentsec-homi-capability-drift-evidence",
+  "format_version": "0.1.0",
+  "limitations": [
+    "Static Homi drift does not prove runtime reachability or execution.",
+    "Scenario-contract review is engineering evidence, not independent human TP/FP/FN adjudication.",
+    "No drift result authorizes CI blocking, release, Tool access, or a waiver."
+  ],
+  "provenance": {
+    "baseline_report_sha256": "782780c50cb7d8283e5f81480211c49f207d9f37275bf88c9fb7af66c71dbbaf",
+    "snapshot_archive_sha256": "b4045e63297c3acf41d5bd4ffc61bd64bdf6c9f293db48ee292a92a9775f51d9",
+    "snapshot_report_sha256": "adc7fde058fc305e49cceadccab8945389adf18428cfc4154958066cb3d32066"
+  },
+  "review": {
+    "contract_pass": true,
+    "independent_human_review": false,
+    "mode": "deterministic_scenario_contract",
+    "outcome": "contract_pass"
+  },
+  "risk_direction": "governance_risk",
+  "scenario_id": "pr-05-remove-external-approval-boundary",
+  "task_id": "P2-EXIT-06-03",
+  "title": "移除 SOUL 中的外部行为审批边界"
+}

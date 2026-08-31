@@ -1,0 +1,19 @@
+{
+  "facts": [
+    {
+      "dimension": "relationship",
+      "key": "persists-memory",
+      "state": "present",
+      "target_id": "target:primary"
+    },
+    {
+      "dimension": "permission",
+      "key": "sensitive",
+      "state": "present",
+      "target_id": "target:primary"
+    }
+  ],
+  "format": "synthetic-agent-manifest-review-view",
+  "review_case_id": "review-case-c9c921940c31265e02a0",
+  "synthetic": true
+}

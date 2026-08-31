@@ -1,0 +1,187 @@
+{
+  "$defs": {
+    "AssetSource": {
+      "description": "How an asset entered the scan scope.",
+      "enum": [
+        "discovered",
+        "explicit"
+      ],
+      "title": "AssetSource",
+      "type": "string"
+    },
+    "AssetType": {
+      "description": "Supported Phase 1 Agent asset types.",
+      "enum": [
+        "agents",
+        "agents_override",
+        "skill",
+        "explicit_markdown"
+      ],
+      "title": "AssetType",
+      "type": "string"
+    },
+    "BaselineAsset": {
+      "additionalProperties": false,
+      "description": "One exact UTF-8 Agent control asset stored in a baseline.",
+      "properties": {
+        "asset_type": {
+          "$ref": "#/$defs/AssetType"
+        },
+        "content": {
+          "title": "Content",
+          "type": "string"
+        },
+        "encoding": {
+          "const": "utf-8",
+          "default": "utf-8",
+          "title": "Encoding",
+          "type": "string"
+        },
+        "line_count": {
+          "minimum": 0,
+          "title": "Line Count",
+          "type": "integer"
+        },
+        "path": {
+          "minLength": 1,
+          "title": "Path",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Sha256",
+          "type": "string"
+        },
+        "size_bytes": {
+          "minimum": 0,
+          "title": "Size Bytes",
+          "type": "integer"
+        },
+        "source": {
+          "$ref": "#/$defs/AssetSource"
+        }
+      },
+      "required": [
+        "path",
+        "asset_type",
+        "source",
+        "sha256",
+        "size_bytes",
+        "line_count",
+        "content"
+      ],
+      "title": "BaselineAsset",
+      "type": "object"
+    },
+    "BaselineMetadata": {
+      "additionalProperties": false,
+      "description": "Generation and provenance metadata for one trusted snapshot.",
+      "properties": {
+        "collection_config_sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Collection Config Sha256",
+          "type": "string"
+        },
+        "config_schema_version": {
+          "minLength": 1,
+          "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+          "title": "Config Schema Version",
+          "type": "string"
+        },
+        "domain_schema_version": {
+          "minLength": 1,
+          "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+          "title": "Domain Schema Version",
+          "type": "string"
+        },
+        "generated_at": {
+          "format": "date-time",
+          "title": "Generated At",
+          "type": "string"
+        },
+        "git_commit": {
+          "anyOf": [
+            {
+              "pattern": "^(?:[a-f0-9]{40}|[a-f0-9]{64})$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Git Commit"
+        },
+        "git_dirty": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Git Dirty"
+        },
+        "risk_model_version": {
+          "minLength": 1,
+          "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+          "title": "Risk Model Version",
+          "type": "string"
+        },
+        "rule_pack_version": {
+          "minLength": 1,
+          "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+          "title": "Rule Pack Version",
+          "type": "string"
+        },
+        "scanner_version": {
+          "minLength": 1,
+          "title": "Scanner Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "scanner_version",
+        "config_schema_version",
+        "domain_schema_version",
+        "rule_pack_version",
+        "risk_model_version",
+        "collection_config_sha256",
+        "generated_at"
+      ],
+      "title": "BaselineMetadata",
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Top-level versioned snapshot used by later deterministic diff stages.",
+  "properties": {
+    "assets": {
+      "items": {
+        "$ref": "#/$defs/BaselineAsset"
+      },
+      "title": "Assets",
+      "type": "array"
+    },
+    "metadata": {
+      "$ref": "#/$defs/BaselineMetadata"
+    },
+    "schema_version": {
+      "minLength": 1,
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+      "title": "Schema Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "metadata",
+    "assets"
+  ],
+  "title": "Baseline",
+  "type": "object",
+  "x-agentsec-baseline-schema-version": "0.1.0"
+}

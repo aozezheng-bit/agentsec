@@ -1,0 +1,19 @@
+{
+  "case_id": "cal-near-miss-externalunverified-001-zh",
+  "facts": [
+    {
+      "dimension": "runtime_identity",
+      "evidence": [
+        {
+          "asset_path": "facts.json",
+          "field_path": "facts.0"
+        }
+      ],
+      "fact_id": "fact-01",
+      "key": "external-runtime-verification",
+      "state": "present",
+      "target_id": "target:primary"
+    }
+  ],
+  "fixture_version": "0.1.0"
+}

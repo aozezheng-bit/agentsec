@@ -1,0 +1,36 @@
+{
+  "assets": [
+    {
+      "asset_type": "agents",
+      "content": "# Release Agent\n\n- Review release notes and summarize repository changes.\n- Ask the user to approve before changing any file or release state.\n- Stop when confirmation is unavailable.\n",
+      "encoding": "utf-8",
+      "line_count": 5,
+      "path": "AGENTS.md",
+      "sha256": "b9c1ee32b3119e73e54456c11018b3fed68ac02dbaf6f0a10489a0bc73748c34",
+      "size_bytes": 184,
+      "source": "discovered"
+    },
+    {
+      "asset_type": "skill",
+      "content": "# Release Review Skill\n\nSummarize changed files, test results, and recommended verification steps.\nKeep the review local and read-only.\n",
+      "encoding": "utf-8",
+      "line_count": 4,
+      "path": "skills/review/SKILL.md",
+      "sha256": "633822810622e809dda5f3c3c0f78338655c0e1c4d349dc2023114257a02ee7e",
+      "size_bytes": 136,
+      "source": "discovered"
+    }
+  ],
+  "metadata": {
+    "collection_config_sha256": "9eee5b3293c025cd523c450d8709f221b9b16f947314106a60eaaeb1433d1775",
+    "config_schema_version": "0.1.0",
+    "domain_schema_version": "0.8.0",
+    "generated_at": "2026-08-19T05:30:00Z",
+    "git_commit": null,
+    "git_dirty": null,
+    "risk_model_version": "0.4.0",
+    "rule_pack_version": "0.3.0",
+    "scanner_version": "0.2.0"
+  },
+  "schema_version": "0.1.0"
+}

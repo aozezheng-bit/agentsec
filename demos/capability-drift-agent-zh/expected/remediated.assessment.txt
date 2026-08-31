@@ -1,0 +1,40 @@
+AgentSec 能力评估
+状态：完整
+Agent：release-agent
+策略：仅报告；不启用 CI 阻断；未验证运行时能力
+
+管理摘要
+  发现项：0
+  最高严重性：无
+  严重性：严重=0 高=0 中=0 低=0 无=0
+  证据置信度：A=0 B=0 C=0 D=0
+  能力清单：来源=2 工具=1 权限=0 控制=0 身份=0 关系=1 Unknown=5
+  Coverage：完整；发现=2 已检查=2 跳过=0 问题=0
+  规则执行：完整；已评估=29 失败=0
+  Hard Gate：命中=0（仅报告；不阻断 CI）
+  Shadow Gate：命中=0（影子模式；仅试点；不阻断 CI）
+
+版本向量
+  package：0.2.0
+  agent_manifest_schema：0.3.0
+  capability_rule_pack：0.2.0
+  capability_risk_model：0.1.0
+  capability_assessment_output：0.2.0
+
+阶段轨迹
+  adapter_inspection：completed 输入=0 输出=2
+  manifest_build：completed 输入=2 输出=2
+  instruction_resolution：completed 输入=1 输出=1
+  configuration_resolution：completed 输入=0 输出=0
+  association_extraction：completed 输入=2 输出=2
+  capability_extraction：completed 输入=1 输出=0
+  relationship_extraction：completed 输入=2 输出=1
+  unknown_extraction：completed 输入=5 输出=5
+  final_validation：completed 输入=1 输出=1
+
+发现项
+  在当前支持的静态范围内未产生发现项；这不代表 Agent 安全。
+
+边界说明
+  发现项仅描述静态声明和确定性关联。
+  本报告不代表运行时可达性或 Agent 全局安全已被证明。

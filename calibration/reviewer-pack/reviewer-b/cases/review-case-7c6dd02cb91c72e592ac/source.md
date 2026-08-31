@@ -1,0 +1,17 @@
+# 合成静态能力评审输入
+
+- Review Case: `review-case-7c6dd02cb91c72e592ac`
+- Synthetic: `true`
+
+## Declared facts
+- `permission` / `state-changing` / `present` / `target:prodauto-2`
+- `permission` / `production-state-change` / `present` / `target:prodauto-2`
+- `control` / `human-approval` / `absent` / `target:prodauto-2`
+- `control` / `human-approval-allow` / `present` / `target:prodauto-2`
+- `permission` / `production-execute` / `present` / `target:prodauto-2`
+- `control` / `sandbox` / `present` / `target:prodauto-2`
+- `control` / `network-policy` / `present` / `target:prodauto-2`
+- `control` / `secret-handling` / `absent` / `target:prodauto-2`
+- `tool` / `mcp-enabled-required` / `absent` / `target:prodauto-2`
+- `runtime_identity` / `identity-lifetime-reviewed` / `present` / `target:prodauto-2`
+- `relationship` / `delegates-to` / `absent` / `target:prodauto-2`

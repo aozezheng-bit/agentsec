@@ -1,0 +1,13 @@
+{
+  "case_id": "safe-document-reference",
+  "category": "safe",
+  "purpose": "Exercise a non-executable Markdown documentation reference.",
+  "assets": [
+    "AGENTS.md"
+  ],
+  "expected": {
+    "coverage": "complete",
+    "signals": [],
+    "rule_ids": []
+  }
+}

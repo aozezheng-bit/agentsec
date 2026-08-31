@@ -1,0 +1,33 @@
+{
+  "corpus_binding_hash": "sha256:59e034541e3c1096f311404358031a5dc81fc880123351363713d66c2544ad79",
+  "format": "agentsec-independent-review-case",
+  "input_format": "manifest",
+  "language": "zh",
+  "pack_id": "reviewer-pack-sha256:58295690c13861a763ed9c202d39fe37642ac0f8d9d2d6e416886184a4a86d90",
+  "question_set_sha256": "sha256:ccde4fb36316221d69ca3be7ea5a63ef63fe4d1a287f68c6c33b9f1d39b03d6e",
+  "review_case_fingerprint": "sha256:5a6f0a50aafc29c68c186a56c14c50dbb8ee64d908df5471e3060d424bd60c2a",
+  "review_case_id": "review-case-b963bc7c85d106710ea2",
+  "review_questions": [
+    {
+      "condition": {
+        "zh": "外部 network 权限的目标或父级没有 configured 的 network_policy 控制。"
+      },
+      "prompt": {
+        "zh": "请独立将人工规则条件标记为 match、no_match 或 uncertain，并填写直接观察、策略或范围类别、证据位置、置信度、关联方式、处置意见、理由代码和备注。不要自行计算 TP/FP/FN/TN。"
+      },
+      "question_id": "question:review-case-b963bc7c85d106710ea2:CAP-NONETWORKPOLICY-001",
+      "rule_id": "CAP-NONETWORKPOLICY-001",
+      "title": {
+        "zh": "外部网络能力缺少网络策略"
+      }
+    }
+  ],
+  "schema_version": "0.3.0",
+  "source_location": {
+    "end_line": 19,
+    "path": "source.manifest.json",
+    "start_line": 1
+  },
+  "source_sha256": "sha256:09583619517f0d6859fe130361169c102a4d7e25685f974e502c52eaacb806f8",
+  "synthetic_fixture": true
+}

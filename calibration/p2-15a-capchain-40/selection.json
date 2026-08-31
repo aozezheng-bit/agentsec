@@ -1,0 +1,432 @@
+{
+  "boundary": {
+    "ci_blocking": false,
+    "expected_labels_distributed": false,
+    "formal_human_evidence": false,
+    "ground_truth_distributed": false,
+    "hard_gate_qualification": false,
+    "joint_evidence_distributed": false,
+    "seed_labels_distributed": false
+  },
+  "component_rule_ids": [
+    "CAP-CHAIN-001"
+  ],
+  "eligible_negative_count": 20,
+  "format": "agentsec-gate-scoped-independent-review-selection",
+  "gate_id": "HG-CAPCHAIN-001",
+  "items": [
+    {
+      "input_format": "manifest",
+      "language": "zh",
+      "question_id": "question:review-case-00ae928f46d9cf409d26:CAP-CHAIN-001",
+      "review_case_id": "review-case-00ae928f46d9cf409d26",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-00ae928f46d9cf409d26/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-00ae928f46d9cf409d26/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 1
+    },
+    {
+      "input_format": "yaml",
+      "language": "zh",
+      "question_id": "question:review-case-06f4894ec3df67a05c59:CAP-CHAIN-001",
+      "review_case_id": "review-case-06f4894ec3df67a05c59",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-06f4894ec3df67a05c59/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-06f4894ec3df67a05c59/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 2
+    },
+    {
+      "input_format": "toml",
+      "language": "zh",
+      "question_id": "question:review-case-07b5af6d2e9751112094:CAP-CHAIN-001",
+      "review_case_id": "review-case-07b5af6d2e9751112094",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-07b5af6d2e9751112094/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-07b5af6d2e9751112094/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 3
+    },
+    {
+      "input_format": "toml",
+      "language": "zh",
+      "question_id": "question:review-case-10cac34e3c5aa3f50781:CAP-CHAIN-001",
+      "review_case_id": "review-case-10cac34e3c5aa3f50781",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-10cac34e3c5aa3f50781/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-10cac34e3c5aa3f50781/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 4
+    },
+    {
+      "input_format": "manifest",
+      "language": "zh",
+      "question_id": "question:review-case-2249fc3afc6776e5c877:CAP-CHAIN-001",
+      "review_case_id": "review-case-2249fc3afc6776e5c877",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-2249fc3afc6776e5c877/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-2249fc3afc6776e5c877/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 5
+    },
+    {
+      "input_format": "json",
+      "language": "zh",
+      "question_id": "question:review-case-30f35a946e1d25c530d7:CAP-CHAIN-001",
+      "review_case_id": "review-case-30f35a946e1d25c530d7",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-30f35a946e1d25c530d7/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-30f35a946e1d25c530d7/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 6
+    },
+    {
+      "input_format": "markdown",
+      "language": "zh",
+      "question_id": "question:review-case-3d175c4543b41a9d762e:CAP-CHAIN-001",
+      "review_case_id": "review-case-3d175c4543b41a9d762e",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-3d175c4543b41a9d762e/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-3d175c4543b41a9d762e/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 7
+    },
+    {
+      "input_format": "json",
+      "language": "zh",
+      "question_id": "question:review-case-3ee41000015a4bbbebd2:CAP-CHAIN-001",
+      "review_case_id": "review-case-3ee41000015a4bbbebd2",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-3ee41000015a4bbbebd2/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-3ee41000015a4bbbebd2/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 8
+    },
+    {
+      "input_format": "markdown",
+      "language": "en",
+      "question_id": "question:review-case-4934a357278a2bae5e40:CAP-CHAIN-001",
+      "review_case_id": "review-case-4934a357278a2bae5e40",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-4934a357278a2bae5e40/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-4934a357278a2bae5e40/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 9
+    },
+    {
+      "input_format": "toml",
+      "language": "bilingual",
+      "question_id": "question:review-case-538d26e339f9f158fc6a:CAP-CHAIN-001",
+      "review_case_id": "review-case-538d26e339f9f158fc6a",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-538d26e339f9f158fc6a/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-538d26e339f9f158fc6a/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 10
+    },
+    {
+      "input_format": "yaml",
+      "language": "bilingual",
+      "question_id": "question:review-case-5ab82f461824f821505b:CAP-CHAIN-001",
+      "review_case_id": "review-case-5ab82f461824f821505b",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-5ab82f461824f821505b/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-5ab82f461824f821505b/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 11
+    },
+    {
+      "input_format": "json",
+      "language": "en",
+      "question_id": "question:review-case-5db83bb2029f3bfc3a61:CAP-CHAIN-001",
+      "review_case_id": "review-case-5db83bb2029f3bfc3a61",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-5db83bb2029f3bfc3a61/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-5db83bb2029f3bfc3a61/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 12
+    },
+    {
+      "input_format": "toml",
+      "language": "en",
+      "question_id": "question:review-case-618d9b4c58c484258529:CAP-CHAIN-001",
+      "review_case_id": "review-case-618d9b4c58c484258529",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-618d9b4c58c484258529/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-618d9b4c58c484258529/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 13
+    },
+    {
+      "input_format": "json",
+      "language": "en",
+      "question_id": "question:review-case-63ad8b6f1347ecb10b4d:CAP-CHAIN-001",
+      "review_case_id": "review-case-63ad8b6f1347ecb10b4d",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-63ad8b6f1347ecb10b4d/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-63ad8b6f1347ecb10b4d/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 14
+    },
+    {
+      "input_format": "json",
+      "language": "en",
+      "question_id": "question:review-case-685066e8291eeb5abdb6:CAP-CHAIN-001",
+      "review_case_id": "review-case-685066e8291eeb5abdb6",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-685066e8291eeb5abdb6/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-685066e8291eeb5abdb6/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 15
+    },
+    {
+      "input_format": "yaml",
+      "language": "bilingual",
+      "question_id": "question:review-case-71ca600abea3b9c1ab89:CAP-CHAIN-001",
+      "review_case_id": "review-case-71ca600abea3b9c1ab89",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-71ca600abea3b9c1ab89/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-71ca600abea3b9c1ab89/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 16
+    },
+    {
+      "input_format": "json",
+      "language": "en",
+      "question_id": "question:review-case-779ef1a2b669f19850c2:CAP-CHAIN-001",
+      "review_case_id": "review-case-779ef1a2b669f19850c2",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-779ef1a2b669f19850c2/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-779ef1a2b669f19850c2/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 17
+    },
+    {
+      "input_format": "yaml",
+      "language": "en",
+      "question_id": "question:review-case-789f1b7b0d4316c2ba29:CAP-CHAIN-001",
+      "review_case_id": "review-case-789f1b7b0d4316c2ba29",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-789f1b7b0d4316c2ba29/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-789f1b7b0d4316c2ba29/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 18
+    },
+    {
+      "input_format": "toml",
+      "language": "bilingual",
+      "question_id": "question:review-case-8e27a7950c28998926f3:CAP-CHAIN-001",
+      "review_case_id": "review-case-8e27a7950c28998926f3",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-8e27a7950c28998926f3/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-8e27a7950c28998926f3/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 19
+    },
+    {
+      "input_format": "manifest",
+      "language": "zh",
+      "question_id": "question:review-case-9ab94822fa5f070b89c7:CAP-CHAIN-001",
+      "review_case_id": "review-case-9ab94822fa5f070b89c7",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-9ab94822fa5f070b89c7/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-9ab94822fa5f070b89c7/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 20
+    },
+    {
+      "input_format": "markdown",
+      "language": "en",
+      "question_id": "question:review-case-be2c93e14bd68bde17cf:CAP-CHAIN-001",
+      "review_case_id": "review-case-be2c93e14bd68bde17cf",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-be2c93e14bd68bde17cf/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-be2c93e14bd68bde17cf/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 21
+    },
+    {
+      "input_format": "yaml",
+      "language": "zh",
+      "question_id": "question:review-case-c5be1e165866fc77039f:CAP-CHAIN-001",
+      "review_case_id": "review-case-c5be1e165866fc77039f",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-c5be1e165866fc77039f/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-c5be1e165866fc77039f/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 22
+    },
+    {
+      "input_format": "manifest",
+      "language": "en",
+      "question_id": "question:review-case-c5d64066eb407dd3a640:CAP-CHAIN-001",
+      "review_case_id": "review-case-c5d64066eb407dd3a640",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-c5d64066eb407dd3a640/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-c5d64066eb407dd3a640/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 23
+    },
+    {
+      "input_format": "yaml",
+      "language": "bilingual",
+      "question_id": "question:review-case-cd72f50cf70ed7c35d40:CAP-CHAIN-001",
+      "review_case_id": "review-case-cd72f50cf70ed7c35d40",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-cd72f50cf70ed7c35d40/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-cd72f50cf70ed7c35d40/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 24
+    },
+    {
+      "input_format": "toml",
+      "language": "bilingual",
+      "question_id": "question:review-case-cee899072ebe62cdc070:CAP-CHAIN-001",
+      "review_case_id": "review-case-cee899072ebe62cdc070",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-cee899072ebe62cdc070/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-cee899072ebe62cdc070/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 25
+    },
+    {
+      "input_format": "toml",
+      "language": "bilingual",
+      "question_id": "question:review-case-d35b8832bcc4078c8418:CAP-CHAIN-001",
+      "review_case_id": "review-case-d35b8832bcc4078c8418",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-d35b8832bcc4078c8418/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-d35b8832bcc4078c8418/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 26
+    },
+    {
+      "input_format": "markdown",
+      "language": "en",
+      "question_id": "question:review-case-d618b1fc0b034446716e:CAP-CHAIN-001",
+      "review_case_id": "review-case-d618b1fc0b034446716e",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-d618b1fc0b034446716e/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-d618b1fc0b034446716e/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 27
+    },
+    {
+      "input_format": "manifest",
+      "language": "en",
+      "question_id": "question:review-case-d945358c8696e2cbafb3:CAP-CHAIN-001",
+      "review_case_id": "review-case-d945358c8696e2cbafb3",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-d945358c8696e2cbafb3/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-d945358c8696e2cbafb3/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 28
+    },
+    {
+      "input_format": "markdown",
+      "language": "zh",
+      "question_id": "question:review-case-dce8660339f28e773c58:CAP-CHAIN-001",
+      "review_case_id": "review-case-dce8660339f28e773c58",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-dce8660339f28e773c58/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-dce8660339f28e773c58/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 29
+    },
+    {
+      "input_format": "toml",
+      "language": "en",
+      "question_id": "question:review-case-e7d09ded7ee8bd050fa3:CAP-CHAIN-001",
+      "review_case_id": "review-case-e7d09ded7ee8bd050fa3",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-e7d09ded7ee8bd050fa3/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-e7d09ded7ee8bd050fa3/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 30
+    },
+    {
+      "input_format": "yaml",
+      "language": "zh",
+      "question_id": "question:review-case-e86bbe30e3ee05f90364:CAP-CHAIN-001",
+      "review_case_id": "review-case-e86bbe30e3ee05f90364",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-e86bbe30e3ee05f90364/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-e86bbe30e3ee05f90364/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 31
+    },
+    {
+      "input_format": "manifest",
+      "language": "en",
+      "question_id": "question:review-case-e9254f57e24f42237c8a:CAP-CHAIN-001",
+      "review_case_id": "review-case-e9254f57e24f42237c8a",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-e9254f57e24f42237c8a/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-e9254f57e24f42237c8a/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 32
+    },
+    {
+      "input_format": "manifest",
+      "language": "en",
+      "question_id": "question:review-case-ebf2dbdf96d1321f4b78:CAP-CHAIN-001",
+      "review_case_id": "review-case-ebf2dbdf96d1321f4b78",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-ebf2dbdf96d1321f4b78/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-ebf2dbdf96d1321f4b78/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 33
+    },
+    {
+      "input_format": "json",
+      "language": "zh",
+      "question_id": "question:review-case-ee81efa9a591a74c2820:CAP-CHAIN-001",
+      "review_case_id": "review-case-ee81efa9a591a74c2820",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-ee81efa9a591a74c2820/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-ee81efa9a591a74c2820/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 34
+    },
+    {
+      "input_format": "markdown",
+      "language": "en",
+      "question_id": "question:review-case-f07ce82ea1cc80dc0654:CAP-CHAIN-001",
+      "review_case_id": "review-case-f07ce82ea1cc80dc0654",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-f07ce82ea1cc80dc0654/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-f07ce82ea1cc80dc0654/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 35
+    },
+    {
+      "input_format": "manifest",
+      "language": "en",
+      "question_id": "question:review-case-f5379b8fd04acd18f3ab:CAP-CHAIN-001",
+      "review_case_id": "review-case-f5379b8fd04acd18f3ab",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-f5379b8fd04acd18f3ab/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-f5379b8fd04acd18f3ab/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 36
+    },
+    {
+      "input_format": "markdown",
+      "language": "en",
+      "question_id": "question:review-case-f66b609179b823e411a5:CAP-CHAIN-001",
+      "review_case_id": "review-case-f66b609179b823e411a5",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-f66b609179b823e411a5/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-f66b609179b823e411a5/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 37
+    },
+    {
+      "input_format": "json",
+      "language": "zh",
+      "question_id": "question:review-case-f6802f8efd87a54dedee:CAP-CHAIN-001",
+      "review_case_id": "review-case-f6802f8efd87a54dedee",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-f6802f8efd87a54dedee/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-f6802f8efd87a54dedee/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 38
+    },
+    {
+      "input_format": "markdown",
+      "language": "zh",
+      "question_id": "question:review-case-f7ddbb1ee23b4059457f:CAP-CHAIN-001",
+      "review_case_id": "review-case-f7ddbb1ee23b4059457f",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-f7ddbb1ee23b4059457f/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-f7ddbb1ee23b4059457f/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 39
+    },
+    {
+      "input_format": "json",
+      "language": "zh",
+      "question_id": "question:review-case-fd52db965a0e631b55e4:CAP-CHAIN-001",
+      "review_case_id": "review-case-fd52db965a0e631b55e4",
+      "reviewer_a_case_path": "reviewer-a/cases/review-case-fd52db965a0e631b55e4/case.json",
+      "reviewer_b_case_path": "reviewer-b/cases/review-case-fd52db965a0e631b55e4/case.json",
+      "rule_id": "CAP-CHAIN-001",
+      "sequence": 40
+    }
+  ],
+  "positive_count": 20,
+  "purpose": "Minimum independent human-review subset: 20 Positive and 20 eligible Negative/Near-miss Cases. Expected labels are intentionally omitted.",
+  "review_count": 40,
+  "reviewer_scopes": [
+    "reviewer-a",
+    "reviewer-b"
+  ],
+  "schema_version": "0.1.0",
+  "selection_id": "gate-subset-selection-sha256:4ef30e1a30ca4e6d4c87b32f07328946e8fdef4034ca78e48f8aef203104b2ae",
+  "source_corpus_binding_hash": "sha256:59e034541e3c1096f311404358031a5dc81fc880123351363713d66c2544ad79",
+  "source_matrix_id": "p2-cal-04a-gate-coverage",
+  "source_pack_id": "reviewer-pack-sha256:58295690c13861a763ed9c202d39fe37642ac0f8d9d2d6e416886184a4a86d90",
+  "title": "HG-CAPCHAIN-001 Minimum Independent Review Selection (40 Questions)"
+}
