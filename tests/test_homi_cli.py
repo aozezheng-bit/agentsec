@@ -146,6 +146,12 @@ def test_homi_report_writes_paired_artifacts_and_no_clobber(tmp_path: Path) -> N
     assert first.exit_code == 0, first.output
     assert (output_dir / "homi-pilot-report.json").is_file()
     assert (output_dir / "homi-pilot-report.md").is_file()
+    html = output_dir / "homi-pilot-report.html"
+    assert html.is_file()
+    html_text = html.read_text(encoding="utf-8")
+    assert "<!doctype html>" in html_text
+    assert "Homi" in html_text
+    assert _SECRET_MARKER not in html_text
 
     second = runner.invoke(
         create_app(),
@@ -226,3 +232,124 @@ def test_homi_cli_rejects_unknown_scenario(tmp_path: Path) -> None:
 
     assert result.exit_code == 3
     assert "HOMI-SIM-001" in result.output
+
+
+def test_homi_report_can_disable_html_explicitly(tmp_path: Path) -> None:
+    workspace = tmp_path / "homi-agent"
+    workspace.mkdir()
+    _complete_workspace(workspace)
+    output_dir = tmp_path / "reports"
+
+    result = runner.invoke(
+        create_app(),
+        [
+            "homi",
+            "report",
+            str(workspace),
+            "--output-dir",
+            str(output_dir),
+            "--no-html",
+        ],
+    )
+
+    assert result.exit_code == 0, result.output
+    assert (output_dir / "homi-pilot-report.json").is_file()
+    assert (output_dir / "homi-pilot-report.md").is_file()
+    assert not (output_dir / "homi-pilot-report.html").exists()
+
+
+def test_homi_diff_reports_capability_and_finding_delta(tmp_path: Path) -> None:
+    report_dir = tmp_path / "reports"
+    report_dir.mkdir()
+    before = report_dir / "before.json"
+    after = report_dir / "after.json"
+    workspace_dir = tmp_path / "workspaces"
+    workspace_dir.mkdir()
+    workspace_before = workspace_dir / "before-workspace"
+    workspace_after = workspace_dir / "after-workspace"
+    workspace_before.mkdir()
+    workspace_after.mkdir()
+    _complete_workspace(workspace_before)
+    _complete_workspace(workspace_after)
+    (workspace_after / "AGENTS.md").write_text(
+        (workspace_after / "AGENTS.md").read_text(encoding="utf-8")
+        + "\nSending emails requires explicit approval.\n",
+        encoding="utf-8",
+    )
+
+    for workspace, path in ((workspace_before, before), (workspace_after, after)):
+        result = runner.invoke(
+            create_app(),
+            ["homi", "scan", str(workspace), "--format", "json", "--output", str(path)],
+        )
+        assert result.exit_code == 0, result.output
+
+    output = report_dir / "diff.json"
+    result = runner.invoke(
+        create_app(),
+        [
+            "homi",
+            "diff",
+            "--before",
+            str(before),
+            "--after",
+            str(after),
+            "--format",
+            "json",
+            "--output",
+            str(output),
+        ],
+    )
+    assert result.exit_code == 0, result.output
+    payload = json.loads(output.read_text(encoding="utf-8"))
+    assert payload["format"] == "agentsec-homi-capability-diff"
+    assert payload["capability_change_summary"]["added"] >= 1
+    assert "external_message_send" in {
+        item["signal_id"] for item in payload["capability_changes"]
+    }
+    assert payload["authority"] == {
+        "report_only": True,
+        "runtime_verified": False,
+        "ci_blocked": False,
+    }
+
+
+def test_homi_diff_html_is_self_contained(tmp_path: Path) -> None:
+    report_dir = tmp_path / "reports"
+    report_dir.mkdir()
+    before = report_dir / "before.json"
+    after = report_dir / "after.json"
+    workspace_dir = tmp_path / "workspaces"
+    workspace_dir.mkdir()
+    workspace_before = workspace_dir / "before-workspace"
+    workspace_after = workspace_dir / "after-workspace"
+    workspace_before.mkdir()
+    workspace_after.mkdir()
+    _complete_workspace(workspace_before)
+    _complete_workspace(workspace_after)
+    for workspace, path in ((workspace_before, before), (workspace_after, after)):
+        result = runner.invoke(
+            create_app(),
+            ["homi", "scan", str(workspace), "--format", "json", "--output", str(path)],
+        )
+        assert result.exit_code == 0, result.output
+    output = report_dir / "diff.html"
+    result = runner.invoke(
+        create_app(),
+        [
+            "homi",
+            "diff",
+            "--before",
+            str(before),
+            "--after",
+            str(after),
+            "--format",
+            "html",
+            "--output",
+            str(output),
+        ],
+    )
+    assert result.exit_code == 0, result.output
+    text = output.read_text(encoding="utf-8")
+    assert "<!doctype html>" in text
+    assert "runtime_verified=false" in text

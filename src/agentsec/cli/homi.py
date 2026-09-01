@@ -12,6 +12,13 @@ from typing import Annotated
 import typer
 
 from agentsec.cli.exit_codes import ExitCode
+from agentsec.frameworks.homi_diff import (
+    HomiCapabilityDiffError,
+    compare_homi_reports,
+    encode_homi_capability_diff_json,
+    render_homi_capability_diff_html,
+    render_homi_capability_diff_text,
+)
 from agentsec.frameworks.homi_pilot import (
     DeterministicHomiReportOnlyPilot,
     HomiPilotError,
@@ -19,6 +26,7 @@ from agentsec.frameworks.homi_pilot import (
     HomiPilotReport,
     HomiPilotRequest,
     encode_homi_pilot_json,
+    render_homi_pilot_html,
     render_homi_pilot_text,
 )
 from agentsec.frameworks.homi_simulation import (
@@ -33,10 +41,18 @@ _HOMI_MAX_OUTPUT_BYTES = 67_108_864
 
 
 class HomiCliFormat(StrEnum):
-    """Homi CLI output formats."""
+    """Homi scan and simulation output formats."""
 
     TEXT = "text"
     JSON = "json"
+
+
+class HomiDiffFormat(StrEnum):
+    """Homi Capability Diff output formats."""
+
+    TEXT = "text"
+    JSON = "json"
+    HTML = "html"
 
 
 HomiWorkspaceArgument = Annotated[
@@ -96,6 +112,13 @@ HomiOutputDirOption = Annotated[
 HomiForceOption = Annotated[
     bool,
     typer.Option("--force", help="Replace an existing regular output artifact."),
+]
+HomiHtmlOption = Annotated[
+    bool,
+    typer.Option(
+        "--html/--no-html",
+        help="Write a self-contained HTML report for direct browser display.",
+    ),
 ]
 HomiScenarioOption = Annotated[
     str | None,
@@ -177,6 +200,7 @@ def register_homi_commands(
         workspace: HomiWorkspaceArgument = Path("."),
         output_dir: HomiOutputDirOption = None,
         language: HomiLanguageOption = HomiPilotLanguage.EN,
+        html_output: HomiHtmlOption = True,
         pilot_id: HomiPilotIdOption = "homi-cli-pilot",
         project_name: HomiProjectNameOption = None,
         owner: HomiOwnerOption = "cli-user",
@@ -184,7 +208,7 @@ def register_homi_commands(
         force: HomiForceOption = False,
         scenario_selection: HomiScenarioOption = None,
     ) -> None:
-        """Write paired JSON and Markdown Homi Pilot reports."""
+        """Write JSON, Markdown, and HTML Homi Pilot reports."""
 
         effective_output_dir = output_dir or _default_output_dir(workspace)
         request = _request_or_exit(
@@ -211,6 +235,13 @@ def register_homi_commands(
                 workspace=workspace,
                 force=force,
             )
+            if html_output:
+                _write_output(
+                    render_homi_pilot_html(report, language=language),
+                    output_root / "homi-pilot-report.html",
+                    workspace=workspace,
+                    force=force,
+                )
             typer.echo(f"Homi Pilot reports written to {output_root}")
         except HomiPilotError as error:
             typer.echo(f"Homi Pilot configuration error: {error}", err=True)
@@ -222,6 +253,58 @@ def register_homi_commands(
             typer.echo("Homi Pilot report failed safely.", err=True)
             raise typer.Exit(code=ExitCode.REQUIRED_ANALYSIS_FAILED) from error
         _exit_for_report(report)
+
+    @homi_application.command("diff")
+    def diff_command(
+        before_path: Annotated[
+            Path,
+            typer.Option("--before", help="Before-state Homi Pilot JSON report."),
+        ],
+        after_path: Annotated[
+            Path,
+            typer.Option("--after", help="After-state Homi Pilot JSON report."),
+        ],
+        output_format: Annotated[
+            HomiDiffFormat,
+            typer.Option(
+                "--format",
+                help="Output format: text, json, or html.",
+                case_sensitive=False,
+            ),
+        ] = HomiDiffFormat.TEXT,
+        language: HomiLanguageOption = HomiPilotLanguage.ZH,
+        output_path: HomiOutputOption = None,
+        force: HomiForceOption = False,
+    ) -> None:
+        """Compare two Homi Pilot reports and emit Capability/Finding Delta."""
+
+        _require_force_output(output_path, force)
+        try:
+            diff = compare_homi_reports(before_path, after_path)
+            if output_format is HomiDiffFormat.JSON:
+                rendered = encode_homi_capability_diff_json(diff)
+            elif output_format is HomiDiffFormat.HTML:
+                rendered = render_homi_capability_diff_html(
+                    diff,
+                    language=language,
+                )
+            else:
+                rendered = render_homi_capability_diff_text(diff)
+            if output_path is None:
+                typer.echo(rendered, nl=False)
+            else:
+                _write_diff_output(
+                    rendered,
+                    output_path,
+                    force=force,
+                    protected_paths=(before_path, after_path),
+                )
+        except HomiCapabilityDiffError as error:
+            typer.echo(f"Homi Capability Diff input error: {error}", err=True)
+            raise typer.Exit(code=ExitCode.ARTIFACT_ERROR) from error
+        except OSError as error:
+            typer.echo("Homi Capability Diff artifact output failed safely.", err=True)
+            raise typer.Exit(code=ExitCode.ARTIFACT_ERROR) from error
 
     @homi_application.command("simulate")
     def simulate_command(
@@ -443,8 +526,47 @@ def _write_output(
         raise
 
 
+def _write_diff_output(
+    content: str,
+    output_path: Path,
+    *,
+    force: bool,
+    protected_paths: tuple[Path, ...],
+) -> None:
+    """Write a diff artifact without allowing input reports to be overwritten."""
+
+    if len(content.encode("utf-8")) > _HOMI_MAX_OUTPUT_BYTES:
+        raise OSError("Homi Capability Diff output exceeds the hard size limit")
+    if output_path.is_symlink() or output_path.parent.is_symlink():
+        raise HomiCapabilityDiffError("Homi Capability Diff output cannot be a symlink")
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    target = output_path.resolve(strict=False)
+    protected = {path.resolve(strict=True) for path in protected_paths}
+    if target in protected:
+        raise HomiCapabilityDiffError("Homi Capability Diff cannot overwrite an input")
+    if target.exists() and not force:
+        raise OSError("Homi Capability Diff output already exists; use --force")
+    if target.exists() and not target.is_file():
+        raise OSError("Homi Capability Diff output must be a regular file")
+    descriptor, temporary = tempfile.mkstemp(
+        prefix=f".{output_path.name}.",
+        dir=output_path.parent.resolve(strict=True),
+        text=True,
+    )
+    try:
+        with os.fdopen(descriptor, "w", encoding="utf-8") as stream:
+            stream.write(content)
+            stream.flush()
+            os.fsync(stream.fileno())
+        os.replace(temporary, output_path)
+    except Exception:
+        with suppress(OSError):
+            os.unlink(temporary)
+        raise
+
+
 def _overlaps(left: Path, right: Path) -> bool:
     return left == right or left in right.parents or right in left.parents
 
 
-__all__ = ["HomiCliFormat", "register_homi_commands"]
+__all__ = ["HomiCliFormat", "HomiDiffFormat", "register_homi_commands"]

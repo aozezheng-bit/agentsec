@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="${language}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${title}</title>
+<style>
+body {
+  margin: 0;
+  padding: 24px;
+  background: #f5f7fb;
+  color: #172033;
+  font: 14px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+main { max-width: 1080px; margin: auto; }
+header, .card {
+  margin-bottom: 16px;
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  background: #fff;
+}
+header { color: #fff; background: linear-gradient(135deg, #182848, #315efb); }
+h1 { margin: 0 0 8px; }
+h2 { margin: 8px 0 14px; }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+}
+.metric strong { display: block; font-size: 24px; }
+.badge {
+  display: inline-block;
+  padding: 2px 9px;
+  border-radius: 999px;
+  background: #dcfce7;
+  color: #166534;
+  font-weight: 700;
+}
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: 9px; border-bottom: 1px solid #e5e7eb; text-align: left; }
+th { background: #f8fafc; }
+.note { color: #667085; font-size: 12px; }
+</style>
+</head>
+<body>
+<main>
+<header>
+  <h1>${title}</h1>
+  <p>${before_status} → ${after_status}</p>
+  <div class="grid">
+    <div><span>${capability_label}</span><strong>${capability_count}</strong></div>
+    <div><span>${finding_label}</span><strong>${finding_count}</strong></div>
+    <div><span>${score_label}</span><strong>${score_delta}</strong></div>
+  </div>
+</header>
+<section class="card">
+  <h2>${summary_label}</h2>
+  <p>added=${capability_added} · removed=${capability_removed} · modified=${capability_modified}</p>
+  <p>Finding added=${finding_added} · resolved=${finding_resolved} · changed=${finding_changed}</p>
+  <p class="note">report_only=true · runtime_verified=false · ci_blocked=false · ${authority_note}</p>
+</section>
+<section class="card">
+  <h2>${capability_label}</h2>
+  <table>
+    <thead><tr><th>Signal</th><th>Change</th><th>Before</th><th>After</th></tr></thead>
+    <tbody>${capability_rows}</tbody>
+  </table>
+</section>
+<section class="card">
+  <h2>${finding_label}</h2>
+  <table>
+    <thead><tr><th>Rule ID</th><th>Delta</th><th>Before severity</th><th>After severity</th></tr></thead>
+    <tbody>${finding_rows}</tbody>
+  </table>
+</section>
+</main>
+</body>
+</html>
