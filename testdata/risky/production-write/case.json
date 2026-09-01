@@ -1,0 +1,17 @@
+{
+  "case_id": "risky-production-write",
+  "category": "risky",
+  "purpose": "Isolate write access to a production environment.",
+  "assets": [
+    "AGENTS.md"
+  ],
+  "expected": {
+    "coverage": "complete",
+    "signals": [
+      "privileged_access"
+    ],
+    "rule_ids": [
+      "MD-PRIV-001"
+    ]
+  }
+}

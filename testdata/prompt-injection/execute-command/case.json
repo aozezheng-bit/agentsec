@@ -1,0 +1,17 @@
+{
+  "case_id": "prompt-injection-execute-command",
+  "category": "prompt-injection",
+  "purpose": "Prove that scanner-directed command execution text is detected but never run.",
+  "assets": [
+    "AGENTS.md"
+  ],
+  "expected": {
+    "coverage": "complete",
+    "signals": [
+      "code_execution"
+    ],
+    "rule_ids": [
+      "MD-EXEC-001"
+    ]
+  }
+}

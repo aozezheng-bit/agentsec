@@ -1,0 +1,206 @@
+{
+  "$defs": {
+    "AgenticContextProvenance": {
+      "additionalProperties": false,
+      "properties": {
+        "sha256": {
+          "anyOf": [
+            {
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sha256"
+        },
+        "supplied": {
+          "title": "Supplied",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "supplied"
+      ],
+      "title": "AgenticContextProvenance",
+      "type": "object"
+    },
+    "AgenticScorePolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "ci_blocking_enabled": {
+          "const": false,
+          "default": false,
+          "title": "Ci Blocking Enabled",
+          "type": "boolean"
+        },
+        "report_only": {
+          "const": true,
+          "default": true,
+          "title": "Report Only",
+          "type": "boolean"
+        },
+        "score_ci_authority": {
+          "const": false,
+          "default": false,
+          "title": "Score Ci Authority",
+          "type": "boolean"
+        }
+      },
+      "title": "AgenticScorePolicy",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "after_manifest_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "After Manifest Sha256",
+      "type": "string"
+    },
+    "agent_id": {
+      "maxLength": 256,
+      "minLength": 1,
+      "title": "Agent Id",
+      "type": "string"
+    },
+    "attack_path": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Attack Path"
+    },
+    "before_manifest_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Before Manifest Sha256",
+      "type": "string"
+    },
+    "boundary": {
+      "additionalProperties": {
+        "type": "boolean"
+      },
+      "title": "Boundary",
+      "type": "object"
+    },
+    "capability_diff": {
+      "additionalProperties": true,
+      "title": "Capability Diff",
+      "type": "object"
+    },
+    "context": {
+      "$ref": "#/$defs/AgenticContextProvenance"
+    },
+    "coverage_complete": {
+      "title": "Coverage Complete",
+      "type": "boolean"
+    },
+    "cvss": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Cvss"
+    },
+    "drift": {
+      "additionalProperties": true,
+      "title": "Drift",
+      "type": "object"
+    },
+    "factor_vector": {
+      "additionalProperties": true,
+      "title": "Factor Vector",
+      "type": "object"
+    },
+    "format": {
+      "const": "agentsec-agentic-assessment",
+      "title": "Format",
+      "type": "string"
+    },
+    "format_version": {
+      "const": "0.1.0",
+      "title": "Format Version",
+      "type": "string"
+    },
+    "gate_matches": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Gate Matches",
+      "type": "array"
+    },
+    "governance": {
+      "additionalProperties": true,
+      "title": "Governance",
+      "type": "object"
+    },
+    "overall": {
+      "additionalProperties": true,
+      "title": "Overall",
+      "type": "object"
+    },
+    "policy": {
+      "$ref": "#/$defs/AgenticScorePolicy"
+    },
+    "relevant_unknown_count": {
+      "minimum": 0,
+      "title": "Relevant Unknown Count",
+      "type": "integer"
+    },
+    "technical": {
+      "additionalProperties": true,
+      "title": "Technical",
+      "type": "object"
+    },
+    "threat_mitigation": {
+      "additionalProperties": true,
+      "title": "Threat Mitigation",
+      "type": "object"
+    },
+    "versions": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "title": "Versions",
+      "type": "object"
+    }
+  },
+  "required": [
+    "format",
+    "format_version",
+    "agent_id",
+    "before_manifest_sha256",
+    "after_manifest_sha256",
+    "context",
+    "coverage_complete",
+    "relevant_unknown_count",
+    "factor_vector",
+    "threat_mitigation",
+    "capability_diff",
+    "technical",
+    "drift",
+    "governance",
+    "overall",
+    "cvss",
+    "gate_matches",
+    "policy",
+    "boundary",
+    "versions"
+  ],
+  "title": "AgenticAssessmentJsonReport",
+  "type": "object"
+}

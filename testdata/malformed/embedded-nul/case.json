@@ -1,0 +1,17 @@
+{
+  "case_id": "malformed-embedded-nul",
+  "category": "malformed",
+  "purpose": "Exercise valid UTF-8 containing an embedded NUL control character.",
+  "assets": [
+    "AGENTS.md"
+  ],
+  "expected": {
+    "coverage": "complete",
+    "signals": [
+      "control_character"
+    ],
+    "rule_ids": [
+      "MD-OBFUSC-001"
+    ]
+  }
+}

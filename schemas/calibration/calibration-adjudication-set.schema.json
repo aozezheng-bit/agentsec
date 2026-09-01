@@ -1,0 +1,166 @@
+{
+  "$defs": {
+    "AdjudicationCategory": {
+      "description": "Reviewer interpretation of a deterministic classification.",
+      "enum": [
+        "confirmed_true_positive",
+        "confirmed_true_negative",
+        "detection_false_positive",
+        "policy_accepted_risk",
+        "in_scope_false_negative",
+        "out_of_scope",
+        "runtime_uncertainty",
+        "unresolved"
+      ],
+      "title": "AdjudicationCategory",
+      "type": "string"
+    },
+    "AdjudicationReviewLabel": {
+      "additionalProperties": false,
+      "description": "One independent review of a Case/Rule calibration outcome.",
+      "properties": {
+        "adjudication_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Adjudication Id",
+          "type": "string"
+        },
+        "case_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Case Id",
+          "type": "string"
+        },
+        "category": {
+          "$ref": "#/$defs/AdjudicationCategory"
+        },
+        "classification": {
+          "$ref": "#/$defs/CalibrationClassification"
+        },
+        "disposition": {
+          "$ref": "#/$defs/RuleDisposition"
+        },
+        "rationale_code": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Rationale Code",
+          "type": "string"
+        },
+        "reviewer_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Reviewer Id",
+          "type": "string"
+        },
+        "rule_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Rule Id",
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/$defs/AdjudicationStatus"
+        }
+      },
+      "required": [
+        "adjudication_id",
+        "case_id",
+        "rule_id",
+        "reviewer_id",
+        "classification",
+        "category",
+        "disposition",
+        "status",
+        "rationale_code"
+      ],
+      "title": "AdjudicationReviewLabel",
+      "type": "object"
+    },
+    "AdjudicationStatus": {
+      "enum": [
+        "seeded",
+        "reviewed",
+        "adjudicated"
+      ],
+      "title": "AdjudicationStatus",
+      "type": "string"
+    },
+    "CalibrationClassification": {
+      "enum": [
+        "true_positive",
+        "false_positive",
+        "false_negative",
+        "true_negative"
+      ],
+      "title": "CalibrationClassification",
+      "type": "string"
+    },
+    "RuleDisposition": {
+      "description": "Deterministic recommendation, never an automatic Rule mutation.",
+      "enum": [
+        "keep",
+        "tune",
+        "shadow",
+        "retire",
+        "more_data"
+      ],
+      "title": "RuleDisposition",
+      "type": "string"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Bounded reviewer labels for every labeled Case/Rule expectation.",
+  "properties": {
+    "corpus_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Corpus Id",
+      "type": "string"
+    },
+    "format": {
+      "const": "agentsec-capability-calibration-adjudication-set",
+      "default": "agentsec-capability-calibration-adjudication-set",
+      "title": "Format",
+      "type": "string"
+    },
+    "labels_version": {
+      "minLength": 1,
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+      "title": "Labels Version",
+      "type": "string"
+    },
+    "reviewer_ids": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Reviewer Ids",
+      "type": "array"
+    },
+    "reviews": {
+      "items": {
+        "$ref": "#/$defs/AdjudicationReviewLabel"
+      },
+      "title": "Reviews",
+      "type": "array"
+    },
+    "schema_version": {
+      "default": "0.1.0",
+      "minLength": 1,
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+      "title": "Schema Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "corpus_id",
+    "labels_version",
+    "reviewer_ids",
+    "reviews"
+  ],
+  "title": "AdjudicationReviewSet",
+  "type": "object",
+  "x-agentsec-adjudication-review-schema-version": "0.1.0"
+}

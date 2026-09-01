@@ -1,0 +1,13 @@
+{
+  "case_id": "safe-approval-required",
+  "category": "safe",
+  "purpose": "Confirm explicit human approval language remains a safe non-match.",
+  "assets": [
+    "AGENTS.md"
+  ],
+  "expected": {
+    "coverage": "complete",
+    "signals": [],
+    "rule_ids": []
+  }
+}

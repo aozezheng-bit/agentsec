@@ -1,0 +1,238 @@
+{
+  "$defs": {
+    "ShadowModeCaseResult": {
+      "additionalProperties": false,
+      "description": "Value-free per-case row; child digests replace nested reports.",
+      "properties": {
+        "analysis_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Analysis Id",
+          "type": "string"
+        },
+        "candidate_count": {
+          "maximum": 128,
+          "minimum": 0,
+          "title": "Candidate Count",
+          "type": "integer"
+        },
+        "error_code": {
+          "anyOf": [
+            {
+              "maxLength": 64,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Error Code"
+        },
+        "format": {
+          "const": "agentsec-p3-16-shadow-mode-case-result",
+          "default": "agentsec-p3-16-shadow-mode-case-result",
+          "title": "Format",
+          "type": "string"
+        },
+        "link_count": {
+          "minimum": 0,
+          "title": "Link Count",
+          "type": "integer"
+        },
+        "pipeline_sha256": {
+          "anyOf": [
+            {
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Pipeline Sha256"
+        },
+        "proposal_count": {
+          "maximum": 128,
+          "minimum": 0,
+          "title": "Proposal Count",
+          "type": "integer"
+        },
+        "schema_version": {
+          "const": "0.1.0",
+          "default": "0.1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/$defs/ShadowModeCaseStatus"
+        }
+      },
+      "required": [
+        "analysis_id",
+        "status",
+        "candidate_count",
+        "link_count",
+        "proposal_count"
+      ],
+      "title": "ShadowModeCaseResult",
+      "type": "object"
+    },
+    "ShadowModeCaseStatus": {
+      "description": "Per-case outcome recorded by one Shadow Mode batch run.",
+      "enum": [
+        "complete",
+        "failed"
+      ],
+      "title": "ShadowModeCaseStatus",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Immutable batch Shadow Mode record; blocks nothing by construction.",
+  "properties": {
+    "blocks": {
+      "const": false,
+      "default": false,
+      "title": "Blocks",
+      "type": "boolean"
+    },
+    "candidate_count": {
+      "minimum": 0,
+      "title": "Candidate Count",
+      "type": "integer"
+    },
+    "case_count": {
+      "maximum": 256,
+      "minimum": 1,
+      "title": "Case Count",
+      "type": "integer"
+    },
+    "cases": {
+      "items": {
+        "$ref": "#/$defs/ShadowModeCaseResult"
+      },
+      "maxItems": 256,
+      "minItems": 1,
+      "title": "Cases",
+      "type": "array"
+    },
+    "ci_authority": {
+      "const": false,
+      "default": false,
+      "title": "Ci Authority",
+      "type": "boolean"
+    },
+    "completed_case_count": {
+      "minimum": 0,
+      "title": "Completed Case Count",
+      "type": "integer"
+    },
+    "deterministic_decisions_affected": {
+      "const": false,
+      "default": false,
+      "title": "Deterministic Decisions Affected",
+      "type": "boolean"
+    },
+    "failed_case_count": {
+      "minimum": 0,
+      "title": "Failed Case Count",
+      "type": "integer"
+    },
+    "finding_authority": {
+      "const": false,
+      "default": false,
+      "title": "Finding Authority",
+      "type": "boolean"
+    },
+    "format": {
+      "const": "agentsec-p3-16-semantic-shadow-mode-report",
+      "default": "agentsec-p3-16-semantic-shadow-mode-report",
+      "title": "Format",
+      "type": "string"
+    },
+    "link_count": {
+      "minimum": 0,
+      "title": "Link Count",
+      "type": "integer"
+    },
+    "note": {
+      "default": "Batch Shadow Mode: every case runs through the P3-05/P3-08 Shadow pipeline and is recorded; stable invocation failures become failed rows and never interrupt the batch. Deterministic decisions, Findings, Rules, Policies, CI, and releases are never affected.",
+      "maxLength": 512,
+      "minLength": 8,
+      "title": "Note",
+      "type": "string"
+    },
+    "operating_mode": {
+      "const": "shadow_only",
+      "default": "shadow_only",
+      "title": "Operating Mode",
+      "type": "string"
+    },
+    "policy_authority": {
+      "const": false,
+      "default": false,
+      "title": "Policy Authority",
+      "type": "boolean"
+    },
+    "proposal_count": {
+      "minimum": 0,
+      "title": "Proposal Count",
+      "type": "integer"
+    },
+    "report_only": {
+      "const": true,
+      "default": true,
+      "title": "Report Only",
+      "type": "boolean"
+    },
+    "rule_publication_authority": {
+      "const": false,
+      "default": false,
+      "title": "Rule Publication Authority",
+      "type": "boolean"
+    },
+    "runtime_disclosure_allowed": {
+      "const": false,
+      "default": false,
+      "title": "Runtime Disclosure Allowed",
+      "type": "boolean"
+    },
+    "runtime_verified": {
+      "const": false,
+      "default": false,
+      "title": "Runtime Verified",
+      "type": "boolean"
+    },
+    "schema_version": {
+      "const": "0.1.0",
+      "default": "0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "severity_authority": {
+      "const": false,
+      "default": false,
+      "title": "Severity Authority",
+      "type": "boolean"
+    },
+    "shadow_mode_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Shadow Mode Sha256",
+      "type": "string"
+    }
+  },
+  "required": [
+    "shadow_mode_sha256",
+    "case_count",
+    "completed_case_count",
+    "failed_case_count",
+    "candidate_count",
+    "link_count",
+    "proposal_count",
+    "cases"
+  ],
+  "title": "SemanticShadowModeReport",
+  "type": "object"
+}

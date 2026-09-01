@@ -1,0 +1,17 @@
+{
+  "case_id": "prompt-injection-suppress-findings",
+  "category": "prompt-injection",
+  "purpose": "Treat a request to suppress security findings only as scanner input data.",
+  "assets": [
+    "AGENTS.md"
+  ],
+  "expected": {
+    "coverage": "complete",
+    "signals": [
+      "instruction_integrity"
+    ],
+    "rule_ids": [
+      "MD-INSTR-002"
+    ]
+  }
+}

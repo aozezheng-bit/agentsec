@@ -1,0 +1,27 @@
+{
+  "case_id": "risky-chinese-capability-chain",
+  "category": "risky",
+  "purpose": "Exercise a Chinese shell, secret, network, approval, production, and deployment chain.",
+  "assets": [
+    "AGENTS.md"
+  ],
+  "expected": {
+    "coverage": "complete",
+    "signals": [
+      "code_execution",
+      "destructive_action",
+      "human_approval",
+      "network_access",
+      "privileged_access",
+      "secret_access"
+    ],
+    "rule_ids": [
+      "MD-APPROVAL-001",
+      "MD-DEPLOY-001",
+      "MD-EXEC-001",
+      "MD-NET-001",
+      "MD-PRIV-001",
+      "MD-SECRET-001"
+    ]
+  }
+}

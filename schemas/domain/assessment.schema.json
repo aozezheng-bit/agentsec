@@ -1,0 +1,964 @@
+{
+  "$defs": {
+    "AgentAsset": {
+      "additionalProperties": false,
+      "description": "A discovered Phase 1 Agent control asset.",
+      "properties": {
+        "asset_type": {
+          "$ref": "#/$defs/AssetType"
+        },
+        "encoding": {
+          "default": "utf-8",
+          "minLength": 1,
+          "title": "Encoding",
+          "type": "string"
+        },
+        "git_status": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/GitFileStatus"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "line_count": {
+          "minimum": 0,
+          "title": "Line Count",
+          "type": "integer"
+        },
+        "path": {
+          "minLength": 1,
+          "title": "Path",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Sha256",
+          "type": "string"
+        },
+        "size_bytes": {
+          "minimum": 0,
+          "title": "Size Bytes",
+          "type": "integer"
+        },
+        "source": {
+          "$ref": "#/$defs/AssetSource"
+        }
+      },
+      "required": [
+        "path",
+        "asset_type",
+        "source",
+        "sha256",
+        "size_bytes",
+        "line_count"
+      ],
+      "title": "AgentAsset",
+      "type": "object"
+    },
+    "AssessmentMetadata": {
+      "additionalProperties": false,
+      "description": "Version and execution metadata needed for reproducible reports.",
+      "properties": {
+        "completed_at": {
+          "format": "date-time",
+          "title": "Completed At",
+          "type": "string"
+        },
+        "config_schema_version": {
+          "minLength": 1,
+          "title": "Config Schema Version",
+          "type": "string"
+        },
+        "deterministic": {
+          "default": true,
+          "title": "Deterministic",
+          "type": "boolean"
+        },
+        "git_commit": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Git Commit"
+        },
+        "git_dirty": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Git Dirty"
+        },
+        "risk_model_version": {
+          "minLength": 1,
+          "title": "Risk Model Version",
+          "type": "string"
+        },
+        "rule_pack_version": {
+          "minLength": 1,
+          "title": "Rule Pack Version",
+          "type": "string"
+        },
+        "scanner_version": {
+          "minLength": 1,
+          "title": "Scanner Version",
+          "type": "string"
+        },
+        "schema_version": {
+          "minLength": 1,
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "started_at": {
+          "format": "date-time",
+          "title": "Started At",
+          "type": "string"
+        },
+        "target_root": {
+          "minLength": 1,
+          "title": "Target Root",
+          "type": "string"
+        }
+      },
+      "required": [
+        "schema_version",
+        "scanner_version",
+        "config_schema_version",
+        "rule_pack_version",
+        "risk_model_version",
+        "target_root",
+        "started_at",
+        "completed_at"
+      ],
+      "title": "AssessmentMetadata",
+      "type": "object"
+    },
+    "AssetChange": {
+      "additionalProperties": false,
+      "description": "A file-level difference between the current scan and a baseline.",
+      "properties": {
+        "after_sha256": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "After Sha256"
+        },
+        "before_sha256": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Before Sha256"
+        },
+        "change_type": {
+          "$ref": "#/$defs/ChangeType"
+        },
+        "path": {
+          "minLength": 1,
+          "title": "Path",
+          "type": "string"
+        }
+      },
+      "required": [
+        "path",
+        "change_type"
+      ],
+      "title": "AssetChange",
+      "type": "object"
+    },
+    "AssetSource": {
+      "description": "How an asset entered the scan scope.",
+      "enum": [
+        "discovered",
+        "explicit"
+      ],
+      "title": "AssetSource",
+      "type": "string"
+    },
+    "AssetType": {
+      "description": "Supported Phase 1 Agent asset types.",
+      "enum": [
+        "agents",
+        "agents_override",
+        "skill",
+        "explicit_markdown"
+      ],
+      "title": "AssetType",
+      "type": "string"
+    },
+    "ChangeType": {
+      "description": "File-level changes supported by the Phase 1 baseline diff.",
+      "enum": [
+        "added",
+        "removed",
+        "modified"
+      ],
+      "title": "ChangeType",
+      "type": "string"
+    },
+    "CoverageIssue": {
+      "additionalProperties": false,
+      "description": "A visible reason that scan coverage is incomplete.",
+      "properties": {
+        "asset_path": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Asset Path"
+        },
+        "code": {
+          "$ref": "#/$defs/CoverageIssueCode"
+        },
+        "message": {
+          "minLength": 1,
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "title": "CoverageIssue",
+      "type": "object"
+    },
+    "CoverageIssueCode": {
+      "description": "Reasons an asset or part of a scan could not be evaluated.",
+      "enum": [
+        "unreadable",
+        "unsupported_encoding",
+        "too_large",
+        "depth_exceeded",
+        "asset_limit_exceeded",
+        "external_symlink",
+        "malformed_content",
+        "parse_error",
+        "rule_error",
+        "unknown"
+      ],
+      "title": "CoverageIssueCode",
+      "type": "string"
+    },
+    "CvssBase": {
+      "additionalProperties": false,
+      "description": "Schema-backed CVSS Base data attached to a vulnerability Finding.\n\nThis is deliberately a separate nested object. Its Severity is the CVSS\nqualitative result, not the AgentSec Finding Severity, and its score is not\nused to overwrite or average the Finding's AgentSec score.",
+      "properties": {
+        "adapter_version": {
+          "minLength": 1,
+          "title": "Adapter Version",
+          "type": "string"
+        },
+        "base_score": {
+          "maximum": 10,
+          "minimum": 0,
+          "title": "Base Score",
+          "type": "number"
+        },
+        "base_severity": {
+          "$ref": "#/$defs/Severity"
+        },
+        "effective_score": {
+          "anyOf": [
+            {
+              "maximum": 10,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Effective Score"
+        },
+        "effective_severity": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Severity"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "mapping_basis": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Mapping Basis",
+          "type": "array"
+        },
+        "metrics": {
+          "additionalProperties": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "propertyNames": {
+            "minLength": 1
+          },
+          "title": "Metrics",
+          "type": "object"
+        },
+        "score_type": {
+          "default": "base",
+          "enum": [
+            "base",
+            "temporal",
+            "environmental",
+            "threat",
+            "environmental_threat"
+          ],
+          "title": "Score Type",
+          "type": "string"
+        },
+        "score_verification": {
+          "enum": [
+            "calculated",
+            "provided"
+          ],
+          "title": "Score Verification",
+          "type": "string"
+        },
+        "vector": {
+          "minLength": 1,
+          "title": "Vector",
+          "type": "string"
+        },
+        "version": {
+          "enum": [
+            "3.1",
+            "4.0"
+          ],
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "adapter_version",
+        "version",
+        "vector",
+        "base_score",
+        "base_severity",
+        "metrics",
+        "score_verification",
+        "mapping_basis"
+      ],
+      "title": "CvssBase",
+      "type": "object"
+    },
+    "CvssHardGateAssessment": {
+      "additionalProperties": false,
+      "description": "Report-only CVSS gate evaluation kept separate from AgentSec risk.",
+      "properties": {
+        "finding_id": {
+          "minLength": 1,
+          "title": "Finding Id",
+          "type": "string"
+        },
+        "gate_version": {
+          "minLength": 1,
+          "title": "Gate Version",
+          "type": "string"
+        },
+        "mapping_basis": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Mapping Basis",
+          "type": "array"
+        },
+        "match": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CvssHardGateMatch"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "mode": {
+          "const": "report_only",
+          "title": "Mode",
+          "type": "string"
+        },
+        "score": {
+          "maximum": 10,
+          "minimum": 0,
+          "title": "Score",
+          "type": "number"
+        },
+        "score_type": {
+          "enum": [
+            "base",
+            "temporal",
+            "environmental",
+            "threat",
+            "environmental_threat"
+          ],
+          "title": "Score Type",
+          "type": "string"
+        },
+        "severity": {
+          "$ref": "#/$defs/Severity"
+        }
+      },
+      "required": [
+        "gate_version",
+        "finding_id",
+        "mode",
+        "score",
+        "severity",
+        "score_type",
+        "mapping_basis"
+      ],
+      "title": "CvssHardGateAssessment",
+      "type": "object"
+    },
+    "CvssHardGateMatch": {
+      "additionalProperties": false,
+      "description": "One deterministic CVSS threshold match in report-only mode.",
+      "properties": {
+        "floor": {
+          "enum": [
+            "high",
+            "critical"
+          ],
+          "title": "Floor",
+          "type": "string"
+        },
+        "gate_id": {
+          "pattern": "^HG-CVSS-[0-9]{3}$",
+          "title": "Gate Id",
+          "type": "string"
+        },
+        "rationale": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Rationale",
+          "type": "array"
+        },
+        "score": {
+          "maximum": 10,
+          "minimum": 0,
+          "title": "Score",
+          "type": "number"
+        },
+        "score_type": {
+          "enum": [
+            "base",
+            "temporal",
+            "environmental",
+            "threat",
+            "environmental_threat"
+          ],
+          "title": "Score Type",
+          "type": "string"
+        },
+        "threshold": {
+          "maximum": 10,
+          "minimum": 0,
+          "title": "Threshold",
+          "type": "number"
+        }
+      },
+      "required": [
+        "gate_id",
+        "floor",
+        "threshold",
+        "score",
+        "score_type",
+        "rationale"
+      ],
+      "title": "CvssHardGateMatch",
+      "type": "object"
+    },
+    "Evidence": {
+      "additionalProperties": false,
+      "description": "Source material supporting a security finding.",
+      "properties": {
+        "asset_path": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Asset Path"
+        },
+        "content_sha256": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Content Sha256"
+        },
+        "end_line": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "End Line"
+        },
+        "excerpt": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Excerpt"
+        },
+        "field": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Field"
+        },
+        "source_type": {
+          "$ref": "#/$defs/EvidenceSource"
+        },
+        "start_line": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Start Line"
+        }
+      },
+      "required": [
+        "source_type"
+      ],
+      "title": "Evidence",
+      "type": "object"
+    },
+    "EvidenceConfidence": {
+      "description": "Confidence in evidence, independent from finding severity.",
+      "enum": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "title": "EvidenceConfidence",
+      "type": "string"
+    },
+    "EvidenceSource": {
+      "description": "Origin of evidence supporting a finding.",
+      "enum": [
+        "file",
+        "diff",
+        "configuration",
+        "runtime"
+      ],
+      "title": "EvidenceSource",
+      "type": "string"
+    },
+    "Finding": {
+      "additionalProperties": false,
+      "description": "An independently actionable, evidence-backed security result.",
+      "properties": {
+        "category": {
+          "$ref": "#/$defs/FindingCategory"
+        },
+        "confidence": {
+          "$ref": "#/$defs/EvidenceConfidence"
+        },
+        "cvss": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CvssBase"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "cvss_hard_gate": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CvssHardGateAssessment"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "description": {
+          "minLength": 1,
+          "title": "Description",
+          "type": "string"
+        },
+        "evidence": {
+          "items": {
+            "$ref": "#/$defs/Evidence"
+          },
+          "minItems": 1,
+          "title": "Evidence",
+          "type": "array"
+        },
+        "finding_id": {
+          "minLength": 1,
+          "title": "Finding Id",
+          "type": "string"
+        },
+        "hard_gate": {
+          "default": false,
+          "title": "Hard Gate",
+          "type": "boolean"
+        },
+        "impact": {
+          "$ref": "#/$defs/ImpactLevel"
+        },
+        "likelihood": {
+          "$ref": "#/$defs/LikelihoodLevel"
+        },
+        "recommendations": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Recommendations",
+          "type": "array"
+        },
+        "rule_id": {
+          "minLength": 1,
+          "title": "Rule Id",
+          "type": "string"
+        },
+        "score": {
+          "maximum": 10,
+          "minimum": 0,
+          "title": "Score",
+          "type": "number"
+        },
+        "severity": {
+          "$ref": "#/$defs/Severity"
+        },
+        "title": {
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "vulnerability": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/VulnerabilityReference"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "finding_id",
+        "rule_id",
+        "category",
+        "title",
+        "description",
+        "likelihood",
+        "impact",
+        "severity",
+        "score",
+        "confidence",
+        "evidence",
+        "recommendations"
+      ],
+      "title": "Finding",
+      "type": "object"
+    },
+    "FindingCategory": {
+      "description": "Initial Phase 1 security finding taxonomy.",
+      "enum": [
+        "instruction_integrity",
+        "human_approval",
+        "code_execution",
+        "network_access",
+        "secret_access",
+        "privileged_access",
+        "destructive_action",
+        "persistent_memory",
+        "self_modification",
+        "obfuscation",
+        "external_tooling",
+        "scan_coverage",
+        "other"
+      ],
+      "title": "FindingCategory",
+      "type": "string"
+    },
+    "GitFileStatus": {
+      "description": "Optional Git working-tree status associated with an asset.",
+      "enum": [
+        "unchanged",
+        "added",
+        "modified",
+        "deleted",
+        "untracked"
+      ],
+      "title": "GitFileStatus",
+      "type": "string"
+    },
+    "ImpactLevel": {
+      "description": "NIST-style qualitative impact levels.",
+      "enum": [
+        "very_low",
+        "low",
+        "moderate",
+        "high",
+        "very_high"
+      ],
+      "title": "ImpactLevel",
+      "type": "string"
+    },
+    "LikelihoodLevel": {
+      "description": "NIST-style qualitative likelihood levels.",
+      "enum": [
+        "very_low",
+        "low",
+        "moderate",
+        "high",
+        "very_high"
+      ],
+      "title": "LikelihoodLevel",
+      "type": "string"
+    },
+    "ScanCoverage": {
+      "additionalProperties": false,
+      "description": "Counts and issues describing how much of the target was evaluated.",
+      "properties": {
+        "complete": {
+          "title": "Complete",
+          "type": "boolean"
+        },
+        "discovered_assets": {
+          "minimum": 0,
+          "title": "Discovered Assets",
+          "type": "integer"
+        },
+        "issues": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/CoverageIssue"
+          },
+          "title": "Issues",
+          "type": "array"
+        },
+        "scanned_assets": {
+          "minimum": 0,
+          "title": "Scanned Assets",
+          "type": "integer"
+        },
+        "skipped_assets": {
+          "minimum": 0,
+          "title": "Skipped Assets",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "discovered_assets",
+        "scanned_assets",
+        "skipped_assets",
+        "complete"
+      ],
+      "title": "ScanCoverage",
+      "type": "object"
+    },
+    "Severity": {
+      "description": "Report severity compatible with the planned 0-10 risk scale.",
+      "enum": [
+        "none",
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "title": "Severity",
+      "type": "string"
+    },
+    "VulnerabilityReference": {
+      "additionalProperties": false,
+      "description": "Explicit, source-backed vulnerability identity attached to a Finding.",
+      "properties": {
+        "association_basis": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Association Basis",
+          "type": "array"
+        },
+        "association_method": {
+          "default": "explicit",
+          "enum": [
+            "explicit",
+            "deterministic_match"
+          ],
+          "title": "Association Method",
+          "type": "string"
+        },
+        "cve_id": {
+          "anyOf": [
+            {
+              "pattern": "^CVE-[0-9]{4}-[0-9]{4,}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Cve Id"
+        },
+        "cwe_ids": {
+          "default": [],
+          "items": {
+            "pattern": "^CWE-(?:[0-9]+|Other|noinfo)$",
+            "type": "string"
+          },
+          "title": "Cwe Ids",
+          "type": "array"
+        },
+        "source": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "title": "Source",
+          "type": "string"
+        },
+        "vulnerability_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "title": "Vulnerability Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "vulnerability_id",
+        "source",
+        "association_basis"
+      ],
+      "title": "VulnerabilityReference",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Top-level Phase 1 scan result.",
+  "properties": {
+    "assets": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/AgentAsset"
+      },
+      "title": "Assets",
+      "type": "array"
+    },
+    "changes": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/AssetChange"
+      },
+      "title": "Changes",
+      "type": "array"
+    },
+    "coverage": {
+      "$ref": "#/$defs/ScanCoverage"
+    },
+    "findings": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/Finding"
+      },
+      "title": "Findings",
+      "type": "array"
+    },
+    "metadata": {
+      "$ref": "#/$defs/AssessmentMetadata"
+    }
+  },
+  "required": [
+    "metadata",
+    "coverage"
+  ],
+  "title": "Assessment",
+  "type": "object"
+}

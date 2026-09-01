@@ -1,0 +1,160 @@
+{
+  "$defs": {
+    "FindingCategory": {
+      "description": "Initial Phase 1 security finding taxonomy.",
+      "enum": [
+        "instruction_integrity",
+        "human_approval",
+        "code_execution",
+        "network_access",
+        "secret_access",
+        "privileged_access",
+        "destructive_action",
+        "persistent_memory",
+        "self_modification",
+        "obfuscation",
+        "external_tooling",
+        "scan_coverage",
+        "other"
+      ],
+      "title": "FindingCategory",
+      "type": "string"
+    },
+    "RuleCandidateStatus": {
+      "enum": [
+        "review_required",
+        "accepted_for_implementation",
+        "rejected"
+      ],
+      "title": "RuleCandidateStatus",
+      "type": "string"
+    },
+    "SemanticRuleCandidate": {
+      "additionalProperties": false,
+      "properties": {
+        "automatic_publication": {
+          "const": false,
+          "default": false,
+          "title": "Automatic Publication",
+          "type": "boolean"
+        },
+        "category": {
+          "$ref": "#/$defs/FindingCategory"
+        },
+        "deterministic_rule_authority": {
+          "const": false,
+          "default": false,
+          "title": "Deterministic Rule Authority",
+          "type": "boolean"
+        },
+        "evidence_ids": {
+          "items": {
+            "pattern": "^semantic-evidence-sha256:[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "title": "Evidence Ids",
+          "type": "array"
+        },
+        "proposal_id": {
+          "pattern": "^semantic-rule-proposal-sha256:[0-9a-f]{64}$",
+          "title": "Proposal Id",
+          "type": "string"
+        },
+        "proposed_rule_family": {
+          "pattern": "^[A-Z][A-Z0-9_]{1,31}$",
+          "title": "Proposed Rule Family",
+          "type": "string"
+        },
+        "reviewer_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reviewer Id"
+        },
+        "source_candidate_id": {
+          "pattern": "^semantic-candidate-sha256:[0-9a-f]{64}$",
+          "title": "Source Candidate Id",
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/$defs/RuleCandidateStatus",
+          "default": "review_required"
+        }
+      },
+      "required": [
+        "proposal_id",
+        "source_candidate_id",
+        "category",
+        "proposed_rule_family",
+        "evidence_ids"
+      ],
+      "title": "SemanticRuleCandidate",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "automatic_rule_publication": {
+      "const": false,
+      "default": false,
+      "title": "Automatic Rule Publication",
+      "type": "boolean"
+    },
+    "ci_authority": {
+      "const": false,
+      "default": false,
+      "title": "Ci Authority",
+      "type": "boolean"
+    },
+    "format": {
+      "const": "agentsec-semantic-rule-candidate-report",
+      "default": "agentsec-semantic-rule-candidate-report",
+      "title": "Format",
+      "type": "string"
+    },
+    "policy_authority": {
+      "const": false,
+      "default": false,
+      "title": "Policy Authority",
+      "type": "boolean"
+    },
+    "proposals": {
+      "items": {
+        "$ref": "#/$defs/SemanticRuleCandidate"
+      },
+      "title": "Proposals",
+      "type": "array"
+    },
+    "report_only": {
+      "const": true,
+      "default": true,
+      "title": "Report Only",
+      "type": "boolean"
+    },
+    "schema_version": {
+      "const": "0.1.0",
+      "default": "0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "semantic_result_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Semantic Result Sha256",
+      "type": "string"
+    }
+  },
+  "required": [
+    "semantic_result_sha256",
+    "proposals"
+  ],
+  "title": "SemanticRuleCandidateReport",
+  "type": "object"
+}

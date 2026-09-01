@@ -1,0 +1,312 @@
+{
+  "$defs": {
+    "CapabilityChangeType": {
+      "description": "Set-level change type for one capability item.",
+      "enum": [
+        "added",
+        "removed",
+        "modified"
+      ],
+      "title": "CapabilityChangeType",
+      "type": "string"
+    },
+    "CapabilityDimension": {
+      "description": "Manifest item collections compared by P2-11.",
+      "enum": [
+        "tool",
+        "permission",
+        "control",
+        "runtime_identity",
+        "relationship",
+        "unknown"
+      ],
+      "title": "CapabilityDimension",
+      "type": "string"
+    },
+    "CapabilityItemChange": {
+      "additionalProperties": false,
+      "description": "One added, removed, or modified capability without raw item values.",
+      "properties": {
+        "after_sha256": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "After Sha256"
+        },
+        "after_sources": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ManifestSourceReference"
+          },
+          "title": "After Sources",
+          "type": "array"
+        },
+        "before_sha256": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Before Sha256"
+        },
+        "before_sources": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ManifestSourceReference"
+          },
+          "title": "Before Sources",
+          "type": "array"
+        },
+        "change_type": {
+          "$ref": "#/$defs/CapabilityChangeType"
+        },
+        "changed_fields": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Changed Fields",
+          "type": "array"
+        },
+        "dimension": {
+          "$ref": "#/$defs/CapabilityDimension"
+        },
+        "item_id": {
+          "minLength": 1,
+          "title": "Item Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "dimension",
+        "item_id",
+        "change_type",
+        "changed_fields"
+      ],
+      "title": "CapabilityItemChange",
+      "type": "object"
+    },
+    "CapabilityProfileChange": {
+      "additionalProperties": false,
+      "description": "One profile resolution or Coverage-completeness transition.",
+      "properties": {
+        "after": {
+          "minLength": 1,
+          "title": "After",
+          "type": "string"
+        },
+        "before": {
+          "minLength": 1,
+          "title": "Before",
+          "type": "string"
+        },
+        "profile": {
+          "$ref": "#/$defs/CapabilityProfileName"
+        }
+      },
+      "required": [
+        "profile",
+        "before",
+        "after"
+      ],
+      "title": "CapabilityProfileChange",
+      "type": "object"
+    },
+    "CapabilityProfileName": {
+      "description": "Resolution/coverage profiles compared independently from item changes.",
+      "enum": [
+        "identity",
+        "instructions",
+        "configuration",
+        "tools",
+        "permissions",
+        "controls",
+        "runtime_identities",
+        "relationships",
+        "coverage"
+      ],
+      "title": "CapabilityProfileName",
+      "type": "string"
+    },
+    "ManifestSourceLocator": {
+      "additionalProperties": false,
+      "description": "Portable locator for one source asset without an absolute host path.",
+      "properties": {
+        "path": {
+          "minLength": 1,
+          "title": "Path",
+          "type": "string"
+        },
+        "root_id": {
+          "minLength": 1,
+          "title": "Root Id",
+          "type": "string"
+        },
+        "scope": {
+          "$ref": "#/$defs/ManifestSourceScope"
+        }
+      },
+      "required": [
+        "scope",
+        "root_id",
+        "path"
+      ],
+      "title": "ManifestSourceLocator",
+      "type": "object"
+    },
+    "ManifestSourceReference": {
+      "additionalProperties": false,
+      "description": "Reference to a whole Manifest source or an exact field/line range.",
+      "properties": {
+        "end_line": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "End Line"
+        },
+        "field_path": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Field Path"
+        },
+        "locator": {
+          "$ref": "#/$defs/ManifestSourceLocator"
+        },
+        "start_line": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Start Line"
+        }
+      },
+      "required": [
+        "locator"
+      ],
+      "title": "ManifestSourceReference",
+      "type": "object"
+    },
+    "ManifestSourceScope": {
+      "description": "Portable trust scope for a Manifest source asset.",
+      "enum": [
+        "project",
+        "user",
+        "plugin"
+      ],
+      "title": "ManifestSourceScope",
+      "type": "string"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Versioned deterministic difference between two compatible Manifests.",
+  "properties": {
+    "added_count": {
+      "minimum": 0,
+      "title": "Added Count",
+      "type": "integer"
+    },
+    "after_coverage_complete": {
+      "title": "After Coverage Complete",
+      "type": "boolean"
+    },
+    "agent_id": {
+      "minLength": 1,
+      "title": "Agent Id",
+      "type": "string"
+    },
+    "agent_manifest_schema_version": {
+      "minLength": 1,
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+      "title": "Agent Manifest Schema Version",
+      "type": "string"
+    },
+    "before_coverage_complete": {
+      "title": "Before Coverage Complete",
+      "type": "boolean"
+    },
+    "changes": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/CapabilityItemChange"
+      },
+      "title": "Changes",
+      "type": "array"
+    },
+    "complete": {
+      "title": "Complete",
+      "type": "boolean"
+    },
+    "modified_count": {
+      "minimum": 0,
+      "title": "Modified Count",
+      "type": "integer"
+    },
+    "profile_changes": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/CapabilityProfileChange"
+      },
+      "title": "Profile Changes",
+      "type": "array"
+    },
+    "removed_count": {
+      "minimum": 0,
+      "title": "Removed Count",
+      "type": "integer"
+    },
+    "schema_version": {
+      "minLength": 1,
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+      "title": "Schema Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "agent_manifest_schema_version",
+    "agent_id",
+    "before_coverage_complete",
+    "after_coverage_complete",
+    "complete",
+    "added_count",
+    "removed_count",
+    "modified_count"
+  ],
+  "title": "CapabilityDiffResult",
+  "type": "object",
+  "x-agentsec-capability-diff-schema-version": "0.1.0"
+}

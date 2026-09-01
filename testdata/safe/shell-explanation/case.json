@@ -1,0 +1,13 @@
+{
+  "case_id": "safe-shell-explanation",
+  "category": "safe",
+  "purpose": "Document terminal architecture without declaring command execution.",
+  "assets": [
+    "AGENTS.md"
+  ],
+  "expected": {
+    "coverage": "complete",
+    "signals": [],
+    "rule_ids": []
+  }
+}

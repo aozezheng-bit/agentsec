@@ -1,0 +1,15 @@
+{
+  "case_id": "malformed-invalid-utf8",
+  "category": "malformed",
+  "purpose": "Exercise unsupported UTF-8 handling without crashing the scan.",
+  "assets": [
+    "AGENTS.md"
+  ],
+  "expected": {
+    "coverage": "incomplete",
+    "signals": [
+      "unsupported_encoding"
+    ],
+    "rule_ids": []
+  }
+}

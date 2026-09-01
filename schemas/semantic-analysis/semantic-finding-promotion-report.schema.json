@@ -1,0 +1,182 @@
+{
+  "$defs": {
+    "FindingPromotionDecision": {
+      "enum": [
+        "accept",
+        "reject"
+      ],
+      "title": "FindingPromotionDecision",
+      "type": "string"
+    },
+    "FindingPromotionStatus": {
+      "enum": [
+        "review_required",
+        "accepted_for_finding_review",
+        "rejected"
+      ],
+      "title": "FindingPromotionStatus",
+      "type": "string"
+    },
+    "SemanticFindingPromotionReview": {
+      "additionalProperties": false,
+      "description": "Human review of a link; acceptance never creates a Finding.",
+      "properties": {
+        "candidate_id": {
+          "pattern": "^semantic-candidate-sha256:[0-9a-f]{64}$",
+          "title": "Candidate Id",
+          "type": "string"
+        },
+        "ci_authority": {
+          "const": false,
+          "default": false,
+          "title": "Ci Authority",
+          "type": "boolean"
+        },
+        "creates_finding": {
+          "const": false,
+          "default": false,
+          "title": "Creates Finding",
+          "type": "boolean"
+        },
+        "decision": {
+          "$ref": "#/$defs/FindingPromotionDecision"
+        },
+        "finding_id": {
+          "anyOf": [
+            {
+              "maxLength": 256,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Finding Id"
+        },
+        "modifies_finding": {
+          "const": false,
+          "default": false,
+          "title": "Modifies Finding",
+          "type": "boolean"
+        },
+        "rationale_code": {
+          "pattern": "^[a-z][a-z0-9_.-]{1,63}$",
+          "title": "Rationale Code",
+          "type": "string"
+        },
+        "relation": {
+          "$ref": "#/$defs/SemanticFindingRelation"
+        },
+        "report_only": {
+          "const": true,
+          "default": true,
+          "title": "Report Only",
+          "type": "boolean"
+        },
+        "reviewer_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Reviewer Id",
+          "type": "string"
+        },
+        "severity_authority": {
+          "const": false,
+          "default": false,
+          "title": "Severity Authority",
+          "type": "boolean"
+        },
+        "status": {
+          "$ref": "#/$defs/FindingPromotionStatus"
+        }
+      },
+      "required": [
+        "candidate_id",
+        "relation",
+        "decision",
+        "status",
+        "reviewer_id",
+        "rationale_code"
+      ],
+      "title": "SemanticFindingPromotionReview",
+      "type": "object"
+    },
+    "SemanticFindingRelation": {
+      "description": "A report-only relationship to a pre-existing deterministic Finding.",
+      "enum": [
+        "supports",
+        "duplicates",
+        "contradicts",
+        "unmatched"
+      ],
+      "title": "SemanticFindingRelation",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Batch report for human review of semantic-to-Finding links.",
+  "properties": {
+    "ci_authority": {
+      "const": false,
+      "default": false,
+      "title": "Ci Authority",
+      "type": "boolean"
+    },
+    "creates_finding": {
+      "const": false,
+      "default": false,
+      "title": "Creates Finding",
+      "type": "boolean"
+    },
+    "format": {
+      "const": "agentsec-semantic-finding-promotion-report",
+      "default": "agentsec-semantic-finding-promotion-report",
+      "title": "Format",
+      "type": "string"
+    },
+    "integration_report_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Integration Report Sha256",
+      "type": "string"
+    },
+    "modifies_finding": {
+      "const": false,
+      "default": false,
+      "title": "Modifies Finding",
+      "type": "boolean"
+    },
+    "policy_authority": {
+      "const": false,
+      "default": false,
+      "title": "Policy Authority",
+      "type": "boolean"
+    },
+    "report_only": {
+      "const": true,
+      "default": true,
+      "title": "Report Only",
+      "type": "boolean"
+    },
+    "reviews": {
+      "items": {
+        "$ref": "#/$defs/SemanticFindingPromotionReview"
+      },
+      "minItems": 1,
+      "title": "Reviews",
+      "type": "array"
+    },
+    "schema_version": {
+      "const": "0.1.0",
+      "default": "0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "integration_report_sha256",
+    "reviews"
+  ],
+  "title": "SemanticFindingPromotionReport",
+  "type": "object"
+}

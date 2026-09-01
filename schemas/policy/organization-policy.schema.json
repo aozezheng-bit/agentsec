@@ -1,0 +1,270 @@
+{
+  "$defs": {
+    "FailOnThreshold": {
+      "description": "Supported explicit local blocking thresholds.",
+      "enum": [
+        "high",
+        "critical"
+      ],
+      "title": "FailOnThreshold",
+      "type": "string"
+    },
+    "OrganizationCapabilityPolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "qualification": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/OrganizationCapabilityQualification"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "qualified_gates": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Qualified Gates",
+          "type": "array"
+        }
+      },
+      "title": "OrganizationCapabilityPolicy",
+      "type": "object"
+    },
+    "OrganizationCapabilityQualification": {
+      "additionalProperties": false,
+      "description": "Explicit pin of one approved Qualified Gate Registry artifact.",
+      "properties": {
+        "registry_path": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Registry Path",
+          "type": "string"
+        },
+        "registry_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Registry Sha256",
+          "type": "string"
+        }
+      },
+      "required": [
+        "registry_path",
+        "registry_sha256"
+      ],
+      "title": "OrganizationCapabilityQualification",
+      "type": "object"
+    },
+    "OrganizationCoveragePolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "require_complete": {
+          "const": true,
+          "default": true,
+          "title": "Require Complete",
+          "type": "boolean"
+        },
+        "require_unknown_free": {
+          "default": true,
+          "title": "Require Unknown Free",
+          "type": "boolean"
+        }
+      },
+      "title": "OrganizationCoveragePolicy",
+      "type": "object"
+    },
+    "OrganizationSafetyPolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "allow_llm_authority": {
+          "const": false,
+          "default": false,
+          "title": "Allow Llm Authority",
+          "type": "boolean"
+        },
+        "allow_runtime_unverified_authority": {
+          "const": false,
+          "default": false,
+          "title": "Allow Runtime Unverified Authority",
+          "type": "boolean"
+        }
+      },
+      "title": "OrganizationSafetyPolicy",
+      "type": "object"
+    },
+    "OrganizationScanPolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "blocking_rule_ids": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Blocking Rule Ids",
+          "type": "array"
+        },
+        "fail_on": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/FailOnThreshold"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "title": "OrganizationScanPolicy",
+      "type": "object"
+    },
+    "OrganizationWaiver": {
+      "additionalProperties": false,
+      "properties": {
+        "expires_on": {
+          "format": "date",
+          "title": "Expires On",
+          "type": "string"
+        },
+        "finding_ids": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Finding Ids",
+          "type": "array"
+        },
+        "gate_ids": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Gate Ids",
+          "type": "array"
+        },
+        "owner": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Owner",
+          "type": "string"
+        },
+        "reason": {
+          "maxLength": 1024,
+          "minLength": 10,
+          "title": "Reason",
+          "type": "string"
+        },
+        "rule_ids": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Rule Ids",
+          "type": "array"
+        },
+        "waiver_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9._:-]+$",
+          "title": "Waiver Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "waiver_id",
+        "owner",
+        "reason",
+        "expires_on"
+      ],
+      "title": "OrganizationWaiver",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "capability": {
+      "$ref": "#/$defs/OrganizationCapabilityPolicy",
+      "default": {
+        "qualification": null,
+        "qualified_gates": []
+      }
+    },
+    "coverage": {
+      "$ref": "#/$defs/OrganizationCoveragePolicy",
+      "default": {
+        "require_complete": true,
+        "require_unknown_free": true
+      }
+    },
+    "enabled": {
+      "default": false,
+      "title": "Enabled",
+      "type": "boolean"
+    },
+    "enforcement_mode": {
+      "default": "report_only",
+      "enum": [
+        "report_only",
+        "enforce"
+      ],
+      "title": "Enforcement Mode",
+      "type": "string"
+    },
+    "format": {
+      "const": "agentsec-organization-policy",
+      "title": "Format",
+      "type": "string"
+    },
+    "policy_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9._:-]+$",
+      "title": "Policy Id",
+      "type": "string"
+    },
+    "policy_version": {
+      "maxLength": 32,
+      "minLength": 1,
+      "title": "Policy Version",
+      "type": "string"
+    },
+    "safety": {
+      "$ref": "#/$defs/OrganizationSafetyPolicy",
+      "default": {
+        "allow_llm_authority": false,
+        "allow_runtime_unverified_authority": false
+      }
+    },
+    "scan": {
+      "$ref": "#/$defs/OrganizationScanPolicy",
+      "default": {
+        "blocking_rule_ids": [],
+        "fail_on": null
+      }
+    },
+    "schema_version": {
+      "const": "0.3.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "waivers": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/OrganizationWaiver"
+      },
+      "title": "Waivers",
+      "type": "array"
+    }
+  },
+  "required": [
+    "format",
+    "schema_version",
+    "policy_id",
+    "policy_version"
+  ],
+  "title": "OrganizationPolicy",
+  "type": "object"
+}

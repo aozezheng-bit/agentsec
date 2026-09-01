@@ -1,0 +1,732 @@
+{
+  "$defs": {
+    "AdjudicationCategory": {
+      "description": "Reviewer interpretation of a deterministic classification.",
+      "enum": [
+        "confirmed_true_positive",
+        "confirmed_true_negative",
+        "detection_false_positive",
+        "policy_accepted_risk",
+        "in_scope_false_negative",
+        "out_of_scope",
+        "runtime_uncertainty",
+        "unresolved"
+      ],
+      "title": "AdjudicationCategory",
+      "type": "string"
+    },
+    "AdjudicationConsensus": {
+      "additionalProperties": false,
+      "description": "Deterministic consensus derived from independent reviewer labels.",
+      "properties": {
+        "adjudication_completed": {
+          "title": "Adjudication Completed",
+          "type": "boolean"
+        },
+        "adjudication_required": {
+          "title": "Adjudication Required",
+          "type": "boolean"
+        },
+        "case_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Case Id",
+          "type": "string"
+        },
+        "category_agreement": {
+          "title": "Category Agreement",
+          "type": "boolean"
+        },
+        "classification_agreement": {
+          "title": "Classification Agreement",
+          "type": "boolean"
+        },
+        "deterministic_classification": {
+          "$ref": "#/$defs/CalibrationClassification"
+        },
+        "disposition_agreement": {
+          "title": "Disposition Agreement",
+          "type": "boolean"
+        },
+        "final_category": {
+          "$ref": "#/$defs/AdjudicationCategory"
+        },
+        "final_classification": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CalibrationClassification"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "final_disposition": {
+          "$ref": "#/$defs/RuleDisposition"
+        },
+        "reviewer_count": {
+          "minimum": 0,
+          "title": "Reviewer Count",
+          "type": "integer"
+        },
+        "rule_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Rule Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "case_id",
+        "rule_id",
+        "deterministic_classification",
+        "reviewer_count",
+        "classification_agreement",
+        "category_agreement",
+        "disposition_agreement",
+        "adjudication_required",
+        "adjudication_completed",
+        "final_classification",
+        "final_category",
+        "final_disposition"
+      ],
+      "title": "AdjudicationConsensus",
+      "type": "object"
+    },
+    "AdjudicationReportPolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "automatic_rule_publication": {
+          "const": false,
+          "default": false,
+          "title": "Automatic Rule Publication",
+          "type": "boolean"
+        },
+        "ci_blocking_enabled": {
+          "const": false,
+          "default": false,
+          "title": "Ci Blocking Enabled",
+          "type": "boolean"
+        },
+        "enforcement_mode": {
+          "const": "report_only",
+          "default": "report_only",
+          "title": "Enforcement Mode",
+          "type": "string"
+        },
+        "evidence_mode": {
+          "default": "seed",
+          "enum": [
+            "seed",
+            "human"
+          ],
+          "title": "Evidence Mode",
+          "type": "string"
+        },
+        "hard_gate_eligibility_decided": {
+          "const": false,
+          "default": false,
+          "title": "Hard Gate Eligibility Decided",
+          "type": "boolean"
+        }
+      },
+      "title": "AdjudicationReportPolicy",
+      "type": "object"
+    },
+    "AdjudicationSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "adjudication_completed_count": {
+          "minimum": 0,
+          "title": "Adjudication Completed Count",
+          "type": "integer"
+        },
+        "adjudication_required_count": {
+          "minimum": 0,
+          "title": "Adjudication Required Count",
+          "type": "integer"
+        },
+        "category_agreement_rate": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Category Agreement Rate"
+        },
+        "classification_agreement_rate": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Classification Agreement Rate"
+        },
+        "consensus_count": {
+          "minimum": 0,
+          "title": "Consensus Count",
+          "type": "integer"
+        },
+        "disposition_agreement_rate": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Disposition Agreement Rate"
+        },
+        "reviewer_count": {
+          "minimum": 0,
+          "title": "Reviewer Count",
+          "type": "integer"
+        },
+        "total_expectations": {
+          "minimum": 0,
+          "title": "Total Expectations",
+          "type": "integer"
+        },
+        "total_reviews": {
+          "minimum": 0,
+          "title": "Total Reviews",
+          "type": "integer"
+        },
+        "unresolved_count": {
+          "minimum": 0,
+          "title": "Unresolved Count",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "total_expectations",
+        "total_reviews",
+        "reviewer_count",
+        "consensus_count",
+        "unresolved_count",
+        "adjudication_required_count",
+        "adjudication_completed_count",
+        "classification_agreement_rate",
+        "category_agreement_rate",
+        "disposition_agreement_rate"
+      ],
+      "title": "AdjudicationSummary",
+      "type": "object"
+    },
+    "CalibrationClassification": {
+      "enum": [
+        "true_positive",
+        "false_positive",
+        "false_negative",
+        "true_negative"
+      ],
+      "title": "CalibrationClassification",
+      "type": "string"
+    },
+    "EvidenceConfidence": {
+      "description": "Confidence in evidence, independent from finding severity.",
+      "enum": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "title": "EvidenceConfidence",
+      "type": "string"
+    },
+    "GateCandidateAssessment": {
+      "additionalProperties": false,
+      "description": "Report-only Hard Gate candidate qualification result.",
+      "properties": {
+        "confidence_grades": {
+          "items": {
+            "$ref": "#/$defs/EvidenceConfidence"
+          },
+          "title": "Confidence Grades",
+          "type": "array"
+        },
+        "confidence_kappa": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": -1,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Confidence Kappa"
+        },
+        "coverage_complete": {
+          "title": "Coverage Complete",
+          "type": "boolean"
+        },
+        "floor": {
+          "$ref": "#/$defs/Severity"
+        },
+        "gate_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Gate Id",
+          "type": "string"
+        },
+        "negative_samples": {
+          "minimum": 0,
+          "title": "Negative Samples",
+          "type": "integer"
+        },
+        "positive_samples": {
+          "minimum": 0,
+          "title": "Positive Samples",
+          "type": "integer"
+        },
+        "precision": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Precision"
+        },
+        "reason_codes": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Reason Codes",
+          "type": "array"
+        },
+        "recall": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Recall"
+        },
+        "reviewer_consensus": {
+          "title": "Reviewer Consensus",
+          "type": "boolean"
+        },
+        "rule_ids": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Rule Ids",
+          "type": "array"
+        },
+        "status": {
+          "$ref": "#/$defs/GateCandidateStatus"
+        },
+        "title": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "unknown_free": {
+          "title": "Unknown Free",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "gate_id",
+        "title",
+        "floor",
+        "rule_ids",
+        "positive_samples",
+        "negative_samples",
+        "precision",
+        "recall",
+        "confidence_grades",
+        "coverage_complete",
+        "unknown_free",
+        "reviewer_consensus",
+        "status",
+        "reason_codes"
+      ],
+      "title": "GateCandidateAssessment",
+      "type": "object"
+    },
+    "GateCandidateStatus": {
+      "enum": [
+        "accepted",
+        "rejected",
+        "more_data_required"
+      ],
+      "title": "GateCandidateStatus",
+      "type": "string"
+    },
+    "RuleCalibrationAssessment": {
+      "additionalProperties": false,
+      "description": "FP/FN, adjudication, and deterministic Rule tuning summary.",
+      "properties": {
+        "category_agreement_rate": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Category Agreement Rate"
+        },
+        "confidence_kappa": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": -1,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Confidence Kappa"
+        },
+        "detection_false_positives": {
+          "minimum": 0,
+          "title": "Detection False Positives",
+          "type": "integer"
+        },
+        "disposition_agreement_rate": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Disposition Agreement Rate"
+        },
+        "f1": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "F1"
+        },
+        "false_negative": {
+          "minimum": 0,
+          "title": "False Negative",
+          "type": "integer"
+        },
+        "false_positive": {
+          "minimum": 0,
+          "title": "False Positive",
+          "type": "integer"
+        },
+        "in_scope_false_negatives": {
+          "minimum": 0,
+          "title": "In Scope False Negatives",
+          "type": "integer"
+        },
+        "negative_samples": {
+          "minimum": 0,
+          "title": "Negative Samples",
+          "type": "integer"
+        },
+        "out_of_scope_cases": {
+          "minimum": 0,
+          "title": "Out Of Scope Cases",
+          "type": "integer"
+        },
+        "policy_accepted_risks": {
+          "minimum": 0,
+          "title": "Policy Accepted Risks",
+          "type": "integer"
+        },
+        "positive_samples": {
+          "minimum": 0,
+          "title": "Positive Samples",
+          "type": "integer"
+        },
+        "precision": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Precision"
+        },
+        "reason_codes": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Reason Codes",
+          "type": "array"
+        },
+        "recall": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Recall"
+        },
+        "recommended_disposition": {
+          "$ref": "#/$defs/RuleDisposition"
+        },
+        "reviewer_agreement_rate": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Reviewer Agreement Rate"
+        },
+        "rule_id": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Rule Id",
+          "type": "string"
+        },
+        "runtime_uncertainty_cases": {
+          "minimum": 0,
+          "title": "Runtime Uncertainty Cases",
+          "type": "integer"
+        },
+        "samples": {
+          "minimum": 0,
+          "title": "Samples",
+          "type": "integer"
+        },
+        "true_negative": {
+          "minimum": 0,
+          "title": "True Negative",
+          "type": "integer"
+        },
+        "true_positive": {
+          "minimum": 0,
+          "title": "True Positive",
+          "type": "integer"
+        },
+        "unresolved_cases": {
+          "minimum": 0,
+          "title": "Unresolved Cases",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "rule_id",
+        "samples",
+        "positive_samples",
+        "negative_samples",
+        "true_positive",
+        "false_positive",
+        "false_negative",
+        "true_negative",
+        "precision",
+        "recall",
+        "f1",
+        "detection_false_positives",
+        "policy_accepted_risks",
+        "in_scope_false_negatives",
+        "out_of_scope_cases",
+        "runtime_uncertainty_cases",
+        "unresolved_cases",
+        "reviewer_agreement_rate",
+        "category_agreement_rate",
+        "disposition_agreement_rate",
+        "recommended_disposition",
+        "reason_codes"
+      ],
+      "title": "RuleCalibrationAssessment",
+      "type": "object"
+    },
+    "RuleDisposition": {
+      "description": "Deterministic recommendation, never an automatic Rule mutation.",
+      "enum": [
+        "keep",
+        "tune",
+        "shadow",
+        "retire",
+        "more_data"
+      ],
+      "title": "RuleDisposition",
+      "type": "string"
+    },
+    "Severity": {
+      "description": "Report severity compatible with the planned 0-10 risk scale.",
+      "enum": [
+        "none",
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "title": "Severity",
+      "type": "string"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "P2-CAL-04 report-only adjudication and Gate Candidate output.",
+  "properties": {
+    "by_case": {
+      "items": {
+        "$ref": "#/$defs/AdjudicationConsensus"
+      },
+      "title": "By Case",
+      "type": "array"
+    },
+    "by_rule": {
+      "items": {
+        "$ref": "#/$defs/RuleCalibrationAssessment"
+      },
+      "title": "By Rule",
+      "type": "array"
+    },
+    "capability_risk_model_version": {
+      "default": "0.1.0",
+      "minLength": 1,
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+      "title": "Capability Risk Model Version",
+      "type": "string"
+    },
+    "capability_rule_pack_version": {
+      "default": "0.2.0",
+      "minLength": 1,
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+      "title": "Capability Rule Pack Version",
+      "type": "string"
+    },
+    "corpus_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Corpus Id",
+      "type": "string"
+    },
+    "format": {
+      "const": "agentsec-capability-calibration-adjudication-report",
+      "default": "agentsec-capability-calibration-adjudication-report",
+      "title": "Format",
+      "type": "string"
+    },
+    "format_version": {
+      "default": "0.3.0",
+      "minLength": 1,
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+      "title": "Format Version",
+      "type": "string"
+    },
+    "gate_candidates": {
+      "items": {
+        "$ref": "#/$defs/GateCandidateAssessment"
+      },
+      "title": "Gate Candidates",
+      "type": "array"
+    },
+    "labels_version": {
+      "minLength": 1,
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+      "title": "Labels Version",
+      "type": "string"
+    },
+    "limitations": {
+      "items": {
+        "maxLength": 512,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Limitations",
+      "type": "array"
+    },
+    "policy": {
+      "$ref": "#/$defs/AdjudicationReportPolicy"
+    },
+    "reviewer_ids": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Reviewer Ids",
+      "type": "array"
+    },
+    "status": {
+      "enum": [
+        "complete",
+        "incomplete"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "summary": {
+      "$ref": "#/$defs/AdjudicationSummary"
+    }
+  },
+  "required": [
+    "status",
+    "corpus_id",
+    "labels_version",
+    "reviewer_ids",
+    "policy",
+    "summary",
+    "by_rule",
+    "gate_candidates",
+    "by_case",
+    "limitations"
+  ],
+  "title": "CalibrationAdjudicationReport",
+  "type": "object",
+  "x-agentsec-adjudication-report-output-version": "0.3.0"
+}

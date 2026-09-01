@@ -1,0 +1,13 @@
+{
+  "case_id": "safe-ephemeral-session",
+  "category": "safe",
+  "purpose": "Confirm explicit non-persistence remains a safe memory boundary.",
+  "assets": [
+    "AGENTS.md"
+  ],
+  "expected": {
+    "coverage": "complete",
+    "signals": [],
+    "rule_ids": []
+  }
+}

@@ -1,0 +1,482 @@
+{
+  "$defs": {
+    "SemanticEvaluationCaseResult": {
+      "additionalProperties": false,
+      "description": "Value-free result for one case, with no raw model output.",
+      "properties": {
+        "case_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Case Id",
+          "type": "string"
+        },
+        "error_code": {
+          "anyOf": [
+            {
+              "maxLength": 64,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Error Code"
+        },
+        "evidence_comparisons": {
+          "minimum": 0,
+          "title": "Evidence Comparisons",
+          "type": "integer"
+        },
+        "evidence_exact_matches": {
+          "minimum": 0,
+          "title": "Evidence Exact Matches",
+          "type": "integer"
+        },
+        "expected_count": {
+          "minimum": 0,
+          "title": "Expected Count",
+          "type": "integer"
+        },
+        "false_negative": {
+          "minimum": 0,
+          "title": "False Negative",
+          "type": "integer"
+        },
+        "false_positive": {
+          "minimum": 0,
+          "title": "False Positive",
+          "type": "integer"
+        },
+        "invocation_success": {
+          "default": false,
+          "title": "Invocation Success",
+          "type": "boolean"
+        },
+        "predicted_count": {
+          "minimum": 0,
+          "title": "Predicted Count",
+          "type": "integer"
+        },
+        "semantic_complete": {
+          "default": false,
+          "title": "Semantic Complete",
+          "type": "boolean"
+        },
+        "status": {
+          "$ref": "#/$defs/SemanticEvaluationCaseStatus"
+        },
+        "true_positive": {
+          "minimum": 0,
+          "title": "True Positive",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "case_id",
+        "status",
+        "expected_count",
+        "predicted_count",
+        "true_positive",
+        "false_positive",
+        "false_negative",
+        "evidence_exact_matches",
+        "evidence_comparisons"
+      ],
+      "title": "SemanticEvaluationCaseResult",
+      "type": "object"
+    },
+    "SemanticEvaluationCaseStatus": {
+      "enum": [
+        "complete",
+        "failed"
+      ],
+      "title": "SemanticEvaluationCaseStatus",
+      "type": "string"
+    },
+    "SemanticEvaluationMetrics": {
+      "additionalProperties": false,
+      "description": "Deterministic semantic and Evidence quality metrics.",
+      "properties": {
+        "case_count": {
+          "minimum": 0,
+          "title": "Case Count",
+          "type": "integer"
+        },
+        "complete_coverage_cases": {
+          "minimum": 0,
+          "title": "Complete Coverage Cases",
+          "type": "integer"
+        },
+        "complete_coverage_rate": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Complete Coverage Rate",
+          "type": "number"
+        },
+        "completed_case_count": {
+          "minimum": 0,
+          "title": "Completed Case Count",
+          "type": "integer"
+        },
+        "evidence_binding_accuracy": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Evidence Binding Accuracy",
+          "type": "number"
+        },
+        "evidence_comparisons": {
+          "minimum": 0,
+          "title": "Evidence Comparisons",
+          "type": "integer"
+        },
+        "evidence_exact_matches": {
+          "minimum": 0,
+          "title": "Evidence Exact Matches",
+          "type": "integer"
+        },
+        "f1": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "F1",
+          "type": "number"
+        },
+        "failed_case_count": {
+          "minimum": 0,
+          "title": "Failed Case Count",
+          "type": "integer"
+        },
+        "false_negative": {
+          "minimum": 0,
+          "title": "False Negative",
+          "type": "integer"
+        },
+        "false_positive": {
+          "minimum": 0,
+          "title": "False Positive",
+          "type": "integer"
+        },
+        "precision": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Precision",
+          "type": "number"
+        },
+        "recall": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Recall",
+          "type": "number"
+        },
+        "true_positive": {
+          "minimum": 0,
+          "title": "True Positive",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "case_count",
+        "completed_case_count",
+        "failed_case_count",
+        "true_positive",
+        "false_positive",
+        "false_negative",
+        "precision",
+        "recall",
+        "f1",
+        "evidence_exact_matches",
+        "evidence_comparisons",
+        "evidence_binding_accuracy",
+        "complete_coverage_cases",
+        "complete_coverage_rate"
+      ],
+      "title": "SemanticEvaluationMetrics",
+      "type": "object"
+    },
+    "SemanticEvaluationReport": {
+      "additionalProperties": false,
+      "description": "Machine-readable Shadow evaluation report; no enforcement decision.",
+      "properties": {
+        "cases": {
+          "items": {
+            "$ref": "#/$defs/SemanticEvaluationCaseResult"
+          },
+          "maxItems": 256,
+          "title": "Cases",
+          "type": "array"
+        },
+        "format": {
+          "const": "agentsec-semantic-evaluation-report",
+          "default": "agentsec-semantic-evaluation-report",
+          "title": "Format",
+          "type": "string"
+        },
+        "metrics": {
+          "$ref": "#/$defs/SemanticEvaluationMetrics"
+        },
+        "model_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "title": "Model Id",
+          "type": "string"
+        },
+        "policy_authority": {
+          "const": false,
+          "default": false,
+          "title": "Policy Authority",
+          "type": "boolean"
+        },
+        "provider_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "title": "Provider Id",
+          "type": "string"
+        },
+        "release_authority": {
+          "const": false,
+          "default": false,
+          "title": "Release Authority",
+          "type": "boolean"
+        },
+        "report_only": {
+          "const": true,
+          "default": true,
+          "title": "Report Only",
+          "type": "boolean"
+        },
+        "runtime_verified": {
+          "const": false,
+          "default": false,
+          "title": "Runtime Verified",
+          "type": "boolean"
+        },
+        "schema_version": {
+          "const": "0.1.0",
+          "default": "0.1.0",
+          "title": "Schema Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "provider_id",
+        "model_id",
+        "cases",
+        "metrics"
+      ],
+      "title": "SemanticEvaluationReport",
+      "type": "object"
+    },
+    "SemanticGatePilotCheck": {
+      "additionalProperties": false,
+      "properties": {
+        "check_id": {
+          "pattern": "^[a-z][a-z0-9._-]{2,63}$",
+          "title": "Check Id",
+          "type": "string"
+        },
+        "rationale_code": {
+          "pattern": "^[a-z][a-z0-9._-]{2,63}$",
+          "title": "Rationale Code",
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/$defs/SemanticGatePilotCheckStatus"
+        }
+      },
+      "required": [
+        "check_id",
+        "status",
+        "rationale_code"
+      ],
+      "title": "SemanticGatePilotCheck",
+      "type": "object"
+    },
+    "SemanticGatePilotCheckStatus": {
+      "enum": [
+        "pass",
+        "fail"
+      ],
+      "title": "SemanticGatePilotCheckStatus",
+      "type": "string"
+    },
+    "SemanticGatePilotStatus": {
+      "enum": [
+        "preflight_blocked",
+        "preflight_passed",
+        "completed",
+        "failed"
+      ],
+      "title": "SemanticGatePilotStatus",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Value-minimized report from preflight or a bounded live evaluation.",
+  "properties": {
+    "blocks": {
+      "const": false,
+      "default": false,
+      "title": "Blocks",
+      "type": "boolean"
+    },
+    "candidate_id": {
+      "anyOf": [
+        {
+          "pattern": "^semantic-gate-candidate-sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Candidate Id"
+    },
+    "checks": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/SemanticGatePilotCheck"
+      },
+      "title": "Checks",
+      "type": "array"
+    },
+    "ci_authority": {
+      "const": false,
+      "default": false,
+      "title": "Ci Authority",
+      "type": "boolean"
+    },
+    "corpus_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "title": "Corpus Id",
+      "type": "string"
+    },
+    "corpus_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Corpus Sha256",
+      "type": "string"
+    },
+    "error_codes": {
+      "default": [],
+      "items": {
+        "pattern": "^[a-z][a-z0-9._-]{2,63}$",
+        "type": "string"
+      },
+      "title": "Error Codes",
+      "type": "array"
+    },
+    "evaluated_case_count": {
+      "minimum": 0,
+      "title": "Evaluated Case Count",
+      "type": "integer"
+    },
+    "evaluation": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/SemanticEvaluationReport"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "format": {
+      "const": "agentsec-semantic-gate-pilot-report",
+      "default": "agentsec-semantic-gate-pilot-report",
+      "title": "Format",
+      "type": "string"
+    },
+    "gate_id": {
+      "pattern": "^SG-[A-Z0-9][A-Z0-9._-]{2,63}$",
+      "title": "Gate Id",
+      "type": "string"
+    },
+    "live_invocation": {
+      "default": false,
+      "title": "Live Invocation",
+      "type": "boolean"
+    },
+    "max_calls": {
+      "minimum": 0,
+      "title": "Max Calls",
+      "type": "integer"
+    },
+    "model_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "title": "Model Id",
+      "type": "string"
+    },
+    "policy_authority": {
+      "const": false,
+      "default": false,
+      "title": "Policy Authority",
+      "type": "boolean"
+    },
+    "provider_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "title": "Provider Id",
+      "type": "string"
+    },
+    "release_authority": {
+      "const": false,
+      "default": false,
+      "title": "Release Authority",
+      "type": "boolean"
+    },
+    "report_only": {
+      "const": true,
+      "default": true,
+      "title": "Report Only",
+      "type": "boolean"
+    },
+    "requested_case_count": {
+      "minimum": 0,
+      "title": "Requested Case Count",
+      "type": "integer"
+    },
+    "rule_authority": {
+      "const": false,
+      "default": false,
+      "title": "Rule Authority",
+      "type": "boolean"
+    },
+    "runtime_verified": {
+      "const": false,
+      "default": false,
+      "title": "Runtime Verified",
+      "type": "boolean"
+    },
+    "schema_version": {
+      "const": "0.1.0",
+      "default": "0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "shadow_only": {
+      "const": true,
+      "default": true,
+      "title": "Shadow Only",
+      "type": "boolean"
+    },
+    "status": {
+      "$ref": "#/$defs/SemanticGatePilotStatus"
+    }
+  },
+  "required": [
+    "status",
+    "provider_id",
+    "model_id",
+    "gate_id",
+    "corpus_id",
+    "corpus_sha256",
+    "requested_case_count",
+    "evaluated_case_count",
+    "max_calls"
+  ],
+  "title": "SemanticGatePilotReport",
+  "type": "object"
+}

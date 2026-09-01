@@ -1,0 +1,905 @@
+{
+  "$defs": {
+    "FindingCategory": {
+      "description": "Initial Phase 1 security finding taxonomy.",
+      "enum": [
+        "instruction_integrity",
+        "human_approval",
+        "code_execution",
+        "network_access",
+        "secret_access",
+        "privileged_access",
+        "destructive_action",
+        "persistent_memory",
+        "self_modification",
+        "obfuscation",
+        "external_tooling",
+        "scan_coverage",
+        "other"
+      ],
+      "title": "FindingCategory",
+      "type": "string"
+    },
+    "SemanticAnalysisResult": {
+      "additionalProperties": false,
+      "description": "Final Shadow-only result with fixed non-authority semantics.",
+      "properties": {
+        "analysis_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[a-z][a-z0-9._-]{0,127}$",
+          "title": "Analysis Id",
+          "type": "string"
+        },
+        "analyzer_version": {
+          "const": "0.1.0",
+          "default": "0.1.0",
+          "title": "Analyzer Version",
+          "type": "string"
+        },
+        "authority_boundary": {
+          "$ref": "#/$defs/SemanticAuthorityBoundary",
+          "default": {
+            "allow_decision": false,
+            "block_decision": false,
+            "candidate_evidence_only": true,
+            "confidence_authority": false,
+            "mode": "shadow_only",
+            "model_filesystem_write": false,
+            "model_network_access": false,
+            "model_tool_access": false,
+            "rule_publication": false,
+            "runtime_claim_authority": false,
+            "severity_authority": false,
+            "waiver_approval": false
+          }
+        },
+        "blocks": {
+          "const": false,
+          "default": false,
+          "title": "Blocks",
+          "type": "boolean"
+        },
+        "candidates": {
+          "items": {
+            "$ref": "#/$defs/SemanticCandidateEvidence"
+          },
+          "title": "Candidates",
+          "type": "array"
+        },
+        "coverage": {
+          "$ref": "#/$defs/SemanticCoverage"
+        },
+        "deterministic_context": {
+          "$ref": "#/$defs/SemanticDeterministicContext"
+        },
+        "format": {
+          "const": "agentsec-semantic-analysis-result",
+          "default": "agentsec-semantic-analysis-result",
+          "title": "Format",
+          "type": "string"
+        },
+        "input_sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Input Sha256",
+          "type": "string"
+        },
+        "invocation": {
+          "$ref": "#/$defs/SemanticInvocationProvenance"
+        },
+        "limitations": {
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 32,
+          "minItems": 1,
+          "title": "Limitations",
+          "type": "array"
+        },
+        "model_output_sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Model Output Sha256",
+          "type": "string"
+        },
+        "report_only": {
+          "const": true,
+          "default": true,
+          "title": "Report Only",
+          "type": "boolean"
+        },
+        "runtime_verified": {
+          "const": false,
+          "default": false,
+          "title": "Runtime Verified",
+          "type": "boolean"
+        },
+        "schema_version": {
+          "const": "0.1.0",
+          "default": "0.1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/$defs/SemanticAnalysisStatus"
+        }
+      },
+      "required": [
+        "analysis_id",
+        "status",
+        "input_sha256",
+        "model_output_sha256",
+        "invocation",
+        "deterministic_context",
+        "coverage",
+        "candidates",
+        "limitations"
+      ],
+      "title": "SemanticAnalysisResult",
+      "type": "object"
+    },
+    "SemanticAnalysisStatus": {
+      "description": "Final status derived by trusted post-processing.",
+      "enum": [
+        "complete",
+        "partial"
+      ],
+      "title": "SemanticAnalysisStatus",
+      "type": "string"
+    },
+    "SemanticAuthorityBoundary": {
+      "additionalProperties": false,
+      "description": "Immutable literals preventing semantic output from gaining authority.",
+      "properties": {
+        "allow_decision": {
+          "const": false,
+          "default": false,
+          "title": "Allow Decision",
+          "type": "boolean"
+        },
+        "block_decision": {
+          "const": false,
+          "default": false,
+          "title": "Block Decision",
+          "type": "boolean"
+        },
+        "candidate_evidence_only": {
+          "const": true,
+          "default": true,
+          "title": "Candidate Evidence Only",
+          "type": "boolean"
+        },
+        "confidence_authority": {
+          "const": false,
+          "default": false,
+          "title": "Confidence Authority",
+          "type": "boolean"
+        },
+        "mode": {
+          "const": "shadow_only",
+          "default": "shadow_only",
+          "title": "Mode",
+          "type": "string"
+        },
+        "model_filesystem_write": {
+          "const": false,
+          "default": false,
+          "title": "Model Filesystem Write",
+          "type": "boolean"
+        },
+        "model_network_access": {
+          "const": false,
+          "default": false,
+          "title": "Model Network Access",
+          "type": "boolean"
+        },
+        "model_tool_access": {
+          "const": false,
+          "default": false,
+          "title": "Model Tool Access",
+          "type": "boolean"
+        },
+        "rule_publication": {
+          "const": false,
+          "default": false,
+          "title": "Rule Publication",
+          "type": "boolean"
+        },
+        "runtime_claim_authority": {
+          "const": false,
+          "default": false,
+          "title": "Runtime Claim Authority",
+          "type": "boolean"
+        },
+        "severity_authority": {
+          "const": false,
+          "default": false,
+          "title": "Severity Authority",
+          "type": "boolean"
+        },
+        "waiver_approval": {
+          "const": false,
+          "default": false,
+          "title": "Waiver Approval",
+          "type": "boolean"
+        }
+      },
+      "title": "SemanticAuthorityBoundary",
+      "type": "object"
+    },
+    "SemanticCandidateDisposition": {
+      "description": "Probabilistic support state without enforcement meaning.",
+      "enum": [
+        "supported",
+        "not_supported",
+        "uncertain"
+      ],
+      "title": "SemanticCandidateDisposition",
+      "type": "string"
+    },
+    "SemanticCandidateEvidence": {
+      "additionalProperties": false,
+      "description": "Trusted candidate evidence; not a Finding and never an authorization input.",
+      "properties": {
+        "authority_effect": {
+          "const": "none",
+          "default": "none",
+          "title": "Authority Effect",
+          "type": "string"
+        },
+        "candidate_id": {
+          "pattern": "^semantic-candidate-sha256:[0-9a-f]{64}$",
+          "title": "Candidate Id",
+          "type": "string"
+        },
+        "category": {
+          "$ref": "#/$defs/FindingCategory"
+        },
+        "confidence_method": {
+          "const": "llm_semantic_analysis",
+          "default": "llm_semantic_analysis",
+          "title": "Confidence Method",
+          "type": "string"
+        },
+        "disposition": {
+          "$ref": "#/$defs/SemanticCandidateDisposition"
+        },
+        "evidence_confidence": {
+          "const": "C",
+          "default": "C",
+          "title": "Evidence Confidence",
+          "type": "string"
+        },
+        "evidence_ids": {
+          "items": {
+            "pattern": "^semantic-evidence-sha256:[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "title": "Evidence Ids",
+          "type": "array"
+        },
+        "kind": {
+          "$ref": "#/$defs/SemanticCandidateKind"
+        },
+        "limitations": {
+          "default": [],
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Limitations",
+          "type": "array"
+        },
+        "model_candidate_key": {
+          "pattern": "^[a-z][a-z0-9-]{0,63}$",
+          "title": "Model Candidate Key",
+          "type": "string"
+        },
+        "report_only": {
+          "const": true,
+          "default": true,
+          "title": "Report Only",
+          "type": "boolean"
+        },
+        "runtime_verified": {
+          "const": false,
+          "default": false,
+          "title": "Runtime Verified",
+          "type": "boolean"
+        },
+        "summary": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Summary",
+          "type": "string"
+        }
+      },
+      "required": [
+        "candidate_id",
+        "model_candidate_key",
+        "kind",
+        "category",
+        "disposition",
+        "summary",
+        "evidence_ids"
+      ],
+      "title": "SemanticCandidateEvidence",
+      "type": "object"
+    },
+    "SemanticCandidateKind": {
+      "description": "Bounded semantic judgment families; none is a published Finding.",
+      "enum": [
+        "capability_declaration",
+        "control_weakening",
+        "semantic_conflict",
+        "cross_file_chain",
+        "risky_intent",
+        "ambiguity"
+      ],
+      "title": "SemanticCandidateKind",
+      "type": "string"
+    },
+    "SemanticCoverage": {
+      "additionalProperties": false,
+      "description": "Coverage derived by trusted post-processing, not accepted from the model.",
+      "properties": {
+        "analyzed_evidence_count": {
+          "minimum": 0,
+          "title": "Analyzed Evidence Count",
+          "type": "integer"
+        },
+        "complete": {
+          "title": "Complete",
+          "type": "boolean"
+        },
+        "deterministic_coverage_complete": {
+          "title": "Deterministic Coverage Complete",
+          "type": "boolean"
+        },
+        "input_evidence_count": {
+          "minimum": 1,
+          "title": "Input Evidence Count",
+          "type": "integer"
+        },
+        "omitted_evidence_ids": {
+          "items": {
+            "pattern": "^semantic-evidence-sha256:[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "title": "Omitted Evidence Ids",
+          "type": "array"
+        },
+        "semantic_complete": {
+          "title": "Semantic Complete",
+          "type": "boolean"
+        },
+        "unknown_dimensions": {
+          "items": {
+            "maxLength": 160,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]{0,159}$",
+            "type": "string"
+          },
+          "title": "Unknown Dimensions",
+          "type": "array"
+        }
+      },
+      "required": [
+        "input_evidence_count",
+        "analyzed_evidence_count",
+        "omitted_evidence_ids",
+        "semantic_complete",
+        "deterministic_coverage_complete",
+        "unknown_dimensions",
+        "complete"
+      ],
+      "title": "SemanticCoverage",
+      "type": "object"
+    },
+    "SemanticDeterministicContext": {
+      "additionalProperties": false,
+      "description": "Deterministic state that semantic output may not remove or rewrite.",
+      "properties": {
+        "assessment_sha256": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Assessment Sha256"
+        },
+        "capability_ids": {
+          "default": [],
+          "items": {
+            "maxLength": 160,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]{0,159}$",
+            "type": "string"
+          },
+          "title": "Capability Ids",
+          "type": "array"
+        },
+        "coverage_complete": {
+          "title": "Coverage Complete",
+          "type": "boolean"
+        },
+        "finding_ids": {
+          "default": [],
+          "items": {
+            "maxLength": 160,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]{0,159}$",
+            "type": "string"
+          },
+          "title": "Finding Ids",
+          "type": "array"
+        },
+        "manifest_sha256": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Manifest Sha256"
+        },
+        "unknown_dimensions": {
+          "default": [],
+          "items": {
+            "maxLength": 160,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]{0,159}$",
+            "type": "string"
+          },
+          "title": "Unknown Dimensions",
+          "type": "array"
+        }
+      },
+      "required": [
+        "coverage_complete"
+      ],
+      "title": "SemanticDeterministicContext",
+      "type": "object"
+    },
+    "SemanticInvocationLimits": {
+      "additionalProperties": false,
+      "description": "Trusted per-invocation limits; P3-02 permits one non-billable attempt.",
+      "properties": {
+        "billable_invocation_allowed": {
+          "const": false,
+          "default": false,
+          "title": "Billable Invocation Allowed",
+          "type": "boolean"
+        },
+        "fallback_allowed": {
+          "const": false,
+          "default": false,
+          "title": "Fallback Allowed",
+          "type": "boolean"
+        },
+        "max_attempts": {
+          "const": 1,
+          "default": 1,
+          "title": "Max Attempts",
+          "type": "integer"
+        },
+        "max_cost_microunits": {
+          "const": 0,
+          "default": 0,
+          "title": "Max Cost Microunits",
+          "type": "integer"
+        },
+        "max_input_characters": {
+          "default": 131072,
+          "maximum": 262144,
+          "minimum": 1,
+          "title": "Max Input Characters",
+          "type": "integer"
+        },
+        "max_input_tokens": {
+          "default": 32768,
+          "maximum": 1000000,
+          "minimum": 0,
+          "title": "Max Input Tokens",
+          "type": "integer"
+        },
+        "max_output_characters": {
+          "default": 65536,
+          "maximum": 131072,
+          "minimum": 1,
+          "title": "Max Output Characters",
+          "type": "integer"
+        },
+        "max_output_tokens": {
+          "default": 8192,
+          "maximum": 1000000,
+          "minimum": 0,
+          "title": "Max Output Tokens",
+          "type": "integer"
+        },
+        "timeout_ms": {
+          "default": 30000,
+          "maximum": 120000,
+          "minimum": 1,
+          "title": "Timeout Ms",
+          "type": "integer"
+        }
+      },
+      "title": "SemanticInvocationLimits",
+      "type": "object"
+    },
+    "SemanticInvocationProvenance": {
+      "additionalProperties": false,
+      "description": "Trusted invocation metadata; Provider identifiers grant no authority.",
+      "properties": {
+        "invocation_mode": {
+          "enum": [
+            "offline_fixture",
+            "shadow_provider"
+          ],
+          "title": "Invocation Mode",
+          "type": "string"
+        },
+        "invocation_sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Invocation Sha256",
+          "type": "string"
+        },
+        "model_filesystem_write": {
+          "const": false,
+          "default": false,
+          "title": "Model Filesystem Write",
+          "type": "boolean"
+        },
+        "model_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]{0,159}$",
+          "title": "Model Id",
+          "type": "string"
+        },
+        "model_network_access": {
+          "const": false,
+          "default": false,
+          "title": "Model Network Access",
+          "type": "boolean"
+        },
+        "model_tools_enabled": {
+          "const": false,
+          "default": false,
+          "title": "Model Tools Enabled",
+          "type": "boolean"
+        },
+        "prompt_version": {
+          "maxLength": 32,
+          "minLength": 1,
+          "title": "Prompt Version",
+          "type": "string"
+        },
+        "provider_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]{0,159}$",
+          "title": "Provider Id",
+          "type": "string"
+        },
+        "raw_request_retained": {
+          "const": false,
+          "default": false,
+          "title": "Raw Request Retained",
+          "type": "boolean"
+        },
+        "raw_response_retained": {
+          "const": false,
+          "default": false,
+          "title": "Raw Response Retained",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "provider_id",
+        "model_id",
+        "prompt_version",
+        "invocation_sha256",
+        "invocation_mode"
+      ],
+      "title": "SemanticInvocationProvenance",
+      "type": "object"
+    },
+    "SemanticInvocationUsage": {
+      "additionalProperties": false,
+      "description": "Bounded non-authoritative usage metadata retained without raw payloads.",
+      "properties": {
+        "attempts": {
+          "const": 1,
+          "default": 1,
+          "title": "Attempts",
+          "type": "integer"
+        },
+        "cost_microunits": {
+          "const": 0,
+          "default": 0,
+          "title": "Cost Microunits",
+          "type": "integer"
+        },
+        "input_characters": {
+          "minimum": 1,
+          "title": "Input Characters",
+          "type": "integer"
+        },
+        "input_tokens": {
+          "minimum": 0,
+          "title": "Input Tokens",
+          "type": "integer"
+        },
+        "output_characters": {
+          "minimum": 1,
+          "title": "Output Characters",
+          "type": "integer"
+        },
+        "output_tokens": {
+          "minimum": 0,
+          "title": "Output Tokens",
+          "type": "integer"
+        },
+        "raw_request_retained": {
+          "const": false,
+          "default": false,
+          "title": "Raw Request Retained",
+          "type": "boolean"
+        },
+        "raw_response_retained": {
+          "const": false,
+          "default": false,
+          "title": "Raw Response Retained",
+          "type": "boolean"
+        },
+        "timeout_exceeded": {
+          "const": false,
+          "default": false,
+          "title": "Timeout Exceeded",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "input_characters",
+        "output_characters",
+        "input_tokens",
+        "output_tokens"
+      ],
+      "title": "SemanticInvocationUsage",
+      "type": "object"
+    },
+    "SemanticProviderMetadata": {
+      "additionalProperties": false,
+      "description": "Provider capabilities accepted by the P3-02 offline Shadow boundary.",
+      "properties": {
+        "billable_invocation": {
+          "const": false,
+          "default": false,
+          "title": "Billable Invocation",
+          "type": "boolean"
+        },
+        "contract_version": {
+          "const": "0.1.0",
+          "default": "0.1.0",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "model_filesystem_write": {
+          "const": false,
+          "default": false,
+          "title": "Model Filesystem Write",
+          "type": "boolean"
+        },
+        "model_id": {
+          "default": "agentsec-semantic-fixture-v1",
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]{0,159}$",
+          "title": "Model Id",
+          "type": "string"
+        },
+        "model_network_access": {
+          "const": false,
+          "default": false,
+          "title": "Model Network Access",
+          "type": "boolean"
+        },
+        "model_tools_enabled": {
+          "const": false,
+          "default": false,
+          "title": "Model Tools Enabled",
+          "type": "boolean"
+        },
+        "provider_id": {
+          "default": "offline-fixture",
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]{0,159}$",
+          "title": "Provider Id",
+          "type": "string"
+        },
+        "raw_request_retained": {
+          "const": false,
+          "default": false,
+          "title": "Raw Request Retained",
+          "type": "boolean"
+        },
+        "raw_response_retained": {
+          "const": false,
+          "default": false,
+          "title": "Raw Response Retained",
+          "type": "boolean"
+        },
+        "structured_output_supported": {
+          "const": true,
+          "default": true,
+          "title": "Structured Output Supported",
+          "type": "boolean"
+        },
+        "timeout_enforced": {
+          "const": true,
+          "default": true,
+          "title": "Timeout Enforced",
+          "type": "boolean"
+        },
+        "transport": {
+          "default": "in_memory_fixture",
+          "enum": [
+            "in_memory_fixture",
+            "https_json"
+          ],
+          "title": "Transport",
+          "type": "string"
+        },
+        "transport_network_access": {
+          "default": false,
+          "title": "Transport Network Access",
+          "type": "boolean"
+        }
+      },
+      "title": "SemanticProviderMetadata",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Final operational wrapper around one validated candidate-evidence result.",
+  "properties": {
+    "adapter_version": {
+      "const": "0.1.0",
+      "default": "0.1.0",
+      "title": "Adapter Version",
+      "type": "string"
+    },
+    "analysis": {
+      "$ref": "#/$defs/SemanticAnalysisResult"
+    },
+    "analysis_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Analysis Id",
+      "type": "string"
+    },
+    "blocks": {
+      "const": false,
+      "default": false,
+      "title": "Blocks",
+      "type": "boolean"
+    },
+    "candidate_evidence_only": {
+      "const": true,
+      "default": true,
+      "title": "Candidate Evidence Only",
+      "type": "boolean"
+    },
+    "format": {
+      "const": "agentsec-semantic-shadow-invocation-result",
+      "default": "agentsec-semantic-shadow-invocation-result",
+      "title": "Format",
+      "type": "string"
+    },
+    "input_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Input Sha256",
+      "type": "string"
+    },
+    "invocation_id": {
+      "pattern": "^semantic-shadow-invocation-sha256:[0-9a-f]{64}$",
+      "title": "Invocation Id",
+      "type": "string"
+    },
+    "invocation_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Invocation Sha256",
+      "type": "string"
+    },
+    "limits": {
+      "$ref": "#/$defs/SemanticInvocationLimits"
+    },
+    "operating_mode": {
+      "const": "shadow_only",
+      "default": "shadow_only",
+      "title": "Operating Mode",
+      "type": "string"
+    },
+    "policy_authority": {
+      "const": false,
+      "default": false,
+      "title": "Policy Authority",
+      "type": "boolean"
+    },
+    "prompt_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Prompt Sha256",
+      "type": "string"
+    },
+    "provider": {
+      "$ref": "#/$defs/SemanticProviderMetadata"
+    },
+    "raw_payloads_retained": {
+      "const": false,
+      "default": false,
+      "title": "Raw Payloads Retained",
+      "type": "boolean"
+    },
+    "report_only": {
+      "const": true,
+      "default": true,
+      "title": "Report Only",
+      "type": "boolean"
+    },
+    "request_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "title": "Request Id",
+      "type": "string"
+    },
+    "response_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Response Sha256",
+      "type": "string"
+    },
+    "runtime_verified": {
+      "const": false,
+      "default": false,
+      "title": "Runtime Verified",
+      "type": "boolean"
+    },
+    "schema_version": {
+      "const": "0.1.0",
+      "default": "0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "usage": {
+      "$ref": "#/$defs/SemanticInvocationUsage"
+    }
+  },
+  "required": [
+    "invocation_id",
+    "analysis_id",
+    "provider",
+    "request_id",
+    "prompt_sha256",
+    "input_sha256",
+    "response_sha256",
+    "invocation_sha256",
+    "limits",
+    "usage",
+    "analysis"
+  ],
+  "title": "SemanticShadowInvocationResult",
+  "type": "object"
+}

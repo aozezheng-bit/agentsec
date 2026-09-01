@@ -1,0 +1,309 @@
+{
+  "cases": [
+    {
+      "after_manifest_sha256": "a9b46771de93088d0387880277d053c3189589c8766dc6e9e4690b18dddab9c2",
+      "agent_id": "capability-drift-agent",
+      "base_overall_score": 7.8,
+      "before_manifest_sha256": "a9b46771de93088d0387880277d053c3189589c8766dc6e9e4690b18dddab9c2",
+      "case_id": "critical-gate-floor",
+      "component_hashes": {
+        "capability_diff": "bd9feca1841ad3d35759e0d9d4a935a1f03853b8a2dbed2b608c3460c20ed7ab",
+        "drift_score": "c4700a4c4ef8e9a89431e02780a543bff0315e2e09ad5f4f52c364c21f7a7349",
+        "factor_vector": "fd032f97e466c44644e522d2d4b3f03ae3494c74294f056f4bc2a28ef89399fe",
+        "governance_score": "2065617b3e9fb25be8d1adb7d459a9c31f3d289c4bb99330d67815a372d887e9",
+        "overall_score": "dcbd0fe48b396ad31550a728685f6803621543b05875f7736818f6f72244725e",
+        "technical_score": "0cd4ad9b015022f864b27e4eb3031b34bce9b23470878f9f15743fc1f2f655fa",
+        "threat_mitigation": "8de451379f4ee5b7b3e663062aa0320fd1be17d4174d1b30b795c58aa44f4e0f"
+      },
+      "coverage_complete": true,
+      "drift_score": 0.0,
+      "format": "agentsec-scoring-replay",
+      "format_version": "0.1.0",
+      "governance_score": 7.8,
+      "hard_gate_floor": "critical",
+      "hard_gate_triggered": true,
+      "mapping_basis": [
+        "AgentSec P2-24 deterministic scoring replay contract 0.1.0",
+        "Identical manifests, contexts, Gate evidence, and model versions must replay identically",
+        "Every scoring-stage artifact is bound by canonical SHA-256",
+        "Replay output contains no raw source values and never executes scanned content"
+      ],
+      "overall_score": 9.0,
+      "replay_sha256": "61bca260c1e5cf191cbc00fd7b04c1e86ad2ef8f322c9d88897997a0b9c00210",
+      "severity": "critical",
+      "technical_score": 4.3,
+      "versions": {
+        "agentic_factor": "0.1.0",
+        "capability_diff": "0.1.0",
+        "drift_score": "0.1.0",
+        "governance_score": "0.1.0",
+        "overall_score": "0.1.0",
+        "scoring_replay": "0.1.0",
+        "technical_score": "0.1.0",
+        "threat_mitigation": "0.1.0"
+      }
+    },
+    {
+      "after_manifest_sha256": "a9b46771de93088d0387880277d053c3189589c8766dc6e9e4690b18dddab9c2",
+      "agent_id": "capability-drift-agent",
+      "base_overall_score": 9.3,
+      "before_manifest_sha256": "a9b46771de93088d0387880277d053c3189589c8766dc6e9e4690b18dddab9c2",
+      "case_id": "cvss-high-water",
+      "component_hashes": {
+        "capability_diff": "bd9feca1841ad3d35759e0d9d4a935a1f03853b8a2dbed2b608c3460c20ed7ab",
+        "drift_score": "c4700a4c4ef8e9a89431e02780a543bff0315e2e09ad5f4f52c364c21f7a7349",
+        "factor_vector": "fd032f97e466c44644e522d2d4b3f03ae3494c74294f056f4bc2a28ef89399fe",
+        "governance_score": "2065617b3e9fb25be8d1adb7d459a9c31f3d289c4bb99330d67815a372d887e9",
+        "overall_score": "367e7c046862045b0eadcb77839ceceffd906c27506ed3496522f370f171b20c",
+        "technical_score": "ce1207a144bab3d5b8bdfe656020a4a4f8cabd34785e081d6781ad44392fab7d",
+        "threat_mitigation": "8de451379f4ee5b7b3e663062aa0320fd1be17d4174d1b30b795c58aa44f4e0f"
+      },
+      "coverage_complete": true,
+      "drift_score": 0.0,
+      "format": "agentsec-scoring-replay",
+      "format_version": "0.1.0",
+      "governance_score": 7.8,
+      "hard_gate_floor": null,
+      "hard_gate_triggered": false,
+      "mapping_basis": [
+        "AgentSec P2-24 deterministic scoring replay contract 0.1.0",
+        "Identical manifests, contexts, Gate evidence, and model versions must replay identically",
+        "Every scoring-stage artifact is bound by canonical SHA-256",
+        "Replay output contains no raw source values and never executes scanned content"
+      ],
+      "overall_score": 9.3,
+      "replay_sha256": "b2a63f64faa5700c719da0978bf2e9f110c539b1de237e1caa15f137952d0364",
+      "severity": "critical",
+      "technical_score": 9.3,
+      "versions": {
+        "agentic_factor": "0.1.0",
+        "capability_diff": "0.1.0",
+        "drift_score": "0.1.0",
+        "governance_score": "0.1.0",
+        "overall_score": "0.1.0",
+        "scoring_replay": "0.1.0",
+        "technical_score": "0.1.0",
+        "threat_mitigation": "0.1.0"
+      }
+    },
+    {
+      "after_manifest_sha256": "4b3885abeecc85f4d353da789b826735c323f7f601f5db13960f4bd25408fcc0",
+      "agent_id": "capability-drift-agent",
+      "base_overall_score": 10.0,
+      "before_manifest_sha256": "a9b46771de93088d0387880277d053c3189589c8766dc6e9e4690b18dddab9c2",
+      "case_id": "incomplete-coverage",
+      "component_hashes": {
+        "capability_diff": "0c4e67888366336ce4e28da6a8b2a9e61b5341df47fadcf31eb2f5fd6750b5ef",
+        "drift_score": "ff9ea321f3af7a4527723da94dc6e5510edcf4d484b14b8449adf2e9a358c5e5",
+        "factor_vector": "d35a51c2cbe7e07b9322d205867661afc6031120c4a447515c74901193807125",
+        "governance_score": "2bcf3423c53db6c5e6d00995340740ee6c1f984a3937520688933d0095858066",
+        "overall_score": "018973570a6f856b781297862f4527be105c7417c79737e9c9fa8f1b05165740",
+        "technical_score": "cf55dd60083aaafbbded6682758eb4e0e4c50dfd5cc5ab82afa53d1f02795819",
+        "threat_mitigation": "05577c1e77b8d6871f8c2ff3811e51a291787268e197ba299fb834499370821d"
+      },
+      "coverage_complete": false,
+      "drift_score": 9.0,
+      "format": "agentsec-scoring-replay",
+      "format_version": "0.1.0",
+      "governance_score": 10.0,
+      "hard_gate_floor": null,
+      "hard_gate_triggered": false,
+      "mapping_basis": [
+        "AgentSec P2-24 deterministic scoring replay contract 0.1.0",
+        "Identical manifests, contexts, Gate evidence, and model versions must replay identically",
+        "Every scoring-stage artifact is bound by canonical SHA-256",
+        "Replay output contains no raw source values and never executes scanned content"
+      ],
+      "overall_score": 10.0,
+      "replay_sha256": "70f10693e02ede95681d54472ab911f2c3c6d3bb1946edc365ed824d15b88486",
+      "severity": "critical",
+      "technical_score": 5.4,
+      "versions": {
+        "agentic_factor": "0.1.0",
+        "capability_diff": "0.1.0",
+        "drift_score": "0.1.0",
+        "governance_score": "0.1.0",
+        "overall_score": "0.1.0",
+        "scoring_replay": "0.1.0",
+        "technical_score": "0.1.0",
+        "threat_mitigation": "0.1.0"
+      }
+    },
+    {
+      "after_manifest_sha256": "a9b46771de93088d0387880277d053c3189589c8766dc6e9e4690b18dddab9c2",
+      "agent_id": "capability-drift-agent",
+      "base_overall_score": 7.8,
+      "before_manifest_sha256": "04b242edd598ae5553934e65b401e15292ef26e5a4f03ee2469fa26e69576247",
+      "case_id": "remediation-drift",
+      "component_hashes": {
+        "capability_diff": "a5b4558772ca7815e4cbaa59ffac8b23dba2a514055718d57b68c0910a9d6e89",
+        "drift_score": "7de35096482272a6cea63dd34a0163db46c38a47697eb3c1c449a1ed0e35bba1",
+        "factor_vector": "fd032f97e466c44644e522d2d4b3f03ae3494c74294f056f4bc2a28ef89399fe",
+        "governance_score": "2065617b3e9fb25be8d1adb7d459a9c31f3d289c4bb99330d67815a372d887e9",
+        "overall_score": "6611de0fcfb386128c60445be39a26096dafd1c7021d85d14818fa67fe4adcce",
+        "technical_score": "0cd4ad9b015022f864b27e4eb3031b34bce9b23470878f9f15743fc1f2f655fa",
+        "threat_mitigation": "8de451379f4ee5b7b3e663062aa0320fd1be17d4174d1b30b795c58aa44f4e0f"
+      },
+      "coverage_complete": true,
+      "drift_score": 2.2,
+      "format": "agentsec-scoring-replay",
+      "format_version": "0.1.0",
+      "governance_score": 7.8,
+      "hard_gate_floor": null,
+      "hard_gate_triggered": false,
+      "mapping_basis": [
+        "AgentSec P2-24 deterministic scoring replay contract 0.1.0",
+        "Identical manifests, contexts, Gate evidence, and model versions must replay identically",
+        "Every scoring-stage artifact is bound by canonical SHA-256",
+        "Replay output contains no raw source values and never executes scanned content"
+      ],
+      "overall_score": 7.8,
+      "replay_sha256": "30a7d92b030a13b120a7c510f9998fdfddc2db1babc59ccd0b3be36be8414540",
+      "severity": "high",
+      "technical_score": 4.3,
+      "versions": {
+        "agentic_factor": "0.1.0",
+        "capability_diff": "0.1.0",
+        "drift_score": "0.1.0",
+        "governance_score": "0.1.0",
+        "overall_score": "0.1.0",
+        "scoring_replay": "0.1.0",
+        "technical_score": "0.1.0",
+        "threat_mitigation": "0.1.0"
+      }
+    },
+    {
+      "after_manifest_sha256": "04b242edd598ae5553934e65b401e15292ef26e5a4f03ee2469fa26e69576247",
+      "agent_id": "capability-drift-agent",
+      "base_overall_score": 10.0,
+      "before_manifest_sha256": "a9b46771de93088d0387880277d053c3189589c8766dc6e9e4690b18dddab9c2",
+      "case_id": "risky-default",
+      "component_hashes": {
+        "capability_diff": "0312ca08116e6410ccfcd63b9b8a8a9e65176158e05489151f3b5c3a8f48a559",
+        "drift_score": "e3e5499f955a3f3a7a33310ccd4b29521e38bbc32db623b2255aa87cf59309e1",
+        "factor_vector": "58573fa9f5a4a21246c97c77d0e44741c3e060c1fe6a7e233463162547b61c03",
+        "governance_score": "a433aeeab8d436087eccddd49798dd68e64a0db0ae47fe8ec22a504a8d6c6913",
+        "overall_score": "14af35030ca3943999dcd2dffd70fb1d839082c7557010a2c7eb5bb4fe6ed1ed",
+        "technical_score": "0f0edf84c50148bd6ed7b9905545c1af10bddf999c59334dd844f1e486b06bf4",
+        "threat_mitigation": "51e2ad9c3744f983bc308838179711161fa6f90f872f0a88ee9215e74012d54b"
+      },
+      "coverage_complete": true,
+      "drift_score": 10.0,
+      "format": "agentsec-scoring-replay",
+      "format_version": "0.1.0",
+      "governance_score": 10.0,
+      "hard_gate_floor": null,
+      "hard_gate_triggered": false,
+      "mapping_basis": [
+        "AgentSec P2-24 deterministic scoring replay contract 0.1.0",
+        "Identical manifests, contexts, Gate evidence, and model versions must replay identically",
+        "Every scoring-stage artifact is bound by canonical SHA-256",
+        "Replay output contains no raw source values and never executes scanned content"
+      ],
+      "overall_score": 10.0,
+      "replay_sha256": "63f6124d2799261b54510bbba99e7b9c1224a0c8fc4a34bcaf12d53fcb0eb7b3",
+      "severity": "critical",
+      "technical_score": 5.7,
+      "versions": {
+        "agentic_factor": "0.1.0",
+        "capability_diff": "0.1.0",
+        "drift_score": "0.1.0",
+        "governance_score": "0.1.0",
+        "overall_score": "0.1.0",
+        "scoring_replay": "0.1.0",
+        "technical_score": "0.1.0",
+        "threat_mitigation": "0.1.0"
+      }
+    },
+    {
+      "after_manifest_sha256": "04b242edd598ae5553934e65b401e15292ef26e5a4f03ee2469fa26e69576247",
+      "agent_id": "capability-drift-agent",
+      "base_overall_score": 5.9,
+      "before_manifest_sha256": "a9b46771de93088d0387880277d053c3189589c8766dc6e9e4690b18dddab9c2",
+      "case_id": "risky-reviewed",
+      "component_hashes": {
+        "capability_diff": "0312ca08116e6410ccfcd63b9b8a8a9e65176158e05489151f3b5c3a8f48a559",
+        "drift_score": "6a62aae7816baf3633b146a01f7e668534af0db19119780056a8bd130d6812ff",
+        "factor_vector": "58573fa9f5a4a21246c97c77d0e44741c3e060c1fe6a7e233463162547b61c03",
+        "governance_score": "f83a4bbb3ef184b08950f05e430729b17ae37e86db4933fa7e5272e0196259d1",
+        "overall_score": "0be0f7d94cbff27bfbd72923269712e85b8c82112d65da8069f4f1e560ce80fc",
+        "technical_score": "0f0edf84c50148bd6ed7b9905545c1af10bddf999c59334dd844f1e486b06bf4",
+        "threat_mitigation": "51e2ad9c3744f983bc308838179711161fa6f90f872f0a88ee9215e74012d54b"
+      },
+      "coverage_complete": true,
+      "drift_score": 4.0,
+      "format": "agentsec-scoring-replay",
+      "format_version": "0.1.0",
+      "governance_score": 5.9,
+      "hard_gate_floor": null,
+      "hard_gate_triggered": false,
+      "mapping_basis": [
+        "AgentSec P2-24 deterministic scoring replay contract 0.1.0",
+        "Identical manifests, contexts, Gate evidence, and model versions must replay identically",
+        "Every scoring-stage artifact is bound by canonical SHA-256",
+        "Replay output contains no raw source values and never executes scanned content"
+      ],
+      "overall_score": 5.9,
+      "replay_sha256": "5e4659ca7075089f555044fe7e6c113955c2dea666ec85bda3197a276ed3b8d5",
+      "severity": "medium",
+      "technical_score": 5.7,
+      "versions": {
+        "agentic_factor": "0.1.0",
+        "capability_diff": "0.1.0",
+        "drift_score": "0.1.0",
+        "governance_score": "0.1.0",
+        "overall_score": "0.1.0",
+        "scoring_replay": "0.1.0",
+        "technical_score": "0.1.0",
+        "threat_mitigation": "0.1.0"
+      }
+    },
+    {
+      "after_manifest_sha256": "a9b46771de93088d0387880277d053c3189589c8766dc6e9e4690b18dddab9c2",
+      "agent_id": "capability-drift-agent",
+      "base_overall_score": 7.8,
+      "before_manifest_sha256": "a9b46771de93088d0387880277d053c3189589c8766dc6e9e4690b18dddab9c2",
+      "case_id": "safe-no-change",
+      "component_hashes": {
+        "capability_diff": "bd9feca1841ad3d35759e0d9d4a935a1f03853b8a2dbed2b608c3460c20ed7ab",
+        "drift_score": "c4700a4c4ef8e9a89431e02780a543bff0315e2e09ad5f4f52c364c21f7a7349",
+        "factor_vector": "fd032f97e466c44644e522d2d4b3f03ae3494c74294f056f4bc2a28ef89399fe",
+        "governance_score": "2065617b3e9fb25be8d1adb7d459a9c31f3d289c4bb99330d67815a372d887e9",
+        "overall_score": "2f53699d9040e599505c3d1b39f5cf2fb4b65400b04091999165dfb850447da2",
+        "technical_score": "0cd4ad9b015022f864b27e4eb3031b34bce9b23470878f9f15743fc1f2f655fa",
+        "threat_mitigation": "8de451379f4ee5b7b3e663062aa0320fd1be17d4174d1b30b795c58aa44f4e0f"
+      },
+      "coverage_complete": true,
+      "drift_score": 0.0,
+      "format": "agentsec-scoring-replay",
+      "format_version": "0.1.0",
+      "governance_score": 7.8,
+      "hard_gate_floor": null,
+      "hard_gate_triggered": false,
+      "mapping_basis": [
+        "AgentSec P2-24 deterministic scoring replay contract 0.1.0",
+        "Identical manifests, contexts, Gate evidence, and model versions must replay identically",
+        "Every scoring-stage artifact is bound by canonical SHA-256",
+        "Replay output contains no raw source values and never executes scanned content"
+      ],
+      "overall_score": 7.8,
+      "replay_sha256": "8cf567a772cef4deee3addbd66d9aefd86b1592ef68e77c06735e405076a5a37",
+      "severity": "high",
+      "technical_score": 4.3,
+      "versions": {
+        "agentic_factor": "0.1.0",
+        "capability_diff": "0.1.0",
+        "drift_score": "0.1.0",
+        "governance_score": "0.1.0",
+        "overall_score": "0.1.0",
+        "scoring_replay": "0.1.0",
+        "technical_score": "0.1.0",
+        "threat_mitigation": "0.1.0"
+      }
+    }
+  ],
+  "format": "agentsec-scoring-replay-suite",
+  "format_version": "0.1.0",
+  "model_version": "0.1.0",
+  "suite_sha256": "992e70fc7bc4313c4b9793042d8ac7109f535fb9d42dc887bec5ab1020832f74"
+}

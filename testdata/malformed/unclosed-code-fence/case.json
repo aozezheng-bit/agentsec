@@ -1,0 +1,15 @@
+{
+  "case_id": "malformed-unclosed-code-fence",
+  "category": "malformed",
+  "purpose": "Exercise CommonMark handling for an unclosed fenced code block.",
+  "assets": [
+    "AGENTS.md"
+  ],
+  "expected": {
+    "coverage": "complete",
+    "signals": [
+      "unclosed_code_fence"
+    ],
+    "rule_ids": []
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "case_id": "risky-dynamic-eval",
+  "category": "risky",
+  "purpose": "Isolate dynamic eval execution detection.",
+  "assets": [
+    "AGENTS.md"
+  ],
+  "expected": {
+    "coverage": "complete",
+    "signals": [
+      "code_execution"
+    ],
+    "rule_ids": [
+      "MD-EXEC-002"
+    ]
+  }
+}

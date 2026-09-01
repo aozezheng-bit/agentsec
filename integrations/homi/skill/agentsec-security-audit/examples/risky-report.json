@@ -1,0 +1,21 @@
+{
+  "status": "complete",
+  "report": {
+    "format": "agentsec-homi-report-only-pilot",
+    "project_name": "example-risky-agent",
+    "findings": [
+      {
+        "id": "HOMI-COMB-001",
+        "severity": "high",
+        "evidence_confidence": "static-direct",
+        "evidence_locations": ["TOOLS.md", "AGENTS.md"]
+      }
+    ],
+    "limitations": ["Static evidence does not prove runtime reachability."]
+  },
+  "authority": {
+    "report_only": true,
+    "runtime_verified": false,
+    "ci_blocked": false
+  }
+}

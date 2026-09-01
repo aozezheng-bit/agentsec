@@ -1,0 +1,139 @@
+{
+  "additionalProperties": false,
+  "description": "Non-secret Pilot config.  Credential values are never model fields.",
+  "properties": {
+    "allow_live": {
+      "default": false,
+      "title": "Allow Live",
+      "type": "boolean"
+    },
+    "approval_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Approval Id"
+    },
+    "corpus_path": {
+      "maxLength": 1024,
+      "minLength": 1,
+      "title": "Corpus Path",
+      "type": "string"
+    },
+    "cost_approved": {
+      "default": false,
+      "title": "Cost Approved",
+      "type": "boolean"
+    },
+    "credential_env": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Credential Env",
+      "type": "string"
+    },
+    "data_residency_approved": {
+      "default": false,
+      "title": "Data Residency Approved",
+      "type": "boolean"
+    },
+    "endpoint_url": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Endpoint Url"
+    },
+    "format": {
+      "const": "agentsec-semantic-gate-pilot-config",
+      "default": "agentsec-semantic-gate-pilot-config",
+      "title": "Format",
+      "type": "string"
+    },
+    "gate_candidate_path": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Gate Candidate Path"
+    },
+    "max_calls": {
+      "default": 40,
+      "maximum": 512,
+      "minimum": 1,
+      "title": "Max Calls",
+      "type": "integer"
+    },
+    "max_cases": {
+      "default": 40,
+      "maximum": 512,
+      "minimum": 1,
+      "title": "Max Cases",
+      "type": "integer"
+    },
+    "model_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "title": "Model Id",
+      "type": "string"
+    },
+    "provider_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "title": "Provider Id",
+      "type": "string"
+    },
+    "retention_policy_approved": {
+      "default": false,
+      "title": "Retention Policy Approved",
+      "type": "boolean"
+    },
+    "review_owner_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Review Owner Id"
+    },
+    "schema_version": {
+      "const": "0.1.0",
+      "default": "0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "timeout_ms": {
+      "default": 30000,
+      "maximum": 120000,
+      "minimum": 1,
+      "title": "Timeout Ms",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "provider_id",
+    "model_id",
+    "credential_env",
+    "corpus_path"
+  ],
+  "title": "SemanticGatePilotConfig",
+  "type": "object"
+}

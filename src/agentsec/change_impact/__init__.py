@@ -1,0 +1,61 @@
+"""Deterministic P2-13 Capability Change Impact and Finding Delta interface."""
+
+from agentsec.change_impact.analyzer import (
+    CapabilityChangeImpactError,
+    DeterministicCapabilityChangeImpactAnalyzer,
+)
+from agentsec.change_impact.models import (
+    CAPABILITY_CHANGE_IMPACT_FORMAT,
+    CAPABILITY_CHANGE_IMPACT_FORMAT_VERSION,
+    CAPABILITY_CHANGE_IMPACT_SCHEMA_FILENAME,
+    CapabilityChangeImpact,
+    CapabilityChangeImpactPolicy,
+    CapabilityChangeImpactReport,
+    CapabilityChangeImpactSummary,
+    CapabilityChangeImpactVersions,
+    CapabilityFindingDelta,
+    CapabilityFindingDeltaStatus,
+    CapabilityFindingRiskDirection,
+    CapabilityFindingSnapshot,
+    CapabilityImpactDirection,
+    CapabilityImpactReason,
+    CapabilitySemanticAttribute,
+    CapabilitySemanticField,
+    CapabilitySemanticState,
+)
+from agentsec.change_impact.validation import (
+    CapabilityChangeImpactValidationCode,
+    CapabilityChangeImpactValidationError,
+    decode_capability_change_impact_json,
+    encode_capability_change_impact_json,
+    export_capability_change_impact_json_schema,
+    validate_capability_change_impact_payload,
+)
+
+__all__ = [
+    "CAPABILITY_CHANGE_IMPACT_FORMAT",
+    "CAPABILITY_CHANGE_IMPACT_FORMAT_VERSION",
+    "CAPABILITY_CHANGE_IMPACT_SCHEMA_FILENAME",
+    "CapabilityChangeImpact",
+    "CapabilityChangeImpactError",
+    "CapabilityChangeImpactPolicy",
+    "CapabilityChangeImpactReport",
+    "CapabilityChangeImpactSummary",
+    "CapabilityChangeImpactValidationCode",
+    "CapabilityChangeImpactValidationError",
+    "CapabilityChangeImpactVersions",
+    "CapabilityFindingDelta",
+    "CapabilityFindingDeltaStatus",
+    "CapabilityFindingRiskDirection",
+    "CapabilityFindingSnapshot",
+    "CapabilityImpactDirection",
+    "CapabilityImpactReason",
+    "CapabilitySemanticAttribute",
+    "CapabilitySemanticField",
+    "CapabilitySemanticState",
+    "DeterministicCapabilityChangeImpactAnalyzer",
+    "decode_capability_change_impact_json",
+    "encode_capability_change_impact_json",
+    "export_capability_change_impact_json_schema",
+    "validate_capability_change_impact_payload",
+]

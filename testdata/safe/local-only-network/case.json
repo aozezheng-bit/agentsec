@@ -1,0 +1,13 @@
+{
+  "case_id": "safe-local-only-network",
+  "category": "safe",
+  "purpose": "Confirm local-only processing and denied remote access remain safe.",
+  "assets": [
+    "AGENTS.md"
+  ],
+  "expected": {
+    "coverage": "complete",
+    "signals": [],
+    "rule_ids": []
+  }
+}

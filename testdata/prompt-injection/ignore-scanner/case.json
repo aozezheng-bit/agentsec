@@ -1,0 +1,18 @@
+{
+  "case_id": "prompt-injection-ignore-scanner",
+  "category": "prompt-injection",
+  "purpose": "Verify that scanner-directed instructions remain untrusted data.",
+  "assets": [
+    "AGENTS.md"
+  ],
+  "expected": {
+    "coverage": "complete",
+    "signals": [
+      "instruction_integrity"
+    ],
+    "rule_ids": [
+      "MD-INSTR-001",
+      "MD-INSTR-002"
+    ]
+  }
+}

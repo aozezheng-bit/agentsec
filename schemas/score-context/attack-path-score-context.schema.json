@@ -1,0 +1,211 @@
+{
+  "$defs": {
+    "AttackPathRelationCounts": {
+      "additionalProperties": false,
+      "description": "Stable counts for every association relation.",
+      "properties": {
+        "duplicates": {
+          "minimum": 0,
+          "title": "Duplicates",
+          "type": "integer"
+        },
+        "partially_supports": {
+          "minimum": 0,
+          "title": "Partially Supports",
+          "type": "integer"
+        },
+        "supports": {
+          "minimum": 0,
+          "title": "Supports",
+          "type": "integer"
+        },
+        "unmatched": {
+          "minimum": 0,
+          "title": "Unmatched",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "supports",
+        "partially_supports",
+        "duplicates",
+        "unmatched"
+      ],
+      "title": "AttackPathRelationCounts",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Bounded report context attached to an Agentic Score result.\n\n``scoring_mode=context_only`` and ``numeric_score_effect=0.0`` are literal\ncontract values.  They prevent path volume or fixture calibration accuracy\nfrom silently becoming risk points before a separately approved scoring\nmodel and real calibration evidence exist.",
+  "properties": {
+    "association_count": {
+      "minimum": 0,
+      "title": "Association Count",
+      "type": "integer"
+    },
+    "association_report_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Association Report Sha256",
+      "type": "string"
+    },
+    "blocks": {
+      "const": false,
+      "default": false,
+      "title": "Blocks",
+      "type": "boolean"
+    },
+    "calibration_accuracy": {
+      "anyOf": [
+        {
+          "maximum": 1,
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Calibration Accuracy"
+    },
+    "calibration_qualified": {
+      "const": false,
+      "default": false,
+      "title": "Calibration Qualified",
+      "type": "boolean"
+    },
+    "calibration_report_sha256": {
+      "anyOf": [
+        {
+          "pattern": "^[a-f0-9]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Calibration Report Sha256"
+    },
+    "calibration_reviewed_case_count": {
+      "anyOf": [
+        {
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Calibration Reviewed Case Count"
+    },
+    "ci_authority": {
+      "const": false,
+      "default": false,
+      "title": "Ci Authority",
+      "type": "boolean"
+    },
+    "finding_association_count": {
+      "minimum": 0,
+      "title": "Finding Association Count",
+      "type": "integer"
+    },
+    "finding_authority": {
+      "const": false,
+      "default": false,
+      "title": "Finding Authority",
+      "type": "boolean"
+    },
+    "format": {
+      "const": "agentsec-attack-path-score-context",
+      "default": "agentsec-attack-path-score-context",
+      "title": "Format",
+      "type": "string"
+    },
+    "hard_gate_authority": {
+      "const": false,
+      "default": false,
+      "title": "Hard Gate Authority",
+      "type": "boolean"
+    },
+    "numeric_score_effect": {
+      "default": 0.0,
+      "maximum": 0,
+      "minimum": 0,
+      "title": "Numeric Score Effect",
+      "type": "number"
+    },
+    "path_count": {
+      "minimum": 0,
+      "title": "Path Count",
+      "type": "integer"
+    },
+    "path_report_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Path Report Sha256",
+      "type": "string"
+    },
+    "policy_authority": {
+      "const": false,
+      "default": false,
+      "title": "Policy Authority",
+      "type": "boolean"
+    },
+    "relation_counts": {
+      "$ref": "#/$defs/AttackPathRelationCounts"
+    },
+    "release_authority": {
+      "const": false,
+      "default": false,
+      "title": "Release Authority",
+      "type": "boolean"
+    },
+    "report_only": {
+      "const": true,
+      "default": true,
+      "title": "Report Only",
+      "type": "boolean"
+    },
+    "runtime_verified": {
+      "const": false,
+      "default": false,
+      "title": "Runtime Verified",
+      "type": "boolean"
+    },
+    "schema_version": {
+      "const": "0.1.0",
+      "default": "0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "scoring_mode": {
+      "const": "context_only",
+      "default": "context_only",
+      "title": "Scoring Mode",
+      "type": "string"
+    },
+    "semantic_association_count": {
+      "minimum": 0,
+      "title": "Semantic Association Count",
+      "type": "integer"
+    },
+    "semantic_authority": {
+      "const": false,
+      "default": false,
+      "title": "Semantic Authority",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "association_report_sha256",
+    "path_report_sha256",
+    "path_count",
+    "association_count",
+    "finding_association_count",
+    "semantic_association_count",
+    "relation_counts"
+  ],
+  "title": "AttackPathScoreContext",
+  "type": "object"
+}

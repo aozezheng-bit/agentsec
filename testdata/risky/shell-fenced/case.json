@@ -1,0 +1,17 @@
+{
+  "case_id": "risky-shell-fenced",
+  "category": "risky",
+  "purpose": "Detect a shell declaration inside a fenced block without executing it.",
+  "assets": [
+    "AGENTS.md"
+  ],
+  "expected": {
+    "coverage": "complete",
+    "signals": [
+      "code_execution"
+    ],
+    "rule_ids": [
+      "MD-EXEC-001"
+    ]
+  }
+}

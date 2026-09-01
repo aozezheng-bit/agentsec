@@ -1,0 +1,6 @@
+interface:
+  display_name: "AgentSec Security Audit"
+  short_description: "Audit Homi Agent workspaces safely"
+  default_prompt: "Use $agentsec-security-audit to audit this Homi Agent workspace and summarize the highest-risk findings with evidence."
+policy:
+  allow_implicit_invocation: true

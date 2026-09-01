@@ -1,0 +1,18 @@
+{
+  "case_id": "prompt-injection-chinese-scanner-control",
+  "category": "prompt-injection",
+  "purpose": "Verify Chinese scanner-control instructions remain inert data and produce instruction-integrity findings.",
+  "assets": [
+    "AGENTS.md"
+  ],
+  "expected": {
+    "coverage": "complete",
+    "signals": [
+      "instruction_integrity"
+    ],
+    "rule_ids": [
+      "MD-INSTR-001",
+      "MD-INSTR-002"
+    ]
+  }
+}

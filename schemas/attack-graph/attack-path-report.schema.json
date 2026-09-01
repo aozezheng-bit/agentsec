@@ -1,0 +1,234 @@
+{
+  "$defs": {
+    "AttackGraphNodeKind": {
+      "description": "Finite reviewed node families; none proves runtime behavior.",
+      "enum": [
+        "untrusted_input",
+        "tool",
+        "skill",
+        "mcp_server",
+        "agent",
+        "secret",
+        "data",
+        "memory",
+        "network",
+        "production_target",
+        "dependency"
+      ],
+      "title": "AttackGraphNodeKind",
+      "type": "string"
+    },
+    "AttackPathReportEntry": {
+      "additionalProperties": false,
+      "description": "One matched static path summarized without node labels or raw text.",
+      "properties": {
+        "edge_count": {
+          "maximum": 31,
+          "minimum": 0,
+          "title": "Edge Count",
+          "type": "integer"
+        },
+        "exploitability": {
+          "const": "not_proven",
+          "default": "not_proven",
+          "title": "Exploitability",
+          "type": "string"
+        },
+        "node_count": {
+          "maximum": 32,
+          "minimum": 1,
+          "title": "Node Count",
+          "type": "integer"
+        },
+        "node_ids": {
+          "items": {
+            "pattern": "^attack-node-sha256:[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "maxItems": 32,
+          "minItems": 1,
+          "title": "Node Ids",
+          "type": "array"
+        },
+        "node_kind_sequence": {
+          "items": {
+            "$ref": "#/$defs/AttackGraphNodeKind"
+          },
+          "maxItems": 32,
+          "minItems": 1,
+          "title": "Node Kind Sequence",
+          "type": "array"
+        },
+        "path_id": {
+          "pattern": "^attack-path-sha256:[0-9a-f]{64}$",
+          "title": "Path Id",
+          "type": "string"
+        },
+        "path_kind": {
+          "const": "static_declared_path",
+          "default": "static_declared_path",
+          "title": "Path Kind",
+          "type": "string"
+        },
+        "pattern_id": {
+          "maxLength": 64,
+          "minLength": 1,
+          "pattern": "^[a-z][a-z0-9-]{0,63}$",
+          "title": "Pattern Id",
+          "type": "string"
+        },
+        "reachability": {
+          "const": "not_proven",
+          "default": "not_proven",
+          "title": "Reachability",
+          "type": "string"
+        },
+        "runtime_verified": {
+          "const": false,
+          "default": false,
+          "title": "Runtime Verified",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "path_id",
+        "pattern_id",
+        "node_count",
+        "edge_count",
+        "node_kind_sequence",
+        "node_ids"
+      ],
+      "title": "AttackPathReportEntry",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Value-free report of matched static Attack Paths; no authority.",
+  "properties": {
+    "blocks": {
+      "const": false,
+      "default": false,
+      "title": "Blocks",
+      "type": "boolean"
+    },
+    "ci_authority": {
+      "const": false,
+      "default": false,
+      "title": "Ci Authority",
+      "type": "boolean"
+    },
+    "entries": {
+      "items": {
+        "$ref": "#/$defs/AttackPathReportEntry"
+      },
+      "maxItems": 256,
+      "title": "Entries",
+      "type": "array"
+    },
+    "exploitability_claimed": {
+      "const": false,
+      "default": false,
+      "title": "Exploitability Claimed",
+      "type": "boolean"
+    },
+    "finding_authority": {
+      "const": false,
+      "default": false,
+      "title": "Finding Authority",
+      "type": "boolean"
+    },
+    "format": {
+      "const": "agentsec-attack-path-report",
+      "default": "agentsec-attack-path-report",
+      "title": "Format",
+      "type": "string"
+    },
+    "graph_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Graph Sha256",
+      "type": "string"
+    },
+    "hard_gate_authority": {
+      "const": false,
+      "default": false,
+      "title": "Hard Gate Authority",
+      "type": "boolean"
+    },
+    "limitations": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 32,
+      "title": "Limitations",
+      "type": "array"
+    },
+    "manifest_schema_version": {
+      "pattern": "^(?:0|[1-9]\\d*)\\.(?:0|[1-9]\\d*)\\.(?:0|[1-9]\\d*)$",
+      "title": "Manifest Schema Version",
+      "type": "string"
+    },
+    "manifest_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Manifest Sha256",
+      "type": "string"
+    },
+    "path_count": {
+      "maximum": 256,
+      "minimum": 0,
+      "title": "Path Count",
+      "type": "integer"
+    },
+    "pattern_library_version": {
+      "pattern": "^(?:0|[1-9]\\d*)\\.(?:0|[1-9]\\d*)\\.(?:0|[1-9]\\d*)$",
+      "title": "Pattern Library Version",
+      "type": "string"
+    },
+    "policy_authority": {
+      "const": false,
+      "default": false,
+      "title": "Policy Authority",
+      "type": "boolean"
+    },
+    "release_authority": {
+      "const": false,
+      "default": false,
+      "title": "Release Authority",
+      "type": "boolean"
+    },
+    "report_only": {
+      "const": true,
+      "default": true,
+      "title": "Report Only",
+      "type": "boolean"
+    },
+    "rule_publication_authority": {
+      "const": false,
+      "default": false,
+      "title": "Rule Publication Authority",
+      "type": "boolean"
+    },
+    "runtime_verified": {
+      "const": false,
+      "default": false,
+      "title": "Runtime Verified",
+      "type": "boolean"
+    },
+    "schema_version": {
+      "const": "0.1.0",
+      "default": "0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "pattern_library_version",
+    "manifest_schema_version",
+    "manifest_sha256",
+    "graph_sha256",
+    "path_count",
+    "entries",
+    "limitations"
+  ],
+  "title": "AttackPathReport",
+  "type": "object"
+}

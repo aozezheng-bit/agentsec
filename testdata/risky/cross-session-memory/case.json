@@ -1,0 +1,17 @@
+{
+  "case_id": "risky-cross-session-memory",
+  "category": "risky",
+  "purpose": "Isolate persistent storage for future tasks.",
+  "assets": [
+    "AGENTS.md"
+  ],
+  "expected": {
+    "coverage": "complete",
+    "signals": [
+      "persistent_memory"
+    ],
+    "rule_ids": [
+      "MD-MEMORY-001"
+    ]
+  }
+}

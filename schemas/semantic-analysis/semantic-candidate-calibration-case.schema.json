@@ -1,0 +1,127 @@
+{
+  "$defs": {
+    "FindingCategory": {
+      "description": "Initial Phase 1 security finding taxonomy.",
+      "enum": [
+        "instruction_integrity",
+        "human_approval",
+        "code_execution",
+        "network_access",
+        "secret_access",
+        "privileged_access",
+        "destructive_action",
+        "persistent_memory",
+        "self_modification",
+        "obfuscation",
+        "external_tooling",
+        "scan_coverage",
+        "other"
+      ],
+      "title": "FindingCategory",
+      "type": "string"
+    },
+    "SemanticCalibrationOutcome": {
+      "enum": [
+        "supported",
+        "not_supported",
+        "uncertain"
+      ],
+      "title": "SemanticCalibrationOutcome",
+      "type": "string"
+    },
+    "SemanticCandidateKind": {
+      "description": "Bounded semantic judgment families; none is a published Finding.",
+      "enum": [
+        "capability_declaration",
+        "control_weakening",
+        "semantic_conflict",
+        "cross_file_chain",
+        "risky_intent",
+        "ambiguity"
+      ],
+      "title": "SemanticCandidateKind",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "One human-labeled expectation for one model candidate key.",
+  "properties": {
+    "candidate_key": {
+      "pattern": "^[a-z][a-z0-9-]{0,63}$",
+      "title": "Candidate Key",
+      "type": "string"
+    },
+    "case_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Case Id",
+      "type": "string"
+    },
+    "expected_category": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/FindingCategory"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "expected_disposition": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/SemanticCalibrationOutcome"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "expected_evidence_ids": {
+      "default": [],
+      "items": {
+        "pattern": "^semantic-evidence-sha256:[0-9a-f]{64}$",
+        "type": "string"
+      },
+      "title": "Expected Evidence Ids",
+      "type": "array"
+    },
+    "expected_kind": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/SemanticCandidateKind"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "expected_present": {
+      "title": "Expected Present",
+      "type": "boolean"
+    },
+    "rationale_code": {
+      "pattern": "^[a-z][a-z0-9_.-]{1,63}$",
+      "title": "Rationale Code",
+      "type": "string"
+    },
+    "reviewer_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Reviewer Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "case_id",
+    "candidate_key",
+    "expected_present",
+    "reviewer_id",
+    "rationale_code"
+  ],
+  "title": "SemanticCandidateCalibrationCase",
+  "type": "object"
+}

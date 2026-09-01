@@ -1,0 +1,58 @@
+{
+  "$defs": {
+    "ChangeType": {
+      "description": "File-level changes supported by the Phase 1 baseline diff.",
+      "enum": [
+        "added",
+        "removed",
+        "modified"
+      ],
+      "title": "ChangeType",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "A file-level difference between the current scan and a baseline.",
+  "properties": {
+    "after_sha256": {
+      "anyOf": [
+        {
+          "pattern": "^[a-f0-9]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "After Sha256"
+    },
+    "before_sha256": {
+      "anyOf": [
+        {
+          "pattern": "^[a-f0-9]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Before Sha256"
+    },
+    "change_type": {
+      "$ref": "#/$defs/ChangeType"
+    },
+    "path": {
+      "minLength": 1,
+      "title": "Path",
+      "type": "string"
+    }
+  },
+  "required": [
+    "path",
+    "change_type"
+  ],
+  "title": "AssetChange",
+  "type": "object"
+}

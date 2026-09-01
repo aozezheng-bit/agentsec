@@ -1,0 +1,32 @@
+include AGENTS.md
+include CHANGELOG.md
+include CONTEXT.md
+include LICENSE
+include README.md
+include pyproject.toml
+include src/agentsec/py.typed
+recursive-include .github *.yaml *.yml
+recursive-include calibration *.json *.md *.yaml *.yml *.toml *.txt
+recursive-include demos *.json *.md *.sha256 *.toml *.txt
+recursive-include docs *.md *.yaml *.yml
+recursive-include schemas *.json *.md
+recursive-include policies *.json *.yaml *.yml
+recursive-include pilots *.json *.md *.yaml *.yml
+recursive-include scripts *.py *.sh
+recursive-include testdata *.json *.md
+recursive-include tests *.md *.py
+global-exclude .DS_Store
+global-exclude *.py[cod]
+global-exclude __pycache__
+# P2-EXIT-07: do not ship blinded reviewer/human-evidence packs in general sdists.
+prune calibration/reviewer-pack
+prune calibration/confidence-review-20
+prune calibration/p2-15a-capchain-40
+prune calibration/pilot-review-100
+exclude calibration/confidence-reviews.json
+exclude calibration/adjudication-reviews.json
+recursive-include requirements *.lock
+recursive-include supply-chain *.json *.md
+# P2-EXIT-06-05: reviewer submissions remain a separate controlled evidence pack.
+prune pilots/external-homi-demo/final-pilot/reviewer-pack
+prune pilots/external-homi-demo/final-pilot/human-evidence

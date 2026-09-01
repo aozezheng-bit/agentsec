@@ -1,0 +1,13 @@
+{
+  "case_id": "safe-redaction-policy",
+  "category": "safe",
+  "purpose": "Describe defensive redaction without declaring secret access.",
+  "assets": [
+    "AGENTS.md"
+  ],
+  "expected": {
+    "coverage": "complete",
+    "signals": [],
+    "rule_ids": []
+  }
+}

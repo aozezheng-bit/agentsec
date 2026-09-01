@@ -1,0 +1,147 @@
+{
+  "$defs": {
+    "CvssHardGateMatch": {
+      "additionalProperties": false,
+      "description": "One deterministic CVSS threshold match in report-only mode.",
+      "properties": {
+        "floor": {
+          "enum": [
+            "high",
+            "critical"
+          ],
+          "title": "Floor",
+          "type": "string"
+        },
+        "gate_id": {
+          "pattern": "^HG-CVSS-[0-9]{3}$",
+          "title": "Gate Id",
+          "type": "string"
+        },
+        "rationale": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Rationale",
+          "type": "array"
+        },
+        "score": {
+          "maximum": 10,
+          "minimum": 0,
+          "title": "Score",
+          "type": "number"
+        },
+        "score_type": {
+          "enum": [
+            "base",
+            "temporal",
+            "environmental",
+            "threat",
+            "environmental_threat"
+          ],
+          "title": "Score Type",
+          "type": "string"
+        },
+        "threshold": {
+          "maximum": 10,
+          "minimum": 0,
+          "title": "Threshold",
+          "type": "number"
+        }
+      },
+      "required": [
+        "gate_id",
+        "floor",
+        "threshold",
+        "score",
+        "score_type",
+        "rationale"
+      ],
+      "title": "CvssHardGateMatch",
+      "type": "object"
+    },
+    "Severity": {
+      "description": "Report severity compatible with the planned 0-10 risk scale.",
+      "enum": [
+        "none",
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "title": "Severity",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Report-only CVSS gate evaluation kept separate from AgentSec risk.",
+  "properties": {
+    "finding_id": {
+      "minLength": 1,
+      "title": "Finding Id",
+      "type": "string"
+    },
+    "gate_version": {
+      "minLength": 1,
+      "title": "Gate Version",
+      "type": "string"
+    },
+    "mapping_basis": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Mapping Basis",
+      "type": "array"
+    },
+    "match": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/CvssHardGateMatch"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "mode": {
+      "const": "report_only",
+      "title": "Mode",
+      "type": "string"
+    },
+    "score": {
+      "maximum": 10,
+      "minimum": 0,
+      "title": "Score",
+      "type": "number"
+    },
+    "score_type": {
+      "enum": [
+        "base",
+        "temporal",
+        "environmental",
+        "threat",
+        "environmental_threat"
+      ],
+      "title": "Score Type",
+      "type": "string"
+    },
+    "severity": {
+      "$ref": "#/$defs/Severity"
+    }
+  },
+  "required": [
+    "gate_version",
+    "finding_id",
+    "mode",
+    "score",
+    "severity",
+    "score_type",
+    "mapping_basis"
+  ],
+  "title": "CvssHardGateAssessment",
+  "type": "object"
+}

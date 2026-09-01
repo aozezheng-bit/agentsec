@@ -1,0 +1,17 @@
+{
+  "case_id": "risky-root-access",
+  "category": "risky",
+  "purpose": "Isolate root privilege declaration.",
+  "assets": [
+    "AGENTS.md"
+  ],
+  "expected": {
+    "coverage": "complete",
+    "signals": [
+      "privileged_access"
+    ],
+    "rule_ids": [
+      "MD-PRIV-002"
+    ]
+  }
+}

@@ -1,0 +1,240 @@
+{
+  "$defs": {
+    "EvidenceConfidenceGrade": {
+      "description": "Human evidence-strength grade; A is reserved for runtime proof.",
+      "enum": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "title": "EvidenceConfidenceGrade",
+      "type": "string"
+    },
+    "SemanticGateAuthority": {
+      "additionalProperties": false,
+      "description": "Immutable authority boundary for Gate candidates and qualification.",
+      "properties": {
+        "blocks": {
+          "const": false,
+          "default": false,
+          "title": "Blocks",
+          "type": "boolean"
+        },
+        "can_approve_waiver": {
+          "const": false,
+          "default": false,
+          "title": "Can Approve Waiver",
+          "type": "boolean"
+        },
+        "can_block_ci": {
+          "const": false,
+          "default": false,
+          "title": "Can Block Ci",
+          "type": "boolean"
+        },
+        "can_grant_runtime_authority": {
+          "const": false,
+          "default": false,
+          "title": "Can Grant Runtime Authority",
+          "type": "boolean"
+        },
+        "can_publish_rule": {
+          "const": false,
+          "default": false,
+          "title": "Can Publish Rule",
+          "type": "boolean"
+        },
+        "report_only": {
+          "const": true,
+          "default": true,
+          "title": "Report Only",
+          "type": "boolean"
+        }
+      },
+      "title": "SemanticGateAuthority",
+      "type": "object"
+    },
+    "SemanticGateCandidateStatus": {
+      "enum": [
+        "candidate",
+        "superseded"
+      ],
+      "title": "SemanticGateCandidateStatus",
+      "type": "string"
+    },
+    "SemanticGateInput": {
+      "description": "Evidence families that a Gate may require.",
+      "enum": [
+        "provider_quality",
+        "provider_promotion",
+        "candidate_calibration",
+        "finding_promotion",
+        "rule_staging",
+        "human_confidence",
+        "human_corpus"
+      ],
+      "title": "SemanticGateInput",
+      "type": "string"
+    },
+    "SemanticGateThresholds": {
+      "additionalProperties": false,
+      "description": "Minimum evidence quality and sample thresholds for one Gate.",
+      "properties": {
+        "max_unevaluated_case_count": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Max Unevaluated Case Count",
+          "type": "integer"
+        },
+        "min_case_count": {
+          "default": 40,
+          "minimum": 1,
+          "title": "Min Case Count",
+          "type": "integer"
+        },
+        "min_complete_coverage_rate": {
+          "default": 1.0,
+          "title": "Min Complete Coverage Rate",
+          "type": "number"
+        },
+        "min_eligible_negative_case_count": {
+          "default": 20,
+          "minimum": 1,
+          "title": "Min Eligible Negative Case Count",
+          "type": "integer"
+        },
+        "min_evidence_binding_accuracy": {
+          "default": 0.98,
+          "title": "Min Evidence Binding Accuracy",
+          "type": "number"
+        },
+        "min_f1": {
+          "default": 0.95,
+          "title": "Min F1",
+          "type": "number"
+        },
+        "min_human_reviewer_count": {
+          "default": 1,
+          "minimum": 1,
+          "title": "Min Human Reviewer Count",
+          "type": "integer"
+        },
+        "min_positive_case_count": {
+          "default": 20,
+          "minimum": 1,
+          "title": "Min Positive Case Count",
+          "type": "integer"
+        },
+        "min_precision": {
+          "default": 0.95,
+          "title": "Min Precision",
+          "type": "number"
+        },
+        "min_recall": {
+          "default": 0.95,
+          "title": "Min Recall",
+          "type": "number"
+        }
+      },
+      "title": "SemanticGateThresholds",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Versioned Gate candidate; qualification never promotes it automatically.",
+  "properties": {
+    "authority": {
+      "$ref": "#/$defs/SemanticGateAuthority",
+      "default": {
+        "blocks": false,
+        "can_approve_waiver": false,
+        "can_block_ci": false,
+        "can_grant_runtime_authority": false,
+        "can_publish_rule": false,
+        "report_only": true
+      }
+    },
+    "candidate_id": {
+      "pattern": "^semantic-gate-candidate-sha256:[0-9a-f]{64}$",
+      "title": "Candidate Id",
+      "type": "string"
+    },
+    "description": {
+      "pattern": "^[^\\x00-\\x1f\\x7f]{1,512}$",
+      "title": "Description",
+      "type": "string"
+    },
+    "format": {
+      "const": "agentsec-semantic-gate-candidate",
+      "default": "agentsec-semantic-gate-candidate",
+      "title": "Format",
+      "type": "string"
+    },
+    "gate_id": {
+      "pattern": "^SG-[A-Z0-9][A-Z0-9._-]{2,63}$",
+      "title": "Gate Id",
+      "type": "string"
+    },
+    "minimum_evidence_confidence": {
+      "$ref": "#/$defs/EvidenceConfidenceGrade",
+      "default": "C"
+    },
+    "required_inputs": {
+      "default": [
+        "human_confidence",
+        "provider_promotion",
+        "provider_quality"
+      ],
+      "items": {
+        "$ref": "#/$defs/SemanticGateInput"
+      },
+      "title": "Required Inputs",
+      "type": "array"
+    },
+    "schema_version": {
+      "const": "0.1.0",
+      "default": "0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "signal": {
+      "pattern": "^[a-z][a-z0-9._-]{2,63}$",
+      "title": "Signal",
+      "type": "string"
+    },
+    "status": {
+      "$ref": "#/$defs/SemanticGateCandidateStatus",
+      "default": "candidate"
+    },
+    "thresholds": {
+      "$ref": "#/$defs/SemanticGateThresholds",
+      "default": {
+        "max_unevaluated_case_count": 0,
+        "min_case_count": 40,
+        "min_complete_coverage_rate": 1.0,
+        "min_eligible_negative_case_count": 20,
+        "min_evidence_binding_accuracy": 0.98,
+        "min_f1": 0.95,
+        "min_human_reviewer_count": 1,
+        "min_positive_case_count": 20,
+        "min_precision": 0.95,
+        "min_recall": 0.95
+      }
+    },
+    "title": {
+      "pattern": "^[^\\x00-\\x1f\\x7f]{1,512}$",
+      "title": "Title",
+      "type": "string"
+    }
+  },
+  "required": [
+    "candidate_id",
+    "gate_id",
+    "title",
+    "description",
+    "signal"
+  ],
+  "title": "SemanticGateCandidate",
+  "type": "object"
+}

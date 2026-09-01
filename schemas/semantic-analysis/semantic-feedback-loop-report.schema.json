@@ -1,0 +1,199 @@
+{
+  "$defs": {
+    "FeedbackIssueType": {
+      "description": "The misdetection kind one feedback row reports.",
+      "enum": [
+        "false_positive",
+        "false_negative"
+      ],
+      "title": "FeedbackIssueType",
+      "type": "string"
+    },
+    "FeedbackResolutionOutcome": {
+      "description": "One row's issue status against a later Shadow run.",
+      "enum": [
+        "resolved",
+        "unresolved",
+        "unevaluated"
+      ],
+      "title": "FeedbackResolutionOutcome",
+      "type": "string"
+    },
+    "FeedbackResolutionRow": {
+      "additionalProperties": false,
+      "description": "One row's outcome in a feedback loop evaluation; value-free.",
+      "properties": {
+        "case_id": {
+          "pattern": "^[a-z][a-z0-9._-]{0,127}$",
+          "title": "Case Id",
+          "type": "string"
+        },
+        "issue_type": {
+          "$ref": "#/$defs/FeedbackIssueType"
+        },
+        "outcome": {
+          "$ref": "#/$defs/FeedbackResolutionOutcome"
+        },
+        "row_id": {
+          "pattern": "^[a-z][a-z0-9._:-]{3,255}$",
+          "title": "Row Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "row_id",
+        "case_id",
+        "issue_type",
+        "outcome"
+      ],
+      "title": "FeedbackResolutionRow",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Report-only resolution status of one set against one later run.",
+  "properties": {
+    "blocks": {
+      "const": false,
+      "default": false,
+      "title": "Blocks",
+      "type": "boolean"
+    },
+    "calibration_authority": {
+      "const": false,
+      "default": false,
+      "title": "Calibration Authority",
+      "type": "boolean"
+    },
+    "evaluation_complete": {
+      "title": "Evaluation Complete",
+      "type": "boolean"
+    },
+    "evaluation_model_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "title": "Evaluation Model Id",
+      "type": "string"
+    },
+    "evaluation_provider_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "title": "Evaluation Provider Id",
+      "type": "string"
+    },
+    "feedback_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Feedback Sha256",
+      "type": "string"
+    },
+    "format": {
+      "const": "agentsec-p3-17-semantic-feedback-loop-report",
+      "default": "agentsec-p3-17-semantic-feedback-loop-report",
+      "title": "Format",
+      "type": "string"
+    },
+    "gate_authority": {
+      "const": false,
+      "default": false,
+      "title": "Gate Authority",
+      "type": "boolean"
+    },
+    "loop_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Loop Sha256",
+      "type": "string"
+    },
+    "note": {
+      "default": "Reviewer-confirmed false-positive and false-negative rows over the frozen scenario packs. Resolution reports are detection-based evidence for human review; feedback never gains calibration, publication, Policy, CI, or runtime authority.",
+      "maxLength": 512,
+      "minLength": 8,
+      "title": "Note",
+      "type": "string"
+    },
+    "report_only": {
+      "const": true,
+      "default": true,
+      "title": "Report Only",
+      "type": "boolean"
+    },
+    "resolution_rate": {
+      "maximum": 1,
+      "minimum": 0,
+      "title": "Resolution Rate",
+      "type": "number"
+    },
+    "resolved_row_count": {
+      "minimum": 0,
+      "title": "Resolved Row Count",
+      "type": "integer"
+    },
+    "row_outcome_count": {
+      "maximum": 256,
+      "minimum": 1,
+      "title": "Row Outcome Count",
+      "type": "integer"
+    },
+    "rows": {
+      "items": {
+        "$ref": "#/$defs/FeedbackResolutionRow"
+      },
+      "maxItems": 256,
+      "minItems": 1,
+      "title": "Rows",
+      "type": "array"
+    },
+    "rule_publication_authority": {
+      "const": false,
+      "default": false,
+      "title": "Rule Publication Authority",
+      "type": "boolean"
+    },
+    "runtime_verified": {
+      "const": false,
+      "default": false,
+      "title": "Runtime Verified",
+      "type": "boolean"
+    },
+    "schema_version": {
+      "const": "0.1.0",
+      "default": "0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "source_pack_sha256": {
+      "items": {
+        "pattern": "^[0-9a-f]{64}$",
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Source Pack Sha256",
+      "type": "array"
+    },
+    "unevaluated_row_count": {
+      "minimum": 0,
+      "title": "Unevaluated Row Count",
+      "type": "integer"
+    },
+    "unresolved_row_count": {
+      "minimum": 0,
+      "title": "Unresolved Row Count",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "loop_sha256",
+    "feedback_sha256",
+    "source_pack_sha256",
+    "evaluation_provider_id",
+    "evaluation_model_id",
+    "row_outcome_count",
+    "resolved_row_count",
+    "unresolved_row_count",
+    "unevaluated_row_count",
+    "resolution_rate",
+    "evaluation_complete",
+    "rows"
+  ],
+  "title": "SemanticFeedbackLoopReport",
+  "type": "object"
+}

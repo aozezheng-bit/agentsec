@@ -1,0 +1,17 @@
+{
+  "case_id": "risky-external-tool-text",
+  "category": "risky",
+  "purpose": "Detect an explicit external-tool invocation phrase.",
+  "assets": [
+    "AGENTS.md"
+  ],
+  "expected": {
+    "coverage": "complete",
+    "signals": [
+      "external_tooling"
+    ],
+    "rule_ids": [
+      "MD-TOOL-001"
+    ]
+  }
+}

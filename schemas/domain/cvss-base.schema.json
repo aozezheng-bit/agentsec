@@ -1,0 +1,124 @@
+{
+  "$defs": {
+    "Severity": {
+      "description": "Report severity compatible with the planned 0-10 risk scale.",
+      "enum": [
+        "none",
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "title": "Severity",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Schema-backed CVSS Base data attached to a vulnerability Finding.\n\nThis is deliberately a separate nested object. Its Severity is the CVSS\nqualitative result, not the AgentSec Finding Severity, and its score is not\nused to overwrite or average the Finding's AgentSec score.",
+  "properties": {
+    "adapter_version": {
+      "minLength": 1,
+      "title": "Adapter Version",
+      "type": "string"
+    },
+    "base_score": {
+      "maximum": 10,
+      "minimum": 0,
+      "title": "Base Score",
+      "type": "number"
+    },
+    "base_severity": {
+      "$ref": "#/$defs/Severity"
+    },
+    "effective_score": {
+      "anyOf": [
+        {
+          "maximum": 10,
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Effective Score"
+    },
+    "effective_severity": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Severity"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "mapping_basis": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Mapping Basis",
+      "type": "array"
+    },
+    "metrics": {
+      "additionalProperties": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "propertyNames": {
+        "minLength": 1
+      },
+      "title": "Metrics",
+      "type": "object"
+    },
+    "score_type": {
+      "default": "base",
+      "enum": [
+        "base",
+        "temporal",
+        "environmental",
+        "threat",
+        "environmental_threat"
+      ],
+      "title": "Score Type",
+      "type": "string"
+    },
+    "score_verification": {
+      "enum": [
+        "calculated",
+        "provided"
+      ],
+      "title": "Score Verification",
+      "type": "string"
+    },
+    "vector": {
+      "minLength": 1,
+      "title": "Vector",
+      "type": "string"
+    },
+    "version": {
+      "enum": [
+        "3.1",
+        "4.0"
+      ],
+      "title": "Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "adapter_version",
+    "version",
+    "vector",
+    "base_score",
+    "base_severity",
+    "metrics",
+    "score_verification",
+    "mapping_basis"
+  ],
+  "title": "CvssBase",
+  "type": "object"
+}

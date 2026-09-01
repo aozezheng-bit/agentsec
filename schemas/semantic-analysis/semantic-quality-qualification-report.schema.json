@@ -1,0 +1,168 @@
+{
+  "$defs": {
+    "GoldLabelProvenance": {
+      "enum": [
+        "human_authored",
+        "ai_draft_human_confirmed",
+        "ai_assisted"
+      ],
+      "title": "GoldLabelProvenance",
+      "type": "string"
+    },
+    "ProviderQualityThresholds": {
+      "additionalProperties": false,
+      "properties": {
+        "min_case_count": {
+          "default": 20,
+          "minimum": 1,
+          "title": "Min Case Count",
+          "type": "integer"
+        },
+        "min_complete_coverage_rate": {
+          "default": 1.0,
+          "title": "Min Complete Coverage Rate",
+          "type": "number"
+        },
+        "min_evidence_binding_accuracy": {
+          "default": 0.98,
+          "title": "Min Evidence Binding Accuracy",
+          "type": "number"
+        },
+        "min_f1": {
+          "default": 0.95,
+          "title": "Min F1",
+          "type": "number"
+        },
+        "min_precision": {
+          "default": 0.95,
+          "title": "Min Precision",
+          "type": "number"
+        },
+        "min_recall": {
+          "default": 0.95,
+          "title": "Min Recall",
+          "type": "number"
+        }
+      },
+      "title": "ProviderQualityThresholds",
+      "type": "object"
+    },
+    "QualityGateStatus": {
+      "enum": [
+        "qualified",
+        "not_qualified"
+      ],
+      "title": "QualityGateStatus",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Report-only qualification decision over one evaluation report.",
+  "properties": {
+    "ci_authority": {
+      "const": false,
+      "default": false,
+      "title": "Ci Authority",
+      "type": "boolean"
+    },
+    "failed_checks": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Failed Checks",
+      "type": "array"
+    },
+    "format": {
+      "const": "agentsec-semantic-quality-qualification-report",
+      "default": "agentsec-semantic-quality-qualification-report",
+      "title": "Format",
+      "type": "string"
+    },
+    "label_provenance": {
+      "$ref": "#/$defs/GoldLabelProvenance"
+    },
+    "metrics": {
+      "additionalProperties": {
+        "type": "number"
+      },
+      "title": "Metrics",
+      "type": "object"
+    },
+    "model_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "title": "Model Id",
+      "type": "string"
+    },
+    "policy_authority": {
+      "const": false,
+      "default": false,
+      "title": "Policy Authority",
+      "type": "boolean"
+    },
+    "provider_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "title": "Provider Id",
+      "type": "string"
+    },
+    "reasons": {
+      "default": [],
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Reasons",
+      "type": "array"
+    },
+    "release_authority": {
+      "const": false,
+      "default": false,
+      "title": "Release Authority",
+      "type": "boolean"
+    },
+    "report_only": {
+      "const": true,
+      "default": true,
+      "title": "Report Only",
+      "type": "boolean"
+    },
+    "reviewer_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Reviewer Id",
+      "type": "string"
+    },
+    "runtime_verified": {
+      "const": false,
+      "default": false,
+      "title": "Runtime Verified",
+      "type": "boolean"
+    },
+    "schema_version": {
+      "const": "0.1.0",
+      "default": "0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "status": {
+      "$ref": "#/$defs/QualityGateStatus"
+    },
+    "thresholds": {
+      "$ref": "#/$defs/ProviderQualityThresholds"
+    }
+  },
+  "required": [
+    "reviewer_id",
+    "label_provenance",
+    "provider_id",
+    "model_id",
+    "status",
+    "thresholds",
+    "metrics"
+  ],
+  "title": "QualityGateReport",
+  "type": "object"
+}

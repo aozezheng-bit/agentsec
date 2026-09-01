@@ -1,0 +1,17 @@
+{
+  "case_id": "risky-approval-chinese",
+  "category": "risky",
+  "purpose": "Exercise the Chinese human-confirmation bypass phrase.",
+  "assets": [
+    "AGENTS.md"
+  ],
+  "expected": {
+    "coverage": "complete",
+    "signals": [
+      "human_approval"
+    ],
+    "rule_ids": [
+      "MD-APPROVAL-001"
+    ]
+  }
+}

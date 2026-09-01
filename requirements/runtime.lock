@@ -1,0 +1,18 @@
+# AgentSec runtime dependency lock.
+# Generated for AgentSec 0.4.0 on 2026-08-25.
+# This file intentionally contains exact versions and no editable/local paths.
+annotated-doc==0.0.5
+annotated-types==0.8.0
+click==8.4.2
+librt==0.15.0
+markdown-it-py==4.2.0
+mdurl==0.1.2
+pydantic==2.13.4
+pydantic-core==2.46.4
+Pygments==2.21.0
+PyYAML==6.0.3
+rich==14.3.4
+shellingham==1.5.4
+typer==0.27.1
+typing-extensions==4.16.0
+typing-inspection==0.4.4

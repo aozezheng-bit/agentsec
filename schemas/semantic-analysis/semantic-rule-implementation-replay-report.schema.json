@@ -1,0 +1,248 @@
+{
+  "$defs": {
+    "RuleImplementationReplayCaseResult": {
+      "additionalProperties": false,
+      "properties": {
+        "case_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Case Id",
+          "type": "string"
+        },
+        "classification": {
+          "$ref": "#/$defs/RuleReplayClassification"
+        },
+        "evidence_binding_ok": {
+          "title": "Evidence Binding Ok",
+          "type": "boolean"
+        },
+        "expected_outcome": {
+          "enum": [
+            "match",
+            "no_match"
+          ],
+          "title": "Expected Outcome",
+          "type": "string"
+        },
+        "failure": {
+          "title": "Failure",
+          "type": "boolean"
+        },
+        "finding_bound_ok": {
+          "title": "Finding Bound Ok",
+          "type": "boolean"
+        },
+        "observed_findings": {
+          "minimum": 0,
+          "title": "Observed Findings",
+          "type": "integer"
+        },
+        "observed_outcome": {
+          "enum": [
+            "match",
+            "no_match"
+          ],
+          "title": "Observed Outcome",
+          "type": "string"
+        }
+      },
+      "required": [
+        "case_id",
+        "expected_outcome",
+        "observed_outcome",
+        "classification",
+        "observed_findings",
+        "finding_bound_ok",
+        "evidence_binding_ok",
+        "failure"
+      ],
+      "title": "RuleImplementationReplayCaseResult",
+      "type": "object"
+    },
+    "RuleImplementationReplayMetrics": {
+      "additionalProperties": false,
+      "properties": {
+        "case_count": {
+          "minimum": 1,
+          "title": "Case Count",
+          "type": "integer"
+        },
+        "evidence_binding_accuracy": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Evidence Binding Accuracy",
+          "type": "number"
+        },
+        "f1": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "F1"
+        },
+        "failure_count": {
+          "minimum": 0,
+          "title": "Failure Count",
+          "type": "integer"
+        },
+        "false_negative": {
+          "minimum": 0,
+          "title": "False Negative",
+          "type": "integer"
+        },
+        "false_positive": {
+          "minimum": 0,
+          "title": "False Positive",
+          "type": "integer"
+        },
+        "finding_bound_accuracy": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Finding Bound Accuracy",
+          "type": "number"
+        },
+        "precision": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Precision"
+        },
+        "recall": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Recall"
+        },
+        "true_negative": {
+          "minimum": 0,
+          "title": "True Negative",
+          "type": "integer"
+        },
+        "true_positive": {
+          "minimum": 0,
+          "title": "True Positive",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "case_count",
+        "true_positive",
+        "false_positive",
+        "false_negative",
+        "true_negative",
+        "evidence_binding_accuracy",
+        "finding_bound_accuracy",
+        "failure_count"
+      ],
+      "title": "RuleImplementationReplayMetrics",
+      "type": "object"
+    },
+    "RuleReplayClassification": {
+      "enum": [
+        "true_positive",
+        "false_positive",
+        "false_negative",
+        "true_negative"
+      ],
+      "title": "RuleReplayClassification",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "ci_authority": {
+      "const": false,
+      "default": false,
+      "title": "Ci Authority",
+      "type": "boolean"
+    },
+    "finding_authority": {
+      "const": false,
+      "default": false,
+      "title": "Finding Authority",
+      "type": "boolean"
+    },
+    "format": {
+      "const": "agentsec-semantic-rule-implementation-replay-report",
+      "default": "agentsec-semantic-rule-implementation-replay-report",
+      "title": "Format",
+      "type": "string"
+    },
+    "metrics": {
+      "$ref": "#/$defs/RuleImplementationReplayMetrics"
+    },
+    "policy_authority": {
+      "const": false,
+      "default": false,
+      "title": "Policy Authority",
+      "type": "boolean"
+    },
+    "proposal_id": {
+      "pattern": "^semantic-rule-proposal-sha256:[0-9a-f]{64}$",
+      "title": "Proposal Id",
+      "type": "string"
+    },
+    "report_only": {
+      "const": true,
+      "default": true,
+      "title": "Report Only",
+      "type": "boolean"
+    },
+    "results": {
+      "items": {
+        "$ref": "#/$defs/RuleImplementationReplayCaseResult"
+      },
+      "minItems": 1,
+      "title": "Results",
+      "type": "array"
+    },
+    "rule_id": {
+      "pattern": "^[A-Z][A-Z0-9]*-[A-Z][A-Z0-9]*-[0-9]{3}$",
+      "title": "Rule Id",
+      "type": "string"
+    },
+    "rule_pack_mutated": {
+      "const": false,
+      "default": false,
+      "title": "Rule Pack Mutated",
+      "type": "boolean"
+    },
+    "schema_version": {
+      "const": "0.1.0",
+      "default": "0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "proposal_id",
+    "rule_id",
+    "results",
+    "metrics"
+  ],
+  "title": "RuleImplementationReplayReport",
+  "type": "object"
+}

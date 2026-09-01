@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Deterministic index for a directory of Calibration Cases.",
+  "properties": {
+    "capability_rule_pack_version": {
+      "default": "0.2.0",
+      "minLength": 1,
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+      "title": "Capability Rule Pack Version",
+      "type": "string"
+    },
+    "case_paths": {
+      "items": {
+        "maxLength": 512,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Case Paths",
+      "type": "array"
+    },
+    "corpus_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Corpus Id",
+      "type": "string"
+    },
+    "description": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Description",
+      "type": "string"
+    },
+    "format": {
+      "const": "agentsec-capability-calibration-corpus",
+      "default": "agentsec-capability-calibration-corpus",
+      "title": "Format",
+      "type": "string"
+    },
+    "labels_version": {
+      "default": "0.1.0",
+      "minLength": 1,
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+      "title": "Labels Version",
+      "type": "string"
+    },
+    "schema_version": {
+      "default": "0.1.0",
+      "minLength": 1,
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "title": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Title",
+      "type": "string"
+    }
+  },
+  "required": [
+    "corpus_id",
+    "title",
+    "description",
+    "case_paths"
+  ],
+  "title": "CalibrationCorpusIndex",
+  "type": "object",
+  "x-agentsec-calibration-case-schema-version": "0.1.0"
+}

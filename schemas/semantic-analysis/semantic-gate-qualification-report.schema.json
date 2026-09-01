@@ -1,0 +1,349 @@
+{
+  "$defs": {
+    "EvidenceConfidenceGrade": {
+      "description": "Human evidence-strength grade; A is reserved for runtime proof.",
+      "enum": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "title": "EvidenceConfidenceGrade",
+      "type": "string"
+    },
+    "GateQualificationCheckStatus": {
+      "enum": [
+        "pass",
+        "pending",
+        "fail"
+      ],
+      "title": "GateQualificationCheckStatus",
+      "type": "string"
+    },
+    "SemanticGateAuthority": {
+      "additionalProperties": false,
+      "description": "Immutable authority boundary for Gate candidates and qualification.",
+      "properties": {
+        "blocks": {
+          "const": false,
+          "default": false,
+          "title": "Blocks",
+          "type": "boolean"
+        },
+        "can_approve_waiver": {
+          "const": false,
+          "default": false,
+          "title": "Can Approve Waiver",
+          "type": "boolean"
+        },
+        "can_block_ci": {
+          "const": false,
+          "default": false,
+          "title": "Can Block Ci",
+          "type": "boolean"
+        },
+        "can_grant_runtime_authority": {
+          "const": false,
+          "default": false,
+          "title": "Can Grant Runtime Authority",
+          "type": "boolean"
+        },
+        "can_publish_rule": {
+          "const": false,
+          "default": false,
+          "title": "Can Publish Rule",
+          "type": "boolean"
+        },
+        "report_only": {
+          "const": true,
+          "default": true,
+          "title": "Report Only",
+          "type": "boolean"
+        }
+      },
+      "title": "SemanticGateAuthority",
+      "type": "object"
+    },
+    "SemanticGateEvidenceConfidence": {
+      "additionalProperties": false,
+      "description": "Human-calibrated confidence summary, separate from severity/quality.",
+      "properties": {
+        "adjudication_complete": {
+          "title": "Adjudication Complete",
+          "type": "boolean"
+        },
+        "grade": {
+          "$ref": "#/$defs/EvidenceConfidenceGrade"
+        },
+        "rationale_code": {
+          "pattern": "^[a-z][a-z0-9._-]{2,63}$",
+          "title": "Rationale Code",
+          "type": "string"
+        },
+        "reviewed_case_count": {
+          "minimum": 1,
+          "title": "Reviewed Case Count",
+          "type": "integer"
+        },
+        "reviewer_count": {
+          "minimum": 1,
+          "title": "Reviewer Count",
+          "type": "integer"
+        },
+        "runtime_attestation_present": {
+          "default": false,
+          "title": "Runtime Attestation Present",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "grade",
+        "reviewer_count",
+        "reviewed_case_count",
+        "adjudication_complete",
+        "rationale_code"
+      ],
+      "title": "SemanticGateEvidenceConfidence",
+      "type": "object"
+    },
+    "SemanticGateQualificationCheck": {
+      "additionalProperties": false,
+      "properties": {
+        "check_id": {
+          "pattern": "^[a-z][a-z0-9._-]{2,63}$",
+          "title": "Check Id",
+          "type": "string"
+        },
+        "rationale_code": {
+          "pattern": "^[a-z][a-z0-9._-]{2,63}$",
+          "title": "Rationale Code",
+          "type": "string"
+        },
+        "required": {
+          "title": "Required",
+          "type": "boolean"
+        },
+        "status": {
+          "$ref": "#/$defs/GateQualificationCheckStatus"
+        }
+      },
+      "required": [
+        "check_id",
+        "status",
+        "required",
+        "rationale_code"
+      ],
+      "title": "SemanticGateQualificationCheck",
+      "type": "object"
+    },
+    "SemanticGateQualificationMetrics": {
+      "additionalProperties": false,
+      "properties": {
+        "case_count": {
+          "minimum": 0,
+          "title": "Case Count",
+          "type": "integer"
+        },
+        "complete_coverage_rate": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Complete Coverage Rate",
+          "type": "number"
+        },
+        "eligible_negative_case_count": {
+          "minimum": 0,
+          "title": "Eligible Negative Case Count",
+          "type": "integer"
+        },
+        "evidence_binding_accuracy": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Evidence Binding Accuracy",
+          "type": "number"
+        },
+        "evidence_confidence_grade": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/EvidenceConfidenceGrade"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "f1": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "F1",
+          "type": "number"
+        },
+        "positive_case_count": {
+          "minimum": 0,
+          "title": "Positive Case Count",
+          "type": "integer"
+        },
+        "precision": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Precision",
+          "type": "number"
+        },
+        "recall": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Recall",
+          "type": "number"
+        },
+        "unevaluated_case_count": {
+          "minimum": 0,
+          "title": "Unevaluated Case Count",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "case_count",
+        "positive_case_count",
+        "eligible_negative_case_count",
+        "unevaluated_case_count",
+        "precision",
+        "recall",
+        "f1",
+        "evidence_binding_accuracy",
+        "complete_coverage_rate"
+      ],
+      "title": "SemanticGateQualificationMetrics",
+      "type": "object"
+    },
+    "SemanticGateQualificationStatus": {
+      "enum": [
+        "qualified",
+        "conditionally_qualified",
+        "not_qualified"
+      ],
+      "title": "SemanticGateQualificationStatus",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Deterministic report-only Gate qualification result.",
+  "properties": {
+    "authority": {
+      "$ref": "#/$defs/SemanticGateAuthority",
+      "default": {
+        "blocks": false,
+        "can_approve_waiver": false,
+        "can_block_ci": false,
+        "can_grant_runtime_authority": false,
+        "can_publish_rule": false,
+        "report_only": true
+      }
+    },
+    "candidate_id": {
+      "pattern": "^semantic-gate-candidate-sha256:[0-9a-f]{64}$",
+      "title": "Candidate Id",
+      "type": "string"
+    },
+    "checks": {
+      "items": {
+        "$ref": "#/$defs/SemanticGateQualificationCheck"
+      },
+      "minItems": 1,
+      "title": "Checks",
+      "type": "array"
+    },
+    "eligible_for_report_only_gate": {
+      "title": "Eligible For Report Only Gate",
+      "type": "boolean"
+    },
+    "evidence_confidence": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/SemanticGateEvidenceConfidence"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "failed_checks": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Failed Checks",
+      "type": "array"
+    },
+    "format": {
+      "const": "agentsec-semantic-gate-qualification-report",
+      "default": "agentsec-semantic-gate-qualification-report",
+      "title": "Format",
+      "type": "string"
+    },
+    "gate_id": {
+      "pattern": "^SG-[A-Z0-9][A-Z0-9._-]{2,63}$",
+      "title": "Gate Id",
+      "type": "string"
+    },
+    "metrics": {
+      "$ref": "#/$defs/SemanticGateQualificationMetrics"
+    },
+    "model_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "title": "Model Id",
+      "type": "string"
+    },
+    "pending_checks": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Pending Checks",
+      "type": "array"
+    },
+    "provider_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "title": "Provider Id",
+      "type": "string"
+    },
+    "qualification_id": {
+      "pattern": "^semantic-gate-qualification-sha256:[0-9a-f]{64}$",
+      "title": "Qualification Id",
+      "type": "string"
+    },
+    "reasons": {
+      "default": [],
+      "items": {
+        "pattern": "^[a-z][a-z0-9._-]{2,63}$",
+        "type": "string"
+      },
+      "title": "Reasons",
+      "type": "array"
+    },
+    "schema_version": {
+      "const": "0.1.0",
+      "default": "0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "status": {
+      "$ref": "#/$defs/SemanticGateQualificationStatus"
+    }
+  },
+  "required": [
+    "qualification_id",
+    "candidate_id",
+    "gate_id",
+    "provider_id",
+    "model_id",
+    "status",
+    "eligible_for_report_only_gate",
+    "metrics",
+    "checks"
+  ],
+  "title": "SemanticGateQualificationReport",
+  "type": "object"
+}

@@ -1,0 +1,396 @@
+{
+  "$defs": {
+    "SemanticCandidateDisposition": {
+      "description": "Probabilistic support state without enforcement meaning.",
+      "enum": [
+        "supported",
+        "not_supported",
+        "uncertain"
+      ],
+      "title": "SemanticCandidateDisposition",
+      "type": "string"
+    },
+    "SemanticCandidateKind": {
+      "description": "Bounded semantic judgment families; none is a published Finding.",
+      "enum": [
+        "capability_declaration",
+        "control_weakening",
+        "semantic_conflict",
+        "cross_file_chain",
+        "risky_intent",
+        "ambiguity"
+      ],
+      "title": "SemanticCandidateKind",
+      "type": "string"
+    },
+    "SemanticEvaluationExpected": {
+      "additionalProperties": false,
+      "description": "Gold semantic judgment with Evidence binding supplied by a reviewer.",
+      "properties": {
+        "category": {
+          "title": "Category",
+          "type": "string"
+        },
+        "disposition": {
+          "$ref": "#/$defs/SemanticCandidateDisposition"
+        },
+        "evidence_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence Ids",
+          "type": "array"
+        },
+        "judgment_id": {
+          "maxLength": 64,
+          "minLength": 1,
+          "title": "Judgment Id",
+          "type": "string"
+        },
+        "kind": {
+          "$ref": "#/$defs/SemanticCandidateKind"
+        }
+      },
+      "required": [
+        "judgment_id",
+        "kind",
+        "category",
+        "disposition",
+        "evidence_ids"
+      ],
+      "title": "SemanticEvaluationExpected",
+      "type": "object"
+    },
+    "SemanticGateCaseClass": {
+      "description": "Gate-oriented class used for coverage accounting.",
+      "enum": [
+        "positive",
+        "eligible_negative",
+        "near_miss",
+        "unknown"
+      ],
+      "title": "SemanticGateCaseClass",
+      "type": "string"
+    },
+    "SemanticGateCorpusProvenance": {
+      "description": "Provenance state; AI-only labels remain explicitly draft-only.",
+      "enum": [
+        "human_authored",
+        "ai_draft_human_confirmed",
+        "ai_draft"
+      ],
+      "title": "SemanticGateCorpusProvenance",
+      "type": "string"
+    },
+    "SemanticGateCorpusReviewer": {
+      "additionalProperties": false,
+      "description": "Reviewer identity and independence evidence for one corpus.",
+      "properties": {
+        "independence_statement": {
+          "maxLength": 2048,
+          "minLength": 1,
+          "title": "Independence Statement",
+          "type": "string"
+        },
+        "provenance": {
+          "$ref": "#/$defs/SemanticGateCorpusProvenance"
+        },
+        "reviewed_at": {
+          "pattern": "^20[0-9]{2}-[0-9]{2}-[0-9]{2}T",
+          "title": "Reviewed At",
+          "type": "string"
+        },
+        "reviewed_case_count": {
+          "minimum": 0,
+          "title": "Reviewed Case Count",
+          "type": "integer"
+        },
+        "reviewer_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Reviewer Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "reviewer_id",
+        "independence_statement",
+        "reviewed_case_count",
+        "reviewed_at",
+        "provenance"
+      ],
+      "title": "SemanticGateCorpusReviewer",
+      "type": "object"
+    },
+    "SemanticGateHumanCase": {
+      "additionalProperties": false,
+      "description": "One sanitized, gate-scoped human-labeled evidence case.",
+      "properties": {
+        "asset_path": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Asset Path",
+          "type": "string"
+        },
+        "asset_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Asset Sha256",
+          "type": "string"
+        },
+        "case_class": {
+          "$ref": "#/$defs/SemanticGateCaseClass"
+        },
+        "case_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Case Id",
+          "type": "string"
+        },
+        "confidence_grade": {
+          "default": "C",
+          "enum": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "title": "Confidence Grade",
+          "type": "string"
+        },
+        "confidence_rationale": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Confidence Rationale",
+          "type": "string"
+        },
+        "end_line": {
+          "minimum": 1,
+          "title": "End Line",
+          "type": "integer"
+        },
+        "evidence_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "title": "Evidence Id",
+          "type": "string"
+        },
+        "expected": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/SemanticEvaluationExpected"
+          },
+          "title": "Expected",
+          "type": "array"
+        },
+        "expected_gate_match": {
+          "title": "Expected Gate Match",
+          "type": "boolean"
+        },
+        "format": {
+          "const": "agentsec-semantic-gate-human-case",
+          "default": "agentsec-semantic-gate-human-case",
+          "title": "Format",
+          "type": "string"
+        },
+        "gate_id": {
+          "pattern": "^SG-[A-Z0-9][A-Z0-9._-]{2,63}$",
+          "title": "Gate Id",
+          "type": "string"
+        },
+        "language": {
+          "default": "en",
+          "enum": [
+            "zh",
+            "en",
+            "mixed"
+          ],
+          "title": "Language",
+          "type": "string"
+        },
+        "review_provenance": {
+          "$ref": "#/$defs/SemanticGateCorpusProvenance"
+        },
+        "review_status": {
+          "$ref": "#/$defs/SemanticGateReviewStatus",
+          "default": "reviewed"
+        },
+        "reviewer_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Reviewer Id",
+          "type": "string"
+        },
+        "sanitized_text": {
+          "maxLength": 4096,
+          "minLength": 1,
+          "title": "Sanitized Text",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": "0.1.0",
+          "default": "0.1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "signal": {
+          "pattern": "^[a-z][a-z0-9._-]{2,63}$",
+          "title": "Signal",
+          "type": "string"
+        },
+        "source_kind": {
+          "maxLength": 80,
+          "minLength": 1,
+          "title": "Source Kind",
+          "type": "string"
+        },
+        "source_label": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Source Label",
+          "type": "string"
+        },
+        "start_line": {
+          "minimum": 1,
+          "title": "Start Line",
+          "type": "integer"
+        },
+        "text_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Text Sha256",
+          "type": "string"
+        }
+      },
+      "required": [
+        "case_id",
+        "gate_id",
+        "signal",
+        "case_class",
+        "expected_gate_match",
+        "evidence_id",
+        "asset_path",
+        "asset_sha256",
+        "start_line",
+        "end_line",
+        "sanitized_text",
+        "text_sha256",
+        "source_kind",
+        "source_label",
+        "reviewer_id",
+        "review_provenance",
+        "confidence_rationale"
+      ],
+      "title": "SemanticGateHumanCase",
+      "type": "object"
+    },
+    "SemanticGateReviewStatus": {
+      "description": "Lifecycle state of one human corpus case.",
+      "enum": [
+        "draft",
+        "reviewed",
+        "adjudicated"
+      ],
+      "title": "SemanticGateReviewStatus",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Digest-bound final corpus for one Semantic Gate.",
+  "properties": {
+    "authority_blocks": {
+      "const": false,
+      "default": false,
+      "title": "Authority Blocks",
+      "type": "boolean"
+    },
+    "authority_can_approve_waiver": {
+      "const": false,
+      "default": false,
+      "title": "Authority Can Approve Waiver",
+      "type": "boolean"
+    },
+    "authority_can_block_ci": {
+      "const": false,
+      "default": false,
+      "title": "Authority Can Block Ci",
+      "type": "boolean"
+    },
+    "authority_can_grant_runtime": {
+      "const": false,
+      "default": false,
+      "title": "Authority Can Grant Runtime",
+      "type": "boolean"
+    },
+    "authority_can_publish_rule": {
+      "const": false,
+      "default": false,
+      "title": "Authority Can Publish Rule",
+      "type": "boolean"
+    },
+    "authority_report_only": {
+      "const": true,
+      "default": true,
+      "title": "Authority Report Only",
+      "type": "boolean"
+    },
+    "cases": {
+      "items": {
+        "$ref": "#/$defs/SemanticGateHumanCase"
+      },
+      "maxItems": 512,
+      "minItems": 1,
+      "title": "Cases",
+      "type": "array"
+    },
+    "corpus_id": {
+      "pattern": "^semantic-gate-human-corpus-sha256:[0-9a-f]{64}$",
+      "title": "Corpus Id",
+      "type": "string"
+    },
+    "corpus_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Corpus Sha256",
+      "type": "string"
+    },
+    "format": {
+      "const": "agentsec-semantic-gate-human-corpus",
+      "default": "agentsec-semantic-gate-human-corpus",
+      "title": "Format",
+      "type": "string"
+    },
+    "gate_id": {
+      "pattern": "^SG-[A-Z0-9][A-Z0-9._-]{2,63}$",
+      "title": "Gate Id",
+      "type": "string"
+    },
+    "reviewers": {
+      "items": {
+        "$ref": "#/$defs/SemanticGateCorpusReviewer"
+      },
+      "maxItems": 16,
+      "minItems": 1,
+      "title": "Reviewers",
+      "type": "array"
+    },
+    "schema_version": {
+      "const": "0.1.0",
+      "default": "0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "signal": {
+      "pattern": "^[a-z][a-z0-9._-]{2,63}$",
+      "title": "Signal",
+      "type": "string"
+    }
+  },
+  "required": [
+    "corpus_id",
+    "corpus_sha256",
+    "gate_id",
+    "signal",
+    "cases",
+    "reviewers"
+  ],
+  "title": "SemanticGateHumanCorpus",
+  "type": "object"
+}

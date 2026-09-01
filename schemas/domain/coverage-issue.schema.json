@@ -1,0 +1,52 @@
+{
+  "$defs": {
+    "CoverageIssueCode": {
+      "description": "Reasons an asset or part of a scan could not be evaluated.",
+      "enum": [
+        "unreadable",
+        "unsupported_encoding",
+        "too_large",
+        "depth_exceeded",
+        "asset_limit_exceeded",
+        "external_symlink",
+        "malformed_content",
+        "parse_error",
+        "rule_error",
+        "unknown"
+      ],
+      "title": "CoverageIssueCode",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "A visible reason that scan coverage is incomplete.",
+  "properties": {
+    "asset_path": {
+      "anyOf": [
+        {
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Asset Path"
+    },
+    "code": {
+      "$ref": "#/$defs/CoverageIssueCode"
+    },
+    "message": {
+      "minLength": 1,
+      "title": "Message",
+      "type": "string"
+    }
+  },
+  "required": [
+    "code",
+    "message"
+  ],
+  "title": "CoverageIssue",
+  "type": "object"
+}

@@ -1,0 +1,306 @@
+{
+  "$defs": {
+    "SemanticAuthorityBoundary": {
+      "additionalProperties": false,
+      "description": "Immutable literals preventing semantic output from gaining authority.",
+      "properties": {
+        "allow_decision": {
+          "const": false,
+          "default": false,
+          "title": "Allow Decision",
+          "type": "boolean"
+        },
+        "block_decision": {
+          "const": false,
+          "default": false,
+          "title": "Block Decision",
+          "type": "boolean"
+        },
+        "candidate_evidence_only": {
+          "const": true,
+          "default": true,
+          "title": "Candidate Evidence Only",
+          "type": "boolean"
+        },
+        "confidence_authority": {
+          "const": false,
+          "default": false,
+          "title": "Confidence Authority",
+          "type": "boolean"
+        },
+        "mode": {
+          "const": "shadow_only",
+          "default": "shadow_only",
+          "title": "Mode",
+          "type": "string"
+        },
+        "model_filesystem_write": {
+          "const": false,
+          "default": false,
+          "title": "Model Filesystem Write",
+          "type": "boolean"
+        },
+        "model_network_access": {
+          "const": false,
+          "default": false,
+          "title": "Model Network Access",
+          "type": "boolean"
+        },
+        "model_tool_access": {
+          "const": false,
+          "default": false,
+          "title": "Model Tool Access",
+          "type": "boolean"
+        },
+        "rule_publication": {
+          "const": false,
+          "default": false,
+          "title": "Rule Publication",
+          "type": "boolean"
+        },
+        "runtime_claim_authority": {
+          "const": false,
+          "default": false,
+          "title": "Runtime Claim Authority",
+          "type": "boolean"
+        },
+        "severity_authority": {
+          "const": false,
+          "default": false,
+          "title": "Severity Authority",
+          "type": "boolean"
+        },
+        "waiver_approval": {
+          "const": false,
+          "default": false,
+          "title": "Waiver Approval",
+          "type": "boolean"
+        }
+      },
+      "title": "SemanticAuthorityBoundary",
+      "type": "object"
+    },
+    "SemanticDeterministicContext": {
+      "additionalProperties": false,
+      "description": "Deterministic state that semantic output may not remove or rewrite.",
+      "properties": {
+        "assessment_sha256": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Assessment Sha256"
+        },
+        "capability_ids": {
+          "default": [],
+          "items": {
+            "maxLength": 160,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]{0,159}$",
+            "type": "string"
+          },
+          "title": "Capability Ids",
+          "type": "array"
+        },
+        "coverage_complete": {
+          "title": "Coverage Complete",
+          "type": "boolean"
+        },
+        "finding_ids": {
+          "default": [],
+          "items": {
+            "maxLength": 160,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]{0,159}$",
+            "type": "string"
+          },
+          "title": "Finding Ids",
+          "type": "array"
+        },
+        "manifest_sha256": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Manifest Sha256"
+        },
+        "unknown_dimensions": {
+          "default": [],
+          "items": {
+            "maxLength": 160,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]{0,159}$",
+            "type": "string"
+          },
+          "title": "Unknown Dimensions",
+          "type": "array"
+        }
+      },
+      "required": [
+        "coverage_complete"
+      ],
+      "title": "SemanticDeterministicContext",
+      "type": "object"
+    },
+    "SemanticEvidenceChunk": {
+      "additionalProperties": false,
+      "description": "Trusted bounded data-channel evidence; never model-authored location data.",
+      "properties": {
+        "asset_path": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Asset Path",
+          "type": "string"
+        },
+        "asset_sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Asset Sha256",
+          "type": "string"
+        },
+        "content_role": {
+          "const": "untrusted_evidence",
+          "default": "untrusted_evidence",
+          "title": "Content Role",
+          "type": "string"
+        },
+        "end_line": {
+          "minimum": 1,
+          "title": "End Line",
+          "type": "integer"
+        },
+        "evidence_id": {
+          "pattern": "^semantic-evidence-sha256:[0-9a-f]{64}$",
+          "title": "Evidence Id",
+          "type": "string"
+        },
+        "instruction_authority": {
+          "const": false,
+          "default": false,
+          "title": "Instruction Authority",
+          "type": "boolean"
+        },
+        "sanitization_applied": {
+          "title": "Sanitization Applied",
+          "type": "boolean"
+        },
+        "secret_values_included": {
+          "const": false,
+          "default": false,
+          "title": "Secret Values Included",
+          "type": "boolean"
+        },
+        "start_line": {
+          "minimum": 1,
+          "title": "Start Line",
+          "type": "integer"
+        },
+        "text": {
+          "maxLength": 2048,
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        },
+        "text_sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Text Sha256",
+          "type": "string"
+        },
+        "value_minimized": {
+          "const": true,
+          "default": true,
+          "title": "Value Minimized",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "evidence_id",
+        "asset_path",
+        "asset_sha256",
+        "start_line",
+        "end_line",
+        "text",
+        "text_sha256",
+        "sanitization_applied"
+      ],
+      "title": "SemanticEvidenceChunk",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Trusted Shadow-only semantic request envelope.",
+  "properties": {
+    "analysis_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[a-z][a-z0-9._-]{0,127}$",
+      "title": "Analysis Id",
+      "type": "string"
+    },
+    "analyzer_version": {
+      "const": "0.1.0",
+      "default": "0.1.0",
+      "title": "Analyzer Version",
+      "type": "string"
+    },
+    "authority_boundary": {
+      "$ref": "#/$defs/SemanticAuthorityBoundary",
+      "default": {
+        "allow_decision": false,
+        "block_decision": false,
+        "candidate_evidence_only": true,
+        "confidence_authority": false,
+        "mode": "shadow_only",
+        "model_filesystem_write": false,
+        "model_network_access": false,
+        "model_tool_access": false,
+        "rule_publication": false,
+        "runtime_claim_authority": false,
+        "severity_authority": false,
+        "waiver_approval": false
+      }
+    },
+    "deterministic_context": {
+      "$ref": "#/$defs/SemanticDeterministicContext"
+    },
+    "evidence": {
+      "items": {
+        "$ref": "#/$defs/SemanticEvidenceChunk"
+      },
+      "maxItems": 64,
+      "minItems": 1,
+      "title": "Evidence",
+      "type": "array"
+    },
+    "format": {
+      "const": "agentsec-semantic-analysis-input",
+      "default": "agentsec-semantic-analysis-input",
+      "title": "Format",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "0.1.0",
+      "default": "0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "analysis_id",
+    "deterministic_context",
+    "evidence"
+  ],
+  "title": "SemanticAnalysisInput",
+  "type": "object"
+}

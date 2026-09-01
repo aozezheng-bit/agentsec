@@ -1,0 +1,23 @@
+{
+  "case_id": "risky-shell-secret-network",
+  "category": "risky",
+  "purpose": "Exercise code-execution, secret-access, network-access and human-approval rules.",
+  "assets": [
+    "AGENTS.md"
+  ],
+  "expected": {
+    "coverage": "complete",
+    "signals": [
+      "code_execution",
+      "human_approval",
+      "network_access",
+      "secret_access"
+    ],
+    "rule_ids": [
+      "MD-APPROVAL-001",
+      "MD-EXEC-001",
+      "MD-NET-001",
+      "MD-SECRET-001"
+    ]
+  }
+}

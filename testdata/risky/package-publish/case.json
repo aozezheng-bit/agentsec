@@ -1,0 +1,17 @@
+{
+  "case_id": "risky-package-publish",
+  "category": "risky",
+  "purpose": "Isolate package publishing with external side effects.",
+  "assets": [
+    "AGENTS.md"
+  ],
+  "expected": {
+    "coverage": "complete",
+    "signals": [
+      "destructive_action"
+    ],
+    "rule_ids": [
+      "MD-DEPLOY-001"
+    ]
+  }
+}

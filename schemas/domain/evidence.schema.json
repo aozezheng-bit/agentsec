@@ -1,0 +1,105 @@
+{
+  "$defs": {
+    "EvidenceSource": {
+      "description": "Origin of evidence supporting a finding.",
+      "enum": [
+        "file",
+        "diff",
+        "configuration",
+        "runtime"
+      ],
+      "title": "EvidenceSource",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Source material supporting a security finding.",
+  "properties": {
+    "asset_path": {
+      "anyOf": [
+        {
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Asset Path"
+    },
+    "content_sha256": {
+      "anyOf": [
+        {
+          "pattern": "^[a-f0-9]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Content Sha256"
+    },
+    "end_line": {
+      "anyOf": [
+        {
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "End Line"
+    },
+    "excerpt": {
+      "anyOf": [
+        {
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Excerpt"
+    },
+    "field": {
+      "anyOf": [
+        {
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Field"
+    },
+    "source_type": {
+      "$ref": "#/$defs/EvidenceSource"
+    },
+    "start_line": {
+      "anyOf": [
+        {
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Start Line"
+    }
+  },
+  "required": [
+    "source_type"
+  ],
+  "title": "Evidence",
+  "type": "object"
+}

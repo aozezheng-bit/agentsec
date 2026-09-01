@@ -1,0 +1,14 @@
+{
+  "status": "complete",
+  "report": {
+    "format": "agentsec-homi-report-only-pilot",
+    "project_name": "example-safe-agent",
+    "findings": [],
+    "limitations": []
+  },
+  "authority": {
+    "report_only": true,
+    "runtime_verified": false,
+    "ci_blocked": false
+  }
+}

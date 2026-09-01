@@ -1,0 +1,24 @@
+{
+  "case_id": "risky-chinese-admin-destructive-dynamic",
+  "category": "risky",
+  "purpose": "Exercise Chinese administrator, dynamic execution, destructive, and obfuscation signals.",
+  "assets": [
+    "AGENTS.md"
+  ],
+  "expected": {
+    "coverage": "complete",
+    "signals": [
+      "code_execution",
+      "destructive_action",
+      "obfuscation",
+      "privileged_access",
+      "zero_width"
+    ],
+    "rule_ids": [
+      "MD-DESTRUCT-001",
+      "MD-EXEC-002",
+      "MD-OBFUSC-001",
+      "MD-PRIV-002"
+    ]
+  }
+}
