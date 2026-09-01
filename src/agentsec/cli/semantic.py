@@ -5,7 +5,7 @@ from __future__ import annotations
 import os
 import stat
 from pathlib import Path
-from typing import Annotated
+from typing import Annotated, cast
 
 import typer
 from pydantic import ValidationError
@@ -22,7 +22,14 @@ from agentsec.semantic import (
     LiveSemanticProvider,
     LiveSemanticProviderConfig,
     OfflineFixtureSemanticProvider,
+    ProviderPromotionReport,
     SemanticAnalysisInput,
+    SemanticGateCandidate,
+    SemanticGateEvaluationImport,
+    SemanticGateEvidenceConfidence,
+    SemanticGatePilotConfig,
+    SemanticGatePilotRunner,
+    SemanticGatePilotStatus,
     SemanticInputBuildError,
     SemanticModelOutput,
     SemanticReportLanguage,
@@ -32,11 +39,19 @@ from agentsec.semantic import (
     SemanticTrialError,
     TrustedSemanticInputBuilder,
     encode_semantic_evaluation_json,
+    encode_semantic_gate_pilot_json,
+    encode_semantic_gate_promotion_json,
+    encode_semantic_gate_qualification_json,
     encode_semantic_shadow_pipeline_report_json,
+    load_semantic_gate_human_corpus,
     load_semantic_trial_cases,
     load_semantic_trial_config,
     load_semantic_trial_responses,
+    promote_report_only,
+    qualify_semantic_gate_evaluation,
     render_semantic_evaluation_text,
+    render_semantic_gate_pilot_text,
+    render_semantic_gate_qualification_text,
     render_semantic_shadow_pipeline_text,
     run_semantic_trial,
 )
@@ -326,6 +341,243 @@ def register_semantic_commands(application: typer.Typer) -> None:
             typer.echo("Semantic Shadow analysis failed safely.", err=True)
             raise typer.Exit(code=ExitCode.REQUIRED_ANALYSIS_FAILED) from error
 
+    @semantic_application.command("gate-pilot")
+    def gate_pilot_command(
+        corpus_path: Annotated[
+            Path, typer.Option("--corpus", help="Gate-scoped human corpus JSON.")
+        ],
+        endpoint: Annotated[
+            str | None,
+            typer.Option("--endpoint", help="Explicit HTTPS Provider endpoint."),
+        ] = None,
+        credential_env: Annotated[
+            str,
+            typer.Option(
+                "--credential-env", help="Credential environment variable name."
+            ),
+        ] = "AGENTSEC_PROVIDER_API_KEY",
+        provider_id: Annotated[
+            str, typer.Option("--provider-id", help="Provider identifier.")
+        ] = "configured-provider",
+        model_id: Annotated[
+            str, typer.Option("--model-id", help="Model identifier.")
+        ] = "configured-model",
+        candidate_path: Annotated[
+            Path | None,
+            typer.Option(
+                "--gate-candidate", help="Optional Semantic Gate candidate JSON."
+            ),
+        ] = None,
+        allow_live: Annotated[
+            bool,
+            typer.Option(
+                "--allow-live", help="Explicitly opt in to live external calls."
+            ),
+        ] = False,
+        data_residency_approved: Annotated[
+            bool, typer.Option("--data-residency-approved")
+        ] = False,
+        retention_policy_approved: Annotated[
+            bool, typer.Option("--retention-policy-approved")
+        ] = False,
+        cost_approved: Annotated[bool, typer.Option("--cost-approved")] = False,
+        review_owner_id: Annotated[
+            str | None, typer.Option("--review-owner-id")
+        ] = None,
+        approval_id: Annotated[str | None, typer.Option("--approval-id")] = None,
+        max_cases: Annotated[int, typer.Option("--max-cases", min=1, max=512)] = 40,
+        max_calls: Annotated[int, typer.Option("--max-calls", min=1, max=512)] = 40,
+        timeout_ms: Annotated[
+            int, typer.Option("--timeout-ms", min=1, max=120000)
+        ] = 30000,
+        output_format: Annotated[
+            str, typer.Option("--format", help="Output format: text or json.")
+        ] = "text",
+        output_path: Annotated[Path | None, typer.Option("--output", "-o")] = None,
+        force: Annotated[bool, typer.Option("--force")] = False,
+    ) -> None:
+        """Run a bounded Real Provider Semantic Gate Pilot in report-only mode."""
+        if force and output_path is None:
+            typer.echo("Option error: --force requires --output.", err=True)
+            raise typer.Exit(code=ExitCode.CONFIGURATION_ERROR)
+        try:
+            corpus = load_semantic_gate_human_corpus(corpus_path)
+            candidate = None
+            if candidate_path is not None:
+                candidate = cast(
+                    SemanticGateCandidate,
+                    _load_json_model(candidate_path, SemanticGateCandidate),
+                )
+            config = SemanticGatePilotConfig(
+                endpoint_url=endpoint,
+                provider_id=provider_id,
+                model_id=model_id,
+                credential_env=credential_env,
+                corpus_path=str(corpus_path),
+                gate_candidate_path=str(candidate_path) if candidate_path else None,
+                max_cases=max_cases,
+                max_calls=max_calls,
+                timeout_ms=timeout_ms,
+                allow_live=allow_live,
+                data_residency_approved=data_residency_approved,
+                retention_policy_approved=retention_policy_approved,
+                cost_approved=cost_approved,
+                review_owner_id=review_owner_id,
+                approval_id=approval_id,
+            )
+            report = SemanticGatePilotRunner().run(config, corpus, candidate=candidate)
+            rendered = (
+                encode_semantic_gate_pilot_json(report)
+                if output_format.casefold() == "json"
+                else render_semantic_gate_pilot_text(report)
+            )
+            if output_path is None:
+                typer.echo(rendered, nl=False)
+            else:
+                writer = ReportArtifactWriter()
+                writer.write(
+                    rendered,
+                    output_path,
+                    kind=ReportArtifactKind.SEMANTIC_GATE_PILOT,
+                    output_format=_parse_output_format(output_format),
+                    force=force,
+                    protected_paths=(corpus_path, candidate_path)
+                    if candidate_path
+                    else (corpus_path,),
+                )
+                typer.echo(f"Semantic Gate Pilot report written: {output_path}")
+            if report.status is not SemanticGatePilotStatus.COMPLETED:
+                raise typer.Exit(code=ExitCode.CONFIGURATION_ERROR)
+        except (ValueError, ValidationError) as error:
+            typer.echo("Semantic Gate Pilot configuration/input error.", err=True)
+            raise typer.Exit(code=ExitCode.CONFIGURATION_ERROR) from error
+        except typer.Exit:
+            raise
+        except OSError as error:
+            typer.echo("Semantic Gate Pilot artifact output failed safely.", err=True)
+            raise typer.Exit(code=ExitCode.ARTIFACT_ERROR) from error
+        except Exception as error:
+            typer.echo("Semantic Gate Pilot failed safely.", err=True)
+            raise typer.Exit(code=ExitCode.REQUIRED_ANALYSIS_FAILED) from error
+
+    @semantic_application.command("gate-qualify")
+    def gate_qualify_command(
+        candidate_path: Annotated[
+            Path, typer.Option("--candidate", help="Semantic Gate candidate JSON.")
+        ],
+        corpus_path: Annotated[
+            Path, typer.Option("--human-corpus", help="Human Corpus JSON.")
+        ],
+        evaluation_import_path: Annotated[
+            Path,
+            typer.Option(
+                "--evaluation-import", help="Bound Provider Evaluation Import JSON."
+            ),
+        ],
+        provider_promotion_path: Annotated[
+            Path | None,
+            typer.Option("--provider-promotion"),
+        ] = None,
+        evidence_confidence_path: Annotated[
+            Path | None,
+            typer.Option("--evidence-confidence"),
+        ] = None,
+        output_format: Annotated[
+            str, typer.Option("--format", help="Output format: text or json.")
+        ] = "text",
+        output_path: Annotated[Path | None, typer.Option("--output", "-o")] = None,
+        promotion_output_path: Annotated[
+            Path | None,
+            typer.Option("--promotion-output"),
+        ] = None,
+        force: Annotated[bool, typer.Option("--force")] = False,
+    ) -> None:
+        """Qualify a bound Provider evaluation for a report-only Semantic Gate."""
+
+        if force and output_path is None:
+            typer.echo("Option error: --force requires --output.", err=True)
+            raise typer.Exit(code=ExitCode.CONFIGURATION_ERROR)
+        try:
+            candidate = cast(
+                SemanticGateCandidate,
+                _load_json_model(candidate_path, SemanticGateCandidate),
+            )
+            corpus = load_semantic_gate_human_corpus(corpus_path)
+            evaluation_import = cast(
+                SemanticGateEvaluationImport,
+                _load_json_model(evaluation_import_path, SemanticGateEvaluationImport),
+            )
+            provider_promotion = (
+                _load_json_model(provider_promotion_path, ProviderPromotionReport)
+                if provider_promotion_path is not None
+                else None
+            )
+            evidence_confidence = (
+                _load_json_model(
+                    evidence_confidence_path, SemanticGateEvidenceConfidence
+                )
+                if evidence_confidence_path is not None
+                else None
+            )
+            report = qualify_semantic_gate_evaluation(
+                candidate=candidate,
+                corpus=corpus,
+                evaluation_import=evaluation_import,
+                provider_promotion=cast(
+                    "ProviderPromotionReport | None", provider_promotion
+                ),
+                evidence_confidence=cast(
+                    "SemanticGateEvidenceConfidence | None", evidence_confidence
+                ),
+            )
+            rendered = (
+                encode_semantic_gate_qualification_json(report)
+                if output_format.casefold() == "json"
+                else render_semantic_gate_qualification_text(report)
+            )
+            if output_path is None:
+                typer.echo(rendered, nl=False)
+            else:
+                ReportArtifactWriter().write(
+                    rendered,
+                    output_path,
+                    kind=ReportArtifactKind.SEMANTIC_GATE_QUALIFICATION,
+                    output_format=_parse_output_format(output_format),
+                    force=force,
+                    protected_paths=(
+                        candidate_path,
+                        corpus_path,
+                        evaluation_import_path,
+                    ),
+                )
+                typer.echo(f"Semantic Gate qualification written: {output_path}")
+            if promotion_output_path is not None:
+                promotion = promote_report_only(report)
+                if promotion_output_path.exists() or promotion_output_path.is_symlink():
+                    raise ValueError("promotion output already exists")
+                promotion_output_path.parent.mkdir(parents=True, exist_ok=True)
+                promotion_output_path.write_text(
+                    encode_semantic_gate_promotion_json(promotion), encoding="utf-8"
+                )
+                promotion_output_path.chmod(0o600)
+                typer.echo(
+                    f"Semantic Gate report-only promotion written: "
+                    f"{promotion_output_path}"
+                )
+        except (ValueError, ValidationError) as error:
+            typer.echo(
+                "Semantic Gate qualification configuration/input error.", err=True
+            )
+            raise typer.Exit(code=ExitCode.CONFIGURATION_ERROR) from error
+        except OSError as error:
+            typer.echo(
+                "Semantic Gate qualification artifact output failed safely.", err=True
+            )
+            raise typer.Exit(code=ExitCode.ARTIFACT_ERROR) from error
+        except Exception as error:
+            typer.echo("Semantic Gate qualification failed safely.", err=True)
+            raise typer.Exit(code=ExitCode.REQUIRED_ANALYSIS_FAILED) from error
+
     application.add_typer(semantic_application, name="semantic")
 
 
@@ -505,6 +757,19 @@ def _render_report(report: object, output_format: str) -> str:
     if parsed == SemanticTrialFormat.JSON:
         return encode_semantic_evaluation_json(report)
     raise ValueError("semantic trial format must be text or json")
+
+
+def _load_json_model(path: Path, model: type[object]) -> object:
+    """Load a bounded regular JSON model without echoing untrusted values."""
+    if path.is_symlink() or not path.is_file() or path.stat().st_size > 2_000_000:
+        raise ValueError("JSON input is missing, unsafe, or oversized")
+    import json
+
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeError, json.JSONDecodeError) as error:
+        raise ValueError("JSON input is unreadable") from error
+    return model.model_validate(payload)  # type: ignore[attr-defined]
 
 
 __all__ = ["register_semantic_commands"]

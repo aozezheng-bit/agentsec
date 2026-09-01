@@ -1,0 +1,37 @@
+{
+  "authority": {
+    "blocks": false,
+    "can_approve_waiver": false,
+    "can_block_ci": false,
+    "can_grant_runtime_authority": false,
+    "can_publish_rule": false,
+    "report_only": true
+  },
+  "candidate_id": "semantic-gate-candidate-sha256:aba54a6bee11c63330e8b7ca593b02e3555efe1569b1076d9d59c41bcd067780",
+  "description": "Detect semantic instruction integrity risks.",
+  "format": "agentsec-semantic-gate-candidate",
+  "gate_id": "SG-INSTRUCTION-INTEGRITY-001",
+  "minimum_evidence_confidence": "C",
+  "required_inputs": [
+    "human_confidence",
+    "human_corpus",
+    "provider_promotion",
+    "provider_quality"
+  ],
+  "schema_version": "0.1.0",
+  "signal": "instruction_integrity",
+  "status": "candidate",
+  "thresholds": {
+    "max_unevaluated_case_count": 0,
+    "min_case_count": 40,
+    "min_complete_coverage_rate": 1.0,
+    "min_eligible_negative_case_count": 20,
+    "min_evidence_binding_accuracy": 0.98,
+    "min_f1": 0.95,
+    "min_human_reviewer_count": 1,
+    "min_positive_case_count": 20,
+    "min_precision": 0.95,
+    "min_recall": 0.95
+  },
+  "title": "Instruction integrity"
+}

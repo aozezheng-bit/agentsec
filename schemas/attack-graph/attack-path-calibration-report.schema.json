@@ -1,0 +1,370 @@
+{
+  "$defs": {
+    "AttackPathAssociationRelation": {
+      "description": "Report-only relationship between a path and one Evidence target.",
+      "enum": [
+        "supports",
+        "partially_supports",
+        "duplicates",
+        "unmatched"
+      ],
+      "title": "AttackPathAssociationRelation",
+      "type": "string"
+    },
+    "AttackPathCalibrationCaseResult": {
+      "additionalProperties": false,
+      "description": "One comparison between an independent label and observed association.",
+      "properties": {
+        "case_id": {
+          "pattern": "^attack-cal-[a-z0-9]+(?:-[a-z0-9]+)*$",
+          "title": "Case Id",
+          "type": "string"
+        },
+        "classification": {
+          "$ref": "#/$defs/AttackPathCalibrationClassification"
+        },
+        "expected_relation": {
+          "$ref": "#/$defs/AttackPathAssociationRelation"
+        },
+        "observed_relation": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/AttackPathAssociationRelation"
+            },
+            {
+              "const": "missing",
+              "type": "string"
+            }
+          ],
+          "title": "Observed Relation"
+        },
+        "path_id": {
+          "pattern": "^attack-path-sha256:[0-9a-f]{64}$",
+          "title": "Path Id",
+          "type": "string"
+        },
+        "target_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Target Id"
+        },
+        "target_kind": {
+          "enum": [
+            "finding",
+            "semantic_candidate"
+          ],
+          "title": "Target Kind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "case_id",
+        "path_id",
+        "target_kind",
+        "expected_relation",
+        "observed_relation",
+        "classification"
+      ],
+      "title": "AttackPathCalibrationCaseResult",
+      "type": "object"
+    },
+    "AttackPathCalibrationClassification": {
+      "description": "Multi-class calibration outcome; not a CI decision.",
+      "enum": [
+        "correct",
+        "incorrect"
+      ],
+      "title": "AttackPathCalibrationClassification",
+      "type": "string"
+    },
+    "AttackPathCalibrationLabelMetrics": {
+      "additionalProperties": false,
+      "description": "One-vs-rest metrics for one expected relation label.",
+      "properties": {
+        "f1": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "F1"
+        },
+        "false_negative": {
+          "minimum": 0,
+          "title": "False Negative",
+          "type": "integer"
+        },
+        "false_positive": {
+          "minimum": 0,
+          "title": "False Positive",
+          "type": "integer"
+        },
+        "precision": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Precision"
+        },
+        "recall": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Recall"
+        },
+        "relation": {
+          "$ref": "#/$defs/AttackPathAssociationRelation"
+        },
+        "true_positive": {
+          "minimum": 0,
+          "title": "True Positive",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "relation",
+        "true_positive",
+        "false_positive",
+        "false_negative"
+      ],
+      "title": "AttackPathCalibrationLabelMetrics",
+      "type": "object"
+    },
+    "AttackPathCalibrationMetrics": {
+      "additionalProperties": false,
+      "description": "Deterministic multi-class calibration metrics.",
+      "properties": {
+        "accuracy": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Accuracy",
+          "type": "number"
+        },
+        "case_count": {
+          "minimum": 1,
+          "title": "Case Count",
+          "type": "integer"
+        },
+        "correct_count": {
+          "minimum": 0,
+          "title": "Correct Count",
+          "type": "integer"
+        },
+        "incorrect_count": {
+          "minimum": 0,
+          "title": "Incorrect Count",
+          "type": "integer"
+        },
+        "labels": {
+          "items": {
+            "$ref": "#/$defs/AttackPathCalibrationLabelMetrics"
+          },
+          "title": "Labels",
+          "type": "array"
+        },
+        "macro_f1": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Macro F1"
+        },
+        "macro_precision": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Macro Precision"
+        },
+        "macro_recall": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Macro Recall"
+        }
+      },
+      "required": [
+        "case_count",
+        "correct_count",
+        "incorrect_count",
+        "accuracy",
+        "labels"
+      ],
+      "title": "AttackPathCalibrationMetrics",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Report-only human calibration of a frozen association report.",
+  "properties": {
+    "association_report_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Association Report Sha256",
+      "type": "string"
+    },
+    "blocks": {
+      "const": false,
+      "default": false,
+      "title": "Blocks",
+      "type": "boolean"
+    },
+    "cases": {
+      "items": {
+        "$ref": "#/$defs/AttackPathCalibrationCaseResult"
+      },
+      "title": "Cases",
+      "type": "array"
+    },
+    "ci_authority": {
+      "const": false,
+      "default": false,
+      "title": "Ci Authority",
+      "type": "boolean"
+    },
+    "finding_authority": {
+      "const": false,
+      "default": false,
+      "title": "Finding Authority",
+      "type": "boolean"
+    },
+    "format": {
+      "const": "agentsec-attack-path-calibration-report",
+      "default": "agentsec-attack-path-calibration-report",
+      "title": "Format",
+      "type": "string"
+    },
+    "hard_gate_authority": {
+      "const": false,
+      "default": false,
+      "title": "Hard Gate Authority",
+      "type": "boolean"
+    },
+    "limitations": {
+      "default": [
+        "calibration measures agreement with independent labels for a frozen association report",
+        "seed or single-reviewer labels are not production quality qualification evidence",
+        "calibration does not modify associations, Findings, Severity, Confidence, Policy, or CI",
+        "static path correlation does not prove runtime reachability or exploitability"
+      ],
+      "items": {
+        "type": "string"
+      },
+      "title": "Limitations",
+      "type": "array"
+    },
+    "metrics": {
+      "$ref": "#/$defs/AttackPathCalibrationMetrics"
+    },
+    "policy_authority": {
+      "const": false,
+      "default": false,
+      "title": "Policy Authority",
+      "type": "boolean"
+    },
+    "release_authority": {
+      "const": false,
+      "default": false,
+      "title": "Release Authority",
+      "type": "boolean"
+    },
+    "report_only": {
+      "const": true,
+      "default": true,
+      "title": "Report Only",
+      "type": "boolean"
+    },
+    "reviewed_case_count": {
+      "minimum": 1,
+      "title": "Reviewed Case Count",
+      "type": "integer"
+    },
+    "reviewer_count": {
+      "minimum": 1,
+      "title": "Reviewer Count",
+      "type": "integer"
+    },
+    "runtime_verified": {
+      "const": false,
+      "default": false,
+      "title": "Runtime Verified",
+      "type": "boolean"
+    },
+    "schema_version": {
+      "const": "0.1.0",
+      "default": "0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "semantic_authority": {
+      "const": false,
+      "default": false,
+      "title": "Semantic Authority",
+      "type": "boolean"
+    },
+    "unreviewed_association_count": {
+      "minimum": 0,
+      "title": "Unreviewed Association Count",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "association_report_sha256",
+    "reviewed_case_count",
+    "unreviewed_association_count",
+    "reviewer_count",
+    "cases",
+    "metrics"
+  ],
+  "title": "AttackPathEvidenceCalibrationReport",
+  "type": "object"
+}

@@ -40,9 +40,10 @@ repository. P3-05 adds quality/Human Review/controlled Shadow promotion; P3-06
 adds trusted Finding links and review-required Rule Candidates; P3-10 adds
 controlled deterministic Rule promotion and Owner-reviewed Rule Pack staging.
 P3-AG-01 starts the renumbered Capability Attack Graph track with the strict
-value-free `agentsec-capability-attack-graph` Schema, and P3-AG-02 adds the
-deterministic `ManifestCapabilityGraphBuilder`; no path matcher, path report,
-or runtime claim exists yet. LLM output is candidate evidence only and
+value-free `agentsec-capability-attack-graph` Schema, P3-AG-02 adds the
+deterministic `ManifestCapabilityGraphBuilder`, P3-AG-03 adds the
+reviewed Attack Path pattern library and static matcher, and P3-AG-04
+adds the value-free Attack Path report; no runtime claim exists yet. LLM output is candidate evidence only and
 cannot affect deterministic CI or Policy decisions. Staging never publishes or
 activates a Rule.
 
@@ -863,6 +864,7 @@ See [`docs/rule-score-calibration.md`](docs/rule-score-calibration.md).
 - [Semantic Finding integration and Rule Candidates](docs/semantic-finding-integration.md)
 - [Semantic Shadow Pipeline](docs/semantic-shadow-pipeline.md)
 - [Semantic Candidate Calibration and Rule Replay](docs/semantic-candidate-calibration.md)
+- [Attack Path CLI and Report](docs/tasks/P3-AG-04B-attack-graph-cli-wiring.md)
 - [Versioning](docs/versioning.md)
 - [Skill / MCP / Tool Association](docs/skill-mcp-tool-association.md)
 - [Static Capability Profile](docs/static-capability-profile.md)
@@ -894,18 +896,182 @@ The source tree now runs the locally accepted `0.4.0` Phase 3 Ready Candidate.
 P2-EXIT-08 Stage 2 reached `candidate_go`; Phase 2 and P2-EXIT-01～08A are complete, including the external Homi Pilot, independent
 Human Evidence, package/supply-chain hardening, and Phase 3 entry review. Phase 3
 has started in Shadow-only mode; the Semantic Track runs P3-01～P3-11B, and
-the Attack Graph Track has delivered the Schema (P3-AG-01) and the
-`ManifestCapabilityGraphBuilder` (P3-AG-02); the path matcher and
-path report remain future work. So far P3-04 adds
+the Attack Graph Track has delivered the Schema (P3-AG-01), the
+`ManifestCapabilityGraphBuilder` (P3-AG-02), the Attack Path pattern
+library and matcher (P3-AG-03), and the value-free Attack Path report
+(P3-AG-04). So far P3-04 adds
 the provider-specific adapter, Offline/Live parity, and `agentsec semantic trial`,
 but no live Provider is configured. The authoritative
 status is
 [`docs/current-release-status.md`](docs/current-release-status.md).
 
-This workspace is not a Git repository and has no configured remote publication
+This workspace is a local Git working tree and has no configured remote publication
 target. No Git tag, signed commit, PR, package-index upload, remote Release
 object, production deployment, or CI enforcement is claimed.
 
 ## P2-28 risk waivers
 
 Organization Policy `0.3.0` supports expiring Owner/Reason/Expiry Waivers for Finding, Rule, and qualified Gate scope. Waivers live inside pinned Policy artifacts, never hide Findings, and expired Waivers automatically lose effect. See [`docs/risk-waivers.md`](docs/risk-waivers.md).
+
+### Attack Path Evidence Association (P3-AG-05)
+
+The Python API can correlate a validated static Attack Graph with existing
+Finding and Shadow Semantic Evidence without granting authority:
+
+```python
+from agentsec.attack_graph import AttackPathEvidenceAssociator
+
+report = AttackPathEvidenceAssociator().associate(
+    graph,
+    findings=findings,
+    semantic_result=semantic_result,
+    semantic_evidence=semantic_chunks,
+)
+```
+
+The report is deterministic and value-minimized: matching requires normalized
+asset path, content SHA-256, and overlapping line ranges. It reports
+`duplicates`, `supports`, `partially_supports`, or `unmatched` and never
+creates Findings, changes Severity/Confidence, blocks CI, or claims runtime
+reachability. See
+`docs/tasks/P3-AG-05-semantic-deterministic-evidence-association.md`.
+
+
+### Attack Path Evidence Association CLI (P3-AG-06)
+
+Associate a validated graph with existing Finding and Shadow Semantic Evidence:
+
+```bash
+agentsec attack-graph-associate \
+  --graph graph.json \
+  --findings findings.json \
+  --semantic-result semantic-result.json \
+  --semantic-evidence semantic-evidence.json \
+  --format json \
+  --output association-report.json
+```
+
+For end-to-end project mode, replace `--graph graph.json` with
+`--project ./homi-agent`. The command is report-only and never executes the
+scanned project or blocks CI.
+
+
+### Attack Path Story Demo (P3-AG-07)
+
+Run the bounded Homi-like story Demo through the production CLI:
+
+```bash
+scripts/run-attack-path-demo.sh
+scripts/demo-attack-path.sh --no-pause
+```
+
+The story shows a static path, an existing deterministic Finding, Shadow
+Semantic Candidates, and `duplicates` / `partially_supports` / `unmatched`
+Evidence associations. It is fully offline and report-only; it does not execute
+the fixture or prove runtime reachability.
+
+
+### Attack Path Evidence Calibration (P3-AG-08)
+
+Evaluate reviewed labels against the frozen association report:
+
+```bash
+PYTHONPATH=src .venv/bin/python scripts/run-attack-path-calibration.py
+```
+
+The pilot distinguishes exact, partial, unmatched, and missing associations and
+remains report-only. The checked-in three-case seed is wiring evidence, not a
+production Precision/Recall qualification claim.
+
+### P3-REL-01 current source / candidate reconciliation
+
+The current source tree can be reconciled into a new local candidate without
+overwriting the preserved `dist/0.4.0/` artifacts:
+
+```bash
+.venv/bin/python scripts/reconcile-candidate-artifacts.py
+```
+
+The command builds fixed-epoch Wheel/sdist artifacts, checks that all current
+modules and Schemas are packaged, installs the Wheel offline, and smoke-tests
+the Attack Graph and Score CLIs. Output is written to
+`dist/candidates/0.4.0-p3-rel-01/`. This proves source/package consistency
+only; it does not claim signatures, SLSA provenance, runtime capability,
+Provider quality, or production readiness.
+
+### P3-REL-02 reconciled Candidate Acceptance
+
+Candidate Acceptance can now consume the current source-reconciled Candidate
+instead of implicitly checking the historical `dist/0.4.0/` directory:
+
+```bash
+PYTHONPATH=src .venv/bin/python scripts/run-phase3-entry-review.py \
+  --repository-root . \
+  --stage candidate_acceptance \
+  --entry-readiness-report \
+    docs/reviews/phase3-entry-readiness-2026-08-26.json \
+  --reconciled-candidate-report \
+    dist/candidates/0.4.0-p3-rel-01/reconciliation-report.json \
+  --release-provenance-bundle \
+    dist/candidates/0.4.0-p3-rel-01/provenance-bundle.json \
+  --format json
+```
+
+The state machine rechecks the reconciled Candidate's source inventory digest,
+artifacts, checksums, reproducibility, and installed CLI smoke evidence. The
+historical candidate remains preserved and no publication or production
+authority is implied.
+
+### P3-REL-03 byte-level content reconciliation
+
+The reconciliation report also verifies the actual bytes of each packaged
+Python module, Schema, and sdist release metadata file against the current
+source tree:
+
+```bash
+.venv/bin/python scripts/reconcile-candidate-artifacts.py --force
+```
+
+The report contains `content_checks` plus bounded mismatch paths. Candidate
+Acceptance requires all content checks to pass and all mismatch lists to be
+empty; recomputing `SHA256SUMS` after changing an archive member is therefore
+not sufficient. No source content is printed, and this remains local,
+report-only evidence.
+
+### P3-18 Semantic Gate Definition / Controlled Qualification
+
+Create a digest-bound Semantic Gate candidate and qualify it against explicit
+sample, quality, human-confidence, and upstream P3-05/P3-07/P3-10 evidence:
+
+```bash
+PYTHONPATH=src .venv/bin/python scripts/create-semantic-gate-candidate.py \
+  --gate-id SG-INSTRUCTION-INTEGRITY-001 \
+  --title "Instruction integrity" \
+  --description "Detect semantic instruction integrity risks." \
+  --signal instruction_integrity \
+  --output calibration/semantic-gates/sg-instruction-integrity-001.json
+```
+
+Run the deterministic report-only qualification with
+`scripts/run-semantic-gate-qualification.py`. The result distinguishes
+`qualified`, `conditionally_qualified`, and `not_qualified`; missing review or
+confidence evidence is pending. Qualification never grants CI, Rule, Waiver,
+runtime, Hard Gate, or release authority.
+
+### P3-REL-04 release manifest and provenance bundle
+
+Bind the reconciled Candidate, source inventory, byte-level report,
+lockfiles/SBOM/license evidence, and explicit non-claims into a deterministic
+release evidence bundle:
+
+```bash
+.venv/bin/python scripts/build-release-provenance-bundle.py --force
+```
+
+The command writes `release-manifest.json`, `provenance-bundle.json`, and
+`PROVENANCE-SHA256SUMS` under
+`dist/candidates/0.4.0-p3-rel-01/`. Candidate Acceptance consumes the bundle
+with `--release-provenance-bundle` and fails closed on stale paths, digests,
+sizes, source inventory, supply-chain evidence, or authority claims. This is
+local report-only evidence; it does not claim signatures, SLSA provenance,
+Runtime Attestation, publication, or production deployment.

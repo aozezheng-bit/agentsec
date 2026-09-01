@@ -94,9 +94,12 @@ def main() -> int:
                 "DeterministicHomiReportOnlyPilot, OfflineFixtureSemanticProvider, "
                 "SemanticAnalysisContract, SemanticEvaluationHarness, "
                 "SemanticShadowInvocationAdapter; "
+                "from agentsec.release_bundle import validate_provenance_bundle; "
+                "from agentsec.semantic import SemanticGateQualificationRunner; "
                 "assert AgentAnalysisPipeline and DeterministicHomiReportOnlyPilot "
                 "and OfflineFixtureSemanticProvider and SemanticAnalysisContract "
-                "and SemanticEvaluationHarness and SemanticShadowInvocationAdapter"
+                "and SemanticEvaluationHarness and SemanticShadowInvocationAdapter "
+                "and validate_provenance_bundle and SemanticGateQualificationRunner"
             ),
         ],
         cwd=ROOT,

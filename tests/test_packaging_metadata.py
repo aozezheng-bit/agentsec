@@ -58,6 +58,7 @@ def test_release_scripts_are_executable() -> None:
         "scripts/run-agentsec-ci.sh",
         "scripts/run-pilot.py",
         "scripts/run-rule-score-calibration.py",
+        "scripts/reconcile-candidate-artifacts.py",
     ):
         mode = (REPOSITORY_ROOT / relative_path).stat().st_mode
         assert mode & os.X_OK

@@ -1,0 +1,88 @@
+{
+  "artifact_checksum_file": {
+    "path": "dist/candidates/0.4.0-p3-rel-01/SHA256SUMS",
+    "sha256": "3a72fb5e241a383a5ae2ae6072ab1e59bcedb8dffbe43fdb6d02f29786e99b79",
+    "size_bytes": 186
+  },
+  "artifacts": {
+    "agentsec-0.4.0-py3-none-any.whl": {
+      "sha256": "3f9ece4cd6b335675bbcbdc6d8b580123904eb0535b7aee9f774a58ecb66f35f",
+      "size_bytes": 716027
+    },
+    "agentsec-0.4.0.tar.gz": {
+      "sha256": "2b5c31f51a76aa1fb93067834173dd892101068cba8d93ba4e72d4accfb1054f",
+      "size_bytes": 2199274
+    }
+  },
+  "authority_boundary": {
+    "bundle_is_evidence_only": true,
+    "grants_ci_authority": false,
+    "grants_publication_authority": false,
+    "grants_runtime_authority": false,
+    "manifest_is_evidence_only": true
+  },
+  "build": {
+    "backend": "setuptools.build_meta",
+    "network_accessed": false,
+    "reproducible_build": true,
+    "runtime_verified": false,
+    "scanned_content_executed": false,
+    "source_date_epoch": 0
+  },
+  "candidate_directory": "dist/candidates/0.4.0-p3-rel-01",
+  "claims": {
+    "artifact_signature": "not_claimed",
+    "remote_publication": "not_claimed",
+    "runtime_attestation": "not_claimed",
+    "slsa_provenance": "not_claimed"
+  },
+  "format": "agentsec-release-manifest",
+  "format_version": "0.1.0",
+  "package": "agentsec",
+  "package_version": "0.4.0",
+  "provenance_bundle": {
+    "checksum_path": "dist/candidates/0.4.0-p3-rel-01/PROVENANCE-SHA256SUMS",
+    "path": "dist/candidates/0.4.0-p3-rel-01/provenance-bundle.json"
+  },
+  "reconciliation_report": {
+    "format": "agentsec-candidate-artifact-reconciliation-report",
+    "format_version": "0.2.0",
+    "path": "dist/candidates/0.4.0-p3-rel-01/reconciliation-report.json",
+    "sha256": "52fa37693b24708ca0b9d568bf0a58bee7e7b8aca18465dfcc1c31a48507c1f4",
+    "size_bytes": 3092,
+    "task_id": "P3-REL-03"
+  },
+  "source_inventory": {
+    "file_count": 301,
+    "sha256": "095e9750d84a1df0cf66799cd4ba0d49104fb0efe6f04c99ecbac6d5c6fd07c7"
+  },
+  "supply_chain": {
+    "files": {
+      "requirements/dev.lock": {
+        "sha256": "26acf2bdb7e4e0ddb8792895df9e9480c0fce6a65ecd4fc54b51372726c9b836",
+        "size_bytes": 322
+      },
+      "requirements/runtime.lock": {
+        "sha256": "5940f108ba84be6c72e80c8641953126a427cade618cca01d4740a3e7a12d3ac",
+        "size_bytes": 434
+      },
+      "supply-chain/build-provenance.json": {
+        "sha256": "75b7bdc7e70511c8ffff0cfa756f674774917f06b6b55ce1df47e6d94d243c62",
+        "size_bytes": 1062
+      },
+      "supply-chain/license-inventory.json": {
+        "sha256": "662e0dc54e1019d460e6c220af6dcc94412b986f0422aaf6e405c781c7ab541b",
+        "size_bytes": 5313
+      },
+      "supply-chain/lockfiles.sha256": {
+        "sha256": "22b6d989f30780559f52537d8725251abb7e108b46b2caca774feb5fbdb027d9",
+        "size_bytes": 237
+      },
+      "supply-chain/sbom.cdx.json": {
+        "sha256": "6447af296fe8a84cb54570c052dc1dcfc00ef9281da1bf8c9b84859107917b19",
+        "size_bytes": 9299
+      }
+    }
+  },
+  "task_id": "P3-REL-04"
+}

@@ -6,7 +6,7 @@ import hashlib
 import json
 from dataclasses import dataclass
 from enum import StrEnum
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 from typing import Literal
 
 from pydantic import ValidationError
@@ -18,6 +18,10 @@ from agentsec.pilot import (
     PILOT_EXTERNAL_REQUIRED_DRILLS,
     PilotReport,
 )
+from agentsec.release_bundle import (
+    ReleaseBundleValidationError,
+    validate_provenance_bundle,
+)
 
 PHASE3_ENTRY_REVIEW_FORMAT: Literal["agentsec-phase3-entry-review"] = (
     "agentsec-phase3-entry-review"
@@ -26,6 +30,9 @@ PHASE3_ENTRY_REVIEW_FORMAT_VERSION = "0.2.0"
 PHASE3_CANDIDATE_VERSION = "0.4.0"
 _CANDIDATE_VERIFICATION_FORMAT = "agentsec-candidate-verification-report"
 _CANDIDATE_VERIFICATION_FORMAT_VERSION = "0.1.0"
+_RECONCILIATION_FORMAT = "agentsec-candidate-artifact-reconciliation-report"
+_RECONCILIATION_FORMAT_VERSION = "0.2.0"
+_RECONCILIATION_TASK_ID = "P3-REL-03"
 _MAX_CONTROL_REPORT_BYTES = 1_048_576
 
 _AUTHORITY_BOUNDARY = {
@@ -121,6 +128,8 @@ class Phase3EntryReviewRequest:
     external_pilot_report: Path | None = None
     entry_readiness_report: Path | None = None
     candidate_verification_report: Path | None = None
+    reconciled_candidate_report: Path | None = None
+    release_provenance_bundle: Path | None = None
 
     def __post_init__(self) -> None:
         if not isinstance(self.repository_root, Path):
@@ -133,12 +142,16 @@ class Phase3EntryReviewRequest:
             (self.external_pilot_report, "external_pilot_report"),
             (self.entry_readiness_report, "entry_readiness_report"),
             (self.candidate_verification_report, "candidate_verification_report"),
+            (self.reconciled_candidate_report, "reconciled_candidate_report"),
+            (self.release_provenance_bundle, "release_provenance_bundle"),
         ):
             if value is not None and not isinstance(value, Path):
                 raise TypeError(f"{label} must be Path")
         if self.stage is Phase3ReviewStage.ENTRY_READINESS and (
             self.entry_readiness_report is not None
             or self.candidate_verification_report is not None
+            or self.reconciled_candidate_report is not None
+            or self.release_provenance_bundle is not None
         ):
             raise ValueError("entry_readiness does not accept candidate-stage evidence")
         if self.stage is Phase3ReviewStage.CANDIDATE_ACCEPTANCE and (
@@ -352,9 +365,16 @@ class DeterministicPhase3EntryReview:
             self._supply_chain_check(root),
             self._authority_boundary_check(root),
             self._candidate_version_check(),
-            self._candidate_artifact_check(root),
+            self._candidate_artifact_check(root, request.reconciled_candidate_report),
             self._candidate_verification_check(
-                root, request.candidate_verification_report
+                root,
+                request.candidate_verification_report,
+                request.reconciled_candidate_report,
+            ),
+            self._release_provenance_bundle_check(
+                root,
+                request.release_provenance_bundle,
+                request.reconciled_candidate_report,
             ),
             self._release_signature_check(root),
         ]
@@ -626,8 +646,12 @@ class DeterministicPhase3EntryReview:
             ),
         )
 
-    @staticmethod
-    def _candidate_artifact_check(root: Path) -> Phase3ReviewCheck:
+    @classmethod
+    def _candidate_artifact_check(
+        cls, root: Path, reconciliation_path: Path | None
+    ) -> Phase3ReviewCheck:
+        if reconciliation_path is not None:
+            return cls._reconciled_candidate_artifact_check(root, reconciliation_path)
         release_dir = root / "dist" / PHASE3_CANDIDATE_VERSION
         wheel = release_dir / f"agentsec-{PHASE3_CANDIDATE_VERSION}-py3-none-any.whl"
         sdist = release_dir / f"agentsec-{PHASE3_CANDIDATE_VERSION}.tar.gz"
@@ -672,10 +696,171 @@ class DeterministicPhase3EntryReview:
             ),
         )
 
-    @staticmethod
-    def _candidate_verification_check(
-        root: Path, report_path: Path | None
+    @classmethod
+    def _reconciled_candidate_artifact_check(
+        cls, root: Path, report_path: Path
     ) -> Phase3ReviewCheck:
+        try:
+            resolved, payload = _load_control_json(root, report_path)
+            candidate_dir = cls._reconciled_candidate_directory(root, payload)
+            artifact_names = (
+                f"agentsec-{PHASE3_CANDIDATE_VERSION}-py3-none-any.whl",
+                f"agentsec-{PHASE3_CANDIDATE_VERSION}.tar.gz",
+            )
+            artifacts = tuple(candidate_dir / name for name in artifact_names)
+            checksums = candidate_dir / "SHA256SUMS"
+            if not all(path.is_file() for path in (*artifacts, checksums)):
+                raise ValueError("reconciled candidate artifacts are missing")
+            observed = _parse_sha256sums(checksums)
+            expected_hashes = {
+                path.name: hashlib.sha256(path.read_bytes()).hexdigest()
+                for path in artifacts
+            }
+            report_artifacts = payload.get("artifacts")
+            if not isinstance(report_artifacts, dict):
+                raise ValueError("reconciliation artifact evidence is malformed")
+            for path in artifacts:
+                record = report_artifacts.get(path.name)
+                if not isinstance(record, dict):
+                    raise ValueError("reconciliation artifact evidence is incomplete")
+                if record.get("sha256") != expected_hashes[path.name]:
+                    raise ValueError("reconciliation artifact digest is stale")
+                if record.get("size_bytes") != path.stat().st_size:
+                    raise ValueError("reconciliation artifact size is stale")
+            if observed != expected_hashes:
+                raise ValueError("reconciled candidate checksums are stale")
+            accepted = cls._reconciliation_payload_is_accepted(root, payload)
+        except (OSError, UnicodeError, ValueError, RuntimeError):
+            accepted = False
+            candidate_dir = None
+        evidence_items = [_safe_relative_evidence(root, report_path)]
+        if candidate_dir is not None:
+            evidence_items.extend(
+                str(path.relative_to(root))
+                for path in (
+                    candidate_dir
+                    / f"agentsec-{PHASE3_CANDIDATE_VERSION}-py3-none-any.whl",
+                    candidate_dir / f"agentsec-{PHASE3_CANDIDATE_VERSION}.tar.gz",
+                    candidate_dir / "SHA256SUMS",
+                )
+            )
+        return _check(
+            "candidate_artifacts",
+            "release",
+            Phase3CheckStatus.PASS if accepted else Phase3CheckStatus.FAIL,
+            True,
+            tuple(evidence_items),
+            (
+                "Reconciled Candidate artifacts, digests, and source/package "
+                "checks are valid."
+                if accepted
+                else "Reconciled Candidate evidence or artifact digests are invalid."
+            ),
+        )
+
+    @staticmethod
+    def _reconciliation_payload_is_accepted(
+        root: Path, payload: dict[str, object]
+    ) -> bool:
+        checks = payload.get("artifact_checks")
+        check_values = checks.get("checks") if isinstance(checks, dict) else None
+        smoke = payload.get("installed_cli_smoke")
+        smoke_values = smoke if isinstance(smoke, dict) else None
+        content_checks = payload.get("content_checks")
+        content_values = content_checks if isinstance(content_checks, dict) else None
+        artifact_checks_payload = checks if isinstance(checks, dict) else None
+        artifact_content_checks = (
+            artifact_checks_payload.get("content_checks")
+            if artifact_checks_payload is not None
+            else None
+        )
+        reproducible = payload.get("reproducible_build")
+        inventory_count, inventory_sha256 = _current_reconciliation_inventory(root)
+        required_content_matches = {
+            "wheel_content_match": True,
+            "sdist_content_match": True,
+            "schema_content_match": True,
+            "metadata_content_match": True,
+        }
+        required_content_checks = {
+            **required_content_matches,
+            "mismatched_wheel_files": [],
+            "mismatched_sdist_files": [],
+            "mismatched_sdist_schema_files": [],
+            "mismatched_sdist_metadata_files": [],
+        }
+        return (
+            payload.get("format") == _RECONCILIATION_FORMAT
+            and payload.get("format_version") == _RECONCILIATION_FORMAT_VERSION
+            and payload.get("task_id") == _RECONCILIATION_TASK_ID
+            and payload.get("status") == "reconciled"
+            and payload.get("package_version") == PHASE3_CANDIDATE_VERSION
+            and payload.get("source_inventory_file_count") == inventory_count
+            and payload.get("source_inventory_sha256") == inventory_sha256
+            and payload.get("candidate_directory") == "dist/candidates/0.4.0-p3-rel-01"
+            and payload.get("preserved_candidate_directory")
+            == f"dist/{PHASE3_CANDIDATE_VERSION}"
+            and payload.get("preserved_candidate_unchanged") is True
+            and payload.get("candidate_artifacts_differ_from_preserved") is True
+            and payload.get("report_only") is True
+            and payload.get("runtime_verified") is False
+            and payload.get("network_accessed") is False
+            and payload.get("scanned_content_executed") is False
+            and isinstance(check_values, dict)
+            and bool(check_values)
+            and all(value is True for value in check_values.values())
+            and content_values == required_content_checks
+            and artifact_content_checks == required_content_checks
+            and isinstance(smoke_values, dict)
+            and bool(smoke_values)
+            and all(value is True for value in smoke_values.values())
+            and isinstance(reproducible, dict)
+            and reproducible.get("source_date_epoch") == 0
+            and reproducible.get("byte_identical") is True
+        )
+
+    @staticmethod
+    def _reconciled_candidate_directory(root: Path, payload: dict[str, object]) -> Path:
+        value = payload.get("candidate_directory")
+        if not isinstance(value, str) or not value:
+            raise ValueError("reconciliation candidate directory is missing")
+        relative = PurePosixPath(value)
+        if relative.is_absolute() or ".." in relative.parts:
+            raise ValueError("reconciliation candidate directory is unsafe")
+        candidate = (root / Path(*relative.parts)).resolve(strict=True)
+        candidate.relative_to(root)
+        if candidate.is_symlink() or not candidate.is_dir():
+            raise ValueError("reconciliation candidate directory is unsafe")
+        return candidate
+
+    @classmethod
+    def _candidate_verification_check(
+        cls,
+        root: Path,
+        report_path: Path | None,
+        reconciliation_path: Path | None,
+    ) -> Phase3ReviewCheck:
+        if reconciliation_path is not None:
+            try:
+                resolved, payload = _load_control_json(root, reconciliation_path)
+                accepted = cls._reconciliation_payload_is_accepted(root, payload)
+            except (OSError, UnicodeError, ValueError, RuntimeError):
+                resolved = reconciliation_path
+                accepted = False
+            return _check(
+                "candidate_verification",
+                "release",
+                Phase3CheckStatus.PASS if accepted else Phase3CheckStatus.FAIL,
+                True,
+                (_safe_relative_evidence(root, resolved),),
+                (
+                    "Reconciled Candidate package verification and installed CLI "
+                    "smoke evidence are complete."
+                    if accepted
+                    else "Reconciled Candidate verification evidence is incomplete "
+                    "or inconsistent."
+                ),
+            )
         if report_path is None:
             return _check(
                 "candidate_verification",
@@ -722,6 +907,51 @@ class DeterministicPhase3EntryReview:
                 if accepted
                 else "Candidate verification evidence is incomplete or inconsistent."
             ),
+        )
+
+    @staticmethod
+    def _release_provenance_bundle_check(
+        root: Path,
+        bundle_path: Path | None,
+        reconciliation_path: Path | None,
+    ) -> Phase3ReviewCheck:
+        required = reconciliation_path is not None
+        if bundle_path is None:
+            return _check(
+                "release_manifest_and_provenance_bundle",
+                "release",
+                Phase3CheckStatus.PENDING,
+                required,
+                ("P3-REL-04 release manifest/provenance bundle not supplied",),
+                (
+                    "The P3-REL-03 Candidate requires a P3-REL-04 release "
+                    "manifest and provenance bundle."
+                    if required
+                    else (
+                        "Legacy Candidate verification does not require the "
+                        "P3-REL-04 bundle."
+                    )
+                ),
+            )
+        try:
+            resolved = bundle_path.resolve(strict=True)
+            validate_provenance_bundle(root, resolved)
+        except (OSError, RuntimeError, ValueError, ReleaseBundleValidationError):
+            return _check(
+                "release_manifest_and_provenance_bundle",
+                "release",
+                Phase3CheckStatus.FAIL,
+                required,
+                (_safe_relative_evidence(root, bundle_path),),
+                "The P3-REL-04 release manifest or provenance bundle is invalid.",
+            )
+        return _check(
+            "release_manifest_and_provenance_bundle",
+            "release",
+            Phase3CheckStatus.PASS,
+            required,
+            (_safe_relative_evidence(root, resolved),),
+            "Release manifest, provenance bundle, and integrity checks are valid.",
         )
 
     @staticmethod
@@ -941,6 +1171,39 @@ def _parse_sha256sums(path: Path) -> dict[str, str]:
             raise ValueError("checksum entry is invalid")
         entries[filename] = digest
     return entries
+
+
+def _current_reconciliation_inventory(root: Path) -> tuple[int, str]:
+    """Return the current source inventory contract shared with P3-REL-01."""
+
+    paths = [
+        root / "pyproject.toml",
+        root / "MANIFEST.in",
+        *sorted((root / "src" / "agentsec").rglob("*.py")),
+        *sorted((root / "schemas").rglob("*.json")),
+    ]
+    if any(not path.is_file() for path in paths):
+        raise ValueError("reconciliation source inventory is incomplete")
+    records = [
+        {
+            "path": path.relative_to(root).as_posix(),
+            "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
+        }
+        for path in paths
+    ]
+    encoded = json.dumps(
+        records, ensure_ascii=False, sort_keys=True, separators=(",", ":")
+    ).encode("utf-8")
+    return len(records), hashlib.sha256(encoded).hexdigest()
+
+
+def _safe_relative_evidence(root: Path, path: Path) -> str:
+    """Render a bounded evidence path without leaking an external absolute path."""
+
+    try:
+        return str(path.resolve().relative_to(root.resolve()))
+    except (OSError, RuntimeError, ValueError):
+        return "explicit report path"
 
 
 def _require_text(value: str, label: str) -> None:

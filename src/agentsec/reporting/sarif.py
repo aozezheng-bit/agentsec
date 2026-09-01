@@ -579,6 +579,27 @@ class AgenticAssessmentSarifRenderer:
                 ),
                 "agentsecCiBlockingEnabled": False,
                 "agentsecRuntimeCapabilityVerified": False,
+                "agentsecAttackPathContextSupplied": result.attack_path is not None,
+                "agentsecAttackPathCount": (
+                    result.attack_path.path_count
+                    if result.attack_path is not None
+                    else 0
+                ),
+                "agentsecAttackPathAssociationCount": (
+                    result.attack_path.association_count
+                    if result.attack_path is not None
+                    else 0
+                ),
+                "agentsecAttackPathScoringMode": (
+                    result.attack_path.scoring_mode
+                    if result.attack_path is not None
+                    else "disabled"
+                ),
+                "agentsecAttackPathNumericScoreEffect": (
+                    result.attack_path.numeric_score_effect
+                    if result.attack_path is not None
+                    else 0.0
+                ),
             },
             report_only=True,
         )

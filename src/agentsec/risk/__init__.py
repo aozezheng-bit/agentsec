@@ -12,6 +12,16 @@ from agentsec.risk.agentic_factors import (
     DeterministicAgenticFactorExtractor,
     encode_agentic_factor_vector_json,
 )
+from agentsec.risk.attack_path_score import (
+    ATTACK_PATH_SCORE_CONTEXT_FORMAT,
+    ATTACK_PATH_SCORE_CONTEXT_VERSION,
+    AttackPathRelationCounts,
+    AttackPathScoreContext,
+    AttackPathScoreIntegrationError,
+    build_attack_path_score_context,
+    encode_attack_path_score_context_json,
+    export_attack_path_score_context_json_schema,
+)
 from agentsec.risk.confidence_engine import (
     ConfidenceEngine,
     ConfidenceScoringCode,
@@ -206,6 +216,14 @@ from agentsec.versioning import (
 )
 
 __all__ = [
+    "ATTACK_PATH_SCORE_CONTEXT_FORMAT",
+    "ATTACK_PATH_SCORE_CONTEXT_VERSION",
+    "AttackPathRelationCounts",
+    "AttackPathScoreContext",
+    "AttackPathScoreIntegrationError",
+    "build_attack_path_score_context",
+    "encode_attack_path_score_context_json",
+    "export_attack_path_score_context_json_schema",
     "SCORING_REPLAY_MODEL_VERSION",
     "SCORING_REPLAY_BASIS",
     "SCORING_REPLAY_FORMAT",

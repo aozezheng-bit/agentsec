@@ -45,6 +45,19 @@ def main() -> int:
         type=Path,
         help="Candidate package verification JSON for candidate_acceptance.",
     )
+    parser.add_argument(
+        "--reconciled-candidate-report",
+        type=Path,
+        help=(
+            "P3-REL-03 byte-level reconciliation report for the current "
+            "source-reconciled candidate."
+        ),
+    )
+    parser.add_argument(
+        "--release-provenance-bundle",
+        type=Path,
+        help="P3-REL-04 release manifest/provenance bundle JSON.",
+    )
     parser.add_argument("--format", choices=("text", "json"), default="text")
     parser.add_argument("--language", choices=("en", "zh"), default="en")
     parser.add_argument("--output", type=Path)
@@ -57,6 +70,8 @@ def main() -> int:
                 external_pilot_report=args.external_pilot_report,
                 entry_readiness_report=args.entry_readiness_report,
                 candidate_verification_report=args.candidate_verification_report,
+                reconciled_candidate_report=args.reconciled_candidate_report,
+                release_provenance_bundle=args.release_provenance_bundle,
             )
         )
         rendered = (

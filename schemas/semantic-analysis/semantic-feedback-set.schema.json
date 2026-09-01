@@ -1,0 +1,322 @@
+{
+  "$defs": {
+    "FeedbackIssueType": {
+      "description": "The misdetection kind one feedback row reports.",
+      "enum": [
+        "false_positive",
+        "false_negative"
+      ],
+      "title": "FeedbackIssueType",
+      "type": "string"
+    },
+    "FeedbackProvenance": {
+      "description": "How the judgments in a feedback set were authored.",
+      "enum": [
+        "human_authored",
+        "ai_draft_human_confirmed",
+        "ai_assisted"
+      ],
+      "title": "FeedbackProvenance",
+      "type": "string"
+    },
+    "FeedbackRationaleCode": {
+      "description": "Closed reviewer rationale vocabulary, aligned to the issue type.",
+      "enum": [
+        "missed_judgment",
+        "overflagged_judgment"
+      ],
+      "title": "FeedbackRationaleCode",
+      "type": "string"
+    },
+    "FeedbackRowStatus": {
+      "description": "Draft rows await confirmation; sets only carry confirmed rows.",
+      "enum": [
+        "draft",
+        "confirmed",
+        "rejected"
+      ],
+      "title": "FeedbackRowStatus",
+      "type": "string"
+    },
+    "SemanticCandidateDisposition": {
+      "description": "Probabilistic support state without enforcement meaning.",
+      "enum": [
+        "supported",
+        "not_supported",
+        "uncertain"
+      ],
+      "title": "SemanticCandidateDisposition",
+      "type": "string"
+    },
+    "SemanticCandidateKind": {
+      "description": "Bounded semantic judgment families; none is a published Finding.",
+      "enum": [
+        "capability_declaration",
+        "control_weakening",
+        "semantic_conflict",
+        "cross_file_chain",
+        "risky_intent",
+        "ambiguity"
+      ],
+      "title": "SemanticCandidateKind",
+      "type": "string"
+    },
+    "SemanticFeedbackCaseRow": {
+      "additionalProperties": false,
+      "description": "One feedback row: one case judgment plus its issue type.",
+      "properties": {
+        "case_id": {
+          "pattern": "^[a-z][a-z0-9._-]{0,127}$",
+          "title": "Case Id",
+          "type": "string"
+        },
+        "category": {
+          "maxLength": 64,
+          "minLength": 1,
+          "title": "Category",
+          "type": "string"
+        },
+        "disposition": {
+          "$ref": "#/$defs/SemanticCandidateDisposition"
+        },
+        "evidence_ids": {
+          "items": {
+            "pattern": "^semantic-evidence-sha256:[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "title": "Evidence Ids",
+          "type": "array"
+        },
+        "format": {
+          "const": "agentsec-p3-17-feedback-row",
+          "default": "agentsec-p3-17-feedback-row",
+          "title": "Format",
+          "type": "string"
+        },
+        "issue_type": {
+          "$ref": "#/$defs/FeedbackIssueType"
+        },
+        "kind": {
+          "$ref": "#/$defs/SemanticCandidateKind"
+        },
+        "note": {
+          "anyOf": [
+            {
+              "maxLength": 512,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Note"
+        },
+        "rationale_code": {
+          "$ref": "#/$defs/FeedbackRationaleCode"
+        },
+        "row_id": {
+          "pattern": "^[a-z][a-z0-9._:-]{3,255}$",
+          "title": "Row Id",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": "0.1.0",
+          "default": "0.1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/$defs/FeedbackRowStatus"
+        }
+      },
+      "required": [
+        "row_id",
+        "case_id",
+        "issue_type",
+        "kind",
+        "category",
+        "disposition",
+        "evidence_ids",
+        "rationale_code",
+        "status"
+      ],
+      "title": "SemanticFeedbackCaseRow",
+      "type": "object"
+    },
+    "_FeedbackContext": {
+      "additionalProperties": false,
+      "description": "Value-free binding of feedback to its drafting run and packs.",
+      "properties": {
+        "evaluation_case_count": {
+          "maximum": 256,
+          "minimum": 1,
+          "title": "Evaluation Case Count",
+          "type": "integer"
+        },
+        "evaluation_model_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "title": "Evaluation Model Id",
+          "type": "string"
+        },
+        "evaluation_provider_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "title": "Evaluation Provider Id",
+          "type": "string"
+        },
+        "source_pack_sha256": {
+          "items": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "maxItems": 4,
+          "minItems": 1,
+          "title": "Source Pack Sha256",
+          "type": "array"
+        }
+      },
+      "required": [
+        "source_pack_sha256",
+        "evaluation_provider_id",
+        "evaluation_model_id",
+        "evaluation_case_count"
+      ],
+      "title": "_FeedbackContext",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Reviewer-confirmed FP/FN rows; the import target of the workflow.",
+  "properties": {
+    "blocks": {
+      "const": false,
+      "default": false,
+      "title": "Blocks",
+      "type": "boolean"
+    },
+    "calibration_authority": {
+      "const": false,
+      "default": false,
+      "title": "Calibration Authority",
+      "type": "boolean"
+    },
+    "ci_authority": {
+      "const": false,
+      "default": false,
+      "title": "Ci Authority",
+      "type": "boolean"
+    },
+    "context": {
+      "$ref": "#/$defs/_FeedbackContext"
+    },
+    "false_negative_row_count": {
+      "minimum": 0,
+      "title": "False Negative Row Count",
+      "type": "integer"
+    },
+    "false_positive_row_count": {
+      "minimum": 0,
+      "title": "False Positive Row Count",
+      "type": "integer"
+    },
+    "feedback_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Feedback Sha256",
+      "type": "string"
+    },
+    "format": {
+      "const": "agentsec-p3-17-semantic-feedback-set",
+      "default": "agentsec-p3-17-semantic-feedback-set",
+      "title": "Format",
+      "type": "string"
+    },
+    "gate_authority": {
+      "const": false,
+      "default": false,
+      "title": "Gate Authority",
+      "type": "boolean"
+    },
+    "independence_statement": {
+      "maxLength": 2048,
+      "minLength": 20,
+      "title": "Independence Statement",
+      "type": "string"
+    },
+    "label_provenance": {
+      "$ref": "#/$defs/FeedbackProvenance"
+    },
+    "note": {
+      "default": "Reviewer-confirmed false-positive and false-negative rows over the frozen scenario packs. Resolution reports are detection-based evidence for human review; feedback never gains calibration, publication, Policy, CI, or runtime authority.",
+      "maxLength": 512,
+      "minLength": 8,
+      "title": "Note",
+      "type": "string"
+    },
+    "policy_authority": {
+      "const": false,
+      "default": false,
+      "title": "Policy Authority",
+      "type": "boolean"
+    },
+    "report_only": {
+      "const": true,
+      "default": true,
+      "title": "Report Only",
+      "type": "boolean"
+    },
+    "reviewer_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Reviewer Id",
+      "type": "string"
+    },
+    "row_count": {
+      "maximum": 256,
+      "minimum": 1,
+      "title": "Row Count",
+      "type": "integer"
+    },
+    "rows": {
+      "items": {
+        "$ref": "#/$defs/SemanticFeedbackCaseRow"
+      },
+      "maxItems": 256,
+      "minItems": 1,
+      "title": "Rows",
+      "type": "array"
+    },
+    "rule_publication_authority": {
+      "const": false,
+      "default": false,
+      "title": "Rule Publication Authority",
+      "type": "boolean"
+    },
+    "runtime_verified": {
+      "const": false,
+      "default": false,
+      "title": "Runtime Verified",
+      "type": "boolean"
+    },
+    "schema_version": {
+      "const": "0.1.0",
+      "default": "0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "feedback_sha256",
+    "label_provenance",
+    "reviewer_id",
+    "independence_statement",
+    "context",
+    "row_count",
+    "false_positive_row_count",
+    "false_negative_row_count",
+    "rows"
+  ],
+  "title": "SemanticFeedbackSet",
+  "type": "object"
+}

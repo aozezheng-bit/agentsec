@@ -1,0 +1,97 @@
+{
+  "additionalProperties": false,
+  "description": "Explicit report-only promotion evidence, never a production authorization.",
+  "properties": {
+    "blocks": {
+      "const": false,
+      "default": false,
+      "title": "Blocks",
+      "type": "boolean"
+    },
+    "can_approve_waiver": {
+      "const": false,
+      "default": false,
+      "title": "Can Approve Waiver",
+      "type": "boolean"
+    },
+    "can_block_ci": {
+      "const": false,
+      "default": false,
+      "title": "Can Block Ci",
+      "type": "boolean"
+    },
+    "can_grant_runtime_authority": {
+      "const": false,
+      "default": false,
+      "title": "Can Grant Runtime Authority",
+      "type": "boolean"
+    },
+    "can_publish_rule": {
+      "const": false,
+      "default": false,
+      "title": "Can Publish Rule",
+      "type": "boolean"
+    },
+    "candidate_id": {
+      "pattern": "^semantic-gate-candidate-sha256:[0-9a-f]{64}$",
+      "title": "Candidate Id",
+      "type": "string"
+    },
+    "format": {
+      "const": "agentsec-semantic-gate-report-only-promotion",
+      "default": "agentsec-semantic-gate-report-only-promotion",
+      "title": "Format",
+      "type": "string"
+    },
+    "gate_id": {
+      "pattern": "^SG-[A-Z0-9][A-Z0-9._-]{2,63}$",
+      "title": "Gate Id",
+      "type": "string"
+    },
+    "promoted": {
+      "title": "Promoted",
+      "type": "boolean"
+    },
+    "promotion_id": {
+      "pattern": "^semantic-gate-promotion-sha256:[0-9a-f]{64}$",
+      "title": "Promotion Id",
+      "type": "string"
+    },
+    "qualification_id": {
+      "pattern": "^semantic-gate-qualification-sha256:[0-9a-f]{64}$",
+      "title": "Qualification Id",
+      "type": "string"
+    },
+    "qualification_status": {
+      "enum": [
+        "qualified",
+        "conditionally_qualified",
+        "not_qualified"
+      ],
+      "title": "Qualification Status",
+      "type": "string"
+    },
+    "report_only": {
+      "const": true,
+      "default": true,
+      "title": "Report Only",
+      "type": "boolean"
+    },
+    "schema_version": {
+      "const": "0.1.0",
+      "default": "0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "promotion_id",
+    "gate_id",
+    "candidate_id",
+    "qualification_id",
+    "qualification_status",
+    "promoted"
+  ],
+  "title": "SemanticGateReportOnlyPromotion",
+  "type": "object"
+}

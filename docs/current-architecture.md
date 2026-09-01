@@ -165,7 +165,7 @@ or Hard Gates, or authorize release. A rejected or duplicate Rule ID remains
 representable as rejected evidence. See `docs/semantic-rule-promotion.md` and
 ADR-0091.
 
-### P3-AG-01 attack graph schema and P3-AG-02 builder
+### Attack Graph Track: schema, builder, matcher, and path report (P3-AG-01～04)
 
 The Attack Graph Track is separate from the Semantic Track (2026-08-31
 roadmap erratum). P3-AG-01 adds the frozen
@@ -184,11 +184,37 @@ Evidence value-free, merges deterministically with fail-closed Evidence
 bounds, suppresses disabled tools and deny permissions, binds the graph to
 `canonical_manifest_sha256`, and emits `paths=()` (matching is reserved for
 P3-AG-03). ADR-0097 amends the endpoint matrix so Manifest tool families may
-source `sends_to`, `writes_to`, and `installs`. The path matcher
-(P3-AG-03) and path report (P3-AG-04) are not implemented. See
+source `sends_to`, `writes_to`, and `installs`. P3-AG-03 adds the reviewed
+`ATTACK_PATH_PATTERN_LIBRARY_VERSION 0.1.0` vocabulary (seven static
+patterns covering the roadmap's five families plus the optional
+supply-chain family and an egress variant) and the deterministic
+`AttackPathMatcher`: ordered DFS over declared edges, start-node-bound
+preconditions, content-addressed path IDs, fail-closed 64-per-pattern and
+256-graph bounds, and `match_into_graph()` re-emitting a fully re-validated
+report-only graph. Every matched path is a `static_declared_path` with
+`runtime_verified=false`, `reachability=not_proven`, and
+`exploitability=not_proven`; `mcp-production-write` and
+`tool-dependency-install` match zero paths while the builder emits no
+`writes_to`/`installs` edges (disclosed in ADR-0099). The path report
+`writes_to`/`installs` edges (disclosed in ADR-0099). P3-AG-04 adds the
+frozen `agentsec-attack-path-report` `0.1.0` contract: value-free entries
+(pattern ID, node kind sequence, content-addressed node IDs, counts) with
+per-entry coherence checks, report-level digest bindings (Manifest schema
+and digest, `canonical_attack_graph_sha256`, pattern-library version), a
+single `build_attack_path_report` producer that fails closed outside a
+validated graph, a boundary-first bounded Text renderer, and canonical
+round-tripping JSON. P3-AG-04B wires the validated Manifest→graph→matcher→report
+chain to `agentsec attack-graph PROJECT`, with Text/JSON output and hardened
+artifact writing. A matched path is explicitly not a Finding: no severity,
+confidence, or recommendation is rendered and every authority boolean stays
+false with `exploitability_claimed=false`. P3-AG-05 adds the value-minimized
+Evidence association contract described in section 28 below. See
 `docs/tasks/P3-AG-01-attack-graph-node-edge-schema.md`,
-`docs/tasks/P3-AG-02-manifest-capability-graph-builder.md`, ADR-0093, and
-ADR-0097.
+`docs/tasks/P3-AG-02-manifest-capability-graph-builder.md`,
+`docs/tasks/P3-AG-03-attack-path-pattern-library-matcher.md`,
+`docs/tasks/P3-AG-04-attack-path-report.md`,
+docs/tasks/P3-AG-05-semantic-deterministic-evidence-association.md,
+ADR-0093, ADR-0097, ADR-0099, ADR-0101, and ADR-0103.
 
 ## 8. Version governance
 
@@ -239,3 +265,97 @@ docs/current-release-status.md     release and remediation status
 CHANGELOG.md                       change history
 docs/decisions/                    accepted decisions (ADRs)
 ```
+
+## 28. P3-AG-05 semantic/deterministic Evidence association
+
+```text
+Task                              P3-AG-05 Complete
+Deliverable                       agentsec-attack-path-evidence-association-report 0.1.0
+Producer                          AttackPathEvidenceAssociator.associate
+Bindings                         graph + path-report + Finding + optional Semantic digests
+Match basis                       normalized path + SHA-256 + overlapping lines
+Finding input                    existing Finding only; file/diff Evidence only
+Semantic input                   existing Semantic Result + trusted Evidence chunks
+Relations                        duplicates / supports / partially_supports / unmatched
+Authority                         report_only=true; blocks=false; all authority false
+Value minimization                graph and target locators only; no excerpts or secrets
+Runtime                           runtime_verified=false; reachability/exploitability not proven
+Tests                             tests/test_attack_graph_p3_ag_05.py (8 passed)
+```
+
+P3-AG-05 adds a deterministic read-only correlation layer between matched
+static paths, existing deterministic Findings, and Shadow semantic candidates.
+It deduplicates shared node/edge locators, fails closed on path/hash/line
+mismatches or missing trusted Semantic Evidence, and emits a frozen
+`attack-path-evidence-association-report` Schema. It never creates or mutates a
+Finding or candidate and does not affect Severity, Confidence, Policy, CI, Hard
+Gates, release state, runtime reachability, or exploitability. See
+`docs/tasks/P3-AG-05-semantic-deterministic-evidence-association.md`,
+`docs/decisions/0103-attack-path-evidence-association.md`, and
+`schemas/attack-graph/attack-path-evidence-association-report.schema.json`.
+
+
+## 29. P3-AG-06 association CLI / E2E
+
+P3-AG-06 adds `agentsec attack-graph-associate` without changing the existing
+`agentsec attack-graph PROJECT` interface. The command supports validated
+artifact mode (`--graph`) and project mode (`--project`), optional Finding and
+Semantic Evidence inputs, Text/JSON output, bounded no-follow readers, and
+same-kind atomic artifact writing. It invokes only the P3-AG-05 read-only
+associator. Valid reports remain non-blocking and carry no runtime or
+Finding/Policy/CI/Hard-Gate authority. See
+`docs/tasks/P3-AG-06-attack-path-evidence-association-cli-e2e.md` and
+ADR-0104.
+
+
+## 30. P3-AG-07 Attack Path Story Demo
+
+P3-AG-07 adds the inert `demos/attack-path-story-agent/` Homi-like fixture and
+repeatable `scripts/run-attack-path-demo.sh` / `scripts/demo-attack-path.sh`
+runner. It exercises the production association CLI and produces a bounded one-
+path story with deterministic Finding, Shadow Semantic Candidate, exact,
+partial, and unmatched Evidence outcomes. The Demo is presenter evidence only:
+no target execution, runtime claim, CI block, or authority transition is
+possible. See `docs/tasks/P3-AG-07-attack-path-story-demo.md` and ADR-0105.
+
+
+## 31. P3-AG-08 Attack Path Evidence Calibration
+
+P3-AG-08 adds strict digest-bound human label cases and a deterministic
+calibration report for the P3-AG-05 association output. It preserves the
+relation classes, exposes missing/unreviewed rows, and computes exact accuracy
+and one-vs-rest metrics. The checked-in three-case corpus is seed wiring
+evidence only, not an independent quality qualification set. No calibration
+result changes Findings, Rules, Policy, CI, Hard Gates, or runtime claims. See
+`docs/tasks/P3-AG-08-attack-path-evidence-calibration.md` and ADR-0106.
+
+
+## P3-AG-09 Attack Path Score Integration
+
+The Score command accepts the validated Attack Path Evidence Association Report
+and an optional digest-bound calibration report. The resulting
+`AttackPathScoreContext` is embedded in Agentic Assessment output as explanatory
+context only. It records path/association counts and calibration provenance, but
+its contract fixes `scoring_mode=context_only`, `numeric_score_effect=0.0`,
+and `calibration_qualified=false`; therefore Attack Paths cannot change
+Technical/Drift/Governance/Overall scores, Severity, Hard Gates, CI, or release
+authority.
+
+## P3-19 Semantic Gate human evidence and Provider Pilot
+
+The P3-19 path adds a Gate-scoped, digest-bound Human Corpus ahead of Provider quality
+qualification. Corpus coverage and reviewer provenance are deterministic inputs to the
+P3-18 qualification runner. A separate Real Provider Pilot runner performs fail-closed
+preflight and, only after explicit opt-in and organizational approval, invokes the existing
+Shadow Adapter at a bounded one-call-per-case budget. The resulting artifact contains no
+raw prompt, response, credential, or sensitive endpoint data, and all authority fields
+remain report-only / false.
+
+## P3-20 Provider Evaluation Import and Qualification
+
+Provider Evaluation Reports no longer enter Gate qualification as unbound JSON. The
+`SemanticGateEvaluationImport` contract binds the current Candidate, Gate-specific Human
+Corpus, Evaluation Digest, Provider/Model identity, and current Prompt Contract. The
+qualification adapter consumes the imported report without re-invoking the Provider and
+produces only report-only qualification/promotion evidence. A successful quality result
+still has no CI, Rule, Policy, Waiver, Runtime, or Release authority.

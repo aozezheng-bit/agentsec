@@ -111,7 +111,10 @@ def test_current_release_status_records_releases_and_remediation() -> None:
     assert AGENTIC_ASSESSMENT_OUTPUT_VERSION in text
     assert "P3-01～P3-10 complete" in text
     assert "P3-11A/P3-11B/P3-11C complete" in text
-    assert "P3-12/P3-13/P3-14 scenario metrics track complete" in text
+    assert (
+        "P3-12～P3-17 metrics, replay, Shadow Mode, and FP/FN feedback loop complete"
+        in text
+    )
     assert "Shadow-only started" in text
     assert "offline fixture" in text
     for version in (
@@ -193,3 +196,49 @@ def test_no_current_page_claims_phase3_authority_or_blocking() -> None:
         assert "candidate evidence only" in text or "candidate evidence" in text
         assert "offline fixture" in text or "OfflineFixtureSemanticProvider" in text
         assert "only decision authority" in text or "never part of a decision" in text
+
+
+def test_p3_18_gate_definition_is_documented_as_report_only() -> None:
+    text = _read(CURRENT_RELEASE_STATUS)
+    task = _read(
+        REPOSITORY_ROOT
+        / "docs"
+        / "tasks"
+        / "P3-18-semantic-gate-definition-controlled-qualification.md"
+    )
+    for value in (text, task):
+        assert "P3-18" in value
+        assert "conditionally_qualified" in value
+        assert "can_block_ci=false" in value or "can_block_ci" in value
+        assert "candidate evidence only" in value or "candidate Evidence only" in value
+
+
+def test_p3_19_human_corpus_and_pilot_are_documented_as_report_only() -> None:
+    text = _read(CURRENT_RELEASE_STATUS)
+    task = _read(
+        REPOSITORY_ROOT
+        / "docs"
+        / "tasks"
+        / "P3-19-semantic-gate-human-corpus-real-provider-pilot.md"
+    )
+    for value in (text, task):
+        assert "P3-19" in value
+        assert "preflight_blocked" in value
+        assert "report-only" in value or "report_only" in value
+    assert "Shadow-only / report-only" in task
+
+
+def test_p3_20_evaluation_import_is_documented_as_report_only() -> None:
+    text = _read(CURRENT_RELEASE_STATUS)
+    task = _read(
+        REPOSITORY_ROOT
+        / "docs"
+        / "tasks"
+        / "P3-20-provider-evaluation-import-semantic-gate-qualification.md"
+    )
+    for value in (text, task):
+        assert "P3-20" in value
+        assert "can_block_ci" in value
+        assert "can_publish_rule" in value
+        assert "report-only" in value or "report_only" in value
+    assert "agentsec semantic gate-qualify" in task

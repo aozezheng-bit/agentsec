@@ -1,0 +1,99 @@
+{
+  "association_report_sha256": "b78495bcbbdd172e44f2b8900348ccceb3b2e8886c37495482fcaf03ac80b2e2",
+  "blocks": false,
+  "cases": [
+    {
+      "case_id": "attack-cal-story-1",
+      "classification": "correct",
+      "expected_relation": "partially_supports",
+      "observed_relation": "partially_supports",
+      "path_id": "attack-path-sha256:2e526ea37e929bc2988594cde896ad598f146b926bb9b9347d64a81a59cb08c3",
+      "target_id": "capability-finding-sha256:a0923fc50b9f73be012e972c870208647f4624e7e19817ed6279bd799d413227",
+      "target_kind": "finding"
+    },
+    {
+      "case_id": "attack-cal-story-2",
+      "classification": "correct",
+      "expected_relation": "unmatched",
+      "observed_relation": "unmatched",
+      "path_id": "attack-path-sha256:2e526ea37e929bc2988594cde896ad598f146b926bb9b9347d64a81a59cb08c3",
+      "target_id": "semantic-candidate-sha256:4a24d0ec854d4a8e4528c51d22ebdb0792228868277b2082367e50893805cd95",
+      "target_kind": "semantic_candidate"
+    },
+    {
+      "case_id": "attack-cal-story-3",
+      "classification": "correct",
+      "expected_relation": "duplicates",
+      "observed_relation": "duplicates",
+      "path_id": "attack-path-sha256:2e526ea37e929bc2988594cde896ad598f146b926bb9b9347d64a81a59cb08c3",
+      "target_id": "semantic-candidate-sha256:913ac2f2a0f62518271804881d07195a7909bb94914aa77299e861598f08f179",
+      "target_kind": "semantic_candidate"
+    }
+  ],
+  "ci_authority": false,
+  "finding_authority": false,
+  "format": "agentsec-attack-path-calibration-report",
+  "hard_gate_authority": false,
+  "limitations": [
+    "calibration measures agreement with independent labels for a frozen association report",
+    "seed or single-reviewer labels are not production quality qualification evidence",
+    "calibration does not modify associations, Findings, Severity, Confidence, Policy, or CI",
+    "static path correlation does not prove runtime reachability or exploitability"
+  ],
+  "metrics": {
+    "accuracy": 1.0,
+    "case_count": 3,
+    "correct_count": 3,
+    "incorrect_count": 0,
+    "labels": [
+      {
+        "f1": null,
+        "false_negative": 0,
+        "false_positive": 0,
+        "precision": null,
+        "recall": null,
+        "relation": "supports",
+        "true_positive": 0
+      },
+      {
+        "f1": 1.0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "relation": "partially_supports",
+        "true_positive": 1
+      },
+      {
+        "f1": 1.0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "relation": "duplicates",
+        "true_positive": 1
+      },
+      {
+        "f1": 1.0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "relation": "unmatched",
+        "true_positive": 1
+      }
+    ],
+    "macro_f1": 1.0,
+    "macro_precision": 1.0,
+    "macro_recall": 1.0
+  },
+  "policy_authority": false,
+  "release_authority": false,
+  "report_only": true,
+  "reviewed_case_count": 3,
+  "reviewer_count": 1,
+  "runtime_verified": false,
+  "schema_version": "0.1.0",
+  "semantic_authority": false,
+  "unreviewed_association_count": 0
+}

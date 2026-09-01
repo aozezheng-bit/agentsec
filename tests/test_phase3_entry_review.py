@@ -441,6 +441,82 @@ def test_candidate_acceptance_go_requires_verified_artifacts(
     assert signature.status.value == "pending"
 
 
+def test_reconciled_candidate_report_drives_candidate_acceptance() -> None:
+    report = DeterministicPhase3EntryReview().run(
+        Phase3EntryReviewRequest(
+            repository_root=ROOT,
+            stage=Phase3ReviewStage.CANDIDATE_ACCEPTANCE,
+            entry_readiness_report=(
+                ROOT / "docs" / "reviews" / "phase3-entry-readiness-2026-08-26.json"
+            ),
+            reconciled_candidate_report=(
+                ROOT
+                / "dist"
+                / "candidates"
+                / "0.4.0-p3-rel-01"
+                / "reconciliation-report.json"
+            ),
+            release_provenance_bundle=(
+                ROOT
+                / "dist"
+                / "candidates"
+                / "0.4.0-p3-rel-01"
+                / "provenance-bundle.json"
+            ),
+        )
+    )
+
+    assert report.state is Phase3PromotionState.CANDIDATE_GO
+    assert report.acceptance_ready is True
+    assert report.blocking_checks == ()
+    artifact = next(
+        item for item in report.checks if item.check_id == "candidate_artifacts"
+    )
+    verification = next(
+        item for item in report.checks if item.check_id == "candidate_verification"
+    )
+    assert artifact.status is release_review_module.Phase3CheckStatus.PASS
+    assert verification.status is release_review_module.Phase3CheckStatus.PASS
+    bundle = next(
+        item
+        for item in report.checks
+        if item.check_id == "release_manifest_and_provenance_bundle"
+    )
+    assert bundle.status is release_review_module.Phase3CheckStatus.PASS
+    assert any("dist/candidates/0.4.0-p3-rel-01" in item for item in artifact.evidence)
+
+
+def test_reconciled_candidate_report_outside_root_fails_closed() -> None:
+    report = DeterministicPhase3EntryReview().run(
+        Phase3EntryReviewRequest(
+            repository_root=ROOT,
+            stage=Phase3ReviewStage.CANDIDATE_ACCEPTANCE,
+            entry_readiness_report=(
+                ROOT / "docs" / "reviews" / "phase3-entry-readiness-2026-08-26.json"
+            ),
+            reconciled_candidate_report=Path("/tmp/reconciliation-report.json"),
+        )
+    )
+
+    assert report.state is Phase3PromotionState.CANDIDATE_NO_GO
+    assert "candidate_artifacts" in {item.check_id for item in report.blocking_checks}
+
+
+def test_reconciled_candidate_acceptance_rejects_stale_byte_content_contract() -> None:
+    report_path = (
+        ROOT / "dist" / "candidates" / "0.4.0-p3-rel-01" / "reconciliation-report.json"
+    )
+    payload = json.loads(report_path.read_text(encoding="utf-8"))
+    payload["content_checks"]["wheel_content_match"] = False
+
+    assert (
+        release_review_module.DeterministicPhase3EntryReview._reconciliation_payload_is_accepted(  # noqa: SLF001
+            ROOT, payload
+        )
+        is False
+    )
+
+
 def test_tampered_candidate_checksum_is_fail_closed(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
@@ -517,6 +593,11 @@ def test_stage_specific_arguments_are_rejected(tmp_path: Path) -> None:
         Phase3EntryReviewRequest(
             repository_root=root,
             candidate_verification_report=root / "candidate.json",
+        )
+    with pytest.raises(ValueError, match="does not accept candidate-stage"):
+        Phase3EntryReviewRequest(
+            repository_root=root,
+            reconciled_candidate_report=root / "reconciliation.json",
         )
     with pytest.raises(ValueError, match="approved entry-readiness report"):
         Phase3EntryReviewRequest(

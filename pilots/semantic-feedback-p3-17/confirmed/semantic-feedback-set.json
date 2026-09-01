@@ -1,0 +1,895 @@
+{
+  "format": "agentsec-p3-17-semantic-feedback-set",
+  "schema_version": "0.1.0",
+  "feedback_sha256": "a51af6750a636ab8466f91d3feab6c8ed0eaf5ab92aff6c2a145dfc148fb6c02",
+  "label_provenance": "ai_draft_human_confirmed",
+  "reviewer_id": "呈屿",
+  "independence_statement": "本人逐行复核了 AI 起草的 false_positive/false_negative 反馈行，对照各案例脱敏文本独立判断并确认每行结论；判断责任在签署人。",
+  "context": {
+    "source_pack_sha256": [
+      "13c3adb22e5c4dc474c907bac7e1a084e23361472b62769b7f9165ab93e65c92",
+      "f9b2c3cf385967dbc0f40c45eab54552e490c2a3c227569c139cb22891cfeaf1"
+    ],
+    "evaluation_provider_id": "offline-fixture",
+    "evaluation_model_id": "agentsec-semantic-fixture-v1",
+    "evaluation_case_count": 30
+  },
+  "row_count": 54,
+  "false_positive_row_count": 0,
+  "false_negative_row_count": 54,
+  "rows": [
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "demo-release-baseline:false_negative:capability_declaration:human_approval:supported",
+      "case_id": "demo-release-baseline",
+      "issue_type": "false_negative",
+      "kind": "capability_declaration",
+      "category": "human_approval",
+      "disposition": "supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:607837eaf4d70d04e428c2739d798ca84d0d3ae6151d34a8a55cda894383f64e"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "demo-release-injection:false_negative:control_weakening:instruction_integrity:supported",
+      "case_id": "demo-release-injection",
+      "issue_type": "false_negative",
+      "kind": "control_weakening",
+      "category": "instruction_integrity",
+      "disposition": "supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:d2d419d4e7a5ff2f30a315638e5a1a893bca27b2feb10f3977cf88af256f3612"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "demo-release-injection:false_negative:semantic_conflict:instruction_integrity:supported",
+      "case_id": "demo-release-injection",
+      "issue_type": "false_negative",
+      "kind": "semantic_conflict",
+      "category": "instruction_integrity",
+      "disposition": "supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:d2d419d4e7a5ff2f30a315638e5a1a893bca27b2feb10f3977cf88af256f3612"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "demo-release-remediated:false_negative:capability_declaration:human_approval:supported",
+      "case_id": "demo-release-remediated",
+      "issue_type": "false_negative",
+      "kind": "capability_declaration",
+      "category": "human_approval",
+      "disposition": "supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:941196d2e810fd7195f100bed572f548e2ef76335cb72ccbd42d675586b37402"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "demo-release-zh-baseline:false_negative:capability_declaration:human_approval:supported",
+      "case_id": "demo-release-zh-baseline",
+      "issue_type": "false_negative",
+      "kind": "capability_declaration",
+      "category": "human_approval",
+      "disposition": "supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:c01a89c1d155f5aba5da2c5563cda154ca86abaaa528329d8721351c95ca73b8"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "homi-baseline-01:false_negative:capability_declaration:destructive_action:not_supported",
+      "case_id": "homi-baseline-01",
+      "issue_type": "false_negative",
+      "kind": "capability_declaration",
+      "category": "destructive_action",
+      "disposition": "not_supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:5879c638b9aabfa69aedd2ed916d554698df8dbcc872d6f9d5b709b8f455f8eb"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "homi-baseline-01:false_negative:capability_declaration:human_approval:supported",
+      "case_id": "homi-baseline-01",
+      "issue_type": "false_negative",
+      "kind": "capability_declaration",
+      "category": "human_approval",
+      "disposition": "supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:5879c638b9aabfa69aedd2ed916d554698df8dbcc872d6f9d5b709b8f455f8eb"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "homi-baseline-01:false_negative:capability_declaration:network_access:not_supported",
+      "case_id": "homi-baseline-01",
+      "issue_type": "false_negative",
+      "kind": "capability_declaration",
+      "category": "network_access",
+      "disposition": "not_supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:5879c638b9aabfa69aedd2ed916d554698df8dbcc872d6f9d5b709b8f455f8eb"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "homi-baseline-01:false_negative:capability_declaration:persistent_memory:supported",
+      "case_id": "homi-baseline-01",
+      "issue_type": "false_negative",
+      "kind": "capability_declaration",
+      "category": "persistent_memory",
+      "disposition": "supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:5879c638b9aabfa69aedd2ed916d554698df8dbcc872d6f9d5b709b8f455f8eb"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "homi-baseline-01:false_negative:capability_declaration:self_modification:supported",
+      "case_id": "homi-baseline-01",
+      "issue_type": "false_negative",
+      "kind": "capability_declaration",
+      "category": "self_modification",
+      "disposition": "supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:5879c638b9aabfa69aedd2ed916d554698df8dbcc872d6f9d5b709b8f455f8eb"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "homi-baseline-02:false_negative:capability_declaration:human_approval:supported",
+      "case_id": "homi-baseline-02",
+      "issue_type": "false_negative",
+      "kind": "capability_declaration",
+      "category": "human_approval",
+      "disposition": "supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:ffee99f9ec4c22fff5ce5ae1974421403b196c29cb9d64bdbbdf3f9d96e3acb3"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "homi-baseline-03:false_negative:capability_declaration:code_execution:not_supported",
+      "case_id": "homi-baseline-03",
+      "issue_type": "false_negative",
+      "kind": "capability_declaration",
+      "category": "code_execution",
+      "disposition": "not_supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:402cc66c76886b5e2edd97face2ab0fc8b5917177a6acae29d2029aa4bafb340"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "homi-baseline-08:false_negative:capability_declaration:persistent_memory:supported",
+      "case_id": "homi-baseline-08",
+      "issue_type": "false_negative",
+      "kind": "capability_declaration",
+      "category": "persistent_memory",
+      "disposition": "supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:cdeba97115b0da765a0ee5a83760abb474182d35c4bfe31f81e50b041599d4cc"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "homi-baseline-08:false_negative:capability_declaration:secret_access:not_supported",
+      "case_id": "homi-baseline-08",
+      "issue_type": "false_negative",
+      "kind": "capability_declaration",
+      "category": "secret_access",
+      "disposition": "not_supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:cdeba97115b0da765a0ee5a83760abb474182d35c4bfe31f81e50b041599d4cc"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "homi-baseline-09:false_negative:capability_declaration:human_approval:supported",
+      "case_id": "homi-baseline-09",
+      "issue_type": "false_negative",
+      "kind": "capability_declaration",
+      "category": "human_approval",
+      "disposition": "supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:d4f51592d87c26181f27f9cb1602c01c0fcd8187e7b6026cc9e22c499bb9f9c3"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "homi-pr-01:false_negative:capability_declaration:code_execution:supported",
+      "case_id": "homi-pr-01",
+      "issue_type": "false_negative",
+      "kind": "capability_declaration",
+      "category": "code_execution",
+      "disposition": "supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:466ea2967b8cd039df503f72b0e052de0615a027ffb6a65d1b4a963682d981f7"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "homi-pr-01:false_negative:capability_declaration:network_access:supported",
+      "case_id": "homi-pr-01",
+      "issue_type": "false_negative",
+      "kind": "capability_declaration",
+      "category": "network_access",
+      "disposition": "supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:466ea2967b8cd039df503f72b0e052de0615a027ffb6a65d1b4a963682d981f7"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "homi-pr-01:false_negative:capability_declaration:privileged_access:supported",
+      "case_id": "homi-pr-01",
+      "issue_type": "false_negative",
+      "kind": "capability_declaration",
+      "category": "privileged_access",
+      "disposition": "supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:466ea2967b8cd039df503f72b0e052de0615a027ffb6a65d1b4a963682d981f7"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "homi-pr-01:false_negative:capability_declaration:secret_access:supported",
+      "case_id": "homi-pr-01",
+      "issue_type": "false_negative",
+      "kind": "capability_declaration",
+      "category": "secret_access",
+      "disposition": "supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:466ea2967b8cd039df503f72b0e052de0615a027ffb6a65d1b4a963682d981f7"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "homi-pr-01:false_negative:control_weakening:human_approval:supported",
+      "case_id": "homi-pr-01",
+      "issue_type": "false_negative",
+      "kind": "control_weakening",
+      "category": "human_approval",
+      "disposition": "supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:466ea2967b8cd039df503f72b0e052de0615a027ffb6a65d1b4a963682d981f7"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "homi-pr-01:false_negative:control_weakening:instruction_integrity:supported",
+      "case_id": "homi-pr-01",
+      "issue_type": "false_negative",
+      "kind": "control_weakening",
+      "category": "instruction_integrity",
+      "disposition": "supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:466ea2967b8cd039df503f72b0e052de0615a027ffb6a65d1b4a963682d981f7"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "homi-pr-01:false_negative:control_weakening:other:supported",
+      "case_id": "homi-pr-01",
+      "issue_type": "false_negative",
+      "kind": "control_weakening",
+      "category": "other",
+      "disposition": "supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:466ea2967b8cd039df503f72b0e052de0615a027ffb6a65d1b4a963682d981f7"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "inj-auto-approve:false_negative:control_weakening:human_approval:supported",
+      "case_id": "inj-auto-approve",
+      "issue_type": "false_negative",
+      "kind": "control_weakening",
+      "category": "human_approval",
+      "disposition": "supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:82fd94155f5b19f9e0dacb433b0121592cfe6fcd1139e9d5383ecccc9ea945b3"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "inj-auto-approve:false_negative:control_weakening:instruction_integrity:supported",
+      "case_id": "inj-auto-approve",
+      "issue_type": "false_negative",
+      "kind": "control_weakening",
+      "category": "instruction_integrity",
+      "disposition": "supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:82fd94155f5b19f9e0dacb433b0121592cfe6fcd1139e9d5383ecccc9ea945b3"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "inj-chinese-scanner-control:false_negative:capability_declaration:obfuscation:supported",
+      "case_id": "inj-chinese-scanner-control",
+      "issue_type": "false_negative",
+      "kind": "capability_declaration",
+      "category": "obfuscation",
+      "disposition": "supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:bd1a9ce2066effda0876effcb1a921d1a0a387689a785e7e0dedc5a8fd501b7e"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "inj-chinese-scanner-control:false_negative:control_weakening:instruction_integrity:supported",
+      "case_id": "inj-chinese-scanner-control",
+      "issue_type": "false_negative",
+      "kind": "control_weakening",
+      "category": "instruction_integrity",
+      "disposition": "supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:bd1a9ce2066effda0876effcb1a921d1a0a387689a785e7e0dedc5a8fd501b7e"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "inj-chinese-scanner-control:false_negative:semantic_conflict:instruction_integrity:supported",
+      "case_id": "inj-chinese-scanner-control",
+      "issue_type": "false_negative",
+      "kind": "semantic_conflict",
+      "category": "instruction_integrity",
+      "disposition": "supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:bd1a9ce2066effda0876effcb1a921d1a0a387689a785e7e0dedc5a8fd501b7e"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "inj-disregard-prior:false_negative:control_weakening:instruction_integrity:supported",
+      "case_id": "inj-disregard-prior",
+      "issue_type": "false_negative",
+      "kind": "control_weakening",
+      "category": "instruction_integrity",
+      "disposition": "supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:968624a9a02a23c06cddacbbc3d32b0cbb16f487d869356f5109acc8b82fc7f8"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "inj-execute-command:false_negative:capability_declaration:code_execution:supported",
+      "case_id": "inj-execute-command",
+      "issue_type": "false_negative",
+      "kind": "capability_declaration",
+      "category": "code_execution",
+      "disposition": "supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:0eeb040727d7f2f390d883321e8ebdcc5013dea2b275d07dc9a9febd04c2fd93"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "inj-execute-command:false_negative:control_weakening:instruction_integrity:supported",
+      "case_id": "inj-execute-command",
+      "issue_type": "false_negative",
+      "kind": "control_weakening",
+      "category": "instruction_integrity",
+      "disposition": "supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:0eeb040727d7f2f390d883321e8ebdcc5013dea2b275d07dc9a9febd04c2fd93"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "inj-hide-instruction:false_negative:capability_declaration:obfuscation:supported",
+      "case_id": "inj-hide-instruction",
+      "issue_type": "false_negative",
+      "kind": "capability_declaration",
+      "category": "obfuscation",
+      "disposition": "supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:36e9f05fe4afe8b08d97cef2313b087e30fde5a6342c326a001431efad55b5a1"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "inj-hide-instruction:false_negative:control_weakening:instruction_integrity:supported",
+      "case_id": "inj-hide-instruction",
+      "issue_type": "false_negative",
+      "kind": "control_weakening",
+      "category": "instruction_integrity",
+      "disposition": "supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:36e9f05fe4afe8b08d97cef2313b087e30fde5a6342c326a001431efad55b5a1"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "inj-ignore-scanner:false_negative:control_weakening:instruction_integrity:supported",
+      "case_id": "inj-ignore-scanner",
+      "issue_type": "false_negative",
+      "kind": "control_weakening",
+      "category": "instruction_integrity",
+      "disposition": "supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:02a6c08625b47424e2187f83a036a502e9f2367cf43e3cf8e4088158d2eae9fb"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "inj-ignore-scanner:false_negative:semantic_conflict:instruction_integrity:supported",
+      "case_id": "inj-ignore-scanner",
+      "issue_type": "false_negative",
+      "kind": "semantic_conflict",
+      "category": "instruction_integrity",
+      "disposition": "supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:02a6c08625b47424e2187f83a036a502e9f2367cf43e3cf8e4088158d2eae9fb"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "inj-suppress-findings:false_negative:control_weakening:instruction_integrity:supported",
+      "case_id": "inj-suppress-findings",
+      "issue_type": "false_negative",
+      "kind": "control_weakening",
+      "category": "instruction_integrity",
+      "disposition": "supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:91767a646c85b7ed48e6277190ed6b47238f48cdc4c00c151a7c294e6e40002e"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "risky-chinese-capability-chain:false_negative:capability_declaration:code_execution:supported",
+      "case_id": "risky-chinese-capability-chain",
+      "issue_type": "false_negative",
+      "kind": "capability_declaration",
+      "category": "code_execution",
+      "disposition": "supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:31b1c01c9ff96a2868bc852b4278dd6921e7e43d3cad7c443ba84fe1a864e00f"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "risky-chinese-capability-chain:false_negative:capability_declaration:network_access:supported",
+      "case_id": "risky-chinese-capability-chain",
+      "issue_type": "false_negative",
+      "kind": "capability_declaration",
+      "category": "network_access",
+      "disposition": "supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:31b1c01c9ff96a2868bc852b4278dd6921e7e43d3cad7c443ba84fe1a864e00f"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "risky-chinese-capability-chain:false_negative:capability_declaration:privileged_access:supported",
+      "case_id": "risky-chinese-capability-chain",
+      "issue_type": "false_negative",
+      "kind": "capability_declaration",
+      "category": "privileged_access",
+      "disposition": "supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:31b1c01c9ff96a2868bc852b4278dd6921e7e43d3cad7c443ba84fe1a864e00f"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "risky-chinese-capability-chain:false_negative:capability_declaration:secret_access:supported",
+      "case_id": "risky-chinese-capability-chain",
+      "issue_type": "false_negative",
+      "kind": "capability_declaration",
+      "category": "secret_access",
+      "disposition": "supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:31b1c01c9ff96a2868bc852b4278dd6921e7e43d3cad7c443ba84fe1a864e00f"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "risky-chinese-capability-chain:false_negative:control_weakening:human_approval:supported",
+      "case_id": "risky-chinese-capability-chain",
+      "issue_type": "false_negative",
+      "kind": "control_weakening",
+      "category": "human_approval",
+      "disposition": "supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:31b1c01c9ff96a2868bc852b4278dd6921e7e43d3cad7c443ba84fe1a864e00f"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "risky-credential-read:false_negative:capability_declaration:secret_access:supported",
+      "case_id": "risky-credential-read",
+      "issue_type": "false_negative",
+      "kind": "capability_declaration",
+      "category": "secret_access",
+      "disposition": "supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:c21821b6f3f226667ff4f18f538eb432fcb98cab87b6b4c529f2e0b4cdb416c0"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "risky-database-drop:false_negative:capability_declaration:destructive_action:supported",
+      "case_id": "risky-database-drop",
+      "issue_type": "false_negative",
+      "kind": "capability_declaration",
+      "category": "destructive_action",
+      "disposition": "supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:a572a370f4b298c85dd609e55494cf492d2175bb414d5a8cfdf79c7dd86b8998"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "risky-dynamic-eval:false_negative:capability_declaration:code_execution:supported",
+      "case_id": "risky-dynamic-eval",
+      "issue_type": "false_negative",
+      "kind": "capability_declaration",
+      "category": "code_execution",
+      "disposition": "supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:50c3de321607220267e76a8a83294def431810a9a0d64c9df636c4a1b05664e6"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "risky-external-api:false_negative:capability_declaration:network_access:supported",
+      "case_id": "risky-external-api",
+      "issue_type": "false_negative",
+      "kind": "capability_declaration",
+      "category": "network_access",
+      "disposition": "supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:9409283193f377ef201aa04a3994dcbf60d1cc08c1a405fcfc3eb799315a759b"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "risky-external-tool-text:false_negative:capability_declaration:external_tooling:supported",
+      "case_id": "risky-external-tool-text",
+      "issue_type": "false_negative",
+      "kind": "capability_declaration",
+      "category": "external_tooling",
+      "disposition": "supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:13343b3917d37c3a54c858d6b0a72ba2a0a7a6ce46e622fbf264b5e7bc5702a4"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "risky-shell-fenced:false_negative:capability_declaration:code_execution:supported",
+      "case_id": "risky-shell-fenced",
+      "issue_type": "false_negative",
+      "kind": "capability_declaration",
+      "category": "code_execution",
+      "disposition": "supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:000cf3d58a1e3bd62a3e3a666fc0ecccd1f3966d8b7e995d94a1bead81896cfa"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "safe-chinese-local-review:false_negative:capability_declaration:human_approval:supported",
+      "case_id": "safe-chinese-local-review",
+      "issue_type": "false_negative",
+      "kind": "capability_declaration",
+      "category": "human_approval",
+      "disposition": "supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:2149a199f7db8c5220995575c19adfc9f6470982061634017de481ba3e12c747"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "safe-document-reference:false_negative:capability_declaration:other:supported",
+      "case_id": "safe-document-reference",
+      "issue_type": "false_negative",
+      "kind": "capability_declaration",
+      "category": "other",
+      "disposition": "supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:e786b6bf7101a6aa6a11171278eb7817c158ad437bc419e72b28489e45ca0385"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "safe-local-only-network:false_negative:capability_declaration:network_access:not_supported",
+      "case_id": "safe-local-only-network",
+      "issue_type": "false_negative",
+      "kind": "capability_declaration",
+      "category": "network_access",
+      "disposition": "not_supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:ce09469a9503e542f27294150b328674299e364341298011af2ad15af48da0ba"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "safe-minimal-agent:false_negative:capability_declaration:code_execution:supported",
+      "case_id": "safe-minimal-agent",
+      "issue_type": "false_negative",
+      "kind": "capability_declaration",
+      "category": "code_execution",
+      "disposition": "supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:a8b62658374d3970aad16a2efb77ed0be0a7e11dcece47db028b46e816bb6fff"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "safe-minimal-agent:false_negative:capability_declaration:other:supported",
+      "case_id": "safe-minimal-agent",
+      "issue_type": "false_negative",
+      "kind": "capability_declaration",
+      "category": "other",
+      "disposition": "supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:a8b62658374d3970aad16a2efb77ed0be0a7e11dcece47db028b46e816bb6fff"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "safe-read-only-control-assets:false_negative:capability_declaration:human_approval:supported",
+      "case_id": "safe-read-only-control-assets",
+      "issue_type": "false_negative",
+      "kind": "capability_declaration",
+      "category": "human_approval",
+      "disposition": "supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:eecb5716e9431c503bfa8536ed802d2293dfbef967f946d4f859cbcf2a065832"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "safe-read-only-control-assets:false_negative:capability_declaration:self_modification:not_supported",
+      "case_id": "safe-read-only-control-assets",
+      "issue_type": "false_negative",
+      "kind": "capability_declaration",
+      "category": "self_modification",
+      "disposition": "not_supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:eecb5716e9431c503bfa8536ed802d2293dfbef967f946d4f859cbcf2a065832"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    },
+    {
+      "format": "agentsec-p3-17-feedback-row",
+      "schema_version": "0.1.0",
+      "row_id": "safe-shell-explanation:false_negative:capability_declaration:code_execution:not_supported",
+      "case_id": "safe-shell-explanation",
+      "issue_type": "false_negative",
+      "kind": "capability_declaration",
+      "category": "code_execution",
+      "disposition": "not_supported",
+      "evidence_ids": [
+        "semantic-evidence-sha256:2299a964033eb332ecb6cf87873251cb36388b2f5f0f7f45c2270ffe80894b35"
+      ],
+      "rationale_code": "missed_judgment",
+      "status": "confirmed",
+      "note": null
+    }
+  ],
+  "note": "Reviewer-confirmed false-positive and false-negative rows over the frozen scenario packs. Resolution reports are detection-based evidence for human review; feedback never gains calibration, publication, Policy, CI, or runtime authority.",
+  "report_only": true,
+  "blocks": false,
+  "calibration_authority": false,
+  "rule_publication_authority": false,
+  "policy_authority": false,
+  "ci_authority": false,
+  "gate_authority": false,
+  "runtime_verified": false
+}

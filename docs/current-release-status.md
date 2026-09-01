@@ -2,7 +2,7 @@
 
 - Authority: this is the single authoritative release/status page
   (P2-EXIT-05). When other documents disagree, this page wins.
-- Date: 2026-08-31
+- Date: 2026-09-01
 - Companion architecture page: `docs/current-architecture.md`
 
 ## 1. Package status
@@ -10,8 +10,9 @@
 ```text
 PACKAGE_VERSION        0.4.0       (local Phase 3 candidate)
 Release target         AgentSec 0.4.0 Phase 3 Ready Candidate (P2-EXIT-08)
-Latest local candidate AgentSec 0.4.0 (candidate_go, dist/0.4.0/)
-Workspace              local; not a Git repository; no remote publication
+Latest preserved candidate AgentSec 0.4.0 (candidate_go, dist/0.4.0/)
+Source-reconciled candidate AgentSec 0.4.0 (P3-REL-01, dist/candidates/0.4.0-p3-rel-01/)
+Workspace              local Git working tree; no remote publication
 ```
 
 Frozen release artifacts:
@@ -33,7 +34,7 @@ Phase 0  foundation                       complete (P0-01～P0-07)
 Phase 1  Markdown static scanning PoC     complete (P1-01～P1-31, 0.1.0)
 Phase 2  structured capability profile    complete; P2-EXIT accepted
 Phase 3  LLM and composite risk           Shadow-only started;
-                                          P3-01～P3-10 complete; P3-11A/P3-11B/P3-11C complete; P3-12/P3-13/P3-14 scenario metrics track complete; semantic candidates, Finding links, Rule proposals, calibration, replay, and pipeline aggregation remain non-authoritative
+                                          P3-01～P3-10 complete; P3-11A/P3-11B/P3-11C complete; P3-12～P3-17 metrics, replay, Shadow Mode, and FP/FN feedback loop complete; P3-18～P3-20 semantic Gate definition/qualification, Gate-specific human Corpus, live-Pilot seam, and Evaluation Import complete (report-only; live Pilot pending organizational approval); semantic candidates, Finding links, Rule proposals, calibration, replay, and pipeline aggregation remain non-authoritative
 ```
 
 ## 3. P2-EXIT remediation progress (source: P2-AUDIT-01)
@@ -171,9 +172,10 @@ P2-EXIT-07  complete: package API, lockfiles, SBOM/license evidence,
             reproducible build, and Reviewer/Human Evidence sdist exclusion
 P2-EXIT-08A entry_readiness = ready_for_candidate; all five required checks pass
 P2-EXIT-08 Stage 2 candidate_acceptance = candidate_go; all required checks pass
-Phase 3     P3-01～P3-10 complete; P3-11A/P3-11B/P3-11C complete; P3-12/P3-13/P3-14 scenario metrics track complete; semantic candidates, Finding links, Rule proposals, calibration, replay, pipeline aggregation, and Rule Pack staging remain non-authoritative
-Phase 3 B   P3-12/P3-13 corpora plus P3-14 detection metrics complete (report-only); P3-15 replay next
-Phase 3 AG  P3-AG-01 complete (see section 20); P3-AG-02 next
+Phase 3     P3-01～P3-10 complete; P3-11A/P3-11B/P3-11C complete; P3-12～P3-17 metrics, replay, Shadow Mode, and FP/FN feedback loop complete; P3-18～P3-20 semantic Gate definition/qualification, Gate-specific human Corpus, live-Pilot seam, and Evaluation Import complete (report-only); semantic candidates, Finding links, Rule proposals, calibration, replay, pipeline aggregation, and Rule Pack staging remain non-authoritative
+Phase 3 B   P3-12～P3-17 metrics, replay, Shadow Mode, and FP/FN feedback loop complete (report-only; confirmed 54-row feedback set signed); P3-18 Gate definition/qualification, P3-19 human Corpus and live-Pilot seam, and P3-20 Evaluation Import complete; next step is the organization-approved P3-19 live Pilot
+Phase 3 AG  P3-AG-01～P3-AG-08 complete (see sections 20, 23, 25, 26, 28);
+            association API/CLI, story Demo, and calibration are report-only; next AG task is human corpus expansion
 Release     local candidate accepted; remote publication and production deployment not performed
 ```
 
@@ -503,8 +505,9 @@ must expect none, and the whole pack loads fail-closed. Attack success
 semantics are detection-based only and belong to P3-14; no dynamic attack,
 runtime reachability, or exploitability is claimed. See
 `docs/tasks/P3-12-agentdojo-style-injection-scenario-corpus.md`, ADR-0094,
-and `pilots/agentdojo-style-p3-12/README.md`. The next task on this track
-is P3-15.
+and `pilots/agentdojo-style-p3-12/README.md`. The B-line code chain is
+complete through P3-20; the next step is the organization-approved P3-19
+live Pilot.
 
 ## 22. P3-13 InjecAgent-style tool-injection scenario corpus
 
@@ -533,8 +536,9 @@ destructive action) while normal tasks expect none. Attack success
 semantics are detection-based only and belong to P3-14; no dynamic
 tool-call observation, runtime reachability, or exploitability is claimed.
 See `docs/tasks/P3-13-injecagent-style-tool-injection-scenario-corpus.md`,
-ADR-0095, and `pilots/injecagent-style-p3-13/README.md`. The next task on
-this track is P3-15.
+ADR-0095, and `pilots/injecagent-style-p3-13/README.md`. The B-line code
+chain is complete through P3-20; the next step is the organization-approved
+P3-19 live Pilot.
 
 ## 23. P3-AG-02 Manifest Capability Graph Builder
 
@@ -599,4 +603,404 @@ reachability, or exploitability is claimed, and offline-fixture numbers
 are not quality claims. See
 `docs/tasks/P3-14-scenario-detection-metrics.md`, ADR-0098, and the
 frozen `schemas/semantic-analysis/semantic-scenario-metrics-report.schema.json`.
-The next task on this track is P3-15.
+The B-line code chain is complete through P3-20; the next step is the
+organization-approved P3-19 live Pilot.
+
+## 25. P3-AG-03 attack path pattern library and matcher
+
+```text
+Task                              P3-AG-03 Complete
+Deliverable                       Attack Path Pattern Library 0.1.0 (ADR-0099)
+Patterns                          7 builtin (five roadmap families plus the
+                                  optional supply-chain family and an egress
+                                  variant)
+Matching                          deterministic DFS: pattern ID → node order →
+                                  edge ID; attack-path-sha256 path IDs
+Bounds                            per-pattern 64 / graph 256 fail-closed
+Authority                         report_only=true; blocks=false; all false
+Path marks                        static_declared_path; runtime_verified=false;
+                                  reachability=not_proven; exploitability=
+                                  not_proven
+Tests                             tests/test_attack_graph_p3_ag_03.py (15 passed)
+```
+
+P3-AG-03 adds `agentsec.attack_graph.patterns` with the strict pattern
+contracts and the reviewed builtin library, plus `AttackPathMatcher` whose
+`match()` walks declared edges only and whose `match_into_graph()` re-emits
+a fully re-validated report-only graph with matched paths. Preconditions
+bind to the start node (secret exfiltration requires a `reads_secret`
+edge). Bounds fail closed with `AttackPathMatchError`. The real Codex
+pipeline yields delegation 1, injection 4, memory-poisoning 2, and
+secret-exfiltration 1 path deterministically. `mcp-production-write` and
+`tool-dependency-install` match zero paths while the builder emits no
+`writes_to`/`installs` edges — the vocabulary and matcher are ready and
+the boundary is disclosed in ADR-0099. No path report, evidence
+association, Demo, calibration, runtime reachability, or authority claim
+exists yet. See `docs/tasks/P3-AG-03-attack-path-pattern-library-matcher.md`
+and ADR-0099. The next task on this track is P3-AG-04.
+
+## 26. P3-AG-04 attack path report
+
+```text
+Task                              P3-AG-04 Complete
+Deliverable                       agentsec-attack-path-report 0.1.0 (ADR-0101)
+Producer                          build_attack_path_report (validated graph only)
+Bindings                          manifest schema/digest + graph digest +
+                                  pattern library version
+Entries                           value-free per path; ≤256; sorted unique
+Authority                         report_only=true; blocks=false; all false;
+                                  exploitability_claimed=false
+Limitations                       fixed six disclosed boundary notes
+Renderer                          bounded text; boundary-first; value-free
+Tests                             tests/test_attack_graph_p3_ag_04.py (12 passed)
+```
+
+P3-AG-04 adds the report surface for the Attack Graph chain: a
+value-free `AttackPathReport` whose entries summarize matched static
+paths without node labels, Manifest references, asset digests, or
+excerpts, bound end-to-end through the Manifest and graph digests plus
+the pattern library version. `build_attack_path_report` is the only
+producer and fails closed outside one validated graph; the text renderer
+prints the boundary first and one bounded line per path; the JSON
+encoder is canonical and round-trips validation. A matched path is
+explicitly not a Finding: no severity, confidence, or recommendation is
+rendered and every authority boolean stays false. P3-AG-05 supplies the
+separate value-minimized association report, P3-AG-06 supplies its CLI, and
+P3-AG-07 supplies the presenter Demo; none claims runtime reachability or
+exploitability. See section 28, ADR-0103, and ADR-0105. See
+`docs/tasks/P3-AG-04-attack-path-report.md` and ADR-0101. P3-AG-04B adds
+the deterministic application service and `agentsec attack-graph PROJECT`
+CLI with Text/JSON output, explicit roots, stable exit codes, and hardened
+same-kind artifact writing. It does not create Findings or affect Policy/CI/
+Hard Gates. See `docs/tasks/P3-AG-04B-attack-graph-cli-wiring.md` and
+ADR-0102. P3-AG-05, P3-AG-06, and P3-AG-07 are complete; the next task
+on this track is Attack Path Evidence calibration.
+
+P3-AG-04B CLI verification on 2026-08-31:
+
+```text
+Attack Graph CLI regression       5 passed
+Attack Graph + docs/provenance    75 passed (focused)
+Full Pytest                       1516 passed
+Ruff / Mypy                       pass
+Package hardening                 pass
+Reproducible build                byte_identical=true
+```
+
+## 27. P3-15 historical sample replay suite
+
+```text
+Task                              P3-15 Complete
+Deliverable                       agentsec-p3-15-scenario-replay-suite 0.1.0
+Inputs                            the frozen P3-12/P3-13 packs plus 2..8
+                                  ReplayRunSpec runs (adapter + semver
+                                  prompt_version + run_id)
+Run identity                      approved provider/model metadata
+                                  cross-checked against the P3-14 metrics
+                                  report; configurations must be unique
+Comparisons                       adjacent run pairs per channel with
+                                  before/after + deltas for ASR, utility,
+                                  precision, recall, FPR, FNR
+Transitions                       17-value closed vocabulary per task;
+                                  failed-side transitions keep
+                                  comparison_complete=false
+Determinism                       byte-identical suite JSON for identical
+                                  inputs (no timestamps)
+Authority                         report_only=true; blocks=false; all false
+Tests                             tests/test_semantic_p3_15.py (19 passed)
+```
+
+P3-15 makes model and Prompt upgrades comparable over the frozen
+scenario corpora: every replay run records its configuration identity
+and full P3-14 metrics report, and adjacent runs are compared per
+injection channel with metric deltas and per-task outcome transitions.
+Offline chains vary the Prompt version because the offline Shadow
+adapter only accepts the approved fixture identity; approved live
+bindings plug in without API change. A comparison is human-review
+evidence only — never a promotion, rollback, qualification, or quality
+claim. See `docs/tasks/P3-15-scenario-replay-suite.md`, ADR-0100, and
+the frozen `schemas/semantic-analysis/semantic-scenario-replay-suite.schema.json`.
+The B-line code chain is complete through P3-20; the next step is the
+organization-approved P3-19 live Pilot.
+
+## 28. P3-16 batch Shadow Mode pipeline
+
+```text
+Task                              P3-16 Complete
+Deliverable                       agentsec-p3-16-semantic-shadow-mode-report 0.1.0
+Batch scope                       one call runs up to 256 ShadowModeCase
+                                  entries through the P3-08 pipeline
+Non-blocking semantics             P3-02 stable invocation failures become
+                                  failed rows (error_code, no child digest)
+                                  and the batch continues; contract defects
+                                  fail closed with stable codes
+Rows                              value-free (analysis id, status, child
+                                  pipeline_sha256, error code, candidate/
+                                  link/proposal counts), sorted unique
+Aggregate binding                 shadow_mode_sha256 over canonical row
+                                  payloads; counts cross-checked
+Authority                         operating_mode=shadow_only;
+                                  blocks=false;
+                                  deterministic_decisions_affected=false;
+                                  all semantic authority booleans false
+Tests                             tests/test_semantic_p3_16.py (14 passed)
+```
+
+P3-16 delivers the plan's Shadow Mode ("LLM 不阻断，只记录"): a batch
+runner that composes the P3-05 Shadow adapter and the P3-08 single-input
+pipeline case by case, records every case in a digest-bound aggregate,
+and never blocks or mutates anything. A stable Provider failure is
+recorded evidence, not a batch interruption; deterministic decisions,
+Findings, Rules, Policies, CI gates, and releases are untouched. See
+`docs/tasks/P3-16-batch-shadow-mode-pipeline.md`, ADR-0103, and the
+frozen `schemas/semantic-analysis/semantic-shadow-mode-report.schema.json`.
+The B-line code chain is complete through P3-20; the next step is the
+organization-approved P3-19 live Pilot.
+
+## P3-AG-05 status — Evidence association
+
+P3-AG-05 is complete in the source tree. `AttackPathEvidenceAssociator` now
+correlates static path source locators with existing deterministic Finding
+Evidence and trusted Semantic Evidence chunks using normalized path, content
+SHA-256, and overlapping lines. Exact, full-range, partial, and unmatched
+relations are explicit and deterministically ordered. The report binds graph,
+path report, Finding input, and optional Semantic result digests, retains no
+source excerpts or secrets, and keeps all authority and runtime flags disabled.
+
+The new report is source-development contract
+`agentsec-attack-path-evidence-association-report` `0.1.0`; it is not a CLI
+blocking surface and does not change the frozen 0.4.0 distribution. A future
+CLI task may validate graph/Finding/Semantic artifacts and invoke this API.
+Focused Attack Graph/provenance tests pass; full release acceptance still
+requires the standard full-suite and candidate rebuild checks.
+
+
+## P3-AG-06 status — Association CLI / E2E
+
+P3-AG-06 is complete. `agentsec attack-graph-associate` accepts either a
+validated Capability Attack Graph artifact or an explicit project root, reads
+bounded strict Finding/Semantic inputs, invokes the P3-AG-05 associator, and
+emits Text/JSON report-only output with safe atomic Artifact writing. Existing
+`agentsec attack-graph PROJECT` behavior is unchanged. Valid unmatched results
+remain non-blocking; malformed inputs fail safely. See
+`docs/tasks/P3-AG-06-attack-path-evidence-association-cli-e2e.md` and
+ADR-0104.
+
+
+## P3-AG-07 status — Attack Path Story Demo
+
+P3-AG-07 is complete. `scripts/run-attack-path-demo.sh` builds an inert
+Homi-like fixture through the production Manifest/Graph pipeline, selects a
+bounded story path, prepares one deterministic Finding and two Shadow Semantic
+Candidates, invokes `agentsec attack-graph-associate`, and validates Text/JSON
+outputs. The story visibly demonstrates `partially_supports`, `duplicates`,
+and `unmatched` without executing target content or making an enforcement
+decision. See `docs/tasks/P3-AG-07-attack-path-story-demo.md`,
+`docs/decisions/0105-attack-path-story-demo.md`, and
+`tests/test_attack_path_story_demo.py`.
+
+## 29. P3-17 human FP/FN feedback and closed resolution loop
+
+```text
+Task                              P3-17 Complete (human review done)
+Deliverables                      agentsec-p3-17-semantic-feedback-set 0.1.0,
+                                  agentsec-p3-17-semantic-feedback-loop-report 0.1.0
+Row contract                      one case judgment + issue type
+                                  (false_positive/false_negative) + aligned
+                                  rationale + Evidence IDs + draft/confirmed/
+                                  rejected status; scan_coverage forbidden
+Drafting                          deterministic expected-vs-predicted
+                                  signature diffing over the frozen
+                                  P3-12/P3-13 packs; stable invocation
+                                  failures recorded as unevaluated cases
+Human confirmation                reviewer_id + independence statement
+                                  (>=20 chars); ai_assisted rejected;
+                                  per-row confirm/reject resolved
+Closed loop                       per-row resolved/unresolved/unevaluated
+                                  (FP resolved ⇔ no longer predicted;
+                                  FN resolved ⇔ detected again),
+                                  resolution_rate over evaluated rows
+Pilot draft                       pilots/semantic-feedback-p3-17/draft/:
+                                  54 FN rows (honest offline fixture),
+                                  submission template, Chinese worksheet
+                                  (motivation: P3-11C trial P=0.394/R=0.378,
+                                  FP=57/FN=61)
+Confirmed set                     pilots/semantic-feedback-p3-17/confirmed/
+                                  semantic-feedback-set.json — 54 rows
+                                  (FN 54/FP 0), reviewer 呈屿, provenance
+                                  ai_draft_human_confirmed (54/54 confirmed
+                                  on 2026-08-31 via REVIEW-GUIDE workflow;
+                                  feedback_sha256 a51af6750a63…f2c02)
+Authority                         report_only=true; blocks=false; all false
+Tests                             tests/test_semantic_p3_17.py (15 passed)
+```
+
+P3-17 delivers the plan's 人工反馈与标签: FP rows (over-flagged judgments)
+and FN rows (missed judgments) that persist beyond a single run, a
+`ai_draft_human_confirmed` confirmation workflow (the same discipline as
+P3-11A gold labels), and a resolution evaluator that re-replays the same
+packs and reports whether each labeled issue is now resolved after a
+Provider/Prompt change. Feedback and resolution rates are human-review
+evidence only; no calibration, publication, Policy, CI, gate, release, or
+runtime authority is granted. The reviewer completed the worksheet on
+2026-08-31 (all 54 rows confirmed, zero edits of draft judgments). See
+`docs/tasks/P3-17-human-fp-fn-feedback-loop.md`, ADR-0106, and the frozen
+`schemas/semantic-analysis/semantic-feedback-set.schema.json` /
+`semantic-feedback-loop-report.schema.json`. The B-line code chain is
+complete through P3-20; the next step is the organization-approved P3-19
+live Pilot.
+
+
+## P3-AG-08 status — Attack Path Evidence Calibration
+
+P3-AG-08 is complete. `AttackPathEvidenceCalibrationRunner` compares
+independent labels bound to a frozen association-report digest, distinguishes
+`duplicates`, `supports`, `partially_supports`, `unmatched`, and missing rows,
+and reports accuracy plus per-relation Precision/Recall/F1. A three-case seed
+pilot and runnable script are checked in under `calibration/attack-path/`; the
+seed is explicitly not a production qualification claim. Calibration remains
+report-only and cannot mutate associations, Findings, Rules, Policy, CI, Hard
+Gates, or runtime state. See
+`docs/tasks/P3-AG-08-attack-path-evidence-calibration.md` and ADR-0106.
+
+## P3-AG-09 status — Attack Path Score Integration
+
+P3-AG-09 is complete as a report-only integration. `agentsec score` now accepts
+`--attack-path-report` and optional digest-bound `--attack-path-calibration`.
+The validated `AttackPathScoreContext` is emitted in Agentic Assessment JSON,
+with summary metadata in Text and SARIF. The context preserves association and
+calibration provenance, while literal contract constraints keep
+`scoring_mode=context_only`, `numeric_score_effect=0.0`, and
+`calibration_qualified=false`. Consequently Attack Path data cannot alter
+Technical/Drift/Governance/Overall scores, Severity, Hard Gates, CI exit codes,
+or release authority. See `docs/tasks/P3-AG-09-attack-path-score-integration.md`,
+`schemas/score-context/attack-path-score-context.schema.json`, and
+`tests/test_attack_path_score_integration.py`.
+
+
+## P3-REL-01 status — Current Source / Candidate Artifact Reconciliation
+
+P3-REL-01 is complete. The current source tree was rebuilt into
+`dist/candidates/0.4.0-p3-rel-01/` without overwriting the preserved
+`dist/0.4.0/` candidate. The reconciliation report confirms all current
+`src/agentsec` modules and JSON Schemas are packaged, including P3-AG and
+P3-AG-09, and the installed Wheel passes offline CLI smoke tests for
+`attack-graph` and `score --attack-path-report`. Two fixed-epoch builds are
+byte-identical after sdist normalization. This is a local reconciled candidate,
+not remote publication, signature, SLSA provenance, runtime attestation, or
+production deployment. See
+`docs/tasks/P3-REL-01-current-source-candidate-artifact-reconciliation.md`,
+ADR-0107, and
+`dist/candidates/0.4.0-p3-rel-01/reconciliation-report.json`.
+
+## P3-REL-02 status — Reconciled Candidate Acceptance Wiring
+
+P3-REL-02 is complete. The existing Candidate Acceptance State Machine now
+accepts `--reconciled-candidate-report` and validates the P3-REL-03 byte-level report,
+current source inventory digest, root-contained Candidate directory, Wheel/sdist
+SHA256SUMS, report artifact digests and sizes, fixed-epoch reproducibility, and
+installed CLI smoke evidence. The current source-reconciled Candidate reached
+`candidate_go` with `acceptance_ready=true`, `ready_for_release=true`, and no
+blocking checks. Legacy `--candidate-verification-report` fixtures remain
+supported; the preserved `dist/0.4.0/` artifacts remain unchanged. See
+`docs/tasks/P3-REL-02-reconciled-candidate-acceptance-wiring.md`, ADR-0108, and
+`docs/reviews/phase3-reconciled-candidate-acceptance-2026-08-31.json`.
+
+## P3-REL-03 status — Byte-level Content Reconciliation
+
+P3-REL-03 is complete. The source-reconciled Candidate now performs per-file
+byte comparisons for every `src/agentsec/**/*.py` Wheel/sdist member, every
+sdist `schemas/**/*.json` member, and the sdist copies of `pyproject.toml` and
+`MANIFEST.in`. The report records Boolean content checks and bounded relative
+mismatch paths without exposing source content. Duplicate archive members fail
+closed. Candidate Acceptance requires the byte-level contract in addition to
+the existing inventory digest, artifact hashes, reproducibility, and offline
+CLI smoke evidence. The regenerated report is at
+`dist/candidates/0.4.0-p3-rel-01/reconciliation-report.json` and the historical
+`dist/0.4.0/` artifacts remain unchanged. See
+`docs/tasks/P3-REL-03-byte-level-content-reconciliation.md` and ADR-0109.
+
+## P3-REL-04 status — Release Manifest / Provenance Bundle Hardening
+
+P3-REL-04 is complete. The source-reconciled Candidate now has deterministic
+`release-manifest.json`, `provenance-bundle.json`, and
+`PROVENANCE-SHA256SUMS` evidence. The bundle binds the Wheel/sdist, artifact
+checksums, P3-REL-03 byte-level reconciliation report, current source
+inventory, lockfiles, SBOM, license inventory, and explicit non-claims. The
+Candidate Acceptance State Machine consumes
+`--release-provenance-bundle` and validates paths, sizes, digests, the
+self-excluded bundle checksum contract, build boundary, and evidence-only
+authority. The historical `dist/0.4.0/` Candidate remains unchanged. See
+`docs/tasks/P3-REL-04-release-manifest-provenance-bundle-hardening.md`,
+ADR-0110, and
+`dist/candidates/0.4.0-p3-rel-01/provenance-bundle.json`.
+
+## P3-18 status — Semantic Gate Definition / Controlled Qualification
+
+P3-18 is complete as a report-only qualification contract. A digest-bound
+`SemanticGateCandidate` declares Gate identity, signal, minimum Positive and
+Eligible Negative/Near-miss coverage, quality thresholds, Evidence Confidence
+requirements, and immutable authority boundaries. The deterministic
+`SemanticGateQualificationRunner` consumes P3-05 Provider Promotion, P3-07
+calibration/Finding-promotion, P3-10 Rule-staging, and human confidence
+evidence when supplied, and returns `qualified`, `conditionally_qualified`,
+or `not_qualified`. Missing required evidence is pending; it is never treated
+as a pass. The output cannot block CI, publish Rules, approve Waivers, alter
+Severity/Score, grant runtime authority, or authorize release. The Gate
+authority contract explicitly fixes `can_block_ci=false` and
+`can_publish_rule=false`.
+`docs/tasks/P3-18-semantic-gate-definition-controlled-qualification.md`,
+ADR-0111, and
+`schemas/semantic-analysis/semantic-gate-qualification-report.schema.json`.
+
+## P3-19 status — Human Corpus / Real Provider Pilot
+
+```text
+Task                              P3-19 Complete (code chain; live run pending approval)
+Subtasks                          P3-19-01～P3-19-05 all Complete
+Corpus                            41-case Gate-specific Human Corpus (reviewed,
+                                  adjudicated, digest-bound)
+Pilot preflight                   fail-closed; current status preflight_blocked
+Live authority                   none; organizational approvals pending
+```
+
+The new path is still Shadow-only and report-only. No real endpoint or credential is
+configured in the repository. A live result cannot be claimed until the organization
+provides the endpoint, credential environment, cost approval, data-residency approval,
+retention-policy approval, and a current Gate-specific human Corpus.
+
+P3-19 Pilot execution on 2026-09-01 used the 41-case Gate-specific Human Corpus and
+human-corpus-bound Candidate. Fail-closed preflight passed Corpus integrity, Gate binding,
+Human Review completeness, and call budget checks, but returned `preflight_blocked` because
+no approved HTTPS endpoint, credential environment, live opt-in, or organizational approval
+was present. No network was accessed and no Provider quality claim was made.
+
+## P3-20 status — Provider Evaluation Import / Semantic Gate Qualification
+
+P3-20 is complete (offline chain, 2026-09-01). `SemanticGateEvaluationImport`
+binds the current Gate Candidate, the Gate-specific Human Corpus, the
+Provider/Model/Prompt contract, and a Provider Evaluation or completed
+live-Pilot report digest into one fail-closed import; a `preflight_blocked`
+or failed Pilot cannot be imported as Provider Evaluation.
+`qualify_semantic_gate_evaluation()` runs the P3-18 deterministic
+qualification without a second Provider call, and `promote_report_only()`
+emits report-only promotion evidence that fixes `can_block_ci=false` and
+`can_publish_rule=false`. The equivalent CLI is `agentsec semantic gate-qualify`.
+The current P3-19 live Pilot remains `preflight_blocked` because no approved
+endpoint or credential is configured; therefore no real Provider quality
+claim is made yet. See
+`docs/tasks/P3-20-provider-evaluation-import-semantic-gate-qualification.md`,
+ADR-0113, and
+`schemas/semantic-analysis/semantic-gate-evaluation-import.schema.json`.
+
+Latest verification snapshot (2026-09-01, after P3-18/P3-19/P3-20):
+
+```text
+Full Pytest (serial)               1604 passed
+Ruff / Ruff format                 pass
+Mypy (strict, configured)          pass
+Candidate artifacts                rebuilt current; release-bundle tests pass
+```
+
+Serial full-suite runs pass consistently; concurrent full-suite runs can
+produce one-off subprocess contention failures unrelated to this change.

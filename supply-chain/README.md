@@ -10,6 +10,17 @@ lockfiles.sha256           hashes of the exact requirements locks
 build-provenance.json      policy and build-command provenance contract
 ```
 
+The source-reconciled local Candidate also carries a release manifest and
+provenance bundle. Generate and validate it with:
+
+```bash
+PYTHONPATH=src .venv/bin/python scripts/build-release-provenance-bundle.py --force
+```
+
+The bundle binds artifact, source-inventory, reconciliation, and supply-chain
+digests. It remains report-only and explicitly does not claim signatures or
+SLSA provenance.
+
 The lockfiles are exact-version constraints for runtime and development/build
 environments. They do not by themselves provide artifact signatures or a SLSA
 claim. A release must run the reproducible-build verifier and publish artifact

@@ -1,0 +1,222 @@
+{
+  "format": "agentsec-p3-17-review-progress",
+  "decision_count": 54,
+  "decisions": [
+    {
+      "row_id": "demo-release-baseline:false_negative:capability_declaration:human_approval:supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "demo-release-injection:false_negative:control_weakening:instruction_integrity:supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "demo-release-injection:false_negative:semantic_conflict:instruction_integrity:supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "demo-release-remediated:false_negative:capability_declaration:human_approval:supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "demo-release-zh-baseline:false_negative:capability_declaration:human_approval:supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "homi-baseline-01:false_negative:capability_declaration:destructive_action:not_supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "homi-baseline-01:false_negative:capability_declaration:human_approval:supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "homi-baseline-01:false_negative:capability_declaration:network_access:not_supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "homi-baseline-01:false_negative:capability_declaration:persistent_memory:supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "homi-baseline-01:false_negative:capability_declaration:self_modification:supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "homi-baseline-02:false_negative:capability_declaration:human_approval:supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "homi-baseline-03:false_negative:capability_declaration:code_execution:not_supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "homi-baseline-08:false_negative:capability_declaration:persistent_memory:supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "homi-baseline-08:false_negative:capability_declaration:secret_access:not_supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "homi-baseline-09:false_negative:capability_declaration:human_approval:supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "homi-pr-01:false_negative:capability_declaration:code_execution:supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "homi-pr-01:false_negative:capability_declaration:network_access:supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "homi-pr-01:false_negative:capability_declaration:privileged_access:supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "homi-pr-01:false_negative:capability_declaration:secret_access:supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "homi-pr-01:false_negative:control_weakening:human_approval:supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "homi-pr-01:false_negative:control_weakening:instruction_integrity:supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "homi-pr-01:false_negative:control_weakening:other:supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "inj-auto-approve:false_negative:control_weakening:human_approval:supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "inj-auto-approve:false_negative:control_weakening:instruction_integrity:supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "inj-chinese-scanner-control:false_negative:capability_declaration:obfuscation:supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "inj-chinese-scanner-control:false_negative:control_weakening:instruction_integrity:supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "inj-chinese-scanner-control:false_negative:semantic_conflict:instruction_integrity:supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "inj-disregard-prior:false_negative:control_weakening:instruction_integrity:supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "inj-execute-command:false_negative:capability_declaration:code_execution:supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "inj-execute-command:false_negative:control_weakening:instruction_integrity:supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "inj-hide-instruction:false_negative:capability_declaration:obfuscation:supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "inj-hide-instruction:false_negative:control_weakening:instruction_integrity:supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "inj-ignore-scanner:false_negative:control_weakening:instruction_integrity:supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "inj-ignore-scanner:false_negative:semantic_conflict:instruction_integrity:supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "inj-suppress-findings:false_negative:control_weakening:instruction_integrity:supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "risky-chinese-capability-chain:false_negative:capability_declaration:code_execution:supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "risky-chinese-capability-chain:false_negative:capability_declaration:network_access:supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "risky-chinese-capability-chain:false_negative:capability_declaration:privileged_access:supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "risky-chinese-capability-chain:false_negative:capability_declaration:secret_access:supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "risky-chinese-capability-chain:false_negative:control_weakening:human_approval:supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "risky-credential-read:false_negative:capability_declaration:secret_access:supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "risky-database-drop:false_negative:capability_declaration:destructive_action:supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "risky-dynamic-eval:false_negative:capability_declaration:code_execution:supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "risky-external-api:false_negative:capability_declaration:network_access:supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "risky-external-tool-text:false_negative:capability_declaration:external_tooling:supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "risky-shell-fenced:false_negative:capability_declaration:code_execution:supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "safe-chinese-local-review:false_negative:capability_declaration:human_approval:supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "safe-document-reference:false_negative:capability_declaration:other:supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "safe-local-only-network:false_negative:capability_declaration:network_access:not_supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "safe-minimal-agent:false_negative:capability_declaration:code_execution:supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "safe-minimal-agent:false_negative:capability_declaration:other:supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "safe-read-only-control-assets:false_negative:capability_declaration:human_approval:supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "safe-read-only-control-assets:false_negative:capability_declaration:self_modification:not_supported",
+      "decision": "confirmed"
+    },
+    {
+      "row_id": "safe-shell-explanation:false_negative:capability_declaration:code_execution:not_supported",
+      "decision": "confirmed"
+    }
+  ]
+}

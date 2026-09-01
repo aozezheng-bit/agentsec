@@ -1,5 +1,233 @@
 # Changelog
 
+## P3-20 — Provider Evaluation Import / Semantic Gate Qualification (2026-09-01)
+
+- Added Candidate/Corpus/Provider/Model/Prompt/Evaluation Digest binding.
+- Added fail-closed Evaluation Import for the current Gate-specific Human
+  Corpus.
+- Added deterministic Semantic Gate Qualification without a second Provider
+  call.
+- Added explicit report-only Promotion Evidence and
+  `agentsec semantic gate-qualify`.
+- Real Provider quality remains pending the approved P3-19 live Pilot.
+
+## P3-19 — Semantic Gate Human Corpus / Real Provider Pilot (2026-09-01)
+
+- Added digest-bound Gate-specific Human Corpus and reviewer/adjudication
+  import contracts.
+- Added Positive / Eligible Negative / Near-miss / Unknown coverage accounting
+  and P3-18 integration.
+- Added fail-closed Real Provider Pilot approval preflight, bounded
+  report-only runner, and CLI.
+- Added frozen JSON Schemas and tests; no live endpoint or credential is
+  configured.
+
+## P3-18 — Semantic Gate Definition / Controlled Qualification (2026-09-01)
+
+- Added digest-bound Semantic Gate candidates with explicit sample, quality,
+  coverage, human-confidence, and authority contracts.
+- Added deterministic report-only qualification with pass/pending/fail checks
+  and integration points for P3-05, P3-07, and P3-10 evidence.
+- Added Candidate creation and qualification CLIs plus strict schemas and
+  report-only regression coverage.
+
+## P3-REL-04 — Release Manifest / Provenance Bundle Hardening (2026-08-31)
+
+- Added deterministic `release-manifest.json`, `provenance-bundle.json`, and
+  `PROVENANCE-SHA256SUMS` generation for the source-reconciled Candidate.
+- Bound artifact, P3-REL-03 reconciliation, source inventory, supply-chain,
+  build-boundary, and explicit non-claim evidence into one fail-closed bundle.
+- Wired the bundle into Candidate Acceptance without granting signatures,
+  SLSA, Runtime Attestation, publication, CI, or production authority.
+
+## P3-REL-03 — Byte-level Content Reconciliation (2026-08-31)
+
+- Added per-file byte comparisons between the current source and Candidate
+  Wheel/sdist members for Python modules, Schemas, `pyproject.toml`, and
+  `MANIFEST.in`.
+- Added bounded content-match and mismatch-path evidence to the reconciliation
+  report and required it in Candidate Acceptance; duplicate archive members
+  fail closed.
+- Added tamper regression coverage while preserving the historical
+  `dist/0.4.0/` Candidate and report-only security boundary.
+
+## P3-REL-01 — Current Source / Candidate Artifact Reconciliation (2026-08-31)
+
+- Added `scripts/reconcile-candidate-artifacts.py` to build and verify a new
+  source-reconciled candidate without overwriting the preserved `dist/0.4.0/`.
+- Added fixed-epoch Wheel/sdist reproducibility, source-module/Schema inclusion
+  checks, offline installed-CLI smoke tests, and P3-AG/P3-AG-09 package checks.
+- Published the local candidate under
+  `dist/candidates/0.4.0-p3-rel-01/`; signatures and SLSA provenance remain
+  unclaimed.
+
+
+## Unreleased — 2026-08-31 — P3-17 Human FP/FN Feedback and Closed Resolution Loop (ADR-0106)
+
+- add `agentsec.semantic.feedback` with the versioned
+  `agentsec-p3-17-semantic-feedback-set` and
+  `agentsec-p3-17-semantic-feedback-loop-report` families: digest-bound
+  false-positive/false-negative rows, a deterministic AI draft builder,
+  a human confirmation builder, and a closed-loop resolution evaluator;
+- implement the row contract: one case judgment (kind, category,
+  disposition) plus issue type (`false_positive`/`false_negative`) with
+  an aligned closed rationale vocabulary (`missed_judgment`/
+  `overflagged_judgment`), the case Evidence IDs, and draft/confirmed/
+  rejected status; rows cannot target `scan_coverage`;
+- draft deterministically from expected-versus-predicted signature
+  diffing over the frozen P3-12/P3-13 packs (shared normal cases
+  deduplicate; divergent duplicates fail closed); stable invocation
+  failures become unevaluated cases, never fabricated rows;
+- require human confirmation: `ai_assisted` provenance is rejected,
+  reviewer identity and a >=20-character independence statement are
+  enforced, and confirmed sets reject leftover draft rows;
+- evaluate the closed loop per row with issue-type-specific semantics
+  (an FP row is resolved when the judgment is no longer predicted; an FN
+  row is resolved when the expected judgment is detected again), a
+  `resolution_rate` over evaluated rows, invocation failures kept
+  unevaluated with `evaluation_complete=false`, and a loop digest
+  binding the feedback digest plus run identity;
+- ship the pilot draft pack at
+  `pilots/semantic-feedback-p3-17/draft/`: 54 false-negative rows from
+  the honest offline fixture (predicts nothing), a submission template,
+  and a Chinese review worksheet referencing the P3-11C real-provider
+  trial (precision 0.394 / recall 0.378, FP=57 / FN=61) as motivation;
+- add the fail-closed `scripts/import-p3-17-feedback.py` importer and
+  the idempotent `scripts/build-p3-17-feedback-pack.py` generator;
+  register both version vectors and their frozen Schemas
+  (`semantic-feedback-set.schema.json`,
+  `semantic-feedback-loop-report.schema.json`) with provenance ownership
+  and export-script wiring;
+- add ADR-0106, the task record, and 15 tests covering FP/FN drafting
+  precision, confirmation, tampering, loop resolution in four regimes,
+  determinism, round-trips, frozen-schema byte identity, and corpus
+  non-disclosure; keep every authority boolean false — the confirmed set
+  itself awaits the human reviewer;
+- add the interactive expert workflow for the remaining human step:
+  `scripts/review-p3-17-feedback.py` walks the reviewer through every
+  draft row with the case's sanitized evidence text, per-row
+  confirm/reject decisions with bounded notes, resumable progress
+  (`draft/review-progress.json`), bulk-confirm of remaining rows with
+  explicit consent, automatic submission finalization (reviewer id plus
+  an editable independence statement), optional fail-closed import plus
+  set verification, and the `REVIEW-GUIDE.zh.md` runbook (keys,
+  recovery, exit codes, authority boundary);
+- complete the human review: all 54 draft rows were reviewed and
+  confirmed by 呈屿 on 2026-08-31 through the REVIEW-GUIDE workflow
+  (provenance ai_draft_human_confirmed, zero draft-judgment edits);
+  the confirmed set landed at
+  `pilots/semantic-feedback-p3-17/confirmed/semantic-feedback-set.json`
+  (feedback_sha256 a51af6750a636ab8466f91d3feab6c8ed0eaf5ab92aff6c2a145
+  dfc148fb6c02) and closed-loop spot checks resolved 54/54 for a
+  gold-echoing provider and 0/54 for the zero-output fixture.
+
+## Unreleased — 2026-08-31 — P3-16 Batch Shadow Mode Pipeline (ADR-0103)
+
+- add `agentsec.semantic.shadow_mode` with the versioned
+  `agentsec-p3-16-semantic-shadow-mode-report` family: a batch Shadow
+  Mode runner over up to 256 cases that records every case and never
+  blocks, composing the P3-05 Shadow adapter and the P3-08
+  single-input pipeline instead of duplicating Shadow logic;
+- implement the plan's non-blocking semantics: a case whose invocation
+  raises a P3-02 stable `SemanticShadowInvocationError` becomes a
+  `failed` row with `error_code` and zero child digest while the batch
+  continues; contract defects (wrong types, duplicate analysis IDs,
+  bound violations, missing pipeline, invalid adapter) fail closed with
+  stable `ShadowModeError` codes;
+- record value-free per-case rows (status, child `pipeline_sha256`,
+  error code, candidate/link/proposal counts) sorted and unique, with
+  an aggregate `shadow_mode_sha256` digest over the canonical row
+  payloads and counts cross-checked against the rows;
+- freeze the non-blocking authority: `operating_mode=shadow_only`,
+  `blocks=false`, `deterministic_decisions_affected=false`, plus the
+  semantic finding/rule/severity/policy/ci/runtime false literals — a
+  batch run only adds recorded evidence and never changes
+  deterministic decisions, Findings, Rules, Policies, CI, or releases;
+- register `SEMANTIC_SHADOW_MODE_SCHEMA_VERSION` and
+  `SEMANTIC_SHADOW_MODE_OUTPUT_VERSION` (report family `0.1.0`), central
+  schema file ownership, the frozen
+  `schemas/semantic-analysis/semantic-shadow-mode-report.schema.json`
+  export, and export-script wiring;
+- add ADR-0103, the task completion record, and 14 P3-16 tests covering
+  batch counting, non-blocking failure rows, determinism, round-trip
+  encoding, frozen-schema byte identity, fail-closed inputs, and corpus
+  non-disclosure.
+
+## Unreleased — 2026-08-31 — P3-AG-04B Attack Graph CLI Wiring
+
+- add `DeterministicAttackGraphAnalysisEngine` to compose Manifest analysis,
+  graph building, path matching, and the P3-AG-04 report;
+- add `agentsec attack-graph PROJECT` with Text/JSON output, explicit roots,
+  stable exit codes, and hardened same-kind artifact writing;
+- add `ATTACK_PATH_REPORT` artifact validation, public API exports, CLI tests,
+  and P3-AG-04B task/ADR documentation;
+- preserve static-declared-path, report-only, no-runtime, no-Finding, no-Policy,
+  no-CI, no-Hard-Gate, and no-release authority boundaries.
+
+## Unreleased — 2026-08-31 — P3-AG-04 Attack Path Report (ADR-0101)
+
+- add the frozen `agentsec-attack-path-report` `0.1.0` contract in
+  `agentsec.attack_graph.report`: value-free entries (pattern ID, node kind
+  sequence, content-addressed node IDs, node/edge counts) with per-entry
+  cross-field coherence validation and the fixed boundary marks
+  (`static_declared_path`, `runtime_verified=false`,
+  `reachability=not_proven`, `exploitability=not_proven`);
+- bind every report to its source of truth via
+  `manifest_schema_version`, `manifest_sha256`,
+  `canonical_attack_graph_sha256(graph)`, the exact pattern library
+  version, `path_count == len(entries)`, and entries sorted by unique
+  `path_id`; non-empty reports must carry disclosed limitations and the
+  report fixes every authority boolean false plus
+  `exploitability_claimed=false`;
+- add `build_attack_path_report` as the only producer: it derives every
+  field from one validated graph with matched paths and fails closed on
+  anything else;
+- add `render_attack_path_report_text` (bounded per-path lines plus
+  boundary-first footer, no node labels or Manifest references) and
+  `encode_attack_path_report_json` (canonical deterministic JSON that
+  round-trips through validation);
+- export the frozen JSON Schema under `schemas/attack-graph/` and register
+  `ATTACK_PATH_REPORT_VERSION` in the provenance registry with schema-file
+  ownership; export the report surface through the public API;
+- add 12 regression tests: empty report, digest bindings, coherence
+  validation, tamper rejection, determinism, value-free text/JSON, schema
+  export, and the real Codex pipeline report;
+- ADR numbering: the concurrent P3-15 replay-suite ADR landed first and
+  kept ADR-0100, so the attack-path report is recorded as ADR-0101; three
+  pending Ruff format passes (two Python files from this task plus the
+  concurrent session's replay-suite task document) were applied to keep
+  `check.sh` green; no behavior change.
+
+## Unreleased — 2026-08-31 — P3-AG-03 Attack Path Pattern Library / Matcher (ADR-0099)
+
+- add the strict `AttackPathPatternSpec` / `AttackPathStepSpec` contracts
+  and the reviewed builtin library
+  `ATTACK_PATH_PATTERN_LIBRARY_VERSION 0.1.0` of seven static patterns:
+  `secret-exfiltration`, `injection-tool-execution`, `memory-poisoning`,
+  `delegation-escalation`, `mcp-external-egress`, `mcp-production-write`,
+  and `tool-dependency-install` (roadmap families plus the optional
+  supply-chain family and an egress variant);
+- patterns bind preconditions to the start node (exfiltration requires a
+  `reads_secret` outgoing edge), keep kind sets sorted/unique/non-empty,
+  and pass `validate_pattern_library` when injected as a custom tuple;
+- add the deterministic `AttackPathMatcher`: DFS over declared edges only
+  with fixed pattern-ID → node-order → edge-ID traversal, producing
+  content-addressed `attack-path-sha256` paths that all carry
+  `path_kind=static_declared_path`, `runtime_verified=false`,
+  `reachability=not_proven`, and `exploitability=not_proven`;
+- fail closed on bounds: 64 matches per pattern and the graph-level 256
+  path bound raise `AttackPathMatchError` instead of truncating;
+- add `match_into_graph()` re-emitting a fully re-validated report-only
+  graph (same Manifest binding, nodes, edges) with matched paths and all
+  authority booleans false;
+- register the library version in the interface provenance registry,
+  export the matcher/specs/library through the public API, and add 15
+  regression tests including the real Codex pipeline (delegation 1,
+  injection 4, memory-poisoning 2, secret-exfiltration 1; the
+  production-write and dependency-install patterns match zero paths while
+  the builder emits no `writes_to`/`installs` edges — vocabulary-ready
+  boundary, disclosed in ADR-0099);
+
 ## Unreleased — 2026-08-31 — P3-14 Paired-Scenario Detection Metrics (ADR-0098)
 
 - add `agentsec.semantic.scenario_metrics` with the versioned
@@ -1324,3 +1552,33 @@ Assessment Output 0.2.0
 Rule Pack 0.2.0
 Risk Model 0.4.0
 ```
+
+## 2026-08-31
+
+- **P3-AG-05:** Added deterministic, report-only association between static
+  Attack Paths, existing Finding Evidence, and trusted Shadow Semantic Evidence.
+  The new value-minimized report binds graph/path/Finding/Semantic digests,
+  distinguishes exact/partial/unmatched correlation, deduplicates shared
+  node/edge locators, and grants no Finding, Policy, CI, Hard Gate, release, or
+  runtime authority.
+
+- **P3-AG-06:** Added `agentsec attack-graph-associate` with bounded strict
+  graph/Finding/Semantic input readers, project-mode E2E integration, Text/JSON
+  association reports, safe artifact output, and report-only exit behavior.
+
+- **P3-AG-07:** Added an inert Homi-like Attack Path Story Demo and presenter
+  runner that exercises the production association CLI with deterministic,
+  semantic, exact, partial, and unmatched Evidence outcomes.
+
+- **P3-AG-08:** Added digest-bound Attack Path Evidence calibration cases,
+  multi-class relation metrics, seed pilot artifacts, and a safe calibration
+  runner.
+
+## P3-REL-02 — Reconciled Candidate Acceptance Wiring (2026-08-31)
+
+- Added `--reconciled-candidate-report` to the Phase 3 Candidate Acceptance
+  workflow.
+- Rechecked the P3-REL-01 source inventory, Candidate directory safety, Wheel/
+  sdist digests, checksums, reproducibility, and installed CLI smoke evidence.
+- Preserved legacy candidate-verification fixtures and the historical
+  `dist/0.4.0/` artifacts; no publication or production authority was added.

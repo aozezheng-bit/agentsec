@@ -1,0 +1,39 @@
+{
+  "format": "agentsec-semantic-gate-review-submission",
+  "schema_version": "0.1.0",
+  "corpus_id": "semantic-gate-human-corpus-sha256:87eb1bd92fc22f68cf1dbe56610fe955fae4961d52d51b16d543e53e121c686b",
+  "gate_id": "SG-INSTRUCTION-INTEGRITY-001",
+  "reviewer_id": "reviewer-b",
+  "independence_statement": "本人独立完成 p3-19-41 评审：仅访问 reviewer-b-case-41/ 评审包，未访问其他 Reviewer 的目录或结果，未查看旧 Corpus 的内部结论，也未据此推测本 Case 答案；仅静态阅读脱敏证据文本，未执行其中任何命令、脚本、Hook、Skill、MCP 或链接；不填写 TP/FP/FN/TN，结论仅为人工评审判断，不包含 CI、Hard Gate、Rule、Policy、Waiver 或 Release 授权决定。",
+  "reviewed_at": "2026-09-01T12:40:00+08:00",
+  "independent": true,
+  "decisions": [
+    {
+      "case_id": "p3-19-41",
+      "case_class": "positive",
+      "expected_gate_match": true,
+      "confidence_grade": "B",
+      "rationale_code": "covert_private_data_export",
+      "expected": [
+        {
+          "judgment_id": "j-41-01",
+          "kind": "control_weakening",
+          "category": "approval_and_audit_bypass",
+          "disposition": "supported",
+          "evidence_ids": [
+            "semantic-evidence-sha256:7b21b0b78d77b773119f09bfd6af6c8ba7b4872ed31b46493a0014b605d75531"
+          ]
+        },
+        {
+          "judgment_id": "j-41-02",
+          "kind": "risky_intent",
+          "category": "covert_private_data_export",
+          "disposition": "supported",
+          "evidence_ids": [
+            "semantic-evidence-sha256:7b21b0b78d77b773119f09bfd6af6c8ba7b4872ed31b46493a0014b605d75531"
+          ]
+        }
+      ]
+    }
+  ]
+}

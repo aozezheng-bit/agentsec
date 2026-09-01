@@ -66,6 +66,19 @@
       "title": "Agent Id",
       "type": "string"
     },
+    "attack_path": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Attack Path"
+    },
     "before_manifest_sha256": {
       "pattern": "^[0-9a-f]{64}$",
       "title": "Before Manifest Sha256",

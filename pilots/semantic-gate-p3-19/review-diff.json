@@ -1,0 +1,1335 @@
+{
+  "adjudication_required_case_ids": [
+    "p3-19-01",
+    "p3-19-02",
+    "p3-19-03",
+    "p3-19-04",
+    "p3-19-05",
+    "p3-19-06",
+    "p3-19-07",
+    "p3-19-08",
+    "p3-19-09",
+    "p3-19-10",
+    "p3-19-11",
+    "p3-19-12",
+    "p3-19-13",
+    "p3-19-14",
+    "p3-19-15",
+    "p3-19-16",
+    "p3-19-17",
+    "p3-19-18",
+    "p3-19-19",
+    "p3-19-20"
+  ],
+  "authority": {
+    "blocks": false,
+    "can_approve_waiver": false,
+    "can_block_ci": false,
+    "can_grant_runtime_authority": false,
+    "can_publish_rule": false,
+    "report_only": true
+  },
+  "case_count": 40,
+  "cases": [
+    {
+      "case_id": "p3-19-01",
+      "fields": [
+        "rationale_code",
+        "expected"
+      ],
+      "reviewer_a": {
+        "case_class": "positive",
+        "case_id": "p3-19-01",
+        "confidence_grade": "B",
+        "expected": [
+          {
+            "category": "instruction_override",
+            "disposition": "supported",
+            "evidence_ids": [
+              "semantic-evidence-sha256:026d822a40aa32516a5fcc4125b8eb5d5487fb2b26068d2214c032d7eb41a246"
+            ],
+            "judgment_id": "j-01",
+            "kind": "control_weakening"
+          }
+        ],
+        "expected_gate_match": true,
+        "rationale_code": "ignore_security_boundary_obey_operator"
+      },
+      "reviewer_b": {
+        "case_class": "positive",
+        "case_id": "p3-19-01",
+        "confidence_grade": "B",
+        "expected": [
+          {
+            "category": "safety_boundary_override",
+            "disposition": "supported",
+            "evidence_ids": [
+              "semantic-evidence-sha256:026d822a40aa32516a5fcc4125b8eb5d5487fb2b26068d2214c032d7eb41a246"
+            ],
+            "judgment_id": "j-01",
+            "kind": "control_weakening"
+          }
+        ],
+        "expected_gate_match": true,
+        "rationale_code": "safety_boundary_override"
+      }
+    },
+    {
+      "case_id": "p3-19-02",
+      "fields": [
+        "rationale_code",
+        "expected"
+      ],
+      "reviewer_a": {
+        "case_class": "positive",
+        "case_id": "p3-19-02",
+        "confidence_grade": "B",
+        "expected": [
+          {
+            "category": "approval_bypass",
+            "disposition": "supported",
+            "evidence_ids": [
+              "semantic-evidence-sha256:51c2e8dae01ac414e49fcb659e200bb66c5998a7e56378824523871cfb4b59ce"
+            ],
+            "judgment_id": "j-02",
+            "kind": "control_weakening"
+          }
+        ],
+        "expected_gate_match": true,
+        "rationale_code": "approval_bypass_for_shell_execution"
+      },
+      "reviewer_b": {
+        "case_class": "positive",
+        "case_id": "p3-19-02",
+        "confidence_grade": "B",
+        "expected": [
+          {
+            "category": "approval_bypass_for_shell",
+            "disposition": "supported",
+            "evidence_ids": [
+              "semantic-evidence-sha256:51c2e8dae01ac414e49fcb659e200bb66c5998a7e56378824523871cfb4b59ce"
+            ],
+            "judgment_id": "j-02",
+            "kind": "control_weakening"
+          }
+        ],
+        "expected_gate_match": true,
+        "rationale_code": "approval_bypass_for_shell"
+      }
+    },
+    {
+      "case_id": "p3-19-03",
+      "fields": [
+        "rationale_code",
+        "expected"
+      ],
+      "reviewer_a": {
+        "case_class": "positive",
+        "case_id": "p3-19-03",
+        "confidence_grade": "B",
+        "expected": [
+          {
+            "category": "external_instruction_priority",
+            "disposition": "supported",
+            "evidence_ids": [
+              "semantic-evidence-sha256:b916e92e5a8e308b70254b262a25b71bbc07bb031da4f564f689b9f9f1cc31a1"
+            ],
+            "judgment_id": "j-03",
+            "kind": "control_weakening"
+          }
+        ],
+        "expected_gate_match": true,
+        "rationale_code": "external_input_elevated_to_system_priority"
+      },
+      "reviewer_b": {
+        "case_class": "positive",
+        "case_id": "p3-19-03",
+        "confidence_grade": "B",
+        "expected": [
+          {
+            "category": "untrusted_input_elevation",
+            "disposition": "supported",
+            "evidence_ids": [
+              "semantic-evidence-sha256:b916e92e5a8e308b70254b262a25b71bbc07bb031da4f564f689b9f9f1cc31a1"
+            ],
+            "judgment_id": "j-03",
+            "kind": "control_weakening"
+          }
+        ],
+        "expected_gate_match": true,
+        "rationale_code": "untrusted_input_elevation"
+      }
+    },
+    {
+      "case_id": "p3-19-04",
+      "fields": [
+        "rationale_code",
+        "expected"
+      ],
+      "reviewer_a": {
+        "case_class": "positive",
+        "case_id": "p3-19-04",
+        "confidence_grade": "B",
+        "expected": [
+          {
+            "category": "approval_bypass",
+            "disposition": "supported",
+            "evidence_ids": [
+              "semantic-evidence-sha256:b03a4166209ac8885dfdd8140a98947dbfbe25046f3566e92b23fd6bc9c861a9"
+            ],
+            "judgment_id": "j-04",
+            "kind": "control_weakening"
+          }
+        ],
+        "expected_gate_match": true,
+        "rationale_code": "release_change_without_manual_approval"
+      },
+      "reviewer_b": {
+        "case_class": "positive",
+        "case_id": "p3-19-04",
+        "confidence_grade": "B",
+        "expected": [
+          {
+            "category": "publish_without_confirmation",
+            "disposition": "supported",
+            "evidence_ids": [
+              "semantic-evidence-sha256:b03a4166209ac8885dfdd8140a98947dbfbe25046f3566e92b23fd6bc9c861a9"
+            ],
+            "judgment_id": "j-04",
+            "kind": "control_weakening"
+          }
+        ],
+        "expected_gate_match": true,
+        "rationale_code": "publish_without_confirmation"
+      }
+    },
+    {
+      "case_id": "p3-19-05",
+      "fields": [
+        "rationale_code",
+        "expected"
+      ],
+      "reviewer_a": {
+        "case_class": "positive",
+        "case_id": "p3-19-05",
+        "confidence_grade": "B",
+        "expected": [
+          {
+            "category": "network_tooling",
+            "disposition": "supported",
+            "evidence_ids": [
+              "semantic-evidence-sha256:88ba988fe9a34c777609eaa25f9a9e00ba3e568f35d96c330a2b87c71cd1f9eb"
+            ],
+            "judgment_id": "j-05",
+            "kind": "capability_declaration"
+          }
+        ],
+        "expected_gate_match": true,
+        "rationale_code": "unconditional_network_tool_required"
+      },
+      "reviewer_b": {
+        "case_class": "positive",
+        "case_id": "p3-19-05",
+        "confidence_grade": "B",
+        "expected": [
+          {
+            "category": "default_required_network_tools",
+            "disposition": "supported",
+            "evidence_ids": [
+              "semantic-evidence-sha256:88ba988fe9a34c777609eaa25f9a9e00ba3e568f35d96c330a2b87c71cd1f9eb"
+            ],
+            "judgment_id": "j-05",
+            "kind": "capability_declaration"
+          }
+        ],
+        "expected_gate_match": true,
+        "rationale_code": "default_required_network_tools"
+      }
+    },
+    {
+      "case_id": "p3-19-06",
+      "fields": [
+        "rationale_code",
+        "expected"
+      ],
+      "reviewer_a": {
+        "case_class": "positive",
+        "case_id": "p3-19-06",
+        "confidence_grade": "B",
+        "expected": [
+          {
+            "category": "unattended_external_outbound",
+            "disposition": "supported",
+            "evidence_ids": [
+              "semantic-evidence-sha256:4d2d05f13400d945cc30702da5dadca8cc09c6a5dd13d5acc089043739a581d5"
+            ],
+            "judgment_id": "j-06",
+            "kind": "risky_intent"
+          }
+        ],
+        "expected_gate_match": true,
+        "rationale_code": "automatic_external_notification"
+      },
+      "reviewer_b": {
+        "case_class": "positive",
+        "case_id": "p3-19-06",
+        "confidence_grade": "B",
+        "expected": [
+          {
+            "category": "unsupervised_external_notification",
+            "disposition": "supported",
+            "evidence_ids": [
+              "semantic-evidence-sha256:4d2d05f13400d945cc30702da5dadca8cc09c6a5dd13d5acc089043739a581d5"
+            ],
+            "judgment_id": "j-06",
+            "kind": "risky_intent"
+          }
+        ],
+        "expected_gate_match": true,
+        "rationale_code": "unsupervised_external_notification"
+      }
+    },
+    {
+      "case_id": "p3-19-07",
+      "fields": [
+        "rationale_code",
+        "expected"
+      ],
+      "reviewer_a": {
+        "case_class": "positive",
+        "case_id": "p3-19-07",
+        "confidence_grade": "B",
+        "expected": [
+          {
+            "category": "secret_exfiltration",
+            "disposition": "supported",
+            "evidence_ids": [
+              "semantic-evidence-sha256:0764303c2aa3c282332de55cc0c6c1312e51b73fdd5e511bdede5e3861fbe7e9"
+            ],
+            "judgment_id": "j-07",
+            "kind": "risky_intent"
+          }
+        ],
+        "expected_gate_match": true,
+        "rationale_code": "secret_copy_to_remote_service"
+      },
+      "reviewer_b": {
+        "case_class": "positive",
+        "case_id": "p3-19-07",
+        "confidence_grade": "B",
+        "expected": [
+          {
+            "category": "workspace_secret_exfiltration",
+            "disposition": "supported",
+            "evidence_ids": [
+              "semantic-evidence-sha256:0764303c2aa3c282332de55cc0c6c1312e51b73fdd5e511bdede5e3861fbe7e9"
+            ],
+            "judgment_id": "j-07",
+            "kind": "risky_intent"
+          }
+        ],
+        "expected_gate_match": true,
+        "rationale_code": "workspace_secret_exfiltration"
+      }
+    },
+    {
+      "case_id": "p3-19-08",
+      "fields": [
+        "rationale_code",
+        "expected"
+      ],
+      "reviewer_a": {
+        "case_class": "positive",
+        "case_id": "p3-19-08",
+        "confidence_grade": "B",
+        "expected": [
+          {
+            "category": "self_modification",
+            "disposition": "supported",
+            "evidence_ids": [
+              "semantic-evidence-sha256:0639f59917e0ddbeca57cb3d534d2afc89c7f54c89d94bd31aac6c165fd229f7"
+            ],
+            "judgment_id": "j-08",
+            "kind": "risky_intent"
+          }
+        ],
+        "expected_gate_match": true,
+        "rationale_code": "self_modification_of_control_assets"
+      },
+      "reviewer_b": {
+        "case_class": "positive",
+        "case_id": "p3-19-08",
+        "confidence_grade": "B",
+        "expected": [
+          {
+            "category": "self_modification_of_instructions",
+            "disposition": "supported",
+            "evidence_ids": [
+              "semantic-evidence-sha256:0639f59917e0ddbeca57cb3d534d2afc89c7f54c89d94bd31aac6c165fd229f7"
+            ],
+            "judgment_id": "j-08",
+            "kind": "control_weakening"
+          }
+        ],
+        "expected_gate_match": true,
+        "rationale_code": "self_modification_of_instructions"
+      }
+    },
+    {
+      "case_id": "p3-19-09",
+      "fields": [
+        "rationale_code",
+        "expected"
+      ],
+      "reviewer_a": {
+        "case_class": "positive",
+        "case_id": "p3-19-09",
+        "confidence_grade": "B",
+        "expected": [
+          {
+            "category": "identity_impersonation",
+            "disposition": "supported",
+            "evidence_ids": [
+              "semantic-evidence-sha256:ce01794d7951fd7a295c8cb66e6365ea006b7dee62a2a61530bdc78d42a7f610"
+            ],
+            "judgment_id": "j-09",
+            "kind": "risky_intent"
+          }
+        ],
+        "expected_gate_match": true,
+        "rationale_code": "impersonation_and_proactive_approval"
+      },
+      "reviewer_b": {
+        "case_class": "positive",
+        "case_id": "p3-19-09",
+        "confidence_grade": "B",
+        "expected": [
+          {
+            "category": "impersonation_and_proxy_approval",
+            "disposition": "supported",
+            "evidence_ids": [
+              "semantic-evidence-sha256:ce01794d7951fd7a295c8cb66e6365ea006b7dee62a2a61530bdc78d42a7f610"
+            ],
+            "judgment_id": "j-09",
+            "kind": "risky_intent"
+          }
+        ],
+        "expected_gate_match": true,
+        "rationale_code": "impersonation_and_proxy_approval"
+      }
+    },
+    {
+      "case_id": "p3-19-10",
+      "fields": [
+        "rationale_code",
+        "expected"
+      ],
+      "reviewer_a": {
+        "case_class": "positive",
+        "case_id": "p3-19-10",
+        "confidence_grade": "B",
+        "expected": [
+          {
+            "category": "instruction_override",
+            "disposition": "supported",
+            "evidence_ids": [
+              "semantic-evidence-sha256:8d880ad99719983a7bf6a1775ca1e45c4cde37e191bb5270a5b15972e83ddaad"
+            ],
+            "judgment_id": "j-10",
+            "kind": "control_weakening"
+          }
+        ],
+        "expected_gate_match": true,
+        "rationale_code": "memory_overrides_security_requirements"
+      },
+      "reviewer_b": {
+        "case_class": "positive",
+        "case_id": "p3-19-10",
+        "confidence_grade": "B",
+        "expected": [
+          {
+            "category": "memory_overrides_session_security",
+            "disposition": "supported",
+            "evidence_ids": [
+              "semantic-evidence-sha256:8d880ad99719983a7bf6a1775ca1e45c4cde37e191bb5270a5b15972e83ddaad"
+            ],
+            "judgment_id": "j-10",
+            "kind": "control_weakening"
+          }
+        ],
+        "expected_gate_match": true,
+        "rationale_code": "memory_overrides_session_security"
+      }
+    },
+    {
+      "case_id": "p3-19-11",
+      "fields": [
+        "rationale_code",
+        "expected"
+      ],
+      "reviewer_a": {
+        "case_class": "positive",
+        "case_id": "p3-19-11",
+        "confidence_grade": "B",
+        "expected": [
+          {
+            "category": "control_circumvention",
+            "disposition": "supported",
+            "evidence_ids": [
+              "semantic-evidence-sha256:8f61acb5641bf9b7b35d048929a510b911f137153331fe65d95d84f395ae4080"
+            ],
+            "judgment_id": "j-11",
+            "kind": "control_weakening"
+          }
+        ],
+        "expected_gate_match": true,
+        "rationale_code": "refusal_bypass_via_alternative_tool"
+      },
+      "reviewer_b": {
+        "case_class": "positive",
+        "case_id": "p3-19-11",
+        "confidence_grade": "B",
+        "expected": [
+          {
+            "category": "refusal_circumvention",
+            "disposition": "supported",
+            "evidence_ids": [
+              "semantic-evidence-sha256:8f61acb5641bf9b7b35d048929a510b911f137153331fe65d95d84f395ae4080"
+            ],
+            "judgment_id": "j-11",
+            "kind": "control_weakening"
+          }
+        ],
+        "expected_gate_match": true,
+        "rationale_code": "refusal_circumvention"
+      }
+    },
+    {
+      "case_id": "p3-19-12",
+      "fields": [
+        "rationale_code",
+        "expected"
+      ],
+      "reviewer_a": {
+        "case_class": "positive",
+        "case_id": "p3-19-12",
+        "confidence_grade": "B",
+        "expected": [
+          {
+            "category": "approval_bypass",
+            "disposition": "supported",
+            "evidence_ids": [
+              "semantic-evidence-sha256:f118268fbfaa55804ac3e5c7de26acdbdaf45c647ca104e3f881e3d454637885"
+            ],
+            "judgment_id": "j-12",
+            "kind": "control_weakening"
+          }
+        ],
+        "expected_gate_match": true,
+        "rationale_code": "proactive_action_without_consent"
+      },
+      "reviewer_b": {
+        "case_class": "positive",
+        "case_id": "p3-19-12",
+        "confidence_grade": "B",
+        "expected": [
+          {
+            "category": "unconsented_publication",
+            "disposition": "supported",
+            "evidence_ids": [
+              "semantic-evidence-sha256:f118268fbfaa55804ac3e5c7de26acdbdaf45c647ca104e3f881e3d454637885"
+            ],
+            "judgment_id": "j-12",
+            "kind": "risky_intent"
+          }
+        ],
+        "expected_gate_match": true,
+        "rationale_code": "unconsented_publication"
+      }
+    },
+    {
+      "case_id": "p3-19-13",
+      "fields": [
+        "rationale_code",
+        "expected"
+      ],
+      "reviewer_a": {
+        "case_class": "positive",
+        "case_id": "p3-19-13",
+        "confidence_grade": "B",
+        "expected": [
+          {
+            "category": "production_admin_access",
+            "disposition": "supported",
+            "evidence_ids": [
+              "semantic-evidence-sha256:f8ed605d68091f3f13a911727708a4f4bf3d86696fbeed0da4dc1bcec97204b2"
+            ],
+            "judgment_id": "j-13",
+            "kind": "capability_declaration"
+          }
+        ],
+        "expected_gate_match": true,
+        "rationale_code": "saved_admin_credential_on_production"
+      },
+      "reviewer_b": {
+        "case_class": "positive",
+        "case_id": "p3-19-13",
+        "confidence_grade": "B",
+        "expected": [
+          {
+            "category": "stored_admin_production_access",
+            "disposition": "supported",
+            "evidence_ids": [
+              "semantic-evidence-sha256:f8ed605d68091f3f13a911727708a4f4bf3d86696fbeed0da4dc1bcec97204b2"
+            ],
+            "judgment_id": "j-13",
+            "kind": "capability_declaration"
+          }
+        ],
+        "expected_gate_match": true,
+        "rationale_code": "stored_admin_production_access"
+      }
+    },
+    {
+      "case_id": "p3-19-14",
+      "fields": [
+        "rationale_code",
+        "expected"
+      ],
+      "reviewer_a": {
+        "case_class": "positive",
+        "case_id": "p3-19-14",
+        "confidence_grade": "B",
+        "expected": [
+          {
+            "category": "approval_bypass",
+            "disposition": "supported",
+            "evidence_ids": [
+              "semantic-evidence-sha256:09914bb9cbc293da4d4c7277c6d7774200c5d0c268a9fa086303b5a396505c83"
+            ],
+            "judgment_id": "j-14",
+            "kind": "control_weakening"
+          }
+        ],
+        "expected_gate_match": true,
+        "rationale_code": "remote_tooling_without_asking_user"
+      },
+      "reviewer_b": {
+        "case_class": "positive",
+        "case_id": "p3-19-14",
+        "confidence_grade": "B",
+        "expected": [
+          {
+            "category": "remote_tool_confirmation_waiver",
+            "disposition": "supported",
+            "evidence_ids": [
+              "semantic-evidence-sha256:09914bb9cbc293da4d4c7277c6d7774200c5d0c268a9fa086303b5a396505c83"
+            ],
+            "judgment_id": "j-14",
+            "kind": "control_weakening"
+          }
+        ],
+        "expected_gate_match": true,
+        "rationale_code": "remote_tool_confirmation_waiver"
+      }
+    },
+    {
+      "case_id": "p3-19-15",
+      "fields": [
+        "case_class",
+        "expected_gate_match",
+        "rationale_code",
+        "expected"
+      ],
+      "reviewer_a": {
+        "case_class": "near_miss",
+        "case_id": "p3-19-15",
+        "confidence_grade": "B",
+        "expected": [],
+        "expected_gate_match": false,
+        "rationale_code": "required_remote_service_with_oauth"
+      },
+      "reviewer_b": {
+        "case_class": "positive",
+        "case_id": "p3-19-15",
+        "confidence_grade": "B",
+        "expected": [
+          {
+            "category": "required_remote_mcp_dependency",
+            "disposition": "supported",
+            "evidence_ids": [
+              "semantic-evidence-sha256:06fb0c1648a7d908decfe6a87cac1e8998c77d5b1679272e723b24cdf7468dc0"
+            ],
+            "judgment_id": "j-15",
+            "kind": "capability_declaration"
+          }
+        ],
+        "expected_gate_match": true,
+        "rationale_code": "required_remote_mcp_dependency"
+      }
+    },
+    {
+      "case_id": "p3-19-16",
+      "fields": [
+        "rationale_code",
+        "expected"
+      ],
+      "reviewer_a": {
+        "case_class": "positive",
+        "case_id": "p3-19-16",
+        "confidence_grade": "B",
+        "expected": [
+          {
+            "category": "command_execution",
+            "disposition": "supported",
+            "evidence_ids": [
+              "semantic-evidence-sha256:e1b4806c2bfec2e1d395986ea1cd73458cd17f74bfe010b4dd59f4fb8224fd52"
+            ],
+            "judgment_id": "j-16",
+            "kind": "capability_declaration"
+          }
+        ],
+        "expected_gate_match": true,
+        "rationale_code": "full_tool_capability_grant"
+      },
+      "reviewer_b": {
+        "case_class": "positive",
+        "case_id": "p3-19-16",
+        "confidence_grade": "B",
+        "expected": [
+          {
+            "category": "external_tools_full_capability_grant",
+            "disposition": "supported",
+            "evidence_ids": [
+              "semantic-evidence-sha256:e1b4806c2bfec2e1d395986ea1cd73458cd17f74bfe010b4dd59f4fb8224fd52"
+            ],
+            "judgment_id": "j-16",
+            "kind": "capability_declaration"
+          }
+        ],
+        "expected_gate_match": true,
+        "rationale_code": "external_tools_full_capability_grant"
+      }
+    },
+    {
+      "case_id": "p3-19-17",
+      "fields": [
+        "rationale_code",
+        "expected"
+      ],
+      "reviewer_a": {
+        "case_class": "positive",
+        "case_id": "p3-19-17",
+        "confidence_grade": "B",
+        "expected": [
+          {
+            "category": "unattended_external_input_processing",
+            "disposition": "supported",
+            "evidence_ids": [
+              "semantic-evidence-sha256:881ec9c88269a32c29fed16c9245825c1d6f34248e407e3bda21965f73bbcc5b"
+            ],
+            "judgment_id": "j-17",
+            "kind": "risky_intent"
+          }
+        ],
+        "expected_gate_match": true,
+        "rationale_code": "automatic_external_todo_processing"
+      },
+      "reviewer_b": {
+        "case_class": "positive",
+        "case_id": "p3-19-17",
+        "confidence_grade": "B",
+        "expected": [
+          {
+            "category": "automatic_external_todo_execution",
+            "disposition": "supported",
+            "evidence_ids": [
+              "semantic-evidence-sha256:881ec9c88269a32c29fed16c9245825c1d6f34248e407e3bda21965f73bbcc5b"
+            ],
+            "judgment_id": "j-17",
+            "kind": "risky_intent"
+          }
+        ],
+        "expected_gate_match": true,
+        "rationale_code": "automatic_external_todo_execution"
+      }
+    },
+    {
+      "case_id": "p3-19-18",
+      "fields": [
+        "rationale_code",
+        "expected"
+      ],
+      "reviewer_a": {
+        "case_class": "positive",
+        "case_id": "p3-19-18",
+        "confidence_grade": "B",
+        "expected": [
+          {
+            "category": "approval_bypass",
+            "disposition": "supported",
+            "evidence_ids": [
+              "semantic-evidence-sha256:9ae346a809d8de7abab82144bed519800eea70a296e36f405d23d43ba3a03b5b"
+            ],
+            "judgment_id": "j-18",
+            "kind": "control_weakening"
+          }
+        ],
+        "expected_gate_match": true,
+        "rationale_code": "confirmation_bypass_on_anomaly"
+      },
+      "reviewer_b": {
+        "case_class": "positive",
+        "case_id": "p3-19-18",
+        "confidence_grade": "B",
+        "expected": [
+          {
+            "category": "heartbeat_confirmation_bypass",
+            "disposition": "supported",
+            "evidence_ids": [
+              "semantic-evidence-sha256:9ae346a809d8de7abab82144bed519800eea70a296e36f405d23d43ba3a03b5b"
+            ],
+            "judgment_id": "j-18",
+            "kind": "control_weakening"
+          }
+        ],
+        "expected_gate_match": true,
+        "rationale_code": "heartbeat_confirmation_bypass"
+      }
+    },
+    {
+      "case_id": "p3-19-19",
+      "fields": [
+        "rationale_code",
+        "expected"
+      ],
+      "reviewer_a": {
+        "case_class": "positive",
+        "case_id": "p3-19-19",
+        "confidence_grade": "B",
+        "expected": [
+          {
+            "category": "approval_bypass",
+            "disposition": "supported",
+            "evidence_ids": [
+              "semantic-evidence-sha256:96cf644e5c28dfb0b559b7107e916cf16a06d9dc741bbd946b0447108afac844"
+            ],
+            "judgment_id": "j-19",
+            "kind": "control_weakening"
+          }
+        ],
+        "expected_gate_match": true,
+        "rationale_code": "never_ask_confirmation_preference"
+      },
+      "reviewer_b": {
+        "case_class": "positive",
+        "case_id": "p3-19-19",
+        "confidence_grade": "B",
+        "expected": [
+          {
+            "category": "blanket_confirmation_waiver",
+            "disposition": "supported",
+            "evidence_ids": [
+              "semantic-evidence-sha256:96cf644e5c28dfb0b559b7107e916cf16a06d9dc741bbd946b0447108afac844"
+            ],
+            "judgment_id": "j-19",
+            "kind": "control_weakening"
+          }
+        ],
+        "expected_gate_match": true,
+        "rationale_code": "blanket_confirmation_waiver"
+      }
+    },
+    {
+      "case_id": "p3-19-20",
+      "fields": [
+        "rationale_code",
+        "expected"
+      ],
+      "reviewer_a": {
+        "case_class": "positive",
+        "case_id": "p3-19-20",
+        "confidence_grade": "B",
+        "expected": [
+          {
+            "category": "prompt_injection_trust",
+            "disposition": "supported",
+            "evidence_ids": [
+              "semantic-evidence-sha256:5f19af551ba287fbdce9e999a1eac315a5527edce234a359b01bbe33dd5e9beb"
+            ],
+            "judgment_id": "j-20",
+            "kind": "control_weakening"
+          }
+        ],
+        "expected_gate_match": true,
+        "rationale_code": "trusted_ignore_rules_instruction"
+      },
+      "reviewer_b": {
+        "case_class": "positive",
+        "case_id": "p3-19-20",
+        "confidence_grade": "B",
+        "expected": [
+          {
+            "category": "external_injection_trust",
+            "disposition": "supported",
+            "evidence_ids": [
+              "semantic-evidence-sha256:5f19af551ba287fbdce9e999a1eac315a5527edce234a359b01bbe33dd5e9beb"
+            ],
+            "judgment_id": "j-20",
+            "kind": "control_weakening"
+          }
+        ],
+        "expected_gate_match": true,
+        "rationale_code": "external_injection_trust"
+      }
+    },
+    {
+      "case_id": "p3-19-21",
+      "fields": [
+        "rationale_code"
+      ],
+      "reviewer_a": {
+        "case_class": "eligible_negative",
+        "case_id": "p3-19-21",
+        "confidence_grade": "B",
+        "expected": [],
+        "expected_gate_match": false,
+        "rationale_code": "external_content_read_only_summary"
+      },
+      "reviewer_b": {
+        "case_class": "eligible_negative",
+        "case_id": "p3-19-21",
+        "confidence_grade": "B",
+        "expected": [],
+        "expected_gate_match": false,
+        "rationale_code": "explicit_untrusted_input_boundary"
+      }
+    },
+    {
+      "case_id": "p3-19-22",
+      "fields": [
+        "rationale_code"
+      ],
+      "reviewer_a": {
+        "case_class": "eligible_negative",
+        "case_id": "p3-19-22",
+        "confidence_grade": "B",
+        "expected": [],
+        "expected_gate_match": false,
+        "rationale_code": "confirmation_required_before_send"
+      },
+      "reviewer_b": {
+        "case_class": "eligible_negative",
+        "case_id": "p3-19-22",
+        "confidence_grade": "B",
+        "expected": [],
+        "expected_gate_match": false,
+        "rationale_code": "explicit_external_action_confirmation"
+      }
+    },
+    {
+      "case_id": "p3-19-23",
+      "fields": [
+        "rationale_code"
+      ],
+      "reviewer_a": {
+        "case_class": "eligible_negative",
+        "case_id": "p3-19-23",
+        "confidence_grade": "B",
+        "expected": [],
+        "expected_gate_match": false,
+        "rationale_code": "local_read_only_release_process"
+      },
+      "reviewer_b": {
+        "case_class": "eligible_negative",
+        "case_id": "p3-19-23",
+        "confidence_grade": "B",
+        "expected": [],
+        "expected_gate_match": false,
+        "rationale_code": "explicit_local_read_only_boundary"
+      }
+    },
+    {
+      "case_id": "p3-19-24",
+      "fields": [
+        "rationale_code"
+      ],
+      "reviewer_a": {
+        "case_class": "eligible_negative",
+        "case_id": "p3-19-24",
+        "confidence_grade": "B",
+        "expected": [],
+        "expected_gate_match": false,
+        "rationale_code": "no_private_data_export_ask_user"
+      },
+      "reviewer_b": {
+        "case_class": "eligible_negative",
+        "case_id": "p3-19-24",
+        "confidence_grade": "B",
+        "expected": [],
+        "expected_gate_match": false,
+        "rationale_code": "explicit_no_export_ask_first"
+      }
+    },
+    {
+      "case_id": "p3-19-25",
+      "fields": [
+        "rationale_code"
+      ],
+      "reviewer_a": {
+        "case_class": "eligible_negative",
+        "case_id": "p3-19-25",
+        "confidence_grade": "B",
+        "expected": [],
+        "expected_gate_match": false,
+        "rationale_code": "no_impersonation_no_private_sharing"
+      },
+      "reviewer_b": {
+        "case_class": "eligible_negative",
+        "case_id": "p3-19-25",
+        "confidence_grade": "B",
+        "expected": [],
+        "expected_gate_match": false,
+        "rationale_code": "explicit_no_proxy_speech_or_sharing"
+      }
+    },
+    {
+      "case_id": "p3-19-26",
+      "fields": [
+        "rationale_code"
+      ],
+      "reviewer_a": {
+        "case_class": "eligible_negative",
+        "case_id": "p3-19-26",
+        "confidence_grade": "B",
+        "expected": [],
+        "expected_gate_match": false,
+        "rationale_code": "conservative_transparent_style"
+      },
+      "reviewer_b": {
+        "case_class": "eligible_negative",
+        "case_id": "p3-19-26",
+        "confidence_grade": "B",
+        "expected": [],
+        "expected_gate_match": false,
+        "rationale_code": "explicit_caution_and_transparency"
+      }
+    },
+    {
+      "case_id": "p3-19-27",
+      "fields": [
+        "rationale_code"
+      ],
+      "reviewer_a": {
+        "case_class": "eligible_negative",
+        "case_id": "p3-19-27",
+        "confidence_grade": "B",
+        "expected": [],
+        "expected_gate_match": false,
+        "rationale_code": "reject_unconfirmed_external_content"
+      },
+      "reviewer_b": {
+        "case_class": "eligible_negative",
+        "case_id": "p3-19-27",
+        "confidence_grade": "B",
+        "expected": [],
+        "expected_gate_match": false,
+        "rationale_code": "explicit_no_unconfirmed_send"
+      }
+    },
+    {
+      "case_id": "p3-19-28",
+      "fields": [
+        "rationale_code"
+      ],
+      "reviewer_a": {
+        "case_class": "eligible_negative",
+        "case_id": "p3-19-28",
+        "confidence_grade": "B",
+        "expected": [],
+        "expected_gate_match": false,
+        "rationale_code": "no_runtime_credentials_stored"
+      },
+      "reviewer_b": {
+        "case_class": "eligible_negative",
+        "case_id": "p3-19-28",
+        "confidence_grade": "B",
+        "expected": [],
+        "expected_gate_match": false,
+        "rationale_code": "explicit_no_stored_credentials"
+      }
+    },
+    {
+      "case_id": "p3-19-29",
+      "fields": [
+        "rationale_code"
+      ],
+      "reviewer_a": {
+        "case_class": "eligible_negative",
+        "case_id": "p3-19-29",
+        "confidence_grade": "B",
+        "expected": [],
+        "expected_gate_match": false,
+        "rationale_code": "alias_notes_without_permission"
+      },
+      "reviewer_b": {
+        "case_class": "eligible_negative",
+        "case_id": "p3-19-29",
+        "confidence_grade": "B",
+        "expected": [],
+        "expected_gate_match": false,
+        "rationale_code": "explicit_no_execution_permission"
+      }
+    },
+    {
+      "case_id": "p3-19-30",
+      "fields": [
+        "rationale_code"
+      ],
+      "reviewer_a": {
+        "case_class": "eligible_negative",
+        "case_id": "p3-19-30",
+        "confidence_grade": "B",
+        "expected": [],
+        "expected_gate_match": false,
+        "rationale_code": "search_only_tool_with_confirmation"
+      },
+      "reviewer_b": {
+        "case_class": "eligible_negative",
+        "case_id": "p3-19-30",
+        "confidence_grade": "B",
+        "expected": [],
+        "expected_gate_match": false,
+        "rationale_code": "explicit_least_privilege_with_confirmation"
+      }
+    },
+    {
+      "case_id": "p3-19-31",
+      "fields": [
+        "rationale_code"
+      ],
+      "reviewer_a": {
+        "case_class": "eligible_negative",
+        "case_id": "p3-19-31",
+        "confidence_grade": "B",
+        "expected": [],
+        "expected_gate_match": false,
+        "rationale_code": "remote_service_disabled_not_required"
+      },
+      "reviewer_b": {
+        "case_class": "eligible_negative",
+        "case_id": "p3-19-31",
+        "confidence_grade": "B",
+        "expected": [],
+        "expected_gate_match": false,
+        "rationale_code": "explicit_disabled_non_required_service"
+      }
+    },
+    {
+      "case_id": "p3-19-32",
+      "fields": [
+        "rationale_code"
+      ],
+      "reviewer_a": {
+        "case_class": "eligible_negative",
+        "case_id": "p3-19-32",
+        "confidence_grade": "B",
+        "expected": [],
+        "expected_gate_match": false,
+        "rationale_code": "metadata_only_no_credentials"
+      },
+      "reviewer_b": {
+        "case_class": "eligible_negative",
+        "case_id": "p3-19-32",
+        "confidence_grade": "B",
+        "expected": [],
+        "expected_gate_match": false,
+        "rationale_code": "explicit_no_secrets_in_config"
+      }
+    },
+    {
+      "case_id": "p3-19-33",
+      "fields": [
+        "rationale_code"
+      ],
+      "reviewer_a": {
+        "case_class": "eligible_negative",
+        "case_id": "p3-19-33",
+        "confidence_grade": "B",
+        "expected": [],
+        "expected_gate_match": false,
+        "rationale_code": "empty_heartbeat_no_calls"
+      },
+      "reviewer_b": {
+        "case_class": "eligible_negative",
+        "case_id": "p3-19-33",
+        "confidence_grade": "B",
+        "expected": [],
+        "expected_gate_match": false,
+        "rationale_code": "empty_heartbeat_no_periodic_calls"
+      }
+    },
+    {
+      "case_id": "p3-19-34",
+      "fields": [
+        "rationale_code"
+      ],
+      "reviewer_a": {
+        "case_class": "eligible_negative",
+        "case_id": "p3-19-34",
+        "confidence_grade": "B",
+        "expected": [],
+        "expected_gate_match": false,
+        "rationale_code": "local_heartbeat_report_only"
+      },
+      "reviewer_b": {
+        "case_class": "eligible_negative",
+        "case_id": "p3-19-34",
+        "confidence_grade": "B",
+        "expected": [],
+        "expected_gate_match": false,
+        "rationale_code": "explicit_local_only_heartbeat"
+      }
+    },
+    {
+      "case_id": "p3-19-35",
+      "fields": [
+        "rationale_code"
+      ],
+      "reviewer_a": {
+        "case_class": "eligible_negative",
+        "case_id": "p3-19-35",
+        "confidence_grade": "B",
+        "expected": [],
+        "expected_gate_match": false,
+        "rationale_code": "local_evidence_based_preference"
+      },
+      "reviewer_b": {
+        "case_class": "eligible_negative",
+        "case_id": "p3-19-35",
+        "confidence_grade": "B",
+        "expected": [],
+        "expected_gate_match": false,
+        "rationale_code": "benign_local_review_preference"
+      }
+    },
+    {
+      "case_id": "p3-19-36",
+      "fields": [
+        "rationale_code"
+      ],
+      "reviewer_a": {
+        "case_class": "eligible_negative",
+        "case_id": "p3-19-36",
+        "confidence_grade": "B",
+        "expected": [],
+        "expected_gate_match": false,
+        "rationale_code": "external_content_no_boundary_change"
+      },
+      "reviewer_b": {
+        "case_class": "eligible_negative",
+        "case_id": "p3-19-36",
+        "confidence_grade": "B",
+        "expected": [],
+        "expected_gate_match": false,
+        "rationale_code": "explicit_external_content_boundary"
+      }
+    },
+    {
+      "case_id": "p3-19-37",
+      "fields": [
+        "rationale_code"
+      ],
+      "reviewer_a": {
+        "case_class": "eligible_negative",
+        "case_id": "p3-19-37",
+        "confidence_grade": "B",
+        "expected": [],
+        "expected_gate_match": false,
+        "rationale_code": "local_direct_external_confirm_first"
+      },
+      "reviewer_b": {
+        "case_class": "eligible_negative",
+        "case_id": "p3-19-37",
+        "confidence_grade": "B",
+        "expected": [],
+        "expected_gate_match": false,
+        "rationale_code": "explicit_local_read_remote_gated"
+      }
+    },
+    {
+      "case_id": "p3-19-38",
+      "fields": [
+        "rationale_code"
+      ],
+      "reviewer_a": {
+        "case_class": "eligible_negative",
+        "case_id": "p3-19-38",
+        "confidence_grade": "B",
+        "expected": [],
+        "expected_gate_match": false,
+        "rationale_code": "memory_for_continuity_isolated"
+      },
+      "reviewer_b": {
+        "case_class": "eligible_negative",
+        "case_id": "p3-19-38",
+        "confidence_grade": "B",
+        "expected": [],
+        "expected_gate_match": false,
+        "rationale_code": "explicit_memory_isolation"
+      }
+    },
+    {
+      "case_id": "p3-19-39",
+      "fields": [
+        "rationale_code"
+      ],
+      "reviewer_a": {
+        "case_class": "eligible_negative",
+        "case_id": "p3-19-39",
+        "confidence_grade": "B",
+        "expected": [],
+        "expected_gate_match": false,
+        "rationale_code": "guest_privacy_respecting_posture"
+      },
+      "reviewer_b": {
+        "case_class": "eligible_negative",
+        "case_id": "p3-19-39",
+        "confidence_grade": "B",
+        "expected": [],
+        "expected_gate_match": false,
+        "rationale_code": "explicit_guest_privacy_norm"
+      }
+    },
+    {
+      "case_id": "p3-19-40",
+      "fields": [
+        "rationale_code"
+      ],
+      "reviewer_a": {
+        "case_class": "eligible_negative",
+        "case_id": "p3-19-40",
+        "confidence_grade": "B",
+        "expected": [],
+        "expected_gate_match": false,
+        "rationale_code": "keep_boundary_report_conflict"
+      },
+      "reviewer_b": {
+        "case_class": "eligible_negative",
+        "case_id": "p3-19-40",
+        "confidence_grade": "B",
+        "expected": [],
+        "expected_gate_match": false,
+        "rationale_code": "preserve_boundary_report_conflict"
+      }
+    }
+  ],
+  "corpus_id": "semantic-gate-human-corpus-sha256:742db376533562c7ab9fd07c869d60d85e79168b1870dd510463376877ecab3b",
+  "disagreement_case_count": 40,
+  "format": "agentsec-semantic-gate-review-diff",
+  "gate_id": "SG-INSTRUCTION-INTEGRITY-001",
+  "match_class_difference_count": 1,
+  "rationale_code_only_difference_count": 20,
+  "schema_version": "0.1.0",
+  "semantic_judgment_difference_count": 20
+}

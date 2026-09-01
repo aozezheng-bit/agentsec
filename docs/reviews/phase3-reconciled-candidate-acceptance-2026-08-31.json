@@ -1,0 +1,157 @@
+{
+  "acceptance_ready": true,
+  "authority_boundary": {
+    "ci_blocking_requires_explicit_policy": true,
+    "deterministic_rules_retain_authority": true,
+    "llm_allow_block": false,
+    "llm_candidate_evidence_only": true,
+    "llm_rule_publication": false,
+    "llm_waiver_approval": false,
+    "runtime_unverified_authority": false
+  },
+  "blocking_checks": [],
+  "candidate_version": "0.4.0",
+  "checks": [
+    {
+      "area": "security_governance",
+      "check_id": "authority_boundary",
+      "evidence": [
+        "docs/phase2-exit-hardening-plan.md",
+        "src/agentsec/provenance.py",
+        "src/agentsec/policy/ci_enforcement.py"
+      ],
+      "rationale": "LLM, runtime-unverified authority, and deterministic CI boundaries are documented/enforced.",
+      "required": true,
+      "status": "pass"
+    },
+    {
+      "area": "release",
+      "check_id": "candidate_artifacts",
+      "evidence": [
+        "dist/candidates/0.4.0-p3-rel-01/reconciliation-report.json",
+        "dist/candidates/0.4.0-p3-rel-01/agentsec-0.4.0-py3-none-any.whl",
+        "dist/candidates/0.4.0-p3-rel-01/agentsec-0.4.0.tar.gz",
+        "dist/candidates/0.4.0-p3-rel-01/SHA256SUMS"
+      ],
+      "rationale": "Reconciled Candidate artifacts, digests, and source/package checks are valid.",
+      "required": true,
+      "status": "pass"
+    },
+    {
+      "area": "release",
+      "check_id": "candidate_verification",
+      "evidence": [
+        "dist/candidates/0.4.0-p3-rel-01/reconciliation-report.json"
+      ],
+      "rationale": "Reconciled Candidate package verification and installed CLI smoke evidence are complete.",
+      "required": true,
+      "status": "pass"
+    },
+    {
+      "area": "release",
+      "check_id": "candidate_version_promotion",
+      "evidence": [
+        "src/agentsec/versioning.py",
+        "current=0.4.0"
+      ],
+      "rationale": "Package version is promoted to 0.4.0.",
+      "required": true,
+      "status": "pass"
+    },
+    {
+      "area": "release",
+      "check_id": "entry_readiness_approval",
+      "evidence": [
+        "docs/reviews/phase3-entry-readiness-2026-08-26.json"
+      ],
+      "rationale": "Entry readiness is explicitly approved for candidate promotion.",
+      "required": true,
+      "status": "pass"
+    },
+    {
+      "area": "package",
+      "check_id": "package_api_and_typing",
+      "evidence": [
+        "src/agentsec/api.py",
+        "src/agentsec/py.typed",
+        "src/agentsec/exit_codes.py"
+      ],
+      "rationale": "Curated API, CLI-independent ExitCode, and py.typed are present.",
+      "required": true,
+      "status": "pass"
+    },
+    {
+      "area": "phase2_exit",
+      "check_id": "phase2_task_records",
+      "evidence": [
+        "docs/tasks/P2-EXIT-01-trusted-gate-qualification-registry.md",
+        "docs/tasks/P2-EXIT-02-trusted-ci-control-plane.md",
+        "docs/tasks/P2-EXIT-03-integrated-agentic-score-cli-report.md",
+        "docs/tasks/P2-EXIT-04-hard-gate-scope-closure.md",
+        "docs/tasks/P2-EXIT-05-documentation-schema-version-provenance.md",
+        "docs/tasks/P2-EXIT-06-02-external-homi-baseline-evidence.md",
+        "docs/tasks/P2-EXIT-06-03-homi-pr-change-drift-evidence.md",
+        "docs/tasks/P2-EXIT-06-03A-heartbeat-template-active-classification.md",
+        "docs/tasks/P2-EXIT-06-04-final-external-homi-scope-drills.md",
+        "docs/tasks/P2-EXIT-06-05-independent-review-final-acceptance.md",
+        "docs/tasks/P2-EXIT-06-05A-external-human-review-fn-calibration.md",
+        "docs/tasks/P2-EXIT-06-external-real-project-report-only-pilot.md",
+        "docs/tasks/P2-EXIT-07-package-api-supply-chain-hardening.md"
+      ],
+      "rationale": "P2-EXIT-01 through P2-EXIT-07 task records are present.",
+      "required": true,
+      "status": "pass"
+    },
+    {
+      "area": "release",
+      "check_id": "release_manifest_and_provenance_bundle",
+      "evidence": [
+        "dist/candidates/0.4.0-p3-rel-01/provenance-bundle.json"
+      ],
+      "rationale": "Release manifest, provenance bundle, and integrity checks are valid.",
+      "required": true,
+      "status": "pass"
+    },
+    {
+      "area": "release",
+      "check_id": "release_signature_and_provenance",
+      "evidence": [
+        "supply-chain/build-provenance.json"
+      ],
+      "rationale": "Local build evidence is present; signatures and SLSA provenance are explicitly not claimed.",
+      "required": false,
+      "status": "pending"
+    },
+    {
+      "area": "supply_chain",
+      "check_id": "supply_chain_evidence",
+      "evidence": [
+        "requirements/runtime.lock",
+        "requirements/dev.lock",
+        "supply-chain/sbom.cdx.json",
+        "supply-chain/license-inventory.json",
+        "supply-chain/lockfiles.sha256",
+        "supply-chain/build-provenance.json"
+      ],
+      "rationale": "Exact lockfiles, CycloneDX/license evidence, and build provenance are present.",
+      "required": true,
+      "status": "pass"
+    }
+  ],
+  "current_package_version": "0.4.0",
+  "format": "agentsec-phase3-entry-review",
+  "format_version": "0.2.0",
+  "limitations": [
+    "This review does not execute scanned Agent content or grant runtime authority.",
+    "LLM semantic analysis remains outside the authorization path; any future LLM output must remain candidate evidence.",
+    "Version and report records carry no authorization authority; deterministic Rules and reviewed Policy retain decision authority.",
+    "Candidate acceptance does not claim remote publication, production deployment, runtime attestation, signatures, or SLSA provenance."
+  ],
+  "ready_for_candidate_build": true,
+  "ready_for_candidate_promotion": true,
+  "ready_for_phase3_shadow": true,
+  "ready_for_release": true,
+  "review_stage": "candidate_acceptance",
+  "state": "candidate_go",
+  "status": "go"
+}

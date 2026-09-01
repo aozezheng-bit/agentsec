@@ -1,0 +1,239 @@
+{
+  "association_count": 3,
+  "associations": [
+    {
+      "basis": [
+        "asset_path",
+        "asset_sha256",
+        "graph_edge_source",
+        "graph_node_source",
+        "line_overlap",
+        "partial_evidence_overlap"
+      ],
+      "evidence_refs": [
+        {
+          "roles": [
+            "edge",
+            "node"
+          ],
+          "source": {
+            "asset_path": ".codex/config.toml",
+            "asset_sha256": "de84177284c9b3540918452040303fbd82a3953c07cb702e43504f63afb2cd21",
+            "end_line": 5,
+            "start_line": 1
+          }
+        },
+        {
+          "roles": [
+            "node"
+          ],
+          "source": {
+            "asset_path": ".codex/config.toml",
+            "asset_sha256": "de84177284c9b3540918452040303fbd82a3953c07cb702e43504f63afb2cd21",
+            "end_line": 12,
+            "start_line": 1
+          }
+        },
+        {
+          "roles": [
+            "edge",
+            "node"
+          ],
+          "source": {
+            "asset_path": "AGENTS.override.md",
+            "asset_sha256": "49a4c0deb065551b7b4fbc4a4f3e698cfccbf6f5b82967c7823eedf3ed801a6b",
+            "end_line": 4,
+            "start_line": 1
+          }
+        }
+      ],
+      "finding_evidence_refs": [
+        {
+          "asset_path": ".codex/config.toml",
+          "content_sha256": "de84177284c9b3540918452040303fbd82a3953c07cb702e43504f63afb2cd21",
+          "end_line": 5,
+          "source_type": "file",
+          "start_line": 1
+        },
+        {
+          "asset_path": ".codex/config.toml",
+          "content_sha256": "de84177284c9b3540918452040303fbd82a3953c07cb702e43504f63afb2cd21",
+          "end_line": 2,
+          "source_type": "file",
+          "start_line": 2
+        },
+        {
+          "asset_path": ".codex/config.toml",
+          "content_sha256": "de84177284c9b3540918452040303fbd82a3953c07cb702e43504f63afb2cd21",
+          "end_line": 3,
+          "source_type": "file",
+          "start_line": 3
+        },
+        {
+          "asset_path": ".codex/config.toml",
+          "content_sha256": "de84177284c9b3540918452040303fbd82a3953c07cb702e43504f63afb2cd21",
+          "end_line": 5,
+          "source_type": "file",
+          "start_line": 5
+        }
+      ],
+      "finding_id": "capability-finding-sha256:a0923fc50b9f73be012e972c870208647f4624e7e19817ed6279bd799d413227",
+      "path_id": "attack-path-sha256:2e526ea37e929bc2988594cde896ad598f146b926bb9b9347d64a81a59cb08c3",
+      "relation": "partially_supports",
+      "semantic_candidate_id": null,
+      "semantic_evidence_refs": [],
+      "target_kind": "finding"
+    },
+    {
+      "basis": [
+        "no_deterministic_evidence_overlap"
+      ],
+      "evidence_refs": [
+        {
+          "roles": [
+            "edge",
+            "node"
+          ],
+          "source": {
+            "asset_path": ".codex/config.toml",
+            "asset_sha256": "de84177284c9b3540918452040303fbd82a3953c07cb702e43504f63afb2cd21",
+            "end_line": 5,
+            "start_line": 1
+          }
+        },
+        {
+          "roles": [
+            "node"
+          ],
+          "source": {
+            "asset_path": ".codex/config.toml",
+            "asset_sha256": "de84177284c9b3540918452040303fbd82a3953c07cb702e43504f63afb2cd21",
+            "end_line": 12,
+            "start_line": 1
+          }
+        },
+        {
+          "roles": [
+            "edge",
+            "node"
+          ],
+          "source": {
+            "asset_path": "AGENTS.override.md",
+            "asset_sha256": "49a4c0deb065551b7b4fbc4a4f3e698cfccbf6f5b82967c7823eedf3ed801a6b",
+            "end_line": 4,
+            "start_line": 1
+          }
+        }
+      ],
+      "finding_evidence_refs": [],
+      "finding_id": null,
+      "path_id": "attack-path-sha256:2e526ea37e929bc2988594cde896ad598f146b926bb9b9347d64a81a59cb08c3",
+      "relation": "unmatched",
+      "semantic_candidate_id": "semantic-candidate-sha256:4a24d0ec854d4a8e4528c51d22ebdb0792228868277b2082367e50893805cd95",
+      "semantic_evidence_refs": [],
+      "target_kind": "semantic_candidate"
+    },
+    {
+      "basis": [
+        "asset_path",
+        "asset_sha256",
+        "exact_locator",
+        "graph_edge_source",
+        "graph_node_source",
+        "line_overlap"
+      ],
+      "evidence_refs": [
+        {
+          "roles": [
+            "edge",
+            "node"
+          ],
+          "source": {
+            "asset_path": ".codex/config.toml",
+            "asset_sha256": "de84177284c9b3540918452040303fbd82a3953c07cb702e43504f63afb2cd21",
+            "end_line": 5,
+            "start_line": 1
+          }
+        },
+        {
+          "roles": [
+            "node"
+          ],
+          "source": {
+            "asset_path": ".codex/config.toml",
+            "asset_sha256": "de84177284c9b3540918452040303fbd82a3953c07cb702e43504f63afb2cd21",
+            "end_line": 12,
+            "start_line": 1
+          }
+        },
+        {
+          "roles": [
+            "edge",
+            "node"
+          ],
+          "source": {
+            "asset_path": "AGENTS.override.md",
+            "asset_sha256": "49a4c0deb065551b7b4fbc4a4f3e698cfccbf6f5b82967c7823eedf3ed801a6b",
+            "end_line": 4,
+            "start_line": 1
+          }
+        }
+      ],
+      "finding_evidence_refs": [],
+      "finding_id": null,
+      "path_id": "attack-path-sha256:2e526ea37e929bc2988594cde896ad598f146b926bb9b9347d64a81a59cb08c3",
+      "relation": "duplicates",
+      "semantic_candidate_id": "semantic-candidate-sha256:913ac2f2a0f62518271804881d07195a7909bb94914aa77299e861598f08f179",
+      "semantic_evidence_refs": [
+        {
+          "asset_path": ".codex/config.toml",
+          "asset_sha256": "de84177284c9b3540918452040303fbd82a3953c07cb702e43504f63afb2cd21",
+          "end_line": 5,
+          "evidence_id": "semantic-evidence-sha256:67c5c53a1fb4bd7ee1fffcc99f836d1929f18a2f25eb2d3667573bb51b8658f1",
+          "start_line": 1
+        },
+        {
+          "asset_path": ".codex/config.toml",
+          "asset_sha256": "de84177284c9b3540918452040303fbd82a3953c07cb702e43504f63afb2cd21",
+          "end_line": 12,
+          "evidence_id": "semantic-evidence-sha256:37fa4861c8356bbb4e96b2775bd92052c66bf92d70a4b3522ec1ea9b61223545",
+          "start_line": 1
+        },
+        {
+          "asset_path": "AGENTS.override.md",
+          "asset_sha256": "49a4c0deb065551b7b4fbc4a4f3e698cfccbf6f5b82967c7823eedf3ed801a6b",
+          "end_line": 4,
+          "evidence_id": "semantic-evidence-sha256:10bd37f3930f82d338d552e12488c88553caa167837fd6c7940763afd2108823",
+          "start_line": 1
+        }
+      ],
+      "target_kind": "semantic_candidate"
+    }
+  ],
+  "blocks": false,
+  "ci_authority": false,
+  "finding_authority": false,
+  "finding_count": 1,
+  "findings_sha256": "909426d59934f0e955078a46e1708ecc982d1424bcf478da711250ff9dcc033e",
+  "format": "agentsec-attack-path-evidence-association-report",
+  "graph_sha256": "cc79d3fe187e1c10d37004c2a3c5ce366844d0d3080e61e6bacfb3a0e56839d4",
+  "hard_gate_authority": false,
+  "limitations": [
+    "associations use only validated static locators and content digests",
+    "Finding Evidence is eligible only when source_type is file or diff",
+    "Semantic output remains candidate evidence and cannot create or mutate a Finding",
+    "a path is a static declared relation; runtime reachability and exploitability are not proven",
+    "association does not change Severity, Confidence, Policy, CI, Hard Gate, or release state",
+    "reports contain no source excerpts, credentials, endpoints, or secret values"
+  ],
+  "path_count": 1,
+  "path_report_sha256": "1fefd5785c0b1b3525c789de31ed16287a07029753c54ef688857ddc788a73b5",
+  "policy_authority": false,
+  "release_authority": false,
+  "report_only": true,
+  "runtime_verified": false,
+  "schema_version": "0.1.0",
+  "semantic_authority": false,
+  "semantic_candidate_count": 2,
+  "semantic_result_sha256": "16884fae7f8da4a729d82307886cc86e45b784282d11c9f8c372236c6e929841"
+}

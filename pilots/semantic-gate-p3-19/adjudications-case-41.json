@@ -1,0 +1,20 @@
+[
+  {
+    "case_id": "p3-19-41",
+    "case_class": "positive",
+    "expected_gate_match": true,
+    "confidence_grade": "B",
+    "rationale_code": "silent_private_export_approval_bypass",
+    "expected": [
+      {
+        "judgment_id": "j-41-01",
+        "kind": "control_weakening",
+        "category": "approval_bypass",
+        "disposition": "supported",
+        "evidence_ids": [
+          "semantic-evidence-sha256:7b21b0b78d77b773119f09bfd6af6c8ba7b4872ed31b46493a0014b605d75531"
+        ]
+      }
+    ]
+  }
+]

@@ -12,6 +12,10 @@ from enum import StrEnum
 from pathlib import Path
 from typing import Final
 
+from agentsec.attack_graph import (
+    AttackPathEvidenceAssociationReport,
+    AttackPathReport,
+)
 from agentsec.change_impact import (
     CapabilityChangeImpactValidationError,
     decode_capability_change_impact_json,
@@ -30,7 +34,14 @@ from agentsec.reporting import (
     decode_capability_assessment_json,
     decode_sarif_json,
 )
-from agentsec.semantic import SemanticEvaluationReport, SemanticShadowPipelineReport
+from agentsec.semantic import (
+    SemanticEvaluationReport,
+    SemanticGateEvaluationImport,
+    SemanticGatePilotReport,
+    SemanticGateQualificationReport,
+    SemanticGateReportOnlyPromotion,
+    SemanticShadowPipelineReport,
+)
 
 MAX_REPORT_ARTIFACT_SIZE_BYTES: Final[int] = 67_108_864
 _READ_CHUNK_SIZE: Final[int] = 65_536
@@ -47,6 +58,12 @@ class ReportArtifactKind(StrEnum):
     AGENTIC_ASSESSMENT = "agentic_assessment"
     SEMANTIC_EVALUATION = "semantic_evaluation"
     SEMANTIC_SHADOW_PIPELINE = "semantic_shadow_pipeline"
+    SEMANTIC_GATE_PILOT = "semantic_gate_pilot"
+    SEMANTIC_GATE_EVALUATION_IMPORT = "semantic_gate_evaluation_import"
+    SEMANTIC_GATE_QUALIFICATION = "semantic_gate_qualification"
+    SEMANTIC_GATE_PROMOTION = "semantic_gate_promotion"
+    ATTACK_PATH_REPORT = "attack_path_report"
+    ATTACK_PATH_EVIDENCE_ASSOCIATION = "attack_path_evidence_association"
 
 
 class ReportArtifactFormat(StrEnum):
@@ -329,6 +346,18 @@ class ReportArtifactWriter:
                     SemanticEvaluationReport.model_validate_json(content)
                 elif kind is ReportArtifactKind.SEMANTIC_SHADOW_PIPELINE:
                     SemanticShadowPipelineReport.model_validate_json(content)
+                elif kind is ReportArtifactKind.SEMANTIC_GATE_PILOT:
+                    SemanticGatePilotReport.model_validate_json(content)
+                elif kind is ReportArtifactKind.SEMANTIC_GATE_QUALIFICATION:
+                    SemanticGateQualificationReport.model_validate_json(content)
+                elif kind is ReportArtifactKind.SEMANTIC_GATE_PROMOTION:
+                    SemanticGateReportOnlyPromotion.model_validate_json(content)
+                elif kind is ReportArtifactKind.SEMANTIC_GATE_EVALUATION_IMPORT:
+                    SemanticGateEvaluationImport.model_validate_json(content)
+                elif kind is ReportArtifactKind.ATTACK_PATH_REPORT:
+                    AttackPathReport.model_validate_json(content)
+                elif kind is ReportArtifactKind.ATTACK_PATH_EVIDENCE_ASSOCIATION:
+                    AttackPathEvidenceAssociationReport.model_validate_json(content)
                 else:
                     decode_capability_diff_json(content)
                 return
@@ -361,6 +390,24 @@ class ReportArtifactWriter:
                 },
                 ReportArtifactKind.SEMANTIC_SHADOW_PIPELINE: {
                     "AgentSec Semantic Shadow Pipeline",
+                },
+                ReportArtifactKind.SEMANTIC_GATE_PILOT: {
+                    "AgentSec Semantic Gate Real Provider Pilot",
+                },
+                ReportArtifactKind.SEMANTIC_GATE_QUALIFICATION: {
+                    "AgentSec Semantic Gate Qualification",
+                },
+                ReportArtifactKind.SEMANTIC_GATE_PROMOTION: {
+                    "AgentSec Semantic Gate Report-only Promotion",
+                },
+                ReportArtifactKind.SEMANTIC_GATE_EVALUATION_IMPORT: {
+                    "AgentSec Semantic Gate Provider Evaluation Import",
+                },
+                ReportArtifactKind.ATTACK_PATH_REPORT: {
+                    "AgentSec Attack Path Report",
+                },
+                ReportArtifactKind.ATTACK_PATH_EVIDENCE_ASSOCIATION: {
+                    "AgentSec Attack Path Evidence Association Report",
                 },
             }
             first_line = content.splitlines()[0] if content.splitlines() else ""

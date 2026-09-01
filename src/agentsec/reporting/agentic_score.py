@@ -60,6 +60,7 @@ class AgenticAssessmentJsonReport(_Strict):
     overall: dict[str, Any]
     cvss: dict[str, Any] | None
     gate_matches: list[dict[str, Any]]
+    attack_path: dict[str, Any] | None = None
     policy: AgenticScorePolicy
     boundary: dict[str, bool]
     versions: dict[str, str]
@@ -98,6 +99,9 @@ def build_agentic_assessment_payload(
         overall=json.loads(encode_overall_score_json(result.overall)),
         cvss=result.cvss.to_dict() if result.cvss is not None else None,
         gate_matches=[match.to_dict() for match in result.gate_matches],
+        attack_path=(
+            result.attack_path.to_dict() if result.attack_path is not None else None
+        ),
         policy=AgenticScorePolicy(),
         boundary={
             "llm_authority": False,
@@ -176,6 +180,18 @@ class AgenticAssessmentTextRenderer:
                 ),
                 f"覆盖率完整：{'是' if manifest.coverage.complete else '否'}",
                 f"相关 Unknown：{len(manifest.unknowns)}",
+                (
+                    f"攻击路径：{result.attack_path.path_count} 条，"
+                    f"关联 {result.attack_path.association_count} 条"
+                    if result.attack_path is not None
+                    else "攻击路径：未提供关联报告"
+                ),
+                (
+                    "攻击路径评分模式：仅上下文（numeric score effect=0.0），"
+                    "不改变技术/漂移/治理/综合评分"
+                    if result.attack_path is not None
+                    else "攻击路径评分模式：未启用"
+                ),
                 "策略：仅报告（report-only），评分不阻断、不拥有 CI 决策权",
                 "边界：不执行被扫描内容；未验证运行时能力；不使用 LLM 授权",
             ]
@@ -197,6 +213,18 @@ class AgenticAssessmentTextRenderer:
                 ),
                 (f"Coverage complete: {'yes' if manifest.coverage.complete else 'no'}"),
                 f"Relevant unknowns: {len(manifest.unknowns)}",
+                (
+                    f"Attack paths: {result.attack_path.path_count}; "
+                    f"associations: {result.attack_path.association_count}"
+                    if result.attack_path is not None
+                    else "Attack paths: no association report supplied"
+                ),
+                (
+                    "Attack Path scoring: context_only (numeric score effect=0.0); "
+                    "technical/drift/governance/overall scores unchanged"
+                    if result.attack_path is not None
+                    else "Attack Path scoring: disabled"
+                ),
                 "Policy: report-only; the score never blocks CI",
                 (
                     "Boundary: scanned content is never executed; runtime is not "

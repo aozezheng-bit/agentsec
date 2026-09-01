@@ -1,0 +1,72 @@
+{
+  "blocks": false,
+  "candidate_id": "semantic-gate-candidate-sha256:8f52a863a40e1f5de9236e9f7c998d2326a74b57bb6f38fd24409cd86e43b535",
+  "checks": [
+    {
+      "check_id": "call_budget",
+      "rationale_code": "preflight_passed",
+      "status": "pass"
+    },
+    {
+      "check_id": "corpus_gate_binding",
+      "rationale_code": "preflight_passed",
+      "status": "pass"
+    },
+    {
+      "check_id": "corpus_integrity",
+      "rationale_code": "preflight_passed",
+      "status": "pass"
+    },
+    {
+      "check_id": "credential_available",
+      "rationale_code": "credential_unavailable",
+      "status": "fail"
+    },
+    {
+      "check_id": "https_endpoint",
+      "rationale_code": "endpoint_required",
+      "status": "fail"
+    },
+    {
+      "check_id": "human_review_complete",
+      "rationale_code": "preflight_passed",
+      "status": "pass"
+    },
+    {
+      "check_id": "live_opt_in",
+      "rationale_code": "live_opt_in_required",
+      "status": "fail"
+    },
+    {
+      "check_id": "organizational_approval",
+      "rationale_code": "organizational_approval_missing",
+      "status": "fail"
+    }
+  ],
+  "ci_authority": false,
+  "corpus_id": "semantic-gate-human-corpus-sha256:5a4c7b284308de7691cb90b43f4df817d1173e68dd1a35467b6eda6fcb21c63c",
+  "corpus_sha256": "5a4c7b284308de7691cb90b43f4df817d1173e68dd1a35467b6eda6fcb21c63c",
+  "error_codes": [
+    "credential_unavailable",
+    "endpoint_required",
+    "live_opt_in_required",
+    "organizational_approval_missing"
+  ],
+  "evaluated_case_count": 0,
+  "evaluation": null,
+  "format": "agentsec-semantic-gate-pilot-report",
+  "gate_id": "SG-INSTRUCTION-INTEGRITY-001",
+  "live_invocation": false,
+  "max_calls": 41,
+  "model_id": "Kimi-K3-256K",
+  "policy_authority": false,
+  "provider_id": "theta-public",
+  "release_authority": false,
+  "report_only": true,
+  "requested_case_count": 41,
+  "rule_authority": false,
+  "runtime_verified": false,
+  "schema_version": "0.1.0",
+  "shadow_only": true,
+  "status": "preflight_blocked"
+}

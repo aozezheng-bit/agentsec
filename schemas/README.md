@@ -17,7 +17,8 @@ byte-complete with the files below.
 ```text
 schemas/agentic-assessment/        Agentic Assessment Output 0.1.0
 schemas/assessment/                Assessment Output 0.7.0 + Fail-On Report 0.1.0
-schemas/attack-graph/              Capability Attack Graph (Nodes/Edges/Paths) 0.1.0
+schemas/attack-graph/              Capability Attack Graph (Nodes/Edges/Paths)
+                                   0.1.0 + Attack Path Report 0.1.0
 schemas/baseline/                  Baseline Schema 0.1.0
 schemas/calibration/               Calibration Case/Corpus/Report 0.1.0,
                                    Confidence Review/Report 0.1.0,
@@ -38,7 +39,7 @@ schemas/pilot/                     Pilot Plan/Report/Human Labels 0.1.0,
 schemas/policy/                    Organization Policy 0.3.0, Organization
                                    Assessment Output 0.3.0, Qualified Gate
                                    Registry 0.1.0
-schemas/score-context/             Agentic Score Context Schema 0.1.0
+schemas/score-context/             Agentic Score Context Schema 0.1.0; Attack Path Score Context 0.1.0
 schemas/semantic-analysis/         Semantic Analysis Input 0.1.0,
                                    constrained Model Output 0.1.0,
                                    Shadow-only Analysis Result 0.1.0,
@@ -52,7 +53,10 @@ schemas/semantic-analysis/         Semantic Analysis Input 0.1.0,
                                    Shadow Invocation Result 0.1.0,
                                    Evaluation/Parity Reports 0.1.0,
                                    Trial Config/Case/Response Sets 0.1.0,
-                                   P3-14 Scenario Detection Metrics Report 0.1.0
+                                   P3-14 Scenario Detection Metrics Report 0.1.0,
+                                   P3-15 Scenario Replay Suite 0.1.0,
+                                   P3-16 Shadow Mode Report 0.1.0,
+                                   P3-17 Feedback Set + Loop Report 0.1.0
 schemas/vulnerability-catalog/     Offline normalized CVE/CWE Catalog 0.1.0
 schemas/vulnerability-input/       Vulnerability Input Schema 0.1.0
 ```
@@ -157,3 +161,38 @@ P3-07 adds `semantic-candidate-calibration-case.schema.json`, `semantic-candidat
 P3-08 adds `semantic-shadow-pipeline-report.schema.json`, an aggregate report for one Shadow invocation, report-only Finding integration, and Rule Candidate generation. It has no Finding, Rule Pack, Policy, CI, Hard Gate, or runtime authority.
 
 P3-09 adds the trusted Adapter/Manifest-derived input construction path and the `agentsec semantic analyze` CLI. Its output uses `semantic-shadow-pipeline-report.schema.json`; offline mode is the default and live mode is explicit opt-in.
+
+
+P3-AG-05 adds `attack-path-evidence-association-report.schema.json`. It is a
+report-only correlation artifact: static graph source locators can be joined
+to existing file/diff Finding Evidence and trusted Semantic Evidence chunks by
+normalized path, content digest, and line overlap. It contains no source
+excerpts, credentials, endpoints, or secrets and cannot create or mutate
+Findings, affect Severity/Confidence, or authorize Policy/CI/Hard Gates.
+
+
+P3-AG-08 adds `attack-path-calibration-report.schema.json`. It compares
+independent human labels with a frozen association report using exact, partial,
+and unmatched relation classes. The report exposes accuracy and one-vs-rest
+metrics plus unreviewed-association count; it remains report-only and cannot
+change the associator, Findings, Severity, Confidence, Policy, CI, or Hard Gates.
+
+
+P3-AG-09 adds `score-context/attack-path-score-context.schema.json`. It is a
+report-only projection of a validated Attack Path Evidence Association Report
+and optional bound calibration report. It is context-only: its literal
+`numeric_score_effect=0.0` and `calibration_qualified=false` prevent static path
+counts or fixture calibration from changing the Agentic Score or granting any
+Hard Gate/CI authority.
+
+P3-19 Semantic Gate evidence Schemas:
+
+- `semantic-analysis/semantic-gate-human-corpus.schema.json`
+- `semantic-analysis/semantic-gate-review-submission.schema.json`
+- `semantic-analysis/semantic-gate-pilot-config.schema.json`
+- `semantic-analysis/semantic-gate-pilot-report.schema.json`
+
+P3-20 Semantic Gate Evaluation Schemas:
+
+- `semantic-analysis/semantic-gate-evaluation-import.schema.json`
+- `semantic-analysis/semantic-gate-report-only-promotion.schema.json`

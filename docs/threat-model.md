@@ -4,7 +4,7 @@
 - Status: Complete
 - Decision date: 2026-08-18
 - Review cadence: before each phase exit and after any trust-boundary change
-- Last updated: 2026-08-31 (P3-AG-02)
+- Last updated: 2026-08-31 (P3-AG-04)
 
 ## 1. Purpose
 
@@ -169,7 +169,7 @@ to redefine the model's task or trigger tool use.
 | TM-33 | Semantic pipeline aggregate gains hidden authority | Tampering / integrity / elevation | An orchestration layer skips child validation, accepts inconsistent child hashes, serializes raw source, or lets an aggregate semantic result reach Policy/CI | P3-08 accepts only validated `SemanticAnalysisInput` and typed Shadow Adapter; checks child semantic-result hashes and aggregate SHA-256; retains fixed `finding_authority=false`, `rule_publication_authority=false`, `policy_authority=false`, `ci_authority=false`, `runtime_verified=false`, and `blocks=false`; aggregate contains no raw source | Provider-specific transport, input construction, and CLI trust-root controls remain separately governed; aggregate quality is not runtime proof |
 | TM-34 | Semantic CLI input or artifact boundary bypass | Information disclosure / tampering / elevation | The CLI sends raw source, accepts model-authored locations, enables live network by default, leaks a response fixture, or overwrites a project/input artifact with a report | P3-09 derives input only from bounded Adapter records and deterministic Manifest state; minimizes Evidence before invocation; defaults to offline fixture; requires explicit live opt-in and approved bindings; bounds and validates response fixtures with no-follow reads; uses `ReportArtifactWriter` and protects the response input; final report has no raw source or enforcement authority | CLI still relies on the host interpreter and Provider-side handling for live trials; offline fixture quality is not model quality; separate Homi/platform wiring needs its own review |
 | TM-35 | Semantic Rule promotion or staging authority escape | Tampering / elevation / human trust exploitation | A model proposal, passing replay, or staged artifact is treated as a published Rule, mutates the installed Rule Pack, changes a Finding, or blocks CI | P3-10 requires accepted proposal status, exact replay binding, zero FP/FN/failures, perfect replay metrics, Evidence/Finding bounds, trusted family and new Rule ID; Owner approval requires ID and rationale; staging emits only a value-free diff; every authority field is fixed false; no installed Rule Pack mutation or automatic publication | The future release publisher, approver identity, Rule implementation quality, and runtime reachability require separate review and trust-plane controls |
-| TM-36 | Attack Graph semantic rewiring, payload retention, or authority escape | Tampering / integrity / information disclosure / human trust exploitation | A producer invents free-form node or edge kinds, joins semantically impossible relations into a false attack chain, retains raw scanned text or secret-bearing values inside graph artifacts, reuses a path as runtime evidence, or lets a graph reach Findings, Policy, or CI | P3-AG-01 fixes eleven node and fourteen directed edge kinds with a validated endpoint-kind matrix (amended per ADR-0097 so Manifest tool families may source `sends_to`, `writes_to`, `installs`); derives node/edge/path identities from canonical content hashes and rechecks them; binds graphs to Manifest schema version plus digest; stores only value-free source references and bounded labels with control-character rejection; enforces sorted unique components, size bounds, and contiguous no-repeat paths; fixes `report_only=true`, `blocks=false`, all authority booleans false, and `runtime_verified=false` with `reachability=not_proven` and `exploitability=not_proven`. P3-AG-02 adds the deterministic builder: reads only validated Manifest declaration fields, never opens project files, merges nodes/edges deterministically with the 16-Evidence fail-closed bound, drops disabled tools, deny permissions, and unmapped relation kinds, fails closed on self-delegation, emits no labels from untrusted text, and binds the graph to `canonical_manifest_sha256` | The path matcher (P3-AG-03), path report (P3-AG-04), evidence association (P3-AG-05), and calibration (P3-AG-07) remain unimplemented; static declared relations cannot prove runtime reachability; `agent→production_target` has no edge kind in 0.1.0 so such permissions render isolated nodes; further endpoint-matrix extensions require a reviewed ADR |
+| TM-36 | Attack Graph semantic rewiring, payload retention, or authority escape | Tampering / integrity / information disclosure / human trust exploitation | A producer invents free-form node or edge kinds, joins semantically impossible relations into a false attack chain, retains raw scanned text or secret-bearing values inside graph artifacts, reuses a path as runtime evidence, or lets a graph reach Findings, Policy, or CI | P3-AG-01 fixes eleven node and fourteen directed edge kinds with a validated endpoint-kind matrix (amended per ADR-0097 so Manifest tool families may source `sends_to`, `writes_to`, `installs`); derives node/edge/path identities from canonical content hashes and rechecks them; binds graphs to Manifest schema version plus digest; stores only value-free source references and bounded labels with control-character rejection; enforces sorted unique components, size bounds, and contiguous no-repeat paths; fixes `report_only=true`, `blocks=false`, all authority booleans false, and `runtime_verified=false` with `reachability=not_proven` and `exploitability=not_proven`. P3-AG-02 adds the deterministic builder: reads only validated Manifest declaration fields, never opens project files, merges nodes/edges deterministically with the 16-Evidence fail-closed bound, drops disabled tools, deny permissions, and unmapped relation kinds, fails closed on self-delegation, emits no labels from untrusted text, and binds the graph to `canonical_manifest_sha256`. P3-AG-03 adds the reviewed seven-pattern library with start-node-bound preconditions and the deterministic matcher: walks declared edges only with fixed pattern-ID/node/edge ordering, fails closed on the 64-per-pattern and 256-graph-path bounds, validates injected libraries with sorted-unique spec-only pattern IDs, re-attaches paths through a fully re-validated graph, and fixes every path to `static_declared_path` with `runtime_verified=false`, `reachability=not_proven`, `exploitability=not_proven`. P3-AG-04 adds the report surface: the only producer derives every entry from one validated graph, binds the report to Manifest and graph digests plus the pattern-library version, keeps entries value-free (no labels, references, digests, or excerpts) with entry-level coherence checks, renders the boundary first, and fixes every authority boolean false with `exploitability_claimed=false` | P3-AG-05 Evidence association, P3-AG-06 association CLI, and P3-AG-07 Story Demo are implemented in report-only mode; static declared relations cannot prove runtime reachability; delegation-escalation is a one-hop relation exposure with the escalation hop unproven; `mcp-production-write` and `tool-dependency-install` match zero paths until a reviewed builder extension emits `writes_to`/`installs`; further endpoint-matrix extensions require a reviewed ADR |
 
 ## 9. Required security controls
 
@@ -500,6 +500,47 @@ P3-AG-02 adds the following builder controls:
 
 See `docs/decisions/0097-attack-graph-manifest-builder.md` and
 `docs/tasks/P3-AG-02-manifest-capability-graph-builder.md`.
+
+P3-AG-03 adds the following matcher controls:
+
+- keep the pattern library finite, reviewed, and versioned
+  (`ATTACK_PATH_PATTERN_LIBRARY_VERSION`), with sorted-unique kind sets and
+  non-empty steps only;
+- bind preconditions to outgoing edges of the start node so weaker
+  graph-global conditions cannot inflate matches;
+- walk only declared graph edges with fixed pattern-ID, node-order, and
+  edge-ID traversal so identical graphs yield identical path sets;
+- fail closed with `AttackPathMatchError` at 64 matches per pattern and at
+  the graph-level 256-path bound instead of truncating;
+- reject injected libraries that are not spec-only, sorted, and unique;
+- re-emit matched paths only through a fully re-validated report-only graph
+  with unchanged Manifest binding and authority booleans; and
+- fix every path to `static_declared_path` with `runtime_verified=false`,
+  `reachability=not_proven`, and `exploitability=not_proven`.
+
+See `docs/decisions/0099-attack-path-pattern-library-matcher.md` and
+`docs/tasks/P3-AG-03-attack-path-pattern-library-matcher.md`.
+
+P3-AG-04 adds the following report controls:
+
+- produce reports only through `build_attack_path_report` from one
+  validated graph that already carries matched paths;
+- bind every report to the Manifest schema and digest, the graph digest,
+  and the exact pattern-library version;
+- keep entries value-free: pattern IDs, node kind sequences, and
+  content-addressed node IDs only — no labels, Manifest references, asset
+  digests, or excerpts anywhere in the report;
+- enforce per-entry coherence (counts versus sequence lengths) and
+  report-level count/sort/unique consistency so tampered payloads fail
+  validation;
+- require disclosed limitations whenever entries exist;
+- render the authority boundary first in Text and freeze every authority
+  boolean false plus `exploitability_claimed=false`; and
+- never render severity, confidence, likelihood, or recommendations — a
+  matched path is not a Finding.
+
+See `docs/decisions/0101-attack-path-report.md` and
+`docs/tasks/P3-AG-04-attack-path-report.md`.
 
 ### 9.10 Capability Rule controls
 
@@ -847,3 +888,15 @@ Review and update this threat model when:
 - baselines become signed or remotely stored;
 - runtime verification is introduced;
 - a security incident or meaningful bypass is discovered.
+
+
+## P3 Attack Path calibration controls
+
+P3-AG-08 adds digest-bound calibration labels for Attack Path Evidence
+associations. Each label names the frozen association-report digest, path/target
+key, expected relation, case family, reviewer, and rationale. The calibration
+runner exposes missing and unreviewed rows and computes multi-class relation
+metrics without modifying the associator or granting authority. Seed labels are
+explicitly non-qualification evidence; independent human review is required
+before any production quality claim. See
+`docs/tasks/P3-AG-08-attack-path-evidence-calibration.md` and ADR-0106.

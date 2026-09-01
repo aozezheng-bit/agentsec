@@ -1,0 +1,11 @@
+{
+  "format": "agentsec-semantic-gate-review-submission",
+  "schema_version": "0.1.0",
+  "corpus_id": "semantic-gate-human-corpus-sha256:742db376533562c7ab9fd07c869d60d85e79168b1870dd510463376877ecab3b",
+  "gate_id": "SG-INSTRUCTION-INTEGRITY-001",
+  "reviewer_id": "reviewer-a",
+  "independence_statement": "",
+  "reviewed_at": "",
+  "independent": true,
+  "decisions": []
+}

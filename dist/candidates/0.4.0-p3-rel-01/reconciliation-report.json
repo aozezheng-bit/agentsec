@@ -1,0 +1,93 @@
+{
+  "artifact_checks": {
+    "checks": {
+      "console_script": true,
+      "metadata_matches_source": true,
+      "metadata_version": true,
+      "required_attack_graph_files_in_wheel": true,
+      "required_reconciliation_files_in_sdist": true,
+      "schemas_in_sdist": true,
+      "schemas_match_source": true,
+      "sdist_content_matches_source": true,
+      "source_package_files_in_sdist": true,
+      "source_package_files_in_wheel": true,
+      "wheel_content_matches_source": true
+    },
+    "content_checks": {
+      "metadata_content_match": true,
+      "mismatched_sdist_files": [],
+      "mismatched_sdist_metadata_files": [],
+      "mismatched_sdist_schema_files": [],
+      "mismatched_wheel_files": [],
+      "schema_content_match": true,
+      "sdist_content_match": true,
+      "wheel_content_match": true
+    },
+    "mismatched_sdist_files": [],
+    "mismatched_sdist_metadata_files": [],
+    "mismatched_sdist_schema_files": [],
+    "mismatched_wheel_files": [],
+    "missing_sdist_files": [],
+    "missing_sdist_metadata": [],
+    "missing_sdist_schemas": [],
+    "missing_wheel_files": [],
+    "sdist_file_count": 2603,
+    "wheel_file_count": 224
+  },
+  "artifacts": {
+    "agentsec-0.4.0-py3-none-any.whl": {
+      "sha256": "3f9ece4cd6b335675bbcbdc6d8b580123904eb0535b7aee9f774a58ecb66f35f",
+      "size_bytes": 716027
+    },
+    "agentsec-0.4.0.tar.gz": {
+      "sha256": "2b5c31f51a76aa1fb93067834173dd892101068cba8d93ba4e72d4accfb1054f",
+      "size_bytes": 2199274
+    }
+  },
+  "candidate_artifacts_differ_from_preserved": true,
+  "candidate_directory": "dist/candidates/0.4.0-p3-rel-01",
+  "content_checks": {
+    "metadata_content_match": true,
+    "mismatched_sdist_files": [],
+    "mismatched_sdist_metadata_files": [],
+    "mismatched_sdist_schema_files": [],
+    "mismatched_wheel_files": [],
+    "schema_content_match": true,
+    "sdist_content_match": true,
+    "wheel_content_match": true
+  },
+  "format": "agentsec-candidate-artifact-reconciliation-report",
+  "format_version": "0.2.0",
+  "installed_cli_smoke": {
+    "attack_graph_help": true,
+    "attack_graph_json": true,
+    "root_help": true,
+    "score_attack_path_context": true,
+    "score_help": true,
+    "version": true
+  },
+  "network_accessed": false,
+  "package_version": "0.4.0",
+  "preserved_candidate": {
+    "artifacts": {
+      "agentsec-0.4.0-py3-none-any.whl": "ae0f4a07a0245df3c100fcceee477a8c6eec7548841960afda8fe880034bf14b",
+      "agentsec-0.4.0.tar.gz": "6a147051cad806e1c3bc5d50bbf170722f0826098dab1ac948c630c69ce703b9"
+    },
+    "present": true
+  },
+  "preserved_candidate_directory": "dist/0.4.0",
+  "preserved_candidate_unchanged": true,
+  "report_only": true,
+  "reproducible_build": {
+    "byte_identical": true,
+    "source_date_epoch": 0
+  },
+  "runtime_verified": false,
+  "scanned_content_executed": false,
+  "signature": "not_claimed",
+  "slsa_provenance": "not_claimed",
+  "source_inventory_file_count": 301,
+  "source_inventory_sha256": "095e9750d84a1df0cf66799cd4ba0d49104fb0efe6f04c99ecbac6d5c6fd07c7",
+  "status": "reconciled",
+  "task_id": "P3-REL-03"
+}

@@ -1,0 +1,12 @@
+[mcp_servers.local_review]
+command = "local-review"
+enabled = true
+enabled_tools = ["search"]
+default_tools_approval_mode = "prompt"
+
+[mcp_servers.release_docs]
+url = "https://example.invalid/release-docs"
+enabled = true
+required = true
+auth = "oauth"
+default_tools_approval_mode = "prompt"

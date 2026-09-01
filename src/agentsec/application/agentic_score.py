@@ -17,10 +17,18 @@ from agentsec.application.agent_analysis import (
     AgentAnalysisRequest,
     AgentAnalysisResult,
 )
+from agentsec.attack_graph import (
+    AttackPathEvidenceAssociationReport,
+    AttackPathEvidenceCalibrationReport,
+)
 from agentsec.manifests import AgentManifest, CapabilityDiffer, CapabilityDiffResult
 from agentsec.risk.agentic_factors import (
     AgenticFactorVector,
     DeterministicAgenticFactorExtractor,
+)
+from agentsec.risk.attack_path_score import (
+    AttackPathScoreContext,
+    build_attack_path_score_context,
 )
 from agentsec.risk.cvss import CvssBaseAdapter, CvssBaseAssessment
 from agentsec.risk.drift_score import (
@@ -64,6 +72,8 @@ class AgenticScoreRequest:
     user_home: Path | None = None
     codex_home: Path | None = None
     context: LoadedScoreContext | None = None
+    attack_path_report: AttackPathEvidenceAssociationReport | None = None
+    attack_path_calibration: AttackPathEvidenceCalibrationReport | None = None
 
     def __post_init__(self) -> None:
         if not isinstance(self.project_root, Path):
@@ -74,6 +84,16 @@ class AgenticScoreRequest:
             self.context, LoadedScoreContext
         ):
             raise TypeError("context must be a loaded score context")
+        if self.attack_path_report is None and self.attack_path_calibration is not None:
+            raise ValueError("attack_path_calibration requires attack_path_report")
+        if self.attack_path_report is not None and not isinstance(
+            self.attack_path_report, AttackPathEvidenceAssociationReport
+        ):
+            raise TypeError("attack_path_report must be an association report")
+        if self.attack_path_calibration is not None and not isinstance(
+            self.attack_path_calibration, AttackPathEvidenceCalibrationReport
+        ):
+            raise TypeError("attack_path_calibration must be a calibration report")
 
 
 @dataclass(frozen=True, slots=True)
@@ -93,6 +113,7 @@ class AgenticScoreResult:
     context_sha256: str | None
     before_manifest_sha256: str
     after_manifest_sha256: str
+    attack_path: AttackPathScoreContext | None
 
     @property
     def complete(self) -> bool:
@@ -145,6 +166,13 @@ class AgenticScoreEngine:
         )
         manifest = analysis.manifest
         context = request.context.context if request.context is not None else None
+        attack_path = (
+            build_attack_path_score_context(
+                request.attack_path_report, request.attack_path_calibration
+            )
+            if request.attack_path_report is not None
+            else None
+        )
 
         factors = self._factor_extractor.extract(manifest)
         threats = self._threat_evaluator.evaluate(manifest, factors)
@@ -204,6 +232,7 @@ class AgenticScoreEngine:
             context_sha256=request.context.sha256 if request.context else None,
             before_manifest_sha256=drift.before_manifest_sha256,
             after_manifest_sha256=drift.after_manifest_sha256,
+            attack_path=attack_path,
         )
 
 

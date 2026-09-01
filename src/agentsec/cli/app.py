@@ -15,11 +15,13 @@ from agentsec.application import (
     AgentAnalysisPipeline,
     AgenticScoreEngine,
     AssessmentEngine,
+    AttackGraphAnalysisEngine,
     BaselineCreator,
     CapabilityAssessmentEngine,
     CollectionAssessmentEngine,
     CollectionBaselineCreator,
     CollectionProjectDiffEngine,
+    DeterministicAttackGraphAnalysisEngine,
     DeterministicManifestCapabilityChangeImpactEngine,
     DeterministicManifestCapabilityDiffEngine,
     ManifestCapabilityChangeImpactEngine,
@@ -28,6 +30,10 @@ from agentsec.application import (
 )
 from agentsec.artifacts import AgentManifestFileReader, ReportArtifactWriter
 from agentsec.baselines import BaselineFileWriter
+from agentsec.cli.attack_graph import (
+    register_attack_graph_association_command,
+    register_attack_graph_command,
+)
 from agentsec.cli.baseline import register_baseline_commands
 from agentsec.cli.capability import register_capability_commands
 from agentsec.cli.diff import register_diff_command
@@ -87,6 +93,7 @@ def create_app(
     capability_assessment_engine: CapabilityAssessmentEngine | None = None,
     capability_diff_engine: ManifestCapabilityDiffEngine | None = None,
     capability_impact_engine: ManifestCapabilityChangeImpactEngine | None = None,
+    attack_graph_engine: AttackGraphAnalysisEngine | None = None,
     manifest_reader: AgentManifestFileReader | None = None,
     report_writer: ReportArtifactWriter | None = None,
     assessment_text_renderer: AssessmentTextRenderer | None = None,
@@ -167,11 +174,25 @@ def create_app(
     manifest_impact_engine = (
         capability_impact_engine or DeterministicManifestCapabilityChangeImpactEngine()
     )
+    effective_attack_graph_engine = (
+        attack_graph_engine
+        or DeterministicAttackGraphAnalysisEngine(analysis_engine=manifest_engine)
+    )
     effective_manifest_reader = manifest_reader or AgentManifestFileReader()
     effective_report_writer = report_writer or ReportArtifactWriter()
     register_manifest_command(
         application,
         manifest_engine,
+        effective_report_writer,
+    )
+    register_attack_graph_command(
+        application,
+        effective_attack_graph_engine,
+        effective_report_writer,
+    )
+    register_attack_graph_association_command(
+        application,
+        effective_attack_graph_engine,
         effective_report_writer,
     )
     register_capability_commands(

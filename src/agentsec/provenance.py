@@ -18,7 +18,10 @@ from agentsec import versioning
 from agentsec.attack_graph import (
     ATTACK_GRAPH_BUILDER_VERSION,
     ATTACK_GRAPH_SCHEMA_VERSION,
+    ATTACK_PATH_CALIBRATION_VERSION,
+    ATTACK_PATH_EVIDENCE_ASSOCIATION_VERSION,
     ATTACK_PATH_PATTERN_LIBRARY_VERSION,
+    ATTACK_PATH_REPORT_VERSION,
 )
 from agentsec.calibration.pilot_review import (
     FULL_PACK_SCHEMA_VERSION,
@@ -31,6 +34,7 @@ from agentsec.pilot import (
     PILOT_PLAN_SCHEMA_VERSION,
     PILOT_REPORT_OUTPUT_VERSION,
 )
+from agentsec.risk.attack_path_score import ATTACK_PATH_SCORE_CONTEXT_VERSION
 from agentsec.risk.cvss import CVSS_ADAPTER_VERSION
 from agentsec.semantic import (
     SEMANTIC_ANALYZE_VERSION,
@@ -38,6 +42,8 @@ from agentsec.semantic import (
     SEMANTIC_CANDIDATE_CALIBRATION_VERSION,
     SEMANTIC_EVALUATION_OUTPUT_VERSION,
     SEMANTIC_EVALUATION_SCHEMA_VERSION,
+    SEMANTIC_FEEDBACK_LOOP_REPORT_VERSION,
+    SEMANTIC_FEEDBACK_SET_VERSION,
     SEMANTIC_FINDING_INTEGRATION_VERSION,
     SEMANTIC_FINDING_PROMOTION_REVIEW_VERSION,
     SEMANTIC_HUMAN_REVIEW_SCHEMA_VERSION,
@@ -63,8 +69,12 @@ from agentsec.semantic import (
     SEMANTIC_RULE_PROMOTION_VERSION,
     SEMANTIC_SCENARIO_METRICS_OUTPUT_VERSION,
     SEMANTIC_SCENARIO_METRICS_SCHEMA_VERSION,
+    SEMANTIC_SCENARIO_REPLAY_OUTPUT_VERSION,
+    SEMANTIC_SCENARIO_REPLAY_SCHEMA_VERSION,
     SEMANTIC_SHADOW_INVOCATION_ADAPTER_VERSION,
     SEMANTIC_SHADOW_INVOCATION_OUTPUT_VERSION,
+    SEMANTIC_SHADOW_MODE_OUTPUT_VERSION,
+    SEMANTIC_SHADOW_MODE_VERSION,
     SEMANTIC_SHADOW_PIPELINE_VERSION,
     SEMANTIC_TRIAL_CASE_SET_VERSION,
     SEMANTIC_TRIAL_CONFIG_VERSION,
@@ -234,6 +244,60 @@ def interface_provenance_registry() -> tuple[InterfaceProvenance, ...]:
                 versioning.SCORE_CONTEXT_SCHEMA_VERSION,
                 "policy_trust",
                 schema_file="schemas/score-context/score-context.schema.json",
+            ),
+            _product(
+                "RELEASE_MANIFEST_VERSION",
+                versioning.RELEASE_MANIFEST_VERSION,
+                "release_provenance",
+            ),
+            _product(
+                "PROVENANCE_BUNDLE_VERSION",
+                versioning.PROVENANCE_BUNDLE_VERSION,
+                "release_provenance",
+            ),
+            _product(
+                "SEMANTIC_GATE_DEFINITION_VERSION",
+                versioning.SEMANTIC_GATE_DEFINITION_VERSION,
+                "semantic_gate",
+            ),
+            _product(
+                "SEMANTIC_GATE_QUALIFICATION_VERSION",
+                versioning.SEMANTIC_GATE_QUALIFICATION_VERSION,
+                "semantic_gate",
+            ),
+            _product(
+                "SEMANTIC_GATE_HUMAN_CORPUS_VERSION",
+                versioning.SEMANTIC_GATE_HUMAN_CORPUS_VERSION,
+                "semantic_gate_corpus",
+                schema_file=(
+                    "schemas/semantic-analysis/semantic-gate-human-corpus.schema.json"
+                ),
+            ),
+            _product(
+                "SEMANTIC_GATE_PILOT_VERSION",
+                versioning.SEMANTIC_GATE_PILOT_VERSION,
+                "semantic_gate_pilot",
+                schema_file=(
+                    "schemas/semantic-analysis/semantic-gate-pilot-report.schema.json"
+                ),
+            ),
+            _product(
+                "SEMANTIC_GATE_EVALUATION_IMPORT_VERSION",
+                versioning.SEMANTIC_GATE_EVALUATION_IMPORT_VERSION,
+                "semantic_gate_evaluation",
+                schema_file=(
+                    "schemas/semantic-analysis/"
+                    "semantic-gate-evaluation-import.schema.json"
+                ),
+            ),
+            _product(
+                "SEMANTIC_GATE_PROMOTION_VERSION",
+                versioning.SEMANTIC_GATE_PROMOTION_VERSION,
+                "semantic_gate_evaluation",
+                schema_file=(
+                    "schemas/semantic-analysis/"
+                    "semantic-gate-report-only-promotion.schema.json"
+                ),
             ),
             # Scoring and enrichment models
             _product(
@@ -515,6 +579,50 @@ def interface_provenance_registry() -> tuple[InterfaceProvenance, ...]:
                 SEMANTIC_SCENARIO_METRICS_OUTPUT_VERSION,
                 "semantic_scenario_metrics",
             ),
+            _report(
+                "SEMANTIC_SCENARIO_REPLAY_SCHEMA_VERSION",
+                SEMANTIC_SCENARIO_REPLAY_SCHEMA_VERSION,
+                "semantic_scenario_replay",
+                schema_file=(
+                    "schemas/semantic-analysis/"
+                    "semantic-scenario-replay-suite.schema.json"
+                ),
+            ),
+            _report(
+                "SEMANTIC_SCENARIO_REPLAY_OUTPUT_VERSION",
+                SEMANTIC_SCENARIO_REPLAY_OUTPUT_VERSION,
+                "semantic_scenario_replay",
+            ),
+            _report(
+                "SEMANTIC_SHADOW_MODE_SCHEMA_VERSION",
+                SEMANTIC_SHADOW_MODE_VERSION,
+                "semantic_shadow_mode",
+                schema_file=(
+                    "schemas/semantic-analysis/semantic-shadow-mode-report.schema.json"
+                ),
+            ),
+            _report(
+                "SEMANTIC_SHADOW_MODE_OUTPUT_VERSION",
+                SEMANTIC_SHADOW_MODE_OUTPUT_VERSION,
+                "semantic_shadow_mode",
+            ),
+            _report(
+                "SEMANTIC_FEEDBACK_SET_VERSION",
+                SEMANTIC_FEEDBACK_SET_VERSION,
+                "semantic_feedback",
+                schema_file=(
+                    "schemas/semantic-analysis/semantic-feedback-set.schema.json"
+                ),
+            ),
+            _report(
+                "SEMANTIC_FEEDBACK_LOOP_REPORT_VERSION",
+                SEMANTIC_FEEDBACK_LOOP_REPORT_VERSION,
+                "semantic_feedback",
+                schema_file=(
+                    "schemas/semantic-analysis/"
+                    "semantic-feedback-loop-report.schema.json"
+                ),
+            ),
             _product(
                 "SEMANTIC_HUMAN_REVIEW_SCHEMA_VERSION",
                 SEMANTIC_HUMAN_REVIEW_SCHEMA_VERSION,
@@ -554,6 +662,37 @@ def interface_provenance_registry() -> tuple[InterfaceProvenance, ...]:
                 "ATTACK_PATH_PATTERN_LIBRARY_VERSION",
                 ATTACK_PATH_PATTERN_LIBRARY_VERSION,
                 "attack_graph",
+            ),
+            _report(
+                "ATTACK_PATH_REPORT_VERSION",
+                ATTACK_PATH_REPORT_VERSION,
+                "attack_graph",
+                schema_file=("schemas/attack-graph/attack-path-report.schema.json"),
+            ),
+            _report(
+                "ATTACK_PATH_CALIBRATION_VERSION",
+                ATTACK_PATH_CALIBRATION_VERSION,
+                "attack_graph_calibration",
+                schema_file=(
+                    "schemas/attack-graph/attack-path-calibration-report.schema.json"
+                ),
+            ),
+            _report(
+                "ATTACK_PATH_SCORE_CONTEXT_VERSION",
+                ATTACK_PATH_SCORE_CONTEXT_VERSION,
+                "attack_graph_score_context",
+                schema_file=(
+                    "schemas/score-context/attack-path-score-context.schema.json"
+                ),
+            ),
+            _report(
+                "ATTACK_PATH_EVIDENCE_ASSOCIATION_VERSION",
+                ATTACK_PATH_EVIDENCE_ASSOCIATION_VERSION,
+                "attack_graph",
+                schema_file=(
+                    "schemas/attack-graph/"
+                    "attack-path-evidence-association-report.schema.json"
+                ),
             ),
             # Evidence and vulnerability contracts
             _product(
@@ -829,6 +968,9 @@ def schema_file_ownership() -> dict[str, str]:
             "schemas/score-context/score-context.schema.json": (
                 "SCORE_CONTEXT_SCHEMA_VERSION"
             ),
+            "schemas/score-context/attack-path-score-context.schema.json": (
+                "ATTACK_PATH_SCORE_CONTEXT_VERSION"
+            ),
             "schemas/semantic-analysis/semantic-analysis-input.schema.json": (
                 "SEMANTIC_INPUT_SCHEMA_VERSION"
             ),
@@ -871,6 +1013,44 @@ def schema_file_ownership() -> dict[str, str]:
             "schemas/semantic-analysis/semantic-scenario-metrics-report.schema.json": (
                 "SEMANTIC_SCENARIO_METRICS_SCHEMA_VERSION"
             ),
+            "schemas/semantic-analysis/semantic-scenario-replay-suite.schema.json": (
+                "SEMANTIC_SCENARIO_REPLAY_SCHEMA_VERSION"
+            ),
+            "schemas/semantic-analysis/semantic-shadow-mode-report.schema.json": (
+                "SEMANTIC_SHADOW_MODE_SCHEMA_VERSION"
+            ),
+            "schemas/semantic-analysis/semantic-feedback-set.schema.json": (
+                "SEMANTIC_FEEDBACK_SET_VERSION"
+            ),
+            "schemas/semantic-analysis/semantic-feedback-loop-report.schema.json": (
+                "SEMANTIC_FEEDBACK_LOOP_REPORT_VERSION"
+            ),
+            "schemas/semantic-analysis/semantic-gate-candidate.schema.json": (
+                "SEMANTIC_GATE_DEFINITION_VERSION"
+            ),
+            "schemas/semantic-analysis/"
+            "semantic-gate-qualification-report.schema.json": (
+                "SEMANTIC_GATE_QUALIFICATION_VERSION"
+            ),
+            "schemas/semantic-analysis/semantic-gate-human-corpus.schema.json": (
+                "SEMANTIC_GATE_HUMAN_CORPUS_VERSION"
+            ),
+            "schemas/semantic-analysis/semantic-gate-review-submission.schema.json": (
+                "SEMANTIC_GATE_HUMAN_CORPUS_VERSION"
+            ),
+            "schemas/semantic-analysis/semantic-gate-pilot-config.schema.json": (
+                "SEMANTIC_GATE_PILOT_VERSION"
+            ),
+            "schemas/semantic-analysis/semantic-gate-pilot-report.schema.json": (
+                "SEMANTIC_GATE_PILOT_VERSION"
+            ),
+            "schemas/semantic-analysis/semantic-gate-evaluation-import.schema.json": (
+                "SEMANTIC_GATE_EVALUATION_IMPORT_VERSION"
+            ),
+            "schemas/semantic-analysis/"
+            "semantic-gate-report-only-promotion.schema.json": (
+                "SEMANTIC_GATE_PROMOTION_VERSION"
+            ),
             "schemas/semantic-analysis/"
             "semantic-quality-qualification-report.schema.json": (
                 "SEMANTIC_QUALIFICATION_VERSION"
@@ -905,6 +1085,16 @@ def schema_file_ownership() -> dict[str, str]:
             ),
             "schemas/attack-graph/capability-attack-graph.schema.json": (
                 "ATTACK_GRAPH_SCHEMA_VERSION"
+            ),
+            "schemas/attack-graph/attack-path-report.schema.json": (
+                "ATTACK_PATH_REPORT_VERSION"
+            ),
+            "schemas/attack-graph/attack-path-calibration-report.schema.json": (
+                "ATTACK_PATH_CALIBRATION_VERSION"
+            ),
+            "schemas/attack-graph/"
+            "attack-path-evidence-association-report.schema.json": (
+                "ATTACK_PATH_EVIDENCE_ASSOCIATION_VERSION"
             ),
             "schemas/semantic-analysis/"
             "semantic-provider-promotion-report.schema.json": (

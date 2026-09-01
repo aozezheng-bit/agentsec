@@ -9,6 +9,22 @@ from typing import Any
 from pydantic import BaseModel
 
 from agentsec.semantic.evaluation import SemanticEvaluationReport, SemanticParityReport
+from agentsec.semantic.evaluation_import import (
+    SemanticGateEvaluationImport,
+    SemanticGateReportOnlyPromotion,
+)
+from agentsec.semantic.feedback import (
+    SemanticFeedbackLoopReport,
+    SemanticFeedbackSet,
+)
+from agentsec.semantic.gate_corpus import (
+    SemanticGateHumanCorpus,
+    SemanticGateReviewSubmission,
+)
+from agentsec.semantic.gate_definition import (
+    SemanticGateCandidate,
+    SemanticGateQualificationReport,
+)
 from agentsec.semantic.integration import (
     SemanticFindingIntegrationReport,
     SemanticRuleCandidateReport,
@@ -36,8 +52,14 @@ from agentsec.semantic.provider import (
     SemanticProviderResponse,
 )
 from agentsec.semantic.quality_gate import QualityGateReport
+from agentsec.semantic.real_provider_pilot import (
+    SemanticGatePilotConfig,
+    SemanticGatePilotReport,
+)
 from agentsec.semantic.rule_promotion import SemanticRulePromotionReport
 from agentsec.semantic.scenario_metrics import ScenarioMetricsReport
+from agentsec.semantic.scenario_replay import ScenarioReplaySuite
+from agentsec.semantic.shadow_mode import SemanticShadowModeReport
 from agentsec.semantic.trial import (
     SemanticTrialCaseSet,
     SemanticTrialConfig,
@@ -463,6 +485,209 @@ def export_semantic_qualification_json_schema(output_path: Path) -> Path:
     return output_path
 
 
+def encode_semantic_gate_pilot_json_str(value: SemanticGatePilotReport) -> str:
+    """Encode a bounded report-only Real Provider Pilot report."""
+
+    if not isinstance(value, SemanticGatePilotReport):
+        raise TypeError("semantic Gate Pilot encoder requires SemanticGatePilotReport")
+    return _encode(value)
+
+
+def export_semantic_gate_pilot_json_schemas(
+    output_directory: Path,
+) -> tuple[Path, Path]:
+    """Export P3-19 Pilot config and report Schemas."""
+
+    if not isinstance(output_directory, Path):
+        raise TypeError("semantic Gate Pilot Schema output directory must be a Path")
+    output_directory.mkdir(parents=True, exist_ok=True)
+    outputs: tuple[tuple[Path, type[BaseModel]], ...] = (
+        (
+            output_directory / "semantic-gate-pilot-config.schema.json",
+            SemanticGatePilotConfig,
+        ),
+        (
+            output_directory / "semantic-gate-pilot-report.schema.json",
+            SemanticGatePilotReport,
+        ),
+    )
+    for path, model in outputs:
+        path.write_text(
+            json.dumps(
+                model.model_json_schema(mode="serialization"),
+                ensure_ascii=False,
+                indent=2,
+                sort_keys=True,
+            )
+            + "\n",
+            encoding="utf-8",
+        )
+    return outputs[0][0], outputs[1][0]
+
+
+def encode_semantic_gate_evaluation_import_json_str(
+    value: SemanticGateEvaluationImport,
+) -> str:
+    """Encode a bound P3-20 Provider evaluation import."""
+
+    if not isinstance(value, SemanticGateEvaluationImport):
+        raise TypeError(
+            "evaluation import encoder requires SemanticGateEvaluationImport"
+        )
+    return _encode(value)
+
+
+def encode_semantic_gate_promotion_json_str(
+    value: SemanticGateReportOnlyPromotion,
+) -> str:
+    """Encode report-only Gate promotion evidence."""
+
+    if not isinstance(value, SemanticGateReportOnlyPromotion):
+        raise TypeError("promotion encoder requires SemanticGateReportOnlyPromotion")
+    return _encode(value)
+
+
+def export_semantic_gate_evaluation_json_schemas(
+    output_directory: Path,
+) -> tuple[Path, Path]:
+    """Export P3-20 evaluation-import and promotion Schemas."""
+
+    if not isinstance(output_directory, Path):
+        raise TypeError(
+            "semantic Gate evaluation Schema output directory must be a Path"
+        )
+    output_directory.mkdir(parents=True, exist_ok=True)
+    outputs: tuple[tuple[Path, type[BaseModel]], ...] = (
+        (
+            output_directory / "semantic-gate-evaluation-import.schema.json",
+            SemanticGateEvaluationImport,
+        ),
+        (
+            output_directory / "semantic-gate-report-only-promotion.schema.json",
+            SemanticGateReportOnlyPromotion,
+        ),
+    )
+    for path, model in outputs:
+        path.write_text(
+            json.dumps(
+                model.model_json_schema(mode="serialization"),
+                ensure_ascii=False,
+                indent=2,
+                sort_keys=True,
+            )
+            + "\n",
+            encoding="utf-8",
+        )
+    return outputs[0][0], outputs[1][0]
+
+
+def encode_semantic_gate_human_corpus_json_str(
+    value: SemanticGateHumanCorpus,
+) -> str:
+    """Encode a digest-bound, report-only Gate human corpus."""
+
+    if not isinstance(value, SemanticGateHumanCorpus):
+        raise TypeError("semantic Gate corpus encoder requires SemanticGateHumanCorpus")
+    return _encode(value)
+
+
+def encode_semantic_gate_review_submission_json_str(
+    value: SemanticGateReviewSubmission,
+) -> str:
+    """Encode an independent Gate review submission."""
+
+    if not isinstance(value, SemanticGateReviewSubmission):
+        raise TypeError(
+            "semantic Gate review encoder requires SemanticGateReviewSubmission"
+        )
+    return _encode(value)
+
+
+def export_semantic_gate_corpus_json_schemas(
+    output_directory: Path,
+) -> tuple[Path, Path]:
+    """Export P3-19 human corpus and review submission Schemas."""
+
+    if not isinstance(output_directory, Path):
+        raise TypeError("semantic Gate corpus Schema output directory must be a Path")
+    output_directory.mkdir(parents=True, exist_ok=True)
+    outputs: tuple[tuple[Path, type[BaseModel]], ...] = (
+        (
+            output_directory / "semantic-gate-human-corpus.schema.json",
+            SemanticGateHumanCorpus,
+        ),
+        (
+            output_directory / "semantic-gate-review-submission.schema.json",
+            SemanticGateReviewSubmission,
+        ),
+    )
+    for path, model in outputs:
+        path.write_text(
+            json.dumps(
+                model.model_json_schema(mode="serialization"),
+                ensure_ascii=False,
+                indent=2,
+                sort_keys=True,
+            )
+            + "\n",
+            encoding="utf-8",
+        )
+    return outputs[0][0], outputs[1][0]
+
+
+def encode_semantic_gate_candidate_json(value: SemanticGateCandidate) -> str:
+    """Encode a digest-bound, report-only Semantic Gate candidate."""
+
+    if not isinstance(value, SemanticGateCandidate):
+        raise TypeError(
+            "semantic Gate candidate encoder requires SemanticGateCandidate"
+        )
+    return _encode(value)
+
+
+def encode_semantic_gate_qualification_json(
+    value: SemanticGateQualificationReport,
+) -> str:
+    """Encode a report-only Semantic Gate qualification result."""
+
+    if not isinstance(value, SemanticGateQualificationReport):
+        raise TypeError(
+            "semantic Gate qualification encoder requires "
+            "SemanticGateQualificationReport"
+        )
+    return _encode(value)
+
+
+def export_semantic_gate_json_schemas(output_directory: Path) -> tuple[Path, Path]:
+    """Export the P3-18 Gate candidate and qualification Schemas."""
+
+    if not isinstance(output_directory, Path):
+        raise TypeError("semantic Gate Schema output directory must be a Path")
+    output_directory.mkdir(parents=True, exist_ok=True)
+    outputs: tuple[tuple[Path, type[BaseModel]], ...] = (
+        (
+            output_directory / "semantic-gate-candidate.schema.json",
+            SemanticGateCandidate,
+        ),
+        (
+            output_directory / "semantic-gate-qualification-report.schema.json",
+            SemanticGateQualificationReport,
+        ),
+    )
+    for path, model in outputs:
+        path.write_text(
+            json.dumps(
+                model.model_json_schema(mode="serialization"),
+                ensure_ascii=False,
+                indent=2,
+                sort_keys=True,
+            )
+            + "\n",
+            encoding="utf-8",
+        )
+    return outputs[0][0], outputs[1][0]
+
+
 def export_scenario_metrics_json_schema(output_path: Path) -> Path:
     """Export the frozen P3-14 scenario detection metrics Schema."""
 
@@ -472,6 +697,69 @@ def export_scenario_metrics_json_schema(output_path: Path) -> Path:
     output_path.write_text(
         json.dumps(
             ScenarioMetricsReport.model_json_schema(mode="serialization"),
+            ensure_ascii=False,
+            indent=2,
+            sort_keys=True,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    return output_path
+
+
+def export_scenario_replay_json_schema(output_path: Path) -> Path:
+    """Export the frozen P3-15 scenario replay suite Schema."""
+
+    if not isinstance(output_path, Path):
+        raise TypeError("scenario replay Schema output path must be a Path")
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(
+        json.dumps(
+            ScenarioReplaySuite.model_json_schema(mode="serialization"),
+            ensure_ascii=False,
+            indent=2,
+            sort_keys=True,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    return output_path
+
+
+def export_semantic_feedback_json_schemas(output_directory: Path) -> tuple[Path, Path]:
+    """Export the frozen P3-17 feedback set and loop report Schemas."""
+
+    if not isinstance(output_directory, Path):
+        raise TypeError("feedback Schema output directory must be a Path")
+    output_directory.mkdir(parents=True, exist_ok=True)
+    outputs = (
+        (
+            output_directory / "semantic-feedback-set.schema.json",
+            SemanticFeedbackSet,
+        ),
+        (
+            output_directory / "semantic-feedback-loop-report.schema.json",
+            SemanticFeedbackLoopReport,
+        ),
+    )
+    for path, model in outputs:
+        schema: dict[str, Any] = model.model_json_schema(mode="serialization")
+        path.write_text(
+            json.dumps(schema, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
+    return tuple(path for path, _model in outputs)  # type: ignore[return-value]
+
+
+def export_semantic_shadow_mode_json_schema(output_path: Path) -> Path:
+    """Export the frozen P3-16 Shadow Mode report Schema."""
+
+    if not isinstance(output_path, Path):
+        raise TypeError("Shadow Mode Schema output path must be a Path")
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(
+        json.dumps(
+            SemanticShadowModeReport.model_json_schema(mode="serialization"),
             ensure_ascii=False,
             indent=2,
             sort_keys=True,
@@ -499,6 +787,14 @@ __all__ = [
     "encode_semantic_analysis_result_json",
     "encode_semantic_evaluation_json",
     "encode_semantic_qualification_json_str",
+    "encode_semantic_gate_human_corpus_json_str",
+    "encode_semantic_gate_review_submission_json_str",
+    "export_semantic_gate_corpus_json_schemas",
+    "encode_semantic_gate_evaluation_import_json_str",
+    "encode_semantic_gate_promotion_json_str",
+    "export_semantic_gate_evaluation_json_schemas",
+    "encode_semantic_gate_pilot_json_str",
+    "export_semantic_gate_pilot_json_schemas",
     "export_semantic_qualification_json_schema",
     "encode_semantic_candidate_calibration_json",
     "encode_semantic_finding_integration_json",
@@ -524,4 +820,7 @@ __all__ = [
     "export_semantic_parity_json_schema",
     "export_semantic_promotion_json_schemas",
     "export_scenario_metrics_json_schema",
+    "export_scenario_replay_json_schema",
+    "export_semantic_shadow_mode_json_schema",
+    "export_semantic_feedback_json_schemas",
 ]

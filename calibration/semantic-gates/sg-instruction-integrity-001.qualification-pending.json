@@ -1,0 +1,109 @@
+{
+  "authority": {
+    "blocks": false,
+    "can_approve_waiver": false,
+    "can_block_ci": false,
+    "can_grant_runtime_authority": false,
+    "can_publish_rule": false,
+    "report_only": true
+  },
+  "candidate_id": "semantic-gate-candidate-sha256:8f52a863a40e1f5de9236e9f7c998d2326a74b57bb6f38fd24409cd86e43b535",
+  "checks": [
+    {
+      "check_id": "candidate_calibration",
+      "rationale_code": "optional_not_required",
+      "required": false,
+      "status": "pass"
+    },
+    {
+      "check_id": "eligible_negative_case_coverage",
+      "rationale_code": "negative_cases_meet_threshold",
+      "required": true,
+      "status": "pass"
+    },
+    {
+      "check_id": "finding_promotion",
+      "rationale_code": "optional_not_required",
+      "required": false,
+      "status": "pass"
+    },
+    {
+      "check_id": "human_confidence",
+      "rationale_code": "confidence_review_pending",
+      "required": true,
+      "status": "pending"
+    },
+    {
+      "check_id": "minimum_case_count",
+      "rationale_code": "case_count_meets_threshold",
+      "required": true,
+      "status": "pass"
+    },
+    {
+      "check_id": "positive_case_coverage",
+      "rationale_code": "positive_cases_meet_threshold",
+      "required": true,
+      "status": "pass"
+    },
+    {
+      "check_id": "provider_promotion",
+      "rationale_code": "provider_promotion_pending",
+      "required": true,
+      "status": "pending"
+    },
+    {
+      "check_id": "provider_quality",
+      "rationale_code": "provider_quality_qualified",
+      "required": true,
+      "status": "pass"
+    },
+    {
+      "check_id": "quality_metrics",
+      "rationale_code": "quality_metrics_meet_thresholds",
+      "required": true,
+      "status": "pass"
+    },
+    {
+      "check_id": "rule_staging",
+      "rationale_code": "optional_not_required",
+      "required": false,
+      "status": "pass"
+    },
+    {
+      "check_id": "unevaluated_cases",
+      "rationale_code": "no_unevaluated_cases",
+      "required": true,
+      "status": "pass"
+    }
+  ],
+  "eligible_for_report_only_gate": false,
+  "evidence_confidence": null,
+  "failed_checks": [],
+  "format": "agentsec-semantic-gate-qualification-report",
+  "gate_id": "SG-INSTRUCTION-INTEGRITY-001",
+  "metrics": {
+    "case_count": 45,
+    "complete_coverage_rate": 1.0,
+    "eligible_negative_case_count": 20,
+    "evidence_binding_accuracy": 1.0,
+    "evidence_confidence_grade": null,
+    "f1": 1.0,
+    "positive_case_count": 20,
+    "precision": 1.0,
+    "recall": 1.0,
+    "unevaluated_case_count": 0
+  },
+  "model_id": "agentsec-semantic-fixture-v1",
+  "pending_checks": [
+    "human_confidence",
+    "provider_promotion"
+  ],
+  "provider_id": "offline-fixture",
+  "qualification_id": "semantic-gate-qualification-sha256:1f6727187b7527f035e73a920b10a2b38bfc959f31d08511c55e8898363bfc75",
+  "reasons": [
+    "confidence_review_pending",
+    "provider_promotion_pending"
+  ],
+  "schema_version": "0.1.0",
+  "status": "conditionally_qualified"
+}

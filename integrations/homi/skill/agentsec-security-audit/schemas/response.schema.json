@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agentsec.local/schemas/homi-skill-response.schema.json",
+  "title": "AgentSec Homi Skill Response",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["status", "report", "authority"],
+  "properties": {
+    "status": { "type": "string", "enum": ["complete", "partial", "failed"] },
+    "report": { "type": "object" },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["report_only", "runtime_verified", "ci_blocked"],
+      "properties": {
+        "report_only": { "const": true },
+        "runtime_verified": { "const": false },
+        "ci_blocked": { "const": false }
+      }
+    }
+  }
+}

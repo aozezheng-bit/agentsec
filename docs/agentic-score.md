@@ -142,3 +142,24 @@ schemas/score-context/score-context.schema.json
 - replay semantics are unchanged: the frozen scoring replay suite was
   re-baselined only for the package-version provenance change, consistent
   with the P2-32 precedent.
+
+## P3-AG-09 Attack Path context
+
+The score command can attach a previously validated Attack Path Evidence
+Association Report and, optionally, its digest-bound Calibration Report:
+
+```bash
+agentsec score PROJECT --before BEFORE-MANIFEST.json \
+  --attack-path-report ASSOCIATION-REPORT.json \
+  --attack-path-calibration CALIBRATION-REPORT.json \
+  --format json
+```
+
+The JSON report then contains an `attack_path` object with association/path
+counts, relation counts, report digests, and optional calibration provenance.
+Text and SARIF provide the same bounded summary metadata. This is explanatory
+context only. `scoring_mode` is `context_only`, `numeric_score_effect` is
+strictly zero, and `calibration_qualified` remains false even when a seed
+calibration reports perfect accuracy. No Attack Path input can change the
+Technical, Drift, Governance, or Overall Score, Severity, Hard Gate, CI exit
+code, or release state.

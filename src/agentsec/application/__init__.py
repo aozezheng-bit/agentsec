@@ -1,5 +1,7 @@
 """Application interfaces exposed to delivery adapters."""
 
+from __future__ import annotations
+
 from agentsec.application.agent_analysis import (
     AgentAnalysisEngine,
     AgentAnalysisError,
@@ -23,6 +25,11 @@ from agentsec.application.assessment import (
     AssessmentEngineUnavailable,
     AssessmentRequest,
     UnavailableAssessmentEngine,
+)
+from agentsec.application.attack_graph import (
+    AttackGraphAnalysisEngine,
+    AttackGraphAnalysisResult,
+    DeterministicAttackGraphAnalysisEngine,
 )
 from agentsec.application.baseline import (
     BaselineCreationCode,
@@ -58,6 +65,9 @@ from agentsec.application.diff import (
 )
 
 __all__ = [
+    "AttackGraphAnalysisEngine",
+    "AttackGraphAnalysisResult",
+    "DeterministicAttackGraphAnalysisEngine",
     "AgentAnalysisEngine",
     "AgentAnalysisError",
     "AgentAnalysisErrorCode",

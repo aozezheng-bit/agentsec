@@ -1,0 +1,414 @@
+{
+  "$defs": {
+    "AttackGraphSourceRef": {
+      "additionalProperties": false,
+      "description": "Value-free Manifest source locator; no raw text is retained.",
+      "properties": {
+        "asset_path": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Asset Path",
+          "type": "string"
+        },
+        "asset_sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Asset Sha256",
+          "type": "string"
+        },
+        "end_line": {
+          "minimum": 1,
+          "title": "End Line",
+          "type": "integer"
+        },
+        "start_line": {
+          "minimum": 1,
+          "title": "Start Line",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "asset_path",
+        "asset_sha256",
+        "start_line",
+        "end_line"
+      ],
+      "title": "AttackGraphSourceRef",
+      "type": "object"
+    },
+    "AttackPathAssociationBasis": {
+      "description": "Finite, auditable reasons for a deterministic association.",
+      "enum": [
+        "asset_path",
+        "asset_sha256",
+        "line_overlap",
+        "graph_node_source",
+        "graph_edge_source",
+        "exact_locator",
+        "partial_evidence_overlap",
+        "no_deterministic_evidence_overlap",
+        "graph_source_unavailable",
+        "finding_evidence_not_static",
+        "semantic_evidence_reference_unavailable"
+      ],
+      "title": "AttackPathAssociationBasis",
+      "type": "string"
+    },
+    "AttackPathAssociationRelation": {
+      "description": "Report-only relationship between a path and one Evidence target.",
+      "enum": [
+        "supports",
+        "partially_supports",
+        "duplicates",
+        "unmatched"
+      ],
+      "title": "AttackPathAssociationRelation",
+      "type": "string"
+    },
+    "AttackPathEvidenceAssociation": {
+      "additionalProperties": false,
+      "description": "One deterministic path-to-Finding or path-to-Semantic association.",
+      "properties": {
+        "basis": {
+          "items": {
+            "$ref": "#/$defs/AttackPathAssociationBasis"
+          },
+          "title": "Basis",
+          "type": "array"
+        },
+        "evidence_refs": {
+          "items": {
+            "$ref": "#/$defs/AttackPathGraphEvidenceRef"
+          },
+          "title": "Evidence Refs",
+          "type": "array"
+        },
+        "finding_evidence_refs": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/AttackPathFindingEvidenceRef"
+          },
+          "title": "Finding Evidence Refs",
+          "type": "array"
+        },
+        "finding_id": {
+          "anyOf": [
+            {
+              "maxLength": 256,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Finding Id"
+        },
+        "path_id": {
+          "pattern": "^attack-path-sha256:[0-9a-f]{64}$",
+          "title": "Path Id",
+          "type": "string"
+        },
+        "relation": {
+          "$ref": "#/$defs/AttackPathAssociationRelation"
+        },
+        "semantic_candidate_id": {
+          "anyOf": [
+            {
+              "pattern": "^semantic-candidate-sha256:[0-9a-f]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Semantic Candidate Id"
+        },
+        "semantic_evidence_refs": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/AttackPathSemanticEvidenceRef"
+          },
+          "title": "Semantic Evidence Refs",
+          "type": "array"
+        },
+        "target_kind": {
+          "enum": [
+            "finding",
+            "semantic_candidate"
+          ],
+          "title": "Target Kind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "path_id",
+        "target_kind",
+        "relation",
+        "basis",
+        "evidence_refs"
+      ],
+      "title": "AttackPathEvidenceAssociation",
+      "type": "object"
+    },
+    "AttackPathFindingEvidenceRef": {
+      "additionalProperties": false,
+      "description": "Value-free projection of eligible static Finding Evidence.",
+      "properties": {
+        "asset_path": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Asset Path",
+          "type": "string"
+        },
+        "content_sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Content Sha256",
+          "type": "string"
+        },
+        "end_line": {
+          "minimum": 1,
+          "title": "End Line",
+          "type": "integer"
+        },
+        "source_type": {
+          "enum": [
+            "file",
+            "diff"
+          ],
+          "title": "Source Type",
+          "type": "string"
+        },
+        "start_line": {
+          "minimum": 1,
+          "title": "Start Line",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "source_type",
+        "asset_path",
+        "content_sha256",
+        "start_line",
+        "end_line"
+      ],
+      "title": "AttackPathFindingEvidenceRef",
+      "type": "object"
+    },
+    "AttackPathGraphEvidenceRef": {
+      "additionalProperties": false,
+      "description": "One path source locator with its graph role(s), without source text.",
+      "properties": {
+        "roles": {
+          "default": [],
+          "items": {
+            "enum": [
+              "node",
+              "edge"
+            ],
+            "type": "string"
+          },
+          "title": "Roles",
+          "type": "array"
+        },
+        "source": {
+          "$ref": "#/$defs/AttackGraphSourceRef"
+        }
+      },
+      "required": [
+        "source"
+      ],
+      "title": "AttackPathGraphEvidenceRef",
+      "type": "object"
+    },
+    "AttackPathSemanticEvidenceRef": {
+      "additionalProperties": false,
+      "description": "Trusted Semantic Evidence locator without the minimized source text.",
+      "properties": {
+        "asset_path": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Asset Path",
+          "type": "string"
+        },
+        "asset_sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Asset Sha256",
+          "type": "string"
+        },
+        "end_line": {
+          "minimum": 1,
+          "title": "End Line",
+          "type": "integer"
+        },
+        "evidence_id": {
+          "pattern": "^semantic-evidence-sha256:[0-9a-f]{64}$",
+          "title": "Evidence Id",
+          "type": "string"
+        },
+        "start_line": {
+          "minimum": 1,
+          "title": "Start Line",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "evidence_id",
+        "asset_path",
+        "asset_sha256",
+        "start_line",
+        "end_line"
+      ],
+      "title": "AttackPathSemanticEvidenceRef",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Content-addressed, report-only association output.",
+  "properties": {
+    "association_count": {
+      "minimum": 0,
+      "title": "Association Count",
+      "type": "integer"
+    },
+    "associations": {
+      "items": {
+        "$ref": "#/$defs/AttackPathEvidenceAssociation"
+      },
+      "title": "Associations",
+      "type": "array"
+    },
+    "blocks": {
+      "const": false,
+      "default": false,
+      "title": "Blocks",
+      "type": "boolean"
+    },
+    "ci_authority": {
+      "const": false,
+      "default": false,
+      "title": "Ci Authority",
+      "type": "boolean"
+    },
+    "finding_authority": {
+      "const": false,
+      "default": false,
+      "title": "Finding Authority",
+      "type": "boolean"
+    },
+    "finding_count": {
+      "minimum": 0,
+      "title": "Finding Count",
+      "type": "integer"
+    },
+    "findings_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Findings Sha256",
+      "type": "string"
+    },
+    "format": {
+      "const": "agentsec-attack-path-evidence-association-report",
+      "default": "agentsec-attack-path-evidence-association-report",
+      "title": "Format",
+      "type": "string"
+    },
+    "graph_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Graph Sha256",
+      "type": "string"
+    },
+    "hard_gate_authority": {
+      "const": false,
+      "default": false,
+      "title": "Hard Gate Authority",
+      "type": "boolean"
+    },
+    "limitations": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 32,
+      "title": "Limitations",
+      "type": "array"
+    },
+    "path_count": {
+      "maximum": 256,
+      "minimum": 0,
+      "title": "Path Count",
+      "type": "integer"
+    },
+    "path_report_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Path Report Sha256",
+      "type": "string"
+    },
+    "policy_authority": {
+      "const": false,
+      "default": false,
+      "title": "Policy Authority",
+      "type": "boolean"
+    },
+    "release_authority": {
+      "const": false,
+      "default": false,
+      "title": "Release Authority",
+      "type": "boolean"
+    },
+    "report_only": {
+      "const": true,
+      "default": true,
+      "title": "Report Only",
+      "type": "boolean"
+    },
+    "runtime_verified": {
+      "const": false,
+      "default": false,
+      "title": "Runtime Verified",
+      "type": "boolean"
+    },
+    "schema_version": {
+      "const": "0.1.0",
+      "default": "0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "semantic_authority": {
+      "const": false,
+      "default": false,
+      "title": "Semantic Authority",
+      "type": "boolean"
+    },
+    "semantic_candidate_count": {
+      "minimum": 0,
+      "title": "Semantic Candidate Count",
+      "type": "integer"
+    },
+    "semantic_result_sha256": {
+      "anyOf": [
+        {
+          "pattern": "^[a-f0-9]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Semantic Result Sha256"
+    }
+  },
+  "required": [
+    "graph_sha256",
+    "path_report_sha256",
+    "findings_sha256",
+    "path_count",
+    "finding_count",
+    "semantic_candidate_count",
+    "associations",
+    "association_count",
+    "limitations"
+  ],
+  "title": "AttackPathEvidenceAssociationReport",
+  "type": "object"
+}

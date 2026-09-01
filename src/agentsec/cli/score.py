@@ -16,6 +16,8 @@ from agentsec.application import (
 from agentsec.artifacts import (
     AgentManifestFileReader,
     AgentManifestReadError,
+    AssociationInputReadError,
+    AttackPathAssociationInputReader,
     ReportArtifactFormat,
     ReportArtifactKind,
     ReportArtifactWriter,
@@ -45,6 +47,7 @@ from agentsec.reporting import (
     AgenticAssessmentSarifRenderer,
     AgenticAssessmentTextRenderer,
 )
+from agentsec.risk.attack_path_score import AttackPathScoreIntegrationError
 from agentsec.risk.cvss import CvssAdapterError
 from agentsec.score_context import ScoreContextError, load_score_context
 
@@ -54,6 +57,28 @@ BeforeManifestOption = Annotated[
         "--before",
         help=(
             "Validated before-state Agent Manifest JSON used for the Drift comparison."
+        ),
+    ),
+]
+
+AttackPathReportOption = Annotated[
+    Path | None,
+    typer.Option(
+        "--attack-path-report",
+        help=(
+            "Optional validated Attack Path Evidence Association report JSON. "
+            "It is attached as report-only score context."
+        ),
+    ),
+]
+
+AttackPathCalibrationOption = Annotated[
+    Path | None,
+    typer.Option(
+        "--attack-path-calibration",
+        help=(
+            "Optional validated Attack Path Evidence Calibration report JSON "
+            "bound to --attack-path-report."
         ),
     ),
 ]
@@ -80,6 +105,7 @@ def register_score_command(
     json_renderer: AgenticAssessmentJsonRenderer | None = None,
     text_renderer_factory: type[AgenticAssessmentTextRenderer] | None = None,
     sarif_renderer: AgenticAssessmentSarifRenderer | None = None,
+    association_input_reader: AttackPathAssociationInputReader | None = None,
 ) -> None:
     """Register the report-only `score` command."""
 
@@ -88,6 +114,9 @@ def register_score_command(
         text_renderer_factory or AgenticAssessmentTextRenderer
     )
     effective_sarif_renderer = sarif_renderer or AgenticAssessmentSarifRenderer()
+    effective_association_reader = (
+        association_input_reader or AttackPathAssociationInputReader()
+    )
 
     @application.command("score")
     def score_command(
@@ -98,6 +127,8 @@ def register_score_command(
         codex_home: CodexHomeOption = None,
         agent_id: AgentIdOption = None,
         context_path: ScoreContextOption = None,
+        attack_path_report_path: AttackPathReportOption = None,
+        attack_path_calibration_path: AttackPathCalibrationOption = None,
         output_format: CapabilityAssessmentFormatOption = (
             CapabilityAssessmentOutputFormat.TEXT
         ),
@@ -112,6 +143,34 @@ def register_score_command(
         except AgentManifestReadError as error:
             typer.echo(f"Agentic Score input error: {error}", err=True)
             raise typer.Exit(code=ExitCode.ARTIFACT_ERROR) from error
+        if attack_path_report_path is None and attack_path_calibration_path is not None:
+            typer.echo(
+                (
+                    "Agentic Score input error: --attack-path-calibration "
+                    "requires --attack-path-report"
+                ),
+                err=True,
+            )
+            raise typer.Exit(code=ExitCode.CONFIGURATION_ERROR)
+        attack_path_report = None
+        attack_path_calibration = None
+        try:
+            if attack_path_report_path is not None:
+                attack_path_report = (
+                    effective_association_reader.read_association_report(
+                        attack_path_report_path
+                    )
+                )
+            if attack_path_calibration_path is not None:
+                attack_path_calibration = (
+                    effective_association_reader.read_calibration_report(
+                        attack_path_calibration_path
+                    )
+                )
+        except (AssociationInputReadError, OSError) as error:
+            typer.echo(f"Agentic Score Attack Path input error: {error}", err=True)
+            raise typer.Exit(code=ExitCode.ARTIFACT_ERROR) from error
+
         loaded_context = None
         if context_path is not None:
             try:
@@ -127,11 +186,19 @@ def register_score_command(
             user_home=user_home,
             codex_home=codex_home,
             context=loaded_context,
+            attack_path_report=attack_path_report,
+            attack_path_calibration=attack_path_calibration,
         )
         try:
             result = score_engine.score(request)
         except CvssAdapterError as error:
             typer.echo(f"Agentic Score context error: {error}", err=True)
+            raise typer.Exit(code=ExitCode.CONFIGURATION_ERROR) from error
+        except AttackPathScoreIntegrationError as error:
+            typer.echo(f"Agentic Score Attack Path error: {error}", err=True)
+            raise typer.Exit(code=ExitCode.ARTIFACT_ERROR) from error
+        except ValueError as error:
+            typer.echo(f"Agentic Score input error: {error}", err=True)
             raise typer.Exit(code=ExitCode.CONFIGURATION_ERROR) from error
         except CapabilityDiffError as error:
             typer.echo(f"Agentic Score compatibility error: {error}", err=True)

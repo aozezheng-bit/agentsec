@@ -1,0 +1,19 @@
+{
+  "allow_live": false,
+  "approval_id": null,
+  "corpus_path": "<human-corpus.json>",
+  "cost_approved": false,
+  "credential_env": "AGENTSEC_PROVIDER_API_KEY",
+  "data_residency_approved": false,
+  "endpoint_url": null,
+  "format": "agentsec-semantic-gate-pilot-config",
+  "gate_candidate_path": "<gate-candidate.json>",
+  "max_calls": 40,
+  "max_cases": 40,
+  "model_id": "<MODEL_ID>",
+  "provider_id": "<PROVIDER_ID>",
+  "retention_policy_approved": false,
+  "review_owner_id": null,
+  "schema_version": "0.1.0",
+  "timeout_ms": 30000
+}

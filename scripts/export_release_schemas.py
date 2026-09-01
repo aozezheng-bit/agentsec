@@ -4,7 +4,12 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from agentsec.attack_graph import export_attack_graph_json_schema
+from agentsec.attack_graph import (
+    export_attack_graph_json_schema,
+    export_attack_path_calibration_json_schema,
+    export_attack_path_evidence_association_json_schema,
+    export_attack_path_report_json_schema,
+)
 from agentsec.baselines import export_baseline_json_schema
 from agentsec.calibration import (
     export_adjudication_resolution_set_json_schema,
@@ -39,9 +44,16 @@ from agentsec.reporting import (
     export_organization_policy_json_schema,
     export_score_context_json_schema,
 )
+from agentsec.risk import export_attack_path_score_context_json_schema
 from agentsec.semantic import (
     export_scenario_metrics_json_schema,
+    export_scenario_replay_json_schema,
     export_semantic_evaluation_json_schema,
+    export_semantic_feedback_json_schemas,
+    export_semantic_gate_corpus_json_schemas,
+    export_semantic_gate_evaluation_json_schemas,
+    export_semantic_gate_json_schemas,
+    export_semantic_gate_pilot_json_schemas,
     export_semantic_integration_json_schemas,
     export_semantic_invocation_json_schemas,
     export_semantic_json_schemas,
@@ -51,6 +63,7 @@ from agentsec.semantic import (
     export_semantic_promotion_json_schemas,
     export_semantic_qualification_json_schema,
     export_semantic_rule_promotion_json_schema,
+    export_semantic_shadow_mode_json_schema,
     export_semantic_trial_json_schemas,
 )
 from agentsec.vulnerabilities import (
@@ -72,6 +85,9 @@ def main() -> None:
     export_agent_manifest_json_schema(schema_root / "manifest")
     export_agentic_assessment_json_schema(schema_root / "agentic-assessment")
     export_score_context_json_schema(schema_root / "score-context")
+    export_attack_path_score_context_json_schema(
+        schema_root / "score-context" / "attack-path-score-context.schema.json"
+    )
     export_semantic_json_schemas(schema_root / "semantic-analysis")
     export_semantic_invocation_json_schemas(schema_root / "semantic-analysis")
     export_semantic_evaluation_json_schema(
@@ -102,8 +118,30 @@ def main() -> None:
         / "semantic-analysis"
         / "semantic-scenario-metrics-report.schema.json"
     )
+    export_scenario_replay_json_schema(
+        schema_root / "semantic-analysis" / "semantic-scenario-replay-suite.schema.json"
+    )
+    export_semantic_shadow_mode_json_schema(
+        schema_root / "semantic-analysis" / "semantic-shadow-mode-report.schema.json"
+    )
+    export_semantic_feedback_json_schemas(schema_root / "semantic-analysis")
+    export_semantic_gate_json_schemas(schema_root / "semantic-analysis")
+    export_semantic_gate_corpus_json_schemas(schema_root / "semantic-analysis")
+    export_semantic_gate_pilot_json_schemas(schema_root / "semantic-analysis")
+    export_semantic_gate_evaluation_json_schemas(schema_root / "semantic-analysis")
     export_attack_graph_json_schema(
         schema_root / "attack-graph" / "capability-attack-graph.schema.json"
+    )
+    export_attack_path_report_json_schema(
+        schema_root / "attack-graph" / "attack-path-report.schema.json"
+    )
+    export_attack_path_evidence_association_json_schema(
+        schema_root
+        / "attack-graph"
+        / "attack-path-evidence-association-report.schema.json"
+    )
+    export_attack_path_calibration_json_schema(
+        schema_root / "attack-graph" / "attack-path-calibration-report.schema.json"
     )
     export_capability_diff_json_schema(schema_root / "capability-diff")
     export_capability_assessment_json_schema(schema_root / "capability-assessment")
