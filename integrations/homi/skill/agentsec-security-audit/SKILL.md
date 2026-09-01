@@ -117,3 +117,31 @@ Do not edit Agent files in response to a finding. If the user requests remediati
 - Read `references/integration-contract.md` when integrating this Skill into Homi or another host.
 - Read `references/report-interpretation.md` when converting JSON into a user-facing summary.
 - Read `references/security-boundary.md` when configuring sandboxing, permissions, or scheduled runs.
+
+## Report presentation and Homi drift
+
+The human-facing report contract has two complementary forms:
+
+- Markdown (`homi-pilot-report.md`) for chat, review comments, and terminal use;
+- self-contained HTML (`homi-pilot-report.html`) for direct browser display in Homi;
+- JSON (`homi-pilot-report.json`) for machine consumption and downstream integrations.
+
+`agentsec homi report` writes JSON, Markdown, and HTML by default. Use
+`--no-html` only when a host explicitly cannot store HTML. The HTML is generated
+from the same validated `HomiPilotReport` as JSON/Markdown and includes status,
+coverage, separately scoped Unknown metrics, capability states, evidence file
+locations, Finding severity/score/confidence, safe-simulation boundaries, and
+limitations. It contains no raw secret values and no remote assets.
+
+Compare two report snapshots with:
+
+```bash
+agentsec homi diff \
+  --before /path/to/before/homi-pilot-report.json \
+  --after /path/to/after/homi-pilot-report.json \
+  --format json --language zh
+```
+
+Use `--format html` for a visual drift report or `--format text` for a compact
+review summary. This command reports Capability Change and Finding Delta only;
+it does not authorize actions, prove runtime reachability, or block CI.

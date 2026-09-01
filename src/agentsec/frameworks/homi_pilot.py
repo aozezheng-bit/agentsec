@@ -13,6 +13,7 @@ import re
 import stat
 from dataclasses import dataclass
 from enum import StrEnum
+from html import escape
 from pathlib import Path
 from typing import Literal
 
@@ -29,6 +30,8 @@ from agentsec.frameworks.homi import (
 from agentsec.frameworks.homi_combination import (
     HOMI_COMBINATION_RULE_PACK_VERSION,
     DeterministicHomiCombinationRuleEngine,
+    HomiCombinationFinding,
+    HomiCombinationLanguage,
     HomiCombinationRunResult,
 )
 from agentsec.frameworks.homi_policy import (
@@ -336,6 +339,35 @@ class HomiPilotReport:
 
         return False
 
+    @property
+    def coverage_metrics(self) -> dict[str, object]:
+        """Return explicitly scoped static, manifest, and runtime metrics."""
+
+        capability_states = [item.state for item in self.capabilities]
+        file_states = [item.state for item in self.files]
+        return {
+            "capability_total": len(capability_states),
+            "capability_known_count": sum(
+                state is not HomiCapabilityState.UNKNOWN for state in capability_states
+            ),
+            "capability_unknown_count": sum(
+                state is HomiCapabilityState.UNKNOWN for state in capability_states
+            ),
+            "capability_example_only_count": sum(
+                state is HomiCapabilityState.EXAMPLE_ONLY for state in capability_states
+            ),
+            "standard_file_total": len(file_states),
+            "standard_file_missing_count": sum(
+                state is HomiFileState.MISSING for state in file_states
+            ),
+            "standard_file_skipped_count": sum(
+                state is HomiFileState.SKIPPED for state in file_states
+            ),
+            "manifest_unknown_count": None,
+            "runtime_unknown_count": None,
+            "runtime_attestation_status": "not_collected",
+        }
+
     def to_dict(self) -> dict[str, object]:
         return {
             "format": self.format,
@@ -352,6 +384,7 @@ class HomiPilotReport:
             "profile_complete": self.profile_complete,
             "all_standard_files_present": self.all_standard_files_present,
             "resolution_status": self.resolution_status.value,
+            "coverage_metrics": self.coverage_metrics,
             "files": [item.to_dict() for item in self.files],
             "capabilities": [item.to_dict() for item in self.capabilities],
             "persona_signals": [item.to_dict() for item in self.persona_signals],
@@ -630,6 +663,22 @@ def _render_en(report: HomiPilotReport) -> str:
         f"  Standard files present: {report.all_standard_files_present}",
         f"  Resolution: {report.resolution_status.value}",
         "",
+        "Unknown Metrics (scoped)",
+        (
+            "  Capability unknown: "
+            f"{report.coverage_metrics['capability_unknown_count']}"
+        ),
+        (
+            "  Capability example-only: "
+            f"{report.coverage_metrics['capability_example_only_count']}"
+        ),
+        (
+            "  Standard files missing: "
+            f"{report.coverage_metrics['standard_file_missing_count']}"
+        ),
+        "  Runtime unknown: not collected",
+        "  Manifest unknown: not supplied to this report",
+        "",
         "Combination Findings",
         f"  Findings: {len(report.combination_result.findings)}",
         f"  Rule failures: {len(report.combination_result.failures)}",
@@ -675,6 +724,16 @@ def _render_zh(report: HomiPilotReport) -> str:
         f"  六类标准文件均存在：{report.all_standard_files_present}",
         f"  解析状态：{report.resolution_status.value}",
         "",
+        "Unknown 指标（口径分离）",
+        (f"  能力 Unknown：{report.coverage_metrics['capability_unknown_count']}"),
+        (
+            "  能力 example_only："
+            f"{report.coverage_metrics['capability_example_only_count']}"
+        ),
+        (f"  标准文件缺失：{report.coverage_metrics['standard_file_missing_count']}"),
+        "  运行时 Unknown：未采集运行时证明",
+        "  Manifest Unknown：本报告未提供 Manifest",
+        "",
         "组合风险",
         f"  Findings：{len(report.combination_result.findings)}",
         f"  Rule Failures：{len(report.combination_result.failures)}",
@@ -692,6 +751,246 @@ def _render_zh(report: HomiPilotReport) -> str:
     ]
     lines.extend(f"  - {item}" for item in report.limitations)
     return "\n".join(lines) + "\n"
+
+
+def render_homi_pilot_html(
+    report: HomiPilotReport,
+    *,
+    language: HomiPilotLanguage = HomiPilotLanguage.ZH,
+) -> str:
+    """Render a self-contained, source-free HTML Homi security report."""
+
+    if not isinstance(report, HomiPilotReport):
+        raise TypeError("Homi Pilot HTML renderer requires HomiPilotReport")
+    if not isinstance(language, HomiPilotLanguage):
+        raise TypeError("Homi Pilot language is invalid")
+
+    from importlib.resources import files
+    from string import Template
+
+    chinese = language is HomiPilotLanguage.ZH
+    metrics = report.coverage_metrics
+    findings = report.combination_result.findings
+    title = (
+        "AgentSec Homi Agent 安全报告"
+        if chinese
+        else "AgentSec Homi Agent Security Report"
+    )
+    copy = _html_copy(chinese)
+    standard_total = _metric_int(metrics, "standard_file_total")
+    standard_missing = _metric_int(metrics, "standard_file_missing_count")
+    substitutions = {
+        "language": "zh-CN" if chinese else "en",
+        "title": escape(title),
+        "project_name": escape(report.project_name),
+        "pilot_id": escape(report.pilot_id),
+        "status_label": escape(_homi_status_label(report, chinese)),
+        "highest_risk": escape(_highest_homi_risk(findings)),
+        "finding_count": str(len(findings)),
+        "summary_title": escape(copy["summary_title"]),
+        "summary": escape(copy["summary"]),
+        "coverage_title": escape(copy["coverage_title"]),
+        "capability_total_label": escape(copy["capability_total"]),
+        "capability_total": str(metrics["capability_total"]),
+        "capability_unknown_label": escape(copy["capability_unknown"]),
+        "capability_unknown": str(metrics["capability_unknown_count"]),
+        "example_only_label": escape(copy["example_only"]),
+        "example_only": str(metrics["capability_example_only_count"]),
+        "standard_files_label": escape(copy["standard_files"]),
+        "standard_files": f"{standard_total - standard_missing}/{standard_total}",
+        "runtime_unknown_label": escape(copy["runtime_unknown"]),
+        "runtime_unknown": escape("未采集" if chinese else "Not collected"),
+        "manifest_unknown_label": escape(copy["manifest_unknown"]),
+        "manifest_unknown": escape("未提供" if chinese else "Not supplied"),
+        "findings_title": escape(copy["findings_title"]),
+        "finding_cards": _render_homi_finding_cards(report, chinese),
+        "capabilities_title": escape(copy["capabilities_title"]),
+        "state_label": escape(copy["state"]),
+        "confidence_label": escape(copy["confidence"]),
+        "evidence_files_label": escape(copy["evidence_files"]),
+        "capability_rows": _render_homi_capability_rows(report),
+        "files_title": escape(copy["files_title"]),
+        "file_rows": _render_homi_file_rows(report),
+        "boundary_title": escape(copy["boundary_title"]),
+        "simulation": escape(copy["simulation"]),
+        "runtime_verified": escape(copy["runtime_verified"]),
+        "ci_blocked": escape(copy["ci_blocked"]),
+        "limitations_title": escape(copy["limitations_title"]),
+        "limitations": "".join(
+            f"<li>{escape(item)}</li>" for item in report.limitations
+        ),
+        "footer": escape(copy["footer"]),
+        "adapter_version": escape(report.adapter_version),
+        "evidence_mode": escape(report.evidence_mode),
+    }
+    template = files("agentsec").joinpath("templates/homi_pilot_report.html")
+    return Template(template.read_text(encoding="utf-8")).safe_substitute(substitutions)
+
+
+def _metric_int(metrics: dict[str, object], key: str) -> int:
+    value = metrics.get(key)
+    if not isinstance(value, int):
+        raise ValueError(f"Homi coverage metric {key} must be an integer")
+    return value
+
+
+def _homi_status_label(report: HomiPilotReport, chinese: bool) -> str:
+    if chinese:
+        return "完整" if report.status.value == "complete" else "部分"
+    return report.status.value.title()
+
+
+def _highest_homi_risk(findings: tuple[HomiCombinationFinding, ...]) -> str:
+    rank = {"none": 0, "low": 1, "medium": 2, "high": 3, "critical": 4}
+    values = [item.impact.value for item in findings]
+    return max(values, key=lambda value: rank.get(value, 0), default="none")
+
+
+def _html_copy(chinese: bool) -> dict[str, str]:
+    if chinese:
+        return {
+            "summary_title": "结论摘要",
+            "summary": (
+                "这是一次只读、静态、报告型安全评估。"
+                "它展示 Agent 文件表达的能力和组合风险，"
+                "不证明运行时可达性，也不会自动修改 Agent 或阻断 CI。"
+            ),
+            "coverage_title": "覆盖与 Unknown 指标",
+            "capability_total": "能力总数",
+            "capability_unknown": "能力 Unknown",
+            "example_only": "示例能力",
+            "standard_files": "标准文件",
+            "runtime_unknown": "运行时 Unknown",
+            "manifest_unknown": "Manifest Unknown",
+            "findings_title": "风险 Findings",
+            "capabilities_title": "能力画像",
+            "files_title": "标准文件状态",
+            "boundary_title": "安全模拟与边界",
+            "simulation": "模拟只生成内存中的决策路径，不执行任何外部动作。",
+            "runtime_verified": "运行时验证：",
+            "ci_blocked": "CI 阻断：",
+            "limitations_title": "限制",
+            "state": "状态",
+            "confidence": "证据置信度",
+            "evidence_files": "证据文件",
+            "footer": "不读取或展示原始 Secret 值。",
+        }
+    return {
+        "summary_title": "Executive Summary",
+        "summary": (
+            "This is a read-only static report-only assessment. "
+            "It shows capabilities expressed by Agent files and combination risks; "
+            "it does not prove runtime reachability, modify the Agent, or block CI."
+        ),
+        "coverage_title": "Coverage and Unknown Metrics",
+        "capability_total": "Capabilities total",
+        "capability_unknown": "Capability unknown",
+        "example_only": "Example-only",
+        "standard_files": "Standard files",
+        "runtime_unknown": "Runtime unknown",
+        "manifest_unknown": "Manifest unknown",
+        "findings_title": "Risk Findings",
+        "capabilities_title": "Capability Profile",
+        "files_title": "Standard File Status",
+        "boundary_title": "Safe Simulation and Boundaries",
+        "simulation": (
+            "Simulation produces in-memory decision paths only; "
+            "no external action is executed."
+        ),
+        "runtime_verified": "Runtime verified: ",
+        "ci_blocked": "CI blocked: ",
+        "limitations_title": "Limitations",
+        "state": "State",
+        "confidence": "Confidence",
+        "evidence_files": "Evidence files",
+        "footer": "Raw secret values are not read or displayed.",
+    }
+
+
+def _render_homi_finding_cards(report: HomiPilotReport, chinese: bool) -> str:
+    findings = report.combination_result.findings
+    if not findings:
+        label = "暂无组合风险 Finding。" if chinese else "No combination Findings."
+        return f"<div class='empty'>{escape(label)}</div>"
+    language = HomiCombinationLanguage.ZH if chinese else HomiCombinationLanguage.EN
+    cards: list[str] = []
+    for finding in findings:
+        text = finding.text_for(language)
+        paths = sorted(
+            {
+                source.path
+                for evidence in finding.evidence
+                for source in evidence.sources
+            }
+        )
+        evidence = "".join(f"<li>{escape(path)}</li>" for path in paths)
+        severity = escape(finding.impact.value)
+        limitation = (
+            finding.limitations[0]
+            if finding.limitations
+            else (
+                "静态证据不等同于运行时证明。"
+                if chinese
+                else "Static evidence is not runtime proof."
+            )
+        )
+        cards.append(
+            "<article class='finding finding-{severity}'>"
+            "<div class='finding-head'>"
+            "<span class='badge badge-{severity}'>{severity}</span>"
+            "<strong>{rule_id}</strong>"
+            "<span class='score'>score {score:.1f}</span></div>"
+            "<h3>{title}</h3><p>{description}</p>"
+            "<div class='finding-meta'>"
+            "<span>{confidence}: {confidence_value}</span>"
+            "<span>{likelihood}: {likelihood_value}</span></div>"
+            "<details><summary>{evidence_label}</summary>"
+            "<ul>{evidence}</ul><p class='muted'>{limitation}</p>"
+            "</details></article>".format(
+                severity=severity,
+                rule_id=escape(finding.rule_id),
+                score=finding.score,
+                title=escape(text.title),
+                description=escape(text.description),
+                confidence="证据置信度" if chinese else "Evidence confidence",
+                confidence_value=escape(finding.confidence.value),
+                likelihood="可能性" if chinese else "Likelihood",
+                likelihood_value=escape(finding.likelihood.value),
+                evidence_label="查看证据位置" if chinese else "View evidence locations",
+                evidence=evidence or "<li>—</li>",
+                limitation=escape(limitation),
+            )
+        )
+    return "".join(cards)
+
+
+def _render_homi_capability_rows(report: HomiPilotReport) -> str:
+    rows = []
+    for item in report.capabilities:
+        state = item.state.value
+        state_class = escape(state.replace("_", "-"))
+        sources = ", ".join(item.source_paths) or "—"
+        rows.append(
+            f"<tr><td>{escape(item.signal_id)}</td>"
+            f"<td><span class='state state-{state_class}'>{escape(state)}</span></td>"
+            f"<td>{escape(item.confidence)}</td>"
+            f"<td>{escape(sources)}</td></tr>"
+        )
+    return "".join(rows)
+
+
+def _render_homi_file_rows(report: HomiPilotReport) -> str:
+    rows = []
+    for item in report.files:
+        state = item.state.value
+        size = str(item.size_bytes) if item.size_bytes is not None else "—"
+        lines = str(item.line_count) if item.line_count is not None else "—"
+        rows.append(
+            f"<tr><td>{escape(item.name)}</td>"
+            f"<td><span class='state state-{escape(state)}'>{escape(state)}</span></td>"
+            f"<td>{size}</td><td>{lines}</td></tr>"
+        )
+    return "".join(rows)
 
 
 def _validated_directory(path: Path, label: str) -> Path:
@@ -757,5 +1056,6 @@ __all__ = [
     "HomiPilotSignalSummary",
     "HomiPilotStatus",
     "encode_homi_pilot_json",
+    "render_homi_pilot_html",
     "render_homi_pilot_text",
 ]

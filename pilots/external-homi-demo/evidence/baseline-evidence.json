@@ -31,7 +31,7 @@
     "profile_complete": false,
     "report_only": true,
     "runtime_verified": false,
-    "sha256": "782780c50cb7d8283e5f81480211c49f207d9f37275bf88c9fb7af66c71dbbaf",
+    "sha256": "f15912b3f8d2a04db54235417512a7e11829a26c7114f34a488d7037f7c15ec8",
     "status": "partial"
   },
   "review": {
@@ -59,7 +59,7 @@
   "validation": {
     "api_cli_byte_identical": true,
     "cli_report_path": "evidence/cli-validation-report.json",
-    "cli_report_sha256": "782780c50cb7d8283e5f81480211c49f207d9f37275bf88c9fb7af66c71dbbaf",
+    "cli_report_sha256": "f15912b3f8d2a04db54235417512a7e11829a26c7114f34a488d7037f7c15ec8",
     "heartbeat_template_calibration": "pass"
   },
   "workspace": {

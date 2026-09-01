@@ -10,6 +10,13 @@ Coverage
   Standard files present: False
   Resolution: partial
 
+Unknown Metrics (scoped)
+  Capability unknown: 9
+  Capability example-only: 1
+  Standard files missing: 1
+  Runtime unknown: not collected
+  Manifest unknown: not supplied to this report
+
 Combination Findings
   Findings: 3
   Rule failures: 0

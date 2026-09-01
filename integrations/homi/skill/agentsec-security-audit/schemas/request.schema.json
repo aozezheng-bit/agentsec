@@ -4,16 +4,51 @@
   "title": "AgentSec Homi Skill Request",
   "type": "object",
   "additionalProperties": false,
-  "required": ["workspace"],
+  "required": [
+    "workspace"
+  ],
   "properties": {
-    "workspace": { "type": "string", "minLength": 1, "maxLength": 4096 },
+    "workspace": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096
+    },
     "operation": {
       "type": "string",
-      "enum": ["scan", "report", "capability", "diff", "score", "attack-graph"],
+      "enum": [
+        "scan",
+        "report",
+        "capability",
+        "diff",
+        "score",
+        "attack-graph"
+      ],
       "default": "scan"
     },
-    "baseline": { "type": ["string", "null"], "maxLength": 4096 },
-    "language": { "type": "string", "enum": ["zh", "en"], "default": "zh" },
-    "output_format": { "type": "string", "enum": ["json", "text", "sarif"], "default": "json" }
+    "baseline": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 4096
+    },
+    "language": {
+      "type": "string",
+      "enum": [
+        "zh",
+        "en"
+      ],
+      "default": "zh"
+    },
+    "output_format": {
+      "type": "string",
+      "enum": [
+        "json",
+        "text",
+        "html",
+        "sarif"
+      ],
+      "default": "json"
+    }
   }
 }

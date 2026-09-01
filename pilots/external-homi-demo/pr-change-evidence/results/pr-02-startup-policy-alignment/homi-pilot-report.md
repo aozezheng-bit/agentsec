@@ -10,6 +10,13 @@ Coverage
   Standard files present: True
   Resolution: resolved
 
+Unknown Metrics (scoped)
+  Capability unknown: 6
+  Capability example-only: 4
+  Standard files missing: 0
+  Runtime unknown: not collected
+  Manifest unknown: not supplied to this report
+
 Combination Findings
   Findings: 3
   Rule failures: 0

@@ -99,6 +99,22 @@ _HOMI_SIMULATION_EXPORTS = frozenset(
         "render_homi_safe_simulation_text",
     }
 )
+_HOMI_DIFF_EXPORTS = frozenset(
+    {
+        "HOMI_CAPABILITY_DIFF_FORMAT",
+        "HOMI_CAPABILITY_DIFF_VERSION",
+        "HomiCapabilityChange",
+        "HomiCapabilityChangeType",
+        "HomiCapabilityDiffError",
+        "HomiCapabilityDiffReport",
+        "HomiFindingDelta",
+        "HomiFindingDeltaType",
+        "compare_homi_reports",
+        "encode_homi_capability_diff_json",
+        "render_homi_capability_diff_html",
+        "render_homi_capability_diff_text",
+    }
+)
 _HOMI_PILOT_EXPORTS = frozenset(
     {
         "HOMI_PILOT_EVIDENCE_MODE",
@@ -116,6 +132,7 @@ _HOMI_PILOT_EXPORTS = frozenset(
         "HomiPilotSignalSummary",
         "HomiPilotStatus",
         "encode_homi_pilot_json",
+        "render_homi_pilot_html",
         "render_homi_pilot_text",
     }
 )
@@ -126,6 +143,8 @@ def __getattr__(name: str) -> Any:
 
     if name in _HOMI_COMBINATION_EXPORTS:
         module = import_module(".homi_combination", __name__)
+    elif name in _HOMI_DIFF_EXPORTS:
+        module = import_module(".homi_diff", __name__)
     elif name in _HOMI_SIMULATION_EXPORTS:
         module = import_module(".homi_simulation", __name__)
     elif name in _HOMI_PILOT_EXPORTS:
@@ -160,6 +179,18 @@ __all__ = [
     "HomiFileState",
     "HomiWorkspaceFile",
     "HomiWorkspaceInspection",
+    "HOMI_CAPABILITY_DIFF_FORMAT",
+    "HOMI_CAPABILITY_DIFF_VERSION",
+    "HomiCapabilityChange",
+    "HomiCapabilityChangeType",
+    "HomiCapabilityDiffError",
+    "HomiCapabilityDiffReport",
+    "HomiFindingDelta",
+    "HomiFindingDeltaType",
+    "compare_homi_reports",
+    "encode_homi_capability_diff_json",
+    "render_homi_capability_diff_html",
+    "render_homi_capability_diff_text",
     "HomiAuthorityDomain",
     "HomiObservationCode",
     "HomiObservationKind",
@@ -216,6 +247,7 @@ __all__ = [
     "HomiPilotSignalSummary",
     "HomiPilotStatus",
     "encode_homi_pilot_json",
+    "render_homi_pilot_html",
     "render_homi_pilot_text",
     "HomiAvatarKind",
     "HOMI_PROFILE_MODEL_VERSION",

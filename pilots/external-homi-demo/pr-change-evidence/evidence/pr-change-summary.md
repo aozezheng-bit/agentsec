@@ -1,6 +1,6 @@
 # P2-EXIT-06-03 Homi PR/Change Drift Evidence
 
-- Collection date: 2026-08-26
+- Collection date: 2026-09-01
 - PR snapshots: 10
 - Contract passes: 10
 - Calibration-required scenarios: 0

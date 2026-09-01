@@ -27,6 +27,7 @@ def test_homi_skill_contains_required_contract_files() -> None:
         "commands/diff.sh",
         "commands/score.sh",
         "commands/attack-graph.sh",
+        "commands/homi-diff.sh",
         "tests/smoke.sh",
     )
     for relative in required:
@@ -64,3 +65,32 @@ def test_homi_skill_shell_entrypoints_are_executable_and_do_not_use_eval() -> No
     for path in (SKILL / "commands").glob("*.sh"):
         assert os.access(path, os.X_OK), path
         assert "eval " not in path.read_text(encoding="utf-8")
+
+
+def test_homi_capability_diff_schema_is_strict_and_versioned() -> None:
+    path = SKILL / "schemas" / "capability-diff.schema.json"
+    payload = json.loads(path.read_text(encoding="utf-8"))
+
+    assert payload["$schema"] == "https://json-schema.org/draft/2020-12/schema"
+    assert payload["$id"].endswith("/homi-capability-diff.schema.json")
+    assert payload["additionalProperties"] is False
+    assert payload["properties"]["format"]["const"] == ("agentsec-homi-capability-diff")
+    assert payload["properties"]["format_version"]["const"] == "0.1.0"
+    assert set(payload["required"]) == {
+        "format",
+        "format_version",
+        "complete",
+        "before_report_sha256",
+        "after_report_sha256",
+        "before_status",
+        "after_status",
+        "before_coverage_metrics",
+        "after_coverage_metrics",
+        "capability_changes",
+        "capability_change_summary",
+        "finding_deltas",
+        "finding_delta_summary",
+        "risk_score",
+        "authority",
+    }
+    assert payload["$defs"]["ReportOnlyAuthority"]["additionalProperties"] is False

@@ -43,7 +43,7 @@ def test_py_typed_is_packaged_by_project_configuration() -> None:
     assert (ROOT / "src" / "agentsec" / "py.typed").is_file()
     pyproject = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
     manifest = (ROOT / "MANIFEST.in").read_text(encoding="utf-8")
-    assert 'agentsec = ["py.typed"]' in pyproject
+    assert 'agentsec = ["py.typed", "templates/*.html"]' in pyproject
     assert "include src/agentsec/py.typed" in manifest
 
 

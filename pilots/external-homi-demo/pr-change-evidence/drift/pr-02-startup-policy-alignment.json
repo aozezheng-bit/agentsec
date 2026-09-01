@@ -56,9 +56,9 @@
     "No drift result authorizes CI blocking, release, Tool access, or a waiver."
   ],
   "provenance": {
-    "baseline_report_sha256": "782780c50cb7d8283e5f81480211c49f207d9f37275bf88c9fb7af66c71dbbaf",
+    "baseline_report_sha256": "f15912b3f8d2a04db54235417512a7e11829a26c7114f34a488d7037f7c15ec8",
     "snapshot_archive_sha256": "2a999363b3f672b4e7aa88da5d822d741a9ff29d4eedbebf0359c56fc10dd8b1",
-    "snapshot_report_sha256": "4ce3a52086a550b40fdf439c3ac39433c88552dd9fc140fb050d95e74cb5d408"
+    "snapshot_report_sha256": "233b1dbb6effc13ac1c9d5d4edcd50d1960e6e1f54d9fc8a6f91e4b31c3a0b53"
   },
   "review": {
     "contract_pass": true,

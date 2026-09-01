@@ -10,6 +10,13 @@ Pilot：pr-05-remove-external-approval-boundary
   六类标准文件均存在：True
   解析状态：conflict
 
+Unknown 指标（口径分离）
+  能力 Unknown：6
+  能力 example_only：4
+  标准文件缺失：0
+  运行时 Unknown：未采集运行时证明
+  Manifest Unknown：本报告未提供 Manifest
+
 组合风险
   Findings：3
   Rule Failures：0

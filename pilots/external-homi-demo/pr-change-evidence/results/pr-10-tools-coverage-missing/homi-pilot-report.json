@@ -496,6 +496,18 @@
     "rule_pack_version": "0.1.0",
     "suppressed_example_capabilities": []
   },
+  "coverage_metrics": {
+    "capability_example_only_count": 1,
+    "capability_known_count": 13,
+    "capability_total": 22,
+    "capability_unknown_count": 9,
+    "manifest_unknown_count": null,
+    "runtime_attestation_status": "not_collected",
+    "runtime_unknown_count": null,
+    "standard_file_missing_count": 1,
+    "standard_file_skipped_count": 0,
+    "standard_file_total": 6
+  },
   "evidence_mode": "external_report_only",
   "files": [
     {

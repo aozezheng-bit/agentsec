@@ -10,6 +10,13 @@ Pilot：pr-10-tools-coverage-missing
   六类标准文件均存在：False
   解析状态：partial
 
+Unknown 指标（口径分离）
+  能力 Unknown：9
+  能力 example_only：1
+  标准文件缺失：1
+  运行时 Unknown：未采集运行时证明
+  Manifest Unknown：本报告未提供 Manifest
+
 组合风险
   Findings：3
   Rule Failures：0

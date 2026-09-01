@@ -31,17 +31,17 @@
     "missing_sdist_metadata": [],
     "missing_sdist_schemas": [],
     "missing_wheel_files": [],
-    "sdist_file_count": 2603,
-    "wheel_file_count": 224
+    "sdist_file_count": 2642,
+    "wheel_file_count": 227
   },
   "artifacts": {
     "agentsec-0.4.0-py3-none-any.whl": {
-      "sha256": "3f9ece4cd6b335675bbcbdc6d8b580123904eb0535b7aee9f774a58ecb66f35f",
-      "size_bytes": 716027
+      "sha256": "753f1f22fe4165aed61c2de3b5557f8e1e2561f98df00a376e63f6ccda89f4c5",
+      "size_bytes": 728235
     },
     "agentsec-0.4.0.tar.gz": {
-      "sha256": "2b5c31f51a76aa1fb93067834173dd892101068cba8d93ba4e72d4accfb1054f",
-      "size_bytes": 2199274
+      "sha256": "83d14fc5e8dd4c5aaac39e8972bf6dbcedd7b56841f135175ffff4cc38bc28d0",
+      "size_bytes": 2224345
     }
   },
   "candidate_artifacts_differ_from_preserved": true,
@@ -86,8 +86,8 @@
   "scanned_content_executed": false,
   "signature": "not_claimed",
   "slsa_provenance": "not_claimed",
-  "source_inventory_file_count": 301,
-  "source_inventory_sha256": "095e9750d84a1df0cf66799cd4ba0d49104fb0efe6f04c99ecbac6d5c6fd07c7",
+  "source_inventory_file_count": 302,
+  "source_inventory_sha256": "83397b942af120ba596bbe210009dd41ba707bbd4537982f5c89592fb0b88f24",
   "status": "reconciled",
   "task_id": "P3-REL-03"
 }

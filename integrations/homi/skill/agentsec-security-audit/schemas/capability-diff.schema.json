@@ -1,0 +1,177 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agentsec.local/schemas/homi-capability-diff.schema.json",
+  "title": "AgentSec Homi Capability Diff",
+  "description": "Strict report-only Capability Diff and Finding Delta contract for two Homi Pilot reports.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "format",
+    "format_version",
+    "complete",
+    "before_report_sha256",
+    "after_report_sha256",
+    "before_status",
+    "after_status",
+    "before_coverage_metrics",
+    "after_coverage_metrics",
+    "capability_changes",
+    "capability_change_summary",
+    "finding_deltas",
+    "finding_delta_summary",
+    "risk_score",
+    "authority"
+  ],
+  "properties": {
+    "format": { "const": "agentsec-homi-capability-diff" },
+    "format_version": { "const": "0.1.0" },
+    "complete": { "type": "boolean" },
+    "before_report_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "after_report_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "before_status": { "type": "string", "enum": ["complete", "partial"] },
+    "after_status": { "type": "string", "enum": ["complete", "partial"] },
+    "before_coverage_metrics": { "$ref": "#/$defs/CoverageMetrics" },
+    "after_coverage_metrics": { "$ref": "#/$defs/CoverageMetrics" },
+    "capability_changes": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/CapabilityChange" }
+    },
+    "capability_change_summary": { "$ref": "#/$defs/CapabilityChangeSummary" },
+    "finding_deltas": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/FindingDelta" }
+    },
+    "finding_delta_summary": { "$ref": "#/$defs/FindingDeltaSummary" },
+    "risk_score": { "$ref": "#/$defs/RiskScore" },
+    "authority": { "$ref": "#/$defs/ReportOnlyAuthority" }
+  },
+  "$defs": {
+    "NullableNumber": {
+      "type": ["number", "null"]
+    },
+    "CoverageMetric": {
+      "type": ["integer", "null"],
+      "minimum": 0
+    },
+    "CoverageMetrics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "capability_total",
+        "capability_known_count",
+        "capability_unknown_count",
+        "capability_example_only_count",
+        "standard_file_total",
+        "standard_file_missing_count",
+        "standard_file_skipped_count",
+        "manifest_unknown_count",
+        "runtime_unknown_count",
+        "runtime_attestation_status"
+      ],
+      "properties": {
+        "capability_total": { "$ref": "#/$defs/CoverageMetric" },
+        "capability_known_count": { "$ref": "#/$defs/CoverageMetric" },
+        "capability_unknown_count": { "$ref": "#/$defs/CoverageMetric" },
+        "capability_example_only_count": { "$ref": "#/$defs/CoverageMetric" },
+        "standard_file_total": { "$ref": "#/$defs/CoverageMetric" },
+        "standard_file_missing_count": { "$ref": "#/$defs/CoverageMetric" },
+        "standard_file_skipped_count": { "$ref": "#/$defs/CoverageMetric" },
+        "manifest_unknown_count": { "$ref": "#/$defs/CoverageMetric" },
+        "runtime_unknown_count": { "$ref": "#/$defs/CoverageMetric" },
+        "runtime_attestation_status": {
+          "type": "string",
+          "enum": ["not_collected", "collected", "partial", "invalid"]
+        }
+      }
+    },
+    "CapabilityChange": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "signal_id",
+        "change_type",
+        "before_state",
+        "after_state",
+        "before_source_paths",
+        "after_source_paths"
+      ],
+      "properties": {
+        "signal_id": { "type": "string", "minLength": 1 },
+        "change_type": { "type": "string", "enum": ["added", "removed", "modified"] },
+        "before_state": { "type": "string", "minLength": 1 },
+        "after_state": { "type": "string", "minLength": 1 },
+        "before_source_paths": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "after_source_paths": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "CapabilityChangeSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["added", "removed", "modified"],
+      "properties": {
+        "added": { "type": "integer", "minimum": 0 },
+        "removed": { "type": "integer", "minimum": 0 },
+        "modified": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "FindingDelta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rule_id",
+        "delta_type",
+        "before_severity",
+        "after_severity",
+        "before_score",
+        "after_score"
+      ],
+      "properties": {
+        "rule_id": { "type": "string", "minLength": 1 },
+        "delta_type": { "type": "string", "enum": ["added", "resolved", "changed", "unchanged"] },
+        "before_severity": { "type": ["string", "null"] },
+        "after_severity": { "type": ["string", "null"] },
+        "before_score": { "$ref": "#/$defs/NullableNumber" },
+        "after_score": { "$ref": "#/$defs/NullableNumber" }
+      }
+    },
+    "FindingDeltaSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["added", "resolved", "changed", "unchanged"],
+      "properties": {
+        "added": { "type": "integer", "minimum": 0 },
+        "resolved": { "type": "integer", "minimum": 0 },
+        "changed": { "type": "integer", "minimum": 0 },
+        "unchanged": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "RiskScore": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "before", "after", "delta", "authority"],
+      "properties": {
+        "kind": { "const": "homi_combination_finding_score_total" },
+        "before": { "type": "number", "minimum": 0 },
+        "after": { "type": "number", "minimum": 0 },
+        "delta": { "type": "number" },
+        "authority": { "const": "presentation_only" }
+      }
+    },
+    "ReportOnlyAuthority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["report_only", "runtime_verified", "ci_blocked"],
+      "properties": {
+        "report_only": { "const": true },
+        "runtime_verified": { "const": false },
+        "ci_blocked": { "const": false }
+      }
+    }
+  }
+}
