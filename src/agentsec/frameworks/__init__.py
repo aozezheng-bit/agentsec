@@ -99,6 +99,20 @@ _HOMI_SIMULATION_EXPORTS = frozenset(
         "render_homi_safe_simulation_text",
     }
 )
+_HOMI_BUNDLE_EXPORTS = frozenset(
+    {
+        "HOMI_COMBINED_REPORT_FORMAT",
+        "HOMI_COMBINED_REPORT_VERSION",
+        "HomiCombinedReport",
+        "HomiCombinedReportError",
+        "HomiRecommendation",
+        "build_homi_combined_report",
+        "build_homi_recommendations",
+        "encode_homi_combined_report_json",
+        "render_homi_combined_report_html",
+        "render_homi_combined_report_text",
+    }
+)
 _HOMI_DIFF_EXPORTS = frozenset(
     {
         "HOMI_CAPABILITY_DIFF_FORMAT",
@@ -143,6 +157,8 @@ def __getattr__(name: str) -> Any:
 
     if name in _HOMI_COMBINATION_EXPORTS:
         module = import_module(".homi_combination", __name__)
+    elif name in _HOMI_BUNDLE_EXPORTS:
+        module = import_module(".homi_bundle", __name__)
     elif name in _HOMI_DIFF_EXPORTS:
         module = import_module(".homi_diff", __name__)
     elif name in _HOMI_SIMULATION_EXPORTS:
@@ -200,6 +216,16 @@ __all__ = [
     "HomiVisibility",
     "HomiWorkspacePolicyResolver",
     "HomiWorkspaceResolution",
+    "HOMI_COMBINED_REPORT_FORMAT",
+    "HOMI_COMBINED_REPORT_VERSION",
+    "HomiCombinedReport",
+    "HomiCombinedReportError",
+    "HomiRecommendation",
+    "build_homi_combined_report",
+    "build_homi_recommendations",
+    "encode_homi_combined_report_json",
+    "render_homi_combined_report_html",
+    "render_homi_combined_report_text",
     "HOMI_COMBINATION_RISK_MAPPING_BASIS",
     "HOMI_COMBINATION_RULE_PACK_VERSION",
     "DeterministicHomiCombinationRuleEngine",

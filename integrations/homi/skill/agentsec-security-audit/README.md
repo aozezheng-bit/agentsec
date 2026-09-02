@@ -44,3 +44,17 @@ The Capability Diff JSON artifact follows the strict
 `schemas/capability-diff.schema.json` contract included in this Skill. Its
 `authority` object is fixed to report-only semantics; it cannot be used as a
 runtime attestation, authorization, or CI-blocking decision.
+
+### 联合 HTML 报告
+
+将当前 Pilot 与 Capability Diff 合并为一个中文优先的浏览器报告：
+
+```bash
+commands/bundle.sh /path/to/homi-pilot-report.json \
+  /path/to/homi-capability-diff.json \
+  /tmp/homi-security-report.html
+```
+
+该页面包含当前 Agent 快照、能力/功能解释、能力漂移、可选的四维评分视图、Findings、确定性整改建议和安全边界。若要显示评分雷达图，可在 CLI 中额外传入 `--score agentic-assessment.json`。
+建议可以由 Homi 的 LLM 做脱敏后的语言润色，但 LLM 没有评分、Policy、Hard Gate 或 CI
+决策权。

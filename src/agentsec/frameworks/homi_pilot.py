@@ -926,12 +926,11 @@ def _render_homi_finding_cards(report: HomiPilotReport, chinese: bool) -> str:
         evidence = "".join(f"<li>{escape(path)}</li>" for path in paths)
         severity = escape(finding.impact.value)
         limitation = (
-            finding.limitations[0]
-            if finding.limitations
+            "静态声明不证明运行时 Tool、权限或能力可达性。"
+            if chinese
             else (
-                "静态证据不等同于运行时证明。"
-                if chinese
-                else "Static evidence is not runtime proof."
+                "Static declarations do not prove runtime Tool, permission, or "
+                "capability reachability."
             )
         )
         cards.append(

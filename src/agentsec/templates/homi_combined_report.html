@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="${language}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${title}</title>
+<style>
+:root { color-scheme: light; --ink:#172033; --muted:#667085; --line:#e5e7eb; --panel:#fff; --bg:#f5f7fb; --accent:#315efb; --danger:#c62828; --warn:#b45309; --ok:#16794c; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--ink); font:14px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+main { max-width:1180px; margin:0 auto; padding:28px 20px 56px; }
+.hero { color:#fff; padding:28px; border-radius:18px; background:linear-gradient(135deg,#182848,#315efb); box-shadow:0 12px 30px #1828482b; }
+h1 { margin:0 0 8px; font-size:28px; } h2 { margin:28px 0 12px; font-size:20px; } h3 { margin:8px 0; font-size:16px; }
+.subtitle { color:#dbe5ff; } .hero-grid,.metric-grid,.score-card-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:12px; margin-top:18px; }
+.hero-grid strong,.metric strong { display:block; font-size:25px; margin-top:4px; }
+.card,.finding,.recommendation,.capability-explain,.panel { padding:16px; border:1px solid var(--line); border-radius:14px; background:var(--panel); box-shadow:0 4px 14px #1828480b; }
+.callout { padding:14px 16px; border:1px solid #bfdbfe; border-radius:12px; background:#eff6ff; }
+.finding-grid,.capability-explain-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(310px,1fr)); gap:14px; }
+.finding { border-left:5px solid #f59e0b; } .finding-high,.finding-critical,.recommendation-critical { border-left-color:#dc2626; } .recommendation-high { border-left:5px solid #f97316; } .recommendation-medium { border-left:5px solid #eab308; } .recommendation-low { border-left:5px solid #22c55e; }
+.finding-head { display:flex; gap:12px; align-items:center; flex-wrap:wrap; } .score { margin-left:auto; font-weight:700; }
+.badge { display:inline-block; padding:2px 9px; border-radius:999px; font-size:12px; font-weight:700; } .badge-high,.badge-critical { color:var(--danger); background:#fee2e2; } .badge-medium { color:var(--warn); background:#fef3c7; } .badge-low { color:var(--ok); background:#dcfce7; }
+.state { display:inline-block; padding:2px 9px; border-radius:999px; font-size:12px; } .state-present,.state-conditional { color:#1d4ed8; background:#dbeafe; } .state-unknown { color:#6b7280; background:#f3f4f6; } .state-example-only { color:#92400e; background:#fef3c7; }
+.score-overview { display:flex; gap:32px; align-items:center; flex-wrap:wrap; } .score-overview strong { display:block; font-size:22px; } .overall-number { font-size:42px !important; color:var(--accent); }
+.score-card { padding:16px; border-radius:14px; background:var(--panel); border:1px solid var(--line); border-top:5px solid var(--accent); } .score-card strong { display:block; font-size:30px; } .score-card span { font-weight:700; } .score-card em { display:block; margin-top:5px; color:var(--muted); font-size:12px; font-style:normal; } .score-critical,.score-high { border-top-color:#dc2626; } .score-medium { border-top-color:#eab308; } .score-low { border-top-color:#22c55e; }
+.radar-wrap { display:flex; justify-content:center; padding:14px; } .radar { width:min(100%,380px); height:auto; overflow:visible; } .radar-grid { fill:none; stroke:#dbe3f0; stroke-width:1; } .radar-axis { stroke:#cbd5e1; stroke-width:1; } .radar-data { fill:#315efb55; stroke:#315efb; stroke-width:3; }
+.metric small,.muted,small { color:var(--muted); } ul { margin:8px 0; } .empty { padding:20px; color:var(--muted); text-align:center; } footer { margin-top:30px; color:var(--muted); font-size:12px; }
+@media (max-width:700px) { main { padding:16px 10px 40px; } h1 { font-size:23px; } }
+</style>
+</head>
+<body><main>
+<header class="hero"><h1>${title}</h1><p class="subtitle">${project}</p><div class="hero-grid"><div><span>状态 / Status</span><strong>${status}</strong></div><div><span>Findings</span><strong>${finding_count}</strong></div><div><span>能力总数</span><strong>${capability_total}</strong></div><div><span>能力 Unknown</span><strong>${capability_unknown}</strong></div><div><span>标准文件</span><strong>${standard_files}</strong></div></div></header>
+<section><div class="callout">${summary}</div></section>
+<section><h2>${function_title}</h2>${function_summary}</section>
+<section><h2>${score_title}</h2><div class="card">${score_overview}${radar_chart}${score_cards}</div></section>
+<section><h2>${recommendations_title}</h2><div class="finding-grid">${recommendations}</div></section>
+<section><h2>${pilot_title}</h2><div class="card">${pilot_summary}</div></section>
+<section><h2>${diff_title}</h2><div class="card">${diff_section}</div></section>
+<section><h2>${findings_title}</h2><div class="finding-grid">${finding_cards}</div></section>
+<section><h2>${boundary_title}</h2><div class="card">${boundary}</div></section>
+<footer>${footer}</footer>
+</main></body></html>

@@ -145,3 +145,46 @@ agentsec homi diff \
 Use `--format html` for a visual drift report or `--format text` for a compact
 review summary. This command reports Capability Change and Finding Delta only;
 it does not authorize actions, prove runtime reachability, or block CI.
+
+## Combined report and remediation advice
+
+当需要在一个页面同时展示当前快照、基线能力漂移和风险建议时，先生成
+Pilot JSON 和 Diff JSON，再执行：
+
+```bash
+agentsec homi bundle \
+  --pilot /path/to/homi-pilot-report.json \
+  --diff /path/to/homi-capability-diff.json \
+  --score /path/to/agentic-assessment.json \
+  --format html --language zh \
+  --output /path/to/homi-security-report.html --force
+```
+
+`--diff` 和 `--score` 都可省略。未提供 Diff 时只展示当前快照；未提供 Score 时不会虚构
+三轴雷达图或四个评分卡。联合 HTML 是自包含的，
+适合在 Homi 中直接打开；联合 JSON/Text 也使用同一份经过校验的元数据。
+
+报告中的“风险与整改建议”默认由确定性规则生成，建议包括：
+
+- 先确认 Finding 对应能力是否为业务必需；
+- 为执行、外部通信、敏感数据访问增加显式审批和最小权限控制；
+- 对新增/修改能力保留变更原因和审批证据；
+- 补齐缺失文件并消除不应保留的 Unknown。
+
+Homi 可以调用宿主 Agent 的 LLM 对这些建议进行中文润色、排序和面向不同受众的解释，
+但只能向 LLM 提供脱敏后的 Finding、能力状态、Diff 摘要和建议元数据。LLM 输出必须标记为
+“LLM 生成的非权威建议”，不得改变确定性 Finding、Severity、Score、Policy、Hard Gate、
+CI 结果，也不得自动修改 Agent 文件。真实外呼仍需显式 endpoint、凭据、数据驻留、费用和
+组织审批；本 Skill 默认不发起真实 Provider 调用。
+
+调用 Homi LLM 生成建议时，使用
+`references/remediation-advisory-prompt.zh.md`。推荐流程是：
+
+1. AgentSec 生成确定性 Pilot/Diff JSON；
+2. 只提取协议允许的脱敏元数据；
+3. 让 Homi LLM 输出中文建议；
+4. 将其标记为 `generated_by=homi_llm`、`authority=advisory_only`；
+5. 与确定性建议并列展示，不覆盖确定性建议；
+6. 人工确认后再通过独立授权流程修改 Agent。
+
+LLM 建议不能进入 `Finding`、`Score`、`Policy`、`Hard Gate`、`--fail-on` 或 CI 决策链路。

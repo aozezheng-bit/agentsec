@@ -12,6 +12,13 @@ from typing import Annotated
 import typer
 
 from agentsec.cli.exit_codes import ExitCode
+from agentsec.frameworks.homi_bundle import (
+    HomiCombinedReportError,
+    build_homi_combined_report,
+    encode_homi_combined_report_json,
+    render_homi_combined_report_html,
+    render_homi_combined_report_text,
+)
 from agentsec.frameworks.homi_diff import (
     HomiCapabilityDiffError,
     compare_homi_reports,
@@ -49,6 +56,14 @@ class HomiCliFormat(StrEnum):
 
 class HomiDiffFormat(StrEnum):
     """Homi Capability Diff output formats."""
+
+    TEXT = "text"
+    JSON = "json"
+    HTML = "html"
+
+
+class HomiCombinedFormat(StrEnum):
+    """Combined Homi report output formats."""
 
     TEXT = "text"
     JSON = "json"
@@ -304,6 +319,76 @@ def register_homi_commands(
             raise typer.Exit(code=ExitCode.ARTIFACT_ERROR) from error
         except OSError as error:
             typer.echo("Homi Capability Diff artifact output failed safely.", err=True)
+            raise typer.Exit(code=ExitCode.ARTIFACT_ERROR) from error
+
+    @homi_application.command("bundle")
+    def bundle_command(
+        pilot_path: Annotated[
+            Path,
+            typer.Option(
+                "--pilot",
+                help="Sanitized Homi Pilot JSON report for the current snapshot.",
+            ),
+        ],
+        diff_path: Annotated[
+            Path | None,
+            typer.Option(
+                "--diff",
+                help="Optional sanitized Homi Capability Diff JSON report.",
+            ),
+        ] = None,
+        score_path: Annotated[
+            Path | None,
+            typer.Option(
+                "--score",
+                help="Optional deterministic Agentic Score JSON report.",
+            ),
+        ] = None,
+        output_format: Annotated[
+            HomiCombinedFormat,
+            typer.Option(
+                "--format",
+                help="Combined report output format: text, json, or html.",
+                case_sensitive=False,
+            ),
+        ] = HomiCombinedFormat.HTML,
+        language: HomiLanguageOption = HomiPilotLanguage.ZH,
+        output_path: HomiOutputOption = None,
+        force: HomiForceOption = False,
+    ) -> None:
+        """Combine a Homi snapshot, capability drift, and advisory actions."""
+
+        _require_force_output(output_path, force)
+        try:
+            combined = build_homi_combined_report(pilot_path, diff_path, score_path)
+            if output_format is HomiCombinedFormat.JSON:
+                rendered = encode_homi_combined_report_json(combined)
+            elif output_format is HomiCombinedFormat.HTML:
+                rendered = render_homi_combined_report_html(
+                    combined, language=language.value
+                )
+            else:
+                rendered = render_homi_combined_report_text(
+                    combined, language=language.value
+                )
+            if output_path is None:
+                typer.echo(rendered, nl=False)
+            else:
+                _write_diff_output(
+                    rendered,
+                    output_path,
+                    force=force,
+                    protected_paths=tuple(
+                        path
+                        for path in (pilot_path, diff_path, score_path)
+                        if path is not None
+                    ),
+                )
+        except HomiCombinedReportError as error:
+            typer.echo(f"Homi combined report input error: {error}", err=True)
+            raise typer.Exit(code=ExitCode.ARTIFACT_ERROR) from error
+        except OSError as error:
+            typer.echo("Homi combined report output failed safely.", err=True)
             raise typer.Exit(code=ExitCode.ARTIFACT_ERROR) from error
 
     @homi_application.command("simulate")
@@ -569,4 +654,9 @@ def _overlaps(left: Path, right: Path) -> bool:
     return left == right or left in right.parents or right in left.parents
 
 
-__all__ = ["HomiCliFormat", "HomiDiffFormat", "register_homi_commands"]
+__all__ = [
+    "HomiCliFormat",
+    "HomiCombinedFormat",
+    "HomiDiffFormat",
+    "register_homi_commands",
+]
