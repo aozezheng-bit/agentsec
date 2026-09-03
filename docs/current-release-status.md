@@ -1025,3 +1025,14 @@ runtime or release authority. The clean candidate branch and Release
 Provenance bundle are complete locally; GitHub/Homi synchronization remains
 paused until the same Wheel is installed in an approved isolated Homi test
 Workspace and its fingerprint is compared.
+
+
+### Homi external verification feedback (2026-09-03)
+
+The first GitHub-candidate Homi isolation run verified the fixed commit, Wheel
+SHA-256, isolated installation, new fingerprint, and seven report artifacts. It
+also exposed an actual export-boundary regression: the target `HEARTBEAT.md`
+was reported as `present` with `tasks_present=true` because Homi-export wrapper
+markers were treated as content. `P3-HOMI-RECAL-07` adds a conservative boundary
+marker fix and regression test. The candidate must be rebuilt and re-run in Homi
+before any merge or Skill promotion.

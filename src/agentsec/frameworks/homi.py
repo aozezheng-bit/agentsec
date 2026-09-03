@@ -58,6 +58,10 @@ _HEARTBEAT_TEMPLATE_MARKERS: Final[tuple[str, ...]] = (
     "heartbeat config",
 )
 _MARKDOWN_LINK_ONLY = re.compile(r"^[-*+]?\s*\[[^\]]+\]\([^)]+\)\s*$")
+_HOMI_FILE_BOUNDARY_MARKER = re.compile(
+    r"^===\s*(?:END\s+)?(?:AGENTS|SOUL|IDENTITY|USER|TOOLS|HEARTBEAT)\.md\s*===$",
+    re.IGNORECASE,
+)
 
 
 class HomiFileRole(StrEnum):
@@ -491,7 +495,9 @@ def _is_empty_homi_content(
         if stripped.startswith("<!--") and stripped.endswith("-->"):
             continue
         if role is HomiFileRole.HEARTBEAT_SCHEDULE and (
-            stripped.startswith("#") or stripped in {"\\", "\\\\"}
+            stripped.startswith("#")
+            or stripped in {"\\", "\\\\"}
+            or _is_homi_boundary_marker(stripped)
         ):
             continue
         return False
@@ -528,7 +534,11 @@ def _looks_like_heartbeat_template(content: str) -> bool:
         if in_fence or not stripped:
             continue
         folded = stripped.casefold()
-        if stripped.startswith("#") or stripped in {"---", "\\", "\\\\"}:
+        if (
+            stripped.startswith("#")
+            or stripped in {"---", "\\", "\\\\"}
+            or _is_homi_boundary_marker(stripped)
+        ):
             continue
         if stripped.startswith("<!--") and stripped.endswith("-->"):
             continue
@@ -538,6 +548,19 @@ def _looks_like_heartbeat_template(content: str) -> bool:
             continue
         return False
     return True
+
+
+def _is_homi_boundary_marker(value: str) -> bool:
+    """Ignore pasted file-boundary wrappers used by Homi export views.
+
+    Some Homi surfaces serialize a file as ``\\=== HEARTBEAT.md ===`` and
+    ``\\=== END HEARTBEAT.md ===``.  These delimiters are transport framing,
+    not workspace instructions.  Only the six fixed Homi filenames are
+    accepted so arbitrary ``===`` content is never discarded.
+    """
+
+    normalized = value.strip().strip("\\").strip()
+    return _HOMI_FILE_BOUNDARY_MARKER.fullmatch(normalized) is not None
 
 
 __all__ = [

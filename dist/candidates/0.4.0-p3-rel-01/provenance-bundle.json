@@ -1,12 +1,12 @@
 {
   "artifacts": {
     "agentsec-0.4.0-py3-none-any.whl": {
-      "sha256": "6b045e11f37ccb3acaf0a9ee11d005b986bacb24ae3b5748af49269367776d96",
-      "size_bytes": 758372
+      "sha256": "c71f66fffdd729d58b1ea9a5e9d6fe871412e7b724ef5cd54644a06290d4b59d",
+      "size_bytes": 758692
     },
     "agentsec-0.4.0.tar.gz": {
-      "sha256": "13472461b382fc0d852dd2de0f6b6d3c6d72e3dd70584a95250f7e389f25c72b",
-      "size_bytes": 2264310
+      "sha256": "20084c73dc08522e76a98fc69167c72fc02d9ae07a2a07968d67e5303a85f1cd",
+      "size_bytes": 2265727
     }
   },
   "authority_boundary": {
@@ -33,27 +33,27 @@
   },
   "files": {
     "dist/candidates/0.4.0-p3-rel-01/SHA256SUMS": {
-      "sha256": "0efc34b6b75f0c707d0e5bf76b8d83dabb36047cbea30c251c747ed3113f099d",
+      "sha256": "05ce77fe40842db7431150da234ebabafc8c7b3af64f32bdbe5e667f236a0188",
       "size_bytes": 186
     },
     "dist/candidates/0.4.0-p3-rel-01/agentsec-0.4.0-py3-none-any.whl": {
-      "sha256": "6b045e11f37ccb3acaf0a9ee11d005b986bacb24ae3b5748af49269367776d96",
-      "size_bytes": 758372
+      "sha256": "c71f66fffdd729d58b1ea9a5e9d6fe871412e7b724ef5cd54644a06290d4b59d",
+      "size_bytes": 758692
     },
     "dist/candidates/0.4.0-p3-rel-01/agentsec-0.4.0.tar.gz": {
-      "sha256": "13472461b382fc0d852dd2de0f6b6d3c6d72e3dd70584a95250f7e389f25c72b",
-      "size_bytes": 2264310
+      "sha256": "20084c73dc08522e76a98fc69167c72fc02d9ae07a2a07968d67e5303a85f1cd",
+      "size_bytes": 2265727
     },
     "dist/candidates/0.4.0-p3-rel-01/reconciliation-report.json": {
-      "sha256": "16b58562271f56480bf71731f25242055086eace0de5dc9c6ab0ef0f8aa677e3",
+      "sha256": "8253768e7fd8d7ee4730b806c1ed89d752d7635b6c33569409071cdf81ea8187",
       "size_bytes": 3092
     },
     "dist/candidates/0.4.0-p3-rel-01/reconciliation-report.md": {
-      "sha256": "e371eda5a343132547819a5a97aa1e8e9d7815455e1fc2509982ed3a9a6c3219",
-      "size_bytes": 1550
+      "sha256": "cc21d02f915cf7440e6d4bcd88237d24cfbc7e6fcd7608accc68f3dae949f644",
+      "size_bytes": 1551
     },
     "dist/candidates/0.4.0-p3-rel-01/release-manifest.json": {
-      "sha256": "f8bdc74ed9cda5ad9299eebfa7313fa52ebba3fe80cad27cdd70ec20e44151f6",
+      "sha256": "0b939f70045a3035540ec6ec586a90ff7c280cf1059ec710576a093fdfcc20a4",
       "size_bytes": 3026
     },
     "requirements/dev.lock": {
@@ -93,18 +93,18 @@
     "format": "agentsec-candidate-artifact-reconciliation-report",
     "format_version": "0.2.0",
     "path": "dist/candidates/0.4.0-p3-rel-01/reconciliation-report.json",
-    "sha256": "16b58562271f56480bf71731f25242055086eace0de5dc9c6ab0ef0f8aa677e3",
+    "sha256": "8253768e7fd8d7ee4730b806c1ed89d752d7635b6c33569409071cdf81ea8187",
     "size_bytes": 3092,
     "task_id": "P3-REL-03"
   },
   "release_manifest": {
     "path": "dist/candidates/0.4.0-p3-rel-01/release-manifest.json",
-    "sha256": "f8bdc74ed9cda5ad9299eebfa7313fa52ebba3fe80cad27cdd70ec20e44151f6",
+    "sha256": "0b939f70045a3035540ec6ec586a90ff7c280cf1059ec710576a093fdfcc20a4",
     "size_bytes": 3026
   },
   "source_inventory": {
     "file_count": 307,
-    "sha256": "7bce209cf29bac235f43791c5d24c976917b2ab23b3faf12c513fd253f7df20d"
+    "sha256": "e28295573d91ffccee8c559964905042442a346354e5ea3492f69ea380b0983c"
   },
   "supply_chain": {
     "files": {

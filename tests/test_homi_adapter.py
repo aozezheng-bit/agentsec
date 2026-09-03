@@ -177,6 +177,30 @@ def test_heartbeat_documentation_template_is_example_only(tmp_path: Path) -> Non
     assert _files_by_name(result)["HEARTBEAT.md"].state is (HomiFileState.EXAMPLE_ONLY)
 
 
+def test_heartbeat_export_boundary_wrappers_are_not_tasks(tmp_path: Path) -> None:
+    project = tmp_path / "homi-agent"
+    project.mkdir()
+    _write(
+        project / "HEARTBEAT.md",
+        r"""\=== HEARTBEAT.md ===
+
+# Keep this file empty (or with only comments) to skip heartbeat API calls.
+\
+\
+
+# Add tasks below when you want the agent to check something periodically.
+
+\
+\
+\=== END HEARTBEAT.md ===
+""",
+    )
+
+    result = HomiAdapter().inspect_workspace(_request(project))
+
+    assert _files_by_name(result)["HEARTBEAT.md"].state is HomiFileState.EMPTY
+
+
 def test_heartbeat_template_with_real_task_is_present(tmp_path: Path) -> None:
     project = tmp_path / "homi-agent"
     project.mkdir()

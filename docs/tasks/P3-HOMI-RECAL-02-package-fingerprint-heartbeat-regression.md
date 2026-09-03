@@ -1,7 +1,7 @@
 # P3-HOMI-RECAL-02：包一致性与 HEARTBEAT 回归
 
 - 日期：2026-09-03
-- 状态：本地实现完成；Homi 远端复核待发布审批
+- 状态：本地实现完成；Homi 远端发现导出边界回归，修复见 P3-HOMI-RECAL-07，需重新复验
 - 目标：解决“版本号相同但实现内容不同”的可观测性问题，并为
   `HEARTBEAT.md` 模板误报提供可重复的本地回归契约。
 
@@ -48,10 +48,10 @@ Homi Pilot 的 JSON、Markdown 和 HTML 保持原有内容契约和历史回放�
 
 ### 4. Heartbeat 模板回归
 
-现有适配器契约继续保持：
+现有适配器契约继续保持；同时兼容 Homi 导出视图的文件边界包装：
 
-- 纯文档/模板 Heartbeat → `example_only`，`tasks_present=false`，不触发
-  `HOMI-COMB-002`；
+- 纯文档/模板 Heartbeat（含 `=== HEARTBEAT.md ===` 导出边界标记）→
+  `empty`/`example_only`，`tasks_present=false`，不触发 `HOMI-COMB-002`；
 - 含真实任务的 Heartbeat → `present`，可按确定性规则触发
   `HOMI-COMB-002`；
 - 两类结果均保持 `runtime_verified=false` 和 report-only。
@@ -59,7 +59,7 @@ Homi Pilot 的 JSON、Markdown 和 HTML 保持原有内容契约和历史回放�
 ## 本地验证
 
 ```text
-Homi 相关定向测试：82 passed（含后续 Sidecar 回归）
+Homi 相关定向测试：以候选分支最终验证结果为准（新增导出边界回归）
 构建指纹新增测试：5 passed
 Ruff（本轮文件）：passed
 ```
