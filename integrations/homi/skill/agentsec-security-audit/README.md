@@ -16,9 +16,15 @@ Install a pinned AgentSec wheel in the Homi runtime, then copy or mount this dir
 commands/scan.sh /path/to/homi-workspace
 commands/report.sh /path/to/homi-workspace /tmp/agentsec-homi-report
 commands/manifest.sh /path/to/homi-workspace
+commands/fingerprint.sh
 ```
 
 The commands are read-only with respect to the target workspace and delegate all analysis to AgentSec.
+
+`fingerprint.sh` records the exact AgentSec package/build identity used by the
+runtime.  Compare its `implementation_digest` and `package_digest` when
+checking whether two Homi installations are actually running the same code;
+the human-readable package version alone is insufficient.
 
 ## Report artifacts
 
@@ -28,6 +34,10 @@ The commands are read-only with respect to the target workspace and delegate all
 homi-pilot-report.json  # stable machine-readable contract
 homi-pilot-report.md    # Markdown review summary
 homi-pilot-report.html  # self-contained browser-viewable report
+homi-build-fingerprint.json  # package/build identity for consistency checks
+homi-operationality.json  # template/latent/active/runtime_attested sidecar
+homi-posture.json  # potential impact vs current posture sidecar
+homi-calibration.json  # calibrated HOMI-COMB-003/004 Finding decisions
 ```
 
 The HTML is suitable for opening directly in Homi or a local browser. It is
@@ -58,3 +68,7 @@ commands/bundle.sh /path/to/homi-pilot-report.json \
 该页面包含当前 Agent 快照、能力/功能解释、能力漂移、可选的四维评分视图、Findings、确定性整改建议和安全边界。若要显示评分雷达图，可在 CLI 中额外传入 `--score agentic-assessment.json`。
 建议可以由 Homi 的 LLM 做脱敏后的语言润色，但 LLM 没有评分、Policy、Hard Gate 或 CI
 决策权。
+
+如果 Pilot 目录中存在同一 SHA-256 绑定的 Operationality、Posture 和 Calibration
+Sidecar，联合报告会自动采用校准后的 Finding 展示，并同时保留原始静态影响分作为审计
+参考。Sidecar 绑定失败时会拒绝生成联合报告。

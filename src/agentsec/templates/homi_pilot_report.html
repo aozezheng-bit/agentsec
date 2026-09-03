@@ -97,13 +97,24 @@ footer { margin-top: 30px; color: var(--muted); font-size: 12px; }
   <p class="subtitle">${project_name} · Pilot ${pilot_id}</p>
   <div class="hero-grid">
     <div><span>状态 / Status</span><strong>${status_label}</strong></div>
-    <div><span>最高风险 / Highest risk</span><strong>${highest_risk}</strong></div>
+    <div><span>${highest_risk_label}</span><strong>${highest_risk}</strong></div>
     <div><span>Findings</span><strong>${finding_count}</strong></div>
   </div>
 </header>
 <section>
   <h2>${summary_title}</h2>
   <div class="callout">${summary}</div>
+</section>
+<section>
+  <h2>${risk_interpretation_title}</h2>
+  <div class="metric-grid">
+    <div class="card metric"><small>${raw_potential_impact_label}</small><strong>${raw_potential_impact}</strong></div>
+    <div class="card metric"><small>${potential_impact_label}</small><strong>${potential_impact}</strong></div>
+    <div class="card metric"><small>${current_posture_label}</small><strong>${current_posture}</strong></div>
+    <div class="card metric"><small>${current_posture_score_label}</small><strong>${current_posture_score}</strong></div>
+    <div class="card metric"><small>${calibrated_findings_label}</small><strong>${calibrated_findings}</strong></div>
+    <div class="card metric"><small>${suppressed_findings_label}</small><strong>${suppressed_findings}</strong></div>
+  </div>
 </section>
 <section>
   <h2>${coverage_title}</h2>
@@ -115,6 +126,10 @@ footer { margin-top: 30px; color: var(--muted); font-size: 12px; }
     <div class="card metric"><small>${runtime_unknown_label}</small><strong>${runtime_unknown}</strong></div>
     <div class="card metric"><small>${manifest_unknown_label}</small><strong>${manifest_unknown}</strong></div>
   </div>
+</section>
+<section>
+  <h2>${calibration_title}</h2>
+  <div class="card"><ul>${calibration_items}</ul></div>
 </section>
 <section>
   <h2>${findings_title}</h2>

@@ -60,6 +60,12 @@ class HomiCombinedReport:
     score_report_sha256: str | None
     function_summary: tuple[dict[str, object], ...]
     recommendations: tuple[HomiRecommendation, ...]
+    operationality_report: dict[str, Any] | None = None
+    operationality_report_sha256: str | None = None
+    posture_report: dict[str, Any] | None = None
+    posture_report_sha256: str | None = None
+    calibration_report: dict[str, Any] | None = None
+    calibration_report_sha256: str | None = None
 
     def to_dict(self) -> dict[str, object]:
         return {
@@ -73,6 +79,12 @@ class HomiCombinedReport:
             "score_report_sha256": self.score_report_sha256,
             "function_summary": list(self.function_summary),
             "recommendations": [item.to_dict() for item in self.recommendations],
+            "operationality_report": self.operationality_report,
+            "operationality_report_sha256": self.operationality_report_sha256,
+            "posture_report": self.posture_report,
+            "posture_report_sha256": self.posture_report_sha256,
+            "calibration_report": self.calibration_report,
+            "calibration_report_sha256": self.calibration_report_sha256,
             "authority": {
                 "report_only": True,
                 "runtime_verified": False,
@@ -99,6 +111,24 @@ def build_homi_combined_report(
     score_digest: str | None = None
     if score_path is not None:
         score, score_digest = _read_score(score_path)
+    operationality, operationality_digest = _read_optional_sidecar(
+        pilot_path,
+        pilot_digest,
+        "homi-operationality.json",
+        "agentsec-homi-operationality",
+    )
+    posture, posture_digest = _read_optional_sidecar(
+        pilot_path,
+        pilot_digest,
+        "homi-posture.json",
+        "agentsec-homi-posture",
+    )
+    calibration, calibration_digest = _read_optional_sidecar(
+        pilot_path,
+        pilot_digest,
+        "homi-calibration.json",
+        "agentsec-homi-calibration",
+    )
     return HomiCombinedReport(
         pilot_report=pilot,
         pilot_report_sha256=pilot_digest,
@@ -107,7 +137,13 @@ def build_homi_combined_report(
         score_report=score,
         score_report_sha256=score_digest,
         function_summary=build_homi_function_summary(pilot),
-        recommendations=build_homi_recommendations(pilot, diff),
+        recommendations=build_homi_recommendations(pilot, diff, calibration),
+        operationality_report=operationality,
+        operationality_report_sha256=operationality_digest,
+        posture_report=posture,
+        posture_report_sha256=posture_digest,
+        calibration_report=calibration,
+        calibration_report_sha256=calibration_digest,
     )
 
 
@@ -193,7 +229,9 @@ def build_homi_function_summary(
 
 
 def build_homi_recommendations(
-    pilot: dict[str, Any], diff: dict[str, Any] | None = None
+    pilot: dict[str, Any],
+    diff: dict[str, Any] | None = None,
+    calibration: dict[str, Any] | None = None,
 ) -> tuple[HomiRecommendation, ...]:
     """Create conservative, deterministic suggestions from report metadata.
 
@@ -203,7 +241,7 @@ def build_homi_recommendations(
     """
 
     recommendations: list[HomiRecommendation] = []
-    findings = _pilot_findings(pilot)
+    findings = _calibrated_findings(pilot, calibration)
     for finding in findings:
         rule_id = _text(finding.get("rule_id"), "未知规则")
         severity = _text(finding.get("impact") or finding.get("severity"), "medium")
@@ -345,8 +383,13 @@ def render_homi_combined_report_text(
     lines = [
         "AgentSec Homi Agent 综合安全报告",
         f"状态：{_status_zh(_text(pilot.get('status'), 'unknown'))}",
-        f"风险 Findings：{len(_pilot_findings(pilot))} 个",
+        (
+            "风险 Findings："
+            f"{len(_calibrated_findings(pilot, report.calibration_report))} 个"
+        ),
         "模式：仅报告；未完成运行时验证；不阻断 CI",
+        "",
+        _posture_text_summary(report.posture_report),
         "",
         "风险建议（仅供人工决策，不自动修改 Agent）",
     ]
@@ -383,7 +426,7 @@ def render_homi_combined_report_html(
     chinese = language == "zh"
     pilot = report.pilot_report
     diff = report.diff_report
-    findings = _pilot_findings(pilot)
+    findings = _calibrated_findings(pilot, report.calibration_report)
     coverage = pilot.get("coverage_metrics")
     coverage = coverage if isinstance(coverage, dict) else {}
     title = (
@@ -411,6 +454,7 @@ def render_homi_combined_report_html(
         "score_overview": _score_overview_html(report.score_report, chinese),
         "score_cards": _score_cards_html(report.score_report, chinese),
         "radar_chart": _radar_chart_svg(report.score_report, chinese),
+        "posture_summary": _posture_summary(report.posture_report, chinese),
         "recommendations_title": escape(labels["recommendations_title"]),
         "recommendations": _recommendation_cards(report.recommendations, chinese),
         "pilot_title": escape(labels["pilot_title"]),
@@ -502,6 +546,99 @@ def _read_json(path: Path, label: str) -> tuple[dict[str, Any], str]:
     if not isinstance(payload, dict):
         raise HomiCombinedReportError(f"{label} JSON must be an object")
     return payload, hashlib.sha256(raw).hexdigest()
+
+
+def _read_optional_sidecar(
+    pilot_path: Path,
+    pilot_digest: str,
+    filename: str,
+    expected_format: str,
+) -> tuple[dict[str, Any] | None, str | None]:
+    """Read a sidecar next to the Pilot report and bind it to its digest."""
+
+    sidecar_path = pilot_path.parent / filename
+    if not sidecar_path.exists():
+        return None, None
+    payload, digest = _read_json(sidecar_path, filename)
+    if payload.get("format") != expected_format:
+        raise HomiCombinedReportError(f"{filename} format is invalid")
+    if payload.get("source_report_sha256") != pilot_digest:
+        raise HomiCombinedReportError(f"{filename} is not bound to the Pilot report")
+    return payload, digest
+
+
+def _calibrated_findings(
+    pilot: dict[str, Any],
+    calibration: dict[str, Any] | None,
+) -> list[dict[str, Any]]:
+    findings = _pilot_findings(pilot)
+    if not isinstance(calibration, dict):
+        return findings
+    retained = calibration.get("retained_findings")
+    if not isinstance(retained, list):
+        return findings
+    retained_ids = {
+        item.get("finding_id")
+        for item in retained
+        if isinstance(item, dict) and isinstance(item.get("finding_id"), str)
+    }
+    if not retained_ids:
+        return []
+    return [
+        finding for finding in findings if finding.get("finding_id") in retained_ids
+    ]
+
+
+def _posture_text_summary(posture: dict[str, Any] | None) -> str:
+    if not isinstance(posture, dict):
+        return "风险口径：未提供 Posture Sidecar；当前态势尚未建立。"
+    raw = _number(posture.get("raw_potential_impact_score"))
+    potential = _number(posture.get("potential_impact_score"))
+    current = _text(posture.get("current_posture"), "not_established")
+    current_score = posture.get("current_posture_score")
+    current_value = (
+        _number(current_score) if isinstance(current_score, (int, float)) else "未建立"
+    )
+    suppressed = _int(posture.get("suppressed_finding_count"))
+    return (
+        f"风险口径：原始静态潜在影响 {raw}，校准后潜在影响 {potential}；"
+        f"当前安全态势 {current}，当前态势分 {current_value}；"
+        f"模板校准抑制 {suppressed} 个 Finding。"
+    )
+
+
+def _posture_summary(posture: dict[str, Any] | None, chinese: bool) -> str:
+    if not isinstance(posture, dict):
+        return (
+            "<div class='callout'>未提供 Posture Sidecar；当前安全态势尚未建立。</div>"
+            if chinese
+            else (
+                "<div class='callout'>No Posture sidecar; current posture is not "
+                "established.</div>"
+            )
+        )
+    raw = _number(posture.get("raw_potential_impact_score"))
+    potential = _number(posture.get("potential_impact_score"))
+    current = _text(posture.get("current_posture"), "not_established")
+    current_score = posture.get("current_posture_score")
+    current_value = (
+        _number(current_score) if isinstance(current_score, (int, float)) else "未建立"
+    )
+    suppressed = _int(posture.get("suppressed_finding_count"))
+    if chinese:
+        text = (
+            f"原始静态潜在影响：{raw}；校准后潜在影响：{potential}；"
+            f"当前安全态势：{current}；当前态势分：{current_value}；"
+            f"模板校准抑制：{suppressed} 个 Finding。"
+        )
+    else:
+        text = (
+            "Raw static potential impact: "
+            f"{raw}; calibrated potential impact: {potential}; "
+            f"current posture: {current}; current posture score: {current_value}; "
+            f"suppressed by template calibration: {suppressed}."
+        )
+    return f"<div class='callout'>{escape(text)}</div>"
 
 
 def _pilot_findings(pilot: dict[str, Any]) -> list[dict[str, Any]]:

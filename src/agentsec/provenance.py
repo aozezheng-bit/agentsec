@@ -299,6 +299,27 @@ def interface_provenance_registry() -> tuple[InterfaceProvenance, ...]:
                     "semantic-gate-report-only-promotion.schema.json"
                 ),
             ),
+            # Homi recalibration sidecar contracts
+            _product(
+                "HOMI_BUILD_PROVENANCE_VERSION",
+                versioning.HOMI_BUILD_PROVENANCE_VERSION,
+                "homi_provenance",
+            ),
+            _report(
+                "HOMI_OPERATIONALITY_OUTPUT_VERSION",
+                versioning.HOMI_OPERATIONALITY_OUTPUT_VERSION,
+                "homi_reports",
+            ),
+            _report(
+                "HOMI_POSTURE_OUTPUT_VERSION",
+                versioning.HOMI_POSTURE_OUTPUT_VERSION,
+                "homi_reports",
+            ),
+            _report(
+                "HOMI_CALIBRATION_OUTPUT_VERSION",
+                versioning.HOMI_CALIBRATION_OUTPUT_VERSION,
+                "homi_reports",
+            ),
             # Scoring and enrichment models
             _product(
                 "AGENTIC_FACTOR_MODEL_VERSION",

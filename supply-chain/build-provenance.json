@@ -1,0 +1,26 @@
+{
+  "format": "agentsec-build-provenance-policy",
+  "format_version": "0.1.0",
+  "package": "agentsec",
+  "package_version": "0.4.0",
+  "build_backend": "setuptools.build_meta",
+  "build_requirements": [
+    "setuptools==84.0.0",
+    "wheel==0.45.1",
+    "build==1.3.0"
+  ],
+  "source_date_epoch_required": true,
+  "reproducible_build_command": "python scripts/verify-reproducible-build.py --source-date-epoch <fixed-epoch>",
+  "release_build_commands": [
+    "python -m build --sdist --wheel --no-isolation --outdir <output>",
+    "python scripts/verify-reproducible-build.py --source-date-epoch <fixed-epoch>"
+  ],
+  "sdist_metadata_normalization": "tar members and gzip mtime normalized to SOURCE_DATE_EPOCH by the verifier",
+  "artifact_signature": "not_claimed",
+  "slsa_provenance": "not_claimed",
+  "notes": [
+    "Artifact signatures and hosted provenance are release-system responsibilities.",
+    "The local verifier compares two isolated Wheel/sdist builds byte-for-byte.",
+    "Scanned Agent content is never executed by package verification."
+  ]
+}

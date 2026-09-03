@@ -1,0 +1,13 @@
+0efc34b6b75f0c707d0e5bf76b8d83dabb36047cbea30c251c747ed3113f099d  dist/candidates/0.4.0-p3-rel-01/SHA256SUMS
+6b045e11f37ccb3acaf0a9ee11d005b986bacb24ae3b5748af49269367776d96  dist/candidates/0.4.0-p3-rel-01/agentsec-0.4.0-py3-none-any.whl
+13472461b382fc0d852dd2de0f6b6d3c6d72e3dd70584a95250f7e389f25c72b  dist/candidates/0.4.0-p3-rel-01/agentsec-0.4.0.tar.gz
+153f0b0c6f3bef44ab7f8c427a9423dda797823a20f973f1e9a625e481f9925b  dist/candidates/0.4.0-p3-rel-01/provenance-bundle.json
+16b58562271f56480bf71731f25242055086eace0de5dc9c6ab0ef0f8aa677e3  dist/candidates/0.4.0-p3-rel-01/reconciliation-report.json
+e371eda5a343132547819a5a97aa1e8e9d7815455e1fc2509982ed3a9a6c3219  dist/candidates/0.4.0-p3-rel-01/reconciliation-report.md
+f8bdc74ed9cda5ad9299eebfa7313fa52ebba3fe80cad27cdd70ec20e44151f6  dist/candidates/0.4.0-p3-rel-01/release-manifest.json
+26acf2bdb7e4e0ddb8792895df9e9480c0fce6a65ecd4fc54b51372726c9b836  requirements/dev.lock
+5940f108ba84be6c72e80c8641953126a427cade618cca01d4740a3e7a12d3ac  requirements/runtime.lock
+75b7bdc7e70511c8ffff0cfa756f674774917f06b6b55ce1df47e6d94d243c62  supply-chain/build-provenance.json
+662e0dc54e1019d460e6c220af6dcc94412b986f0422aaf6e405c781c7ab541b  supply-chain/license-inventory.json
+22b6d989f30780559f52537d8725251abb7e108b46b2caca774feb5fbdb027d9  supply-chain/lockfiles.sha256
+6447af296fe8a84cb54570c052dc1dcfc00ef9281da1bf8c9b84859107917b19  supply-chain/sbom.cdx.json

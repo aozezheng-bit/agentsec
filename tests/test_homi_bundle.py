@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 from pathlib import Path
 
@@ -156,6 +157,71 @@ def test_homi_bundle_cli_writes_chinese_html(tmp_path: Path) -> None:
     assert "三轴风险雷达图" in text
     assert "Overall 综合评分" in text
     assert "不自动修改 Agent" in text
+
+
+def test_combined_report_consumes_bound_calibration_and_posture_sidecars(
+    tmp_path: Path,
+) -> None:
+    pilot_payload = _pilot()
+    # Give the fixture Finding a stable identity so calibration can bind to it.
+    finding = pilot_payload["combination"]["findings"][0]  # type: ignore[index]
+    assert isinstance(finding, dict)
+    finding["finding_id"] = "homi-combination-sha256:" + "a" * 64
+    pilot_path = _write(tmp_path / "homi-pilot-report.json", pilot_payload)
+    pilot_digest = hashlib.sha256(pilot_path.read_bytes()).hexdigest()
+    _write(
+        tmp_path / "homi-calibration.json",
+        {
+            "format": "agentsec-homi-calibration",
+            "source_report_sha256": pilot_digest,
+            "retained_findings": [],
+        },
+    )
+    _write(
+        tmp_path / "homi-posture.json",
+        {
+            "format": "agentsec-homi-posture",
+            "source_report_sha256": pilot_digest,
+            "raw_potential_impact_score": 8.0,
+            "potential_impact_score": 0.0,
+            "current_posture": "not_established",
+            "current_posture_score": None,
+            "suppressed_finding_count": 1,
+        },
+    )
+
+    report = build_homi_combined_report(pilot_path)
+    assert report.calibration_report is not None
+    assert report.posture_report is not None
+    assert report.calibration_report_sha256
+    assert report.posture_report_sha256
+    assert all(
+        "HOMI-COMB-001" not in item.source_ids for item in report.recommendations
+    )
+    html = render_homi_combined_report_html(report, language="zh")
+    assert "校准后潜在影响：0.0" in html
+    assert "模板校准抑制：1 个 Finding" in html
+    assert "暂无风险 Finding" in html
+
+
+def test_combined_report_rejects_sidecar_bound_to_a_different_pilot(
+    tmp_path: Path,
+) -> None:
+    pilot_path = _write(tmp_path / "homi-pilot-report.json", _pilot())
+    _write(
+        tmp_path / "homi-posture.json",
+        {
+            "format": "agentsec-homi-posture",
+            "source_report_sha256": "0" * 64,
+        },
+    )
+
+    try:
+        build_homi_combined_report(pilot_path)
+    except ValueError as error:
+        assert "not bound" in str(error)
+    else:
+        raise AssertionError("unbound sidecar must be rejected")
 
 
 def test_homi_bundle_rejects_non_json_pilot(tmp_path: Path) -> None:

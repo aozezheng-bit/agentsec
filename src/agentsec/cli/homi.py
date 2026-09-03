@@ -19,6 +19,10 @@ from agentsec.frameworks.homi_bundle import (
     render_homi_combined_report_html,
     render_homi_combined_report_text,
 )
+from agentsec.frameworks.homi_calibration import (
+    build_homi_calibration_report,
+    encode_homi_calibration_json,
+)
 from agentsec.frameworks.homi_diff import (
     HomiCapabilityDiffError,
     compare_homi_reports,
@@ -26,7 +30,12 @@ from agentsec.frameworks.homi_diff import (
     render_homi_capability_diff_html,
     render_homi_capability_diff_text,
 )
+from agentsec.frameworks.homi_operationality import (
+    build_homi_operationality_report,
+    encode_homi_operationality_json,
+)
 from agentsec.frameworks.homi_pilot import (
+    HOMI_PILOT_FORMAT_VERSION,
     DeterministicHomiReportOnlyPilot,
     HomiPilotError,
     HomiPilotLanguage,
@@ -35,6 +44,15 @@ from agentsec.frameworks.homi_pilot import (
     encode_homi_pilot_json,
     render_homi_pilot_html,
     render_homi_pilot_text,
+)
+from agentsec.frameworks.homi_posture import (
+    build_homi_posture_report,
+    encode_homi_posture_json,
+)
+from agentsec.frameworks.homi_provenance import (
+    build_homi_build_provenance,
+    encode_homi_build_provenance_json,
+    render_homi_build_provenance_text,
 )
 from agentsec.frameworks.homi_simulation import (
     HomiSafeSimulationRequest,
@@ -162,6 +180,34 @@ def register_homi_commands(
     )
     effective_pilot = pilot or DeterministicHomiReportOnlyPilot()
 
+    @homi_application.command("fingerprint")
+    def fingerprint_command(
+        output_format: HomiFormatOption = HomiCliFormat.JSON,
+        output_path: HomiOutputOption = None,
+        force: HomiForceOption = False,
+    ) -> None:
+        """Print the running AgentSec Homi package/build fingerprint."""
+
+        _require_force_output(output_path, force)
+        try:
+            provenance = build_homi_build_provenance(
+                pilot_format_version=HOMI_PILOT_FORMAT_VERSION
+            )
+            rendered = (
+                encode_homi_build_provenance_json(provenance)
+                if output_format is HomiCliFormat.JSON
+                else render_homi_build_provenance_text(provenance)
+            )
+            if output_path is None:
+                typer.echo(rendered, nl=False)
+            else:
+                _write_diff_output(
+                    rendered, output_path, force=force, protected_paths=()
+                )
+        except (OSError, RuntimeError, ValueError) as error:
+            typer.echo(f"Homi fingerprint failed safely: {error}", err=True)
+            raise typer.Exit(code=ExitCode.ARTIFACT_ERROR) from error
+
     @homi_application.command("scan")
     def scan_command(
         workspace: HomiWorkspaceArgument = Path("."),
@@ -257,6 +303,36 @@ def register_homi_commands(
                     workspace=workspace,
                     force=force,
                 )
+            _write_output(
+                encode_homi_build_provenance_json(
+                    build_homi_build_provenance(
+                        pilot_format_version=HOMI_PILOT_FORMAT_VERSION
+                    )
+                ),
+                output_root / "homi-build-fingerprint.json",
+                workspace=workspace,
+                force=force,
+            )
+            _write_output(
+                encode_homi_operationality_json(
+                    build_homi_operationality_report(report)
+                ),
+                output_root / "homi-operationality.json",
+                workspace=workspace,
+                force=force,
+            )
+            _write_output(
+                encode_homi_posture_json(build_homi_posture_report(report)),
+                output_root / "homi-posture.json",
+                workspace=workspace,
+                force=force,
+            )
+            _write_output(
+                encode_homi_calibration_json(build_homi_calibration_report(report)),
+                output_root / "homi-calibration.json",
+                workspace=workspace,
+                force=force,
+            )
             typer.echo(f"Homi Pilot reports written to {output_root}")
         except HomiPilotError as error:
             typer.echo(f"Homi Pilot configuration error: {error}", err=True)

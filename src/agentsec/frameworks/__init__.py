@@ -129,6 +129,51 @@ _HOMI_DIFF_EXPORTS = frozenset(
         "render_homi_capability_diff_text",
     }
 )
+_HOMI_PROVENANCE_EXPORTS = frozenset(
+    {
+        "HOMI_BUILD_COMMIT_ENVIRONMENT",
+        "HOMI_BUILD_COMMIT_UNAVAILABLE",
+        "HOMI_BUILD_DIGEST_ALGORITHM",
+        "HOMI_BUILD_PROVENANCE_VERSION",
+        "HomiBuildProvenance",
+        "build_homi_build_provenance",
+        "encode_homi_build_provenance_json",
+        "render_homi_build_provenance_text",
+    }
+)
+_HOMI_OPERATIONALITY_EXPORTS = frozenset(
+    {
+        "HOMI_OPERATIONALITY_FORMAT",
+        "HOMI_OPERATIONALITY_FORMAT_VERSION",
+        "HomiOperationality",
+        "HomiOperationalityEntry",
+        "HomiOperationalityReport",
+        "build_homi_operationality_report",
+        "encode_homi_operationality_json",
+    }
+)
+_HOMI_POSTURE_EXPORTS = frozenset(
+    {
+        "HOMI_POSTURE_FORMAT",
+        "HOMI_POSTURE_FORMAT_VERSION",
+        "HomiCurrentPosture",
+        "HomiPostureFinding",
+        "HomiPostureReport",
+        "build_homi_posture_report",
+        "encode_homi_posture_json",
+    }
+)
+_HOMI_CALIBRATION_EXPORTS = frozenset(
+    {
+        "HOMI_CALIBRATION_FORMAT",
+        "HOMI_CALIBRATION_FORMAT_VERSION",
+        "HomiCalibrationDecision",
+        "HomiCalibrationDisposition",
+        "HomiCalibrationReport",
+        "build_homi_calibration_report",
+        "encode_homi_calibration_json",
+    }
+)
 _HOMI_PILOT_EXPORTS = frozenset(
     {
         "HOMI_PILOT_EVIDENCE_MODE",
@@ -163,6 +208,14 @@ def __getattr__(name: str) -> Any:
         module = import_module(".homi_diff", __name__)
     elif name in _HOMI_SIMULATION_EXPORTS:
         module = import_module(".homi_simulation", __name__)
+    elif name in _HOMI_PROVENANCE_EXPORTS:
+        module = import_module(".homi_provenance", __name__)
+    elif name in _HOMI_OPERATIONALITY_EXPORTS:
+        module = import_module(".homi_operationality", __name__)
+    elif name in _HOMI_POSTURE_EXPORTS:
+        module = import_module(".homi_posture", __name__)
+    elif name in _HOMI_CALIBRATION_EXPORTS:
+        module = import_module(".homi_calibration", __name__)
     elif name in _HOMI_PILOT_EXPORTS:
         module = import_module(".homi_pilot", __name__)
     else:
@@ -207,6 +260,35 @@ __all__ = [
     "encode_homi_capability_diff_json",
     "render_homi_capability_diff_html",
     "render_homi_capability_diff_text",
+    "HOMI_BUILD_COMMIT_ENVIRONMENT",
+    "HOMI_BUILD_COMMIT_UNAVAILABLE",
+    "HOMI_BUILD_DIGEST_ALGORITHM",
+    "HOMI_BUILD_PROVENANCE_VERSION",
+    "HomiBuildProvenance",
+    "build_homi_build_provenance",
+    "encode_homi_build_provenance_json",
+    "render_homi_build_provenance_text",
+    "HOMI_OPERATIONALITY_FORMAT",
+    "HOMI_OPERATIONALITY_FORMAT_VERSION",
+    "HomiOperationality",
+    "HomiOperationalityEntry",
+    "HomiOperationalityReport",
+    "build_homi_operationality_report",
+    "encode_homi_operationality_json",
+    "HOMI_POSTURE_FORMAT",
+    "HOMI_POSTURE_FORMAT_VERSION",
+    "HomiCurrentPosture",
+    "HomiPostureFinding",
+    "HomiPostureReport",
+    "build_homi_posture_report",
+    "encode_homi_posture_json",
+    "HOMI_CALIBRATION_FORMAT",
+    "HOMI_CALIBRATION_FORMAT_VERSION",
+    "HomiCalibrationDecision",
+    "HomiCalibrationDisposition",
+    "HomiCalibrationReport",
+    "build_homi_calibration_report",
+    "encode_homi_calibration_json",
     "HomiAuthorityDomain",
     "HomiObservationCode",
     "HomiObservationKind",

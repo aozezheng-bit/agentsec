@@ -22,6 +22,20 @@ Default command:
 agentsec homi scan "<workspace>" --format json --language zh
 ```
 
+Before a Homi rollout or a comparison against a reviewed report, record the
+running package identity:
+
+```bash
+agentsec homi fingerprint --format json
+```
+
+The fingerprint contains the package version, Homi adapter/profile/rule-pack
+versions, build commit when supplied by the packaging pipeline, and SHA-256
+implementation/package digests.  Do not treat `0.4.0` alone as proof that two
+installations contain the same code; compare the digests as well.  When the
+build commit is unavailable, the report must say `unavailable` rather than
+guessing a commit or reading Git metadata from the scanned workspace.
+
 For paired machine/human artifacts:
 
 ```bash
@@ -126,12 +140,34 @@ The human-facing report contract has two complementary forms:
 - self-contained HTML (`homi-pilot-report.html`) for direct browser display in Homi;
 - JSON (`homi-pilot-report.json`) for machine consumption and downstream integrations.
 
-`agentsec homi report` writes JSON, Markdown, and HTML by default. Use
+`agentsec homi report` writes JSON, Markdown, HTML, and a build fingerprint by default. Use
 `--no-html` only when a host explicitly cannot store HTML. The HTML is generated
 from the same validated `HomiPilotReport` as JSON/Markdown and includes status,
 coverage, separately scoped Unknown metrics, capability states, evidence file
 locations, Finding severity/score/confidence, safe-simulation boundaries, and
 limitations. It contains no raw secret values and no remote assets.
+
+The report directory also contains `homi-operationality.json` and
+`homi-posture.json` and `homi-calibration.json`. They are bound to
+the exact Pilot JSON SHA-256 and classifies each static signal as
+`template`, `latent`, `active`, or `runtime_attested`. The current static Homi
+adapter can only emit the first three; `runtime_attested` remains unavailable
+until an independent runtime attestation is supplied. Operationality is not a
+replacement for Severity or Evidence Confidence A/B/C/D.
+
+`homi-posture.json` separates the existing deterministic potential-impact score
+from current posture. Static declarations keep a numeric potential-impact
+score, while `current_posture_score` remains `null` and the posture is marked
+`latent_unverified`, `active_unverified`, or `template_only` until a trusted
+runtime attestation exists. Do not display the potential score as proof of
+current runtime exposure.
+
+`homi-calibration.json` is the deterministic calibrated view for
+`HOMI-COMB-003` and `HOMI-COMB-004`. It keeps the original Finding evidence for
+audit, but records whether a Finding is retained or suppressed when the only
+support is a USER/persona/identity template. This sidecar is report-only and
+cannot change the original Pilot JSON, Severity, Policy, Hard Gate, or CI
+decision.
 
 Compare two report snapshots with:
 
@@ -163,6 +199,12 @@ agentsec homi bundle \
 `--diff` 和 `--score` 都可省略。未提供 Diff 时只展示当前快照；未提供 Score 时不会虚构
 三轴雷达图或四个评分卡。联合 HTML 是自包含的，
 适合在 Homi 中直接打开；联合 JSON/Text 也使用同一份经过校验的元数据。
+
+如果 Pilot JSON 所在目录同时存在绑定的
+`homi-operationality.json`、`homi-posture.json` 和 `homi-calibration.json`，
+`bundle` 会自动读取它们，过滤模板校准抑制的 Finding，并展示原始静态潜在影响、
+校准后潜在影响和当前安全态势。Sidecar 的 `source_report_sha256` 不匹配时，
+联合报告会失败关闭，不会静默拼接不同 Agent 的结果。
 
 报告中的“风险与整改建议”默认由确定性规则生成，建议包括：
 
