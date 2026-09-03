@@ -36,12 +36,12 @@
   },
   "artifacts": {
     "agentsec-0.4.0-py3-none-any.whl": {
-      "sha256": "c71f66fffdd729d58b1ea9a5e9d6fe871412e7b724ef5cd54644a06290d4b59d",
-      "size_bytes": 758692
+      "sha256": "887eb528cab56c0a8f09e7e6a01db586d640fb1d5629da78f8a34f495ed491b3",
+      "size_bytes": 758852
     },
     "agentsec-0.4.0.tar.gz": {
-      "sha256": "20084c73dc08522e76a98fc69167c72fc02d9ae07a2a07968d67e5303a85f1cd",
-      "size_bytes": 2265727
+      "sha256": "3356aadcb5c6eec4d47c0d67ae2fb15cba7c97067ccb2dba379ac91080a58608",
+      "size_bytes": 2266687
     }
   },
   "candidate_artifacts_differ_from_preserved": true,
@@ -87,7 +87,7 @@
   "signature": "not_claimed",
   "slsa_provenance": "not_claimed",
   "source_inventory_file_count": 307,
-  "source_inventory_sha256": "e28295573d91ffccee8c559964905042442a346354e5ea3492f69ea380b0983c",
+  "source_inventory_sha256": "6a405330a61b9701471bdacb315a1b2fa51f6cc3fb19bd048197ba5943cc399b",
   "status": "reconciled",
   "task_id": "P3-REL-03"
 }

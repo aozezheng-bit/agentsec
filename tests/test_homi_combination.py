@@ -131,6 +131,66 @@ def test_detects_all_deterministic_homi_combinations_without_runtime_authority(
     assert self_mod.text_for(HomiCombinationLanguage.ZH).title
 
 
+def test_reference_heartbeat_template_does_not_trigger_external_combination(
+    tmp_path: Path,
+) -> None:
+    project = tmp_path / "homi-agent"
+    project.mkdir()
+    _complete_combination_workspace(project)
+    _write(
+        project / "HEARTBEAT.md",
+        "\n".join(
+            [
+                "---",
+                "summary: Workspace template for HEARTBEAT.md",
+                "title: HEARTBEAT.md template",
+                "read_when:",
+                "- Bootstrapping a workspace manually",
+                "---",
+                "",
+                "# HEARTBEAT.md template",
+                "",
+                (
+                    "`HEARTBEAT.md` lives in the agent workspace and holds the "
+                    "periodic heartbeat checklist. Keep it empty to skip the "
+                    "heartbeat model call."
+                ),
+                "",
+                "Shipped default content:",
+                "",
+                "```markdown",
+                "# Keep this file empty to skip heartbeat API calls.",
+                (
+                    "# Add tasks below when you want the agent to check something "
+                    "periodically."
+                ),
+                "```",
+                "",
+                (
+                    "Add short tasks below the comment lines only when you want "
+                    "periodic checks. Keep it small."
+                ),
+                "",
+                (
+                    "For due-only checks instead of a plain checklist, use "
+                    "a structured `tasks:` block."
+                ),
+                "",
+                "## Related",
+                "- [Heartbeat config](/gateway/config-agents)",
+            ]
+        )
+        + "\n",
+    )
+
+    profile = _profile(project)
+    result = DeterministicHomiCombinationRuleEngine().run(profile)
+
+    assert profile.heartbeat.state is HomiCapabilityState.EXAMPLE_ONLY
+    assert profile.heartbeat.tasks_present is False
+    assert "HOMI-COMB-002" not in {finding.rule_id for finding in result.findings}
+
+
 def test_example_only_tool_notes_are_suppressed_not_escalated(tmp_path: Path) -> None:
     project = tmp_path / "homi-agent"
     project.mkdir()

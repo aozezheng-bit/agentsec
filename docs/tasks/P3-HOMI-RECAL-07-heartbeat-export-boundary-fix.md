@@ -6,15 +6,17 @@
 
 ## 问题
 
-Homi 导出 Workspace 文件时可能保留传输边界标记，例如：
+Homi 导出 Workspace 文件时可能保留传输边界标记，或者把官方
+`HEARTBEAT.md` 参考模板的说明段落复制到 Agent Workspace，例如：
 
 ```text
 \\=== HEARTBEAT.md ===
 \\=== END HEARTBEAT.md ===
 ```
 
-这些标记不是 Agent 指令，但旧适配器会把它们当成普通正文。对于只有
-模板说明、Markdown 标题、反斜杠和边界标记的 `HEARTBEAT.md`，这会导致：
+这些内容不是 Agent 的真实任务，但旧适配器会把它们当成普通正文。对于只有
+模板说明、官方参考文档段落、Markdown 标题、反斜杠和边界标记的
+`HEARTBEAT.md`，这会导致：
 
 - `files["HEARTBEAT.md"].state=present`；
 - `heartbeat.tasks_present=true`；
@@ -23,14 +25,20 @@ Homi 导出 Workspace 文件时可能保留传输边界标记，例如：
 
 ## 修复
 
-在 Homi 适配器中增加严格的边界标记识别，只忽略六个固定标准文件的：
+在 Homi 适配器中增加保守的模板识别：
+
+- 只忽略六个固定标准文件的边界标记；
+- 忽略官方 Heartbeat 参考模板的 front matter 和说明性短语；
+- 仍将不符合模板短语的普通任务正文保留为真实内容。
+
+边界标记识别只忽略六个固定标准文件的：
 
 - `=== FILE.md ===`；
 - `=== END FILE.md ===`；
 - 可选的转义反斜杠。
 
-任意其他 `===` 文本不会被忽略。修复后，边界标记不会贡献任务内容；纯
-Heartbeat 模板会被识别为 `empty` 或 `example_only`，不触发
+任意其他 `===` 文本不会被忽略。修复后，边界标记和官方模板说明不会贡献
+任务内容；纯 Heartbeat 模板会被识别为 `empty` 或 `example_only`，不触发
 `HOMI-COMB-002`。包含真实任务列表的 Heartbeat 仍然识别为 `present`，并
 继续保留 report-only 静态 Finding。
 

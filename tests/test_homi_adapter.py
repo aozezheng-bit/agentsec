@@ -201,6 +201,64 @@ def test_heartbeat_export_boundary_wrappers_are_not_tasks(tmp_path: Path) -> Non
     assert _files_by_name(result)["HEARTBEAT.md"].state is HomiFileState.EMPTY
 
 
+def test_heartbeat_reference_template_prose_is_example_only(tmp_path: Path) -> None:
+    project = tmp_path / "homi-agent"
+    project.mkdir()
+    _write(
+        project / "HEARTBEAT.md",
+        "\n".join(
+            [
+                "---",
+                "summary: Workspace template for HEARTBEAT.md",
+                "title: HEARTBEAT.md template",
+                "read_when:",
+                "- Bootstrapping a workspace manually",
+                "---",
+                "",
+                "# HEARTBEAT.md template",
+                "",
+                (
+                    "`HEARTBEAT.md` lives in the agent workspace and holds the "
+                    "periodic heartbeat checklist. Keep it empty to skip the "
+                    "heartbeat model call."
+                ),
+                "",
+                "Shipped default content:",
+                "",
+                "```markdown",
+                (
+                    "# Keep this file empty (or with only comments) to skip "
+                    "heartbeat API calls."
+                ),
+                (
+                    "# Add tasks below when you want the agent to check something "
+                    "periodically."
+                ),
+                "```",
+                "",
+                (
+                    "Add short tasks below the comment lines only when you want "
+                    "periodic checks."
+                ),
+                "Keep it small.",
+                "",
+                (
+                    "For due-only checks instead of a plain checklist, use "
+                    "a structured `tasks:` block."
+                ),
+                "",
+                "## Related",
+                "- [Heartbeat config](/gateway/config-agents)",
+            ]
+        )
+        + "\n",
+    )
+
+    result = HomiAdapter().inspect_workspace(_request(project))
+
+    assert _files_by_name(result)["HEARTBEAT.md"].state is HomiFileState.EXAMPLE_ONLY
+
+
 def test_heartbeat_template_with_real_task_is_present(tmp_path: Path) -> None:
     project = tmp_path / "homi-agent"
     project.mkdir()

@@ -52,10 +52,27 @@ _TEMPLATE_MARKERS: Final[tuple[str, ...]] = (
 )
 _HEARTBEAT_TEMPLATE_MARKERS: Final[tuple[str, ...]] = (
     "keep this file empty",
+    "keep it empty",
     "skip heartbeat api calls",
     "add tasks below",
+    "add short tasks below",
+    "keep it small",
     "when you want the agent to check something periodically",
+    "periodic checks",
+    "keep it small",
+    "heartbeat.md lives in the agent workspace",
+    "shipped default content",
+    "for due-only checks instead of a plain checklist",
     "heartbeat config",
+)
+_HEARTBEAT_TEMPLATE_PROSE_MARKERS: Final[tuple[str, ...]] = (
+    "keep it empty",
+    "heartbeat.md lives in the agent workspace",
+    "shipped default content",
+    "add short tasks below",
+    "periodic checks",
+    "for due-only checks instead of a plain checklist",
+    "bootstrapping a workspace manually",
 )
 _MARKDOWN_LINK_ONLY = re.compile(r"^[-*+]?\s*\[[^\]]+\]\([^)]+\)\s*$")
 _HOMI_FILE_BOUNDARY_MARKER = re.compile(
@@ -542,9 +559,17 @@ def _looks_like_heartbeat_template(content: str) -> bool:
             continue
         if stripped.startswith("<!--") and stripped.endswith("-->"):
             continue
+        if stripped.casefold().startswith(("summary:", "title:", "read_when:")):
+            continue
         if _MARKDOWN_LINK_ONLY.fullmatch(stripped):
             continue
-        if any(marker in folded for marker in _HEARTBEAT_TEMPLATE_MARKERS):
+        if any(
+            marker in folded
+            for marker in (
+                *_HEARTBEAT_TEMPLATE_MARKERS,
+                *_HEARTBEAT_TEMPLATE_PROSE_MARKERS,
+            )
+        ):
             continue
         return False
     return True
