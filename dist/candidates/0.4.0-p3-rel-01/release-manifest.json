@@ -1,7 +1,7 @@
 {
   "artifact_checksum_file": {
     "path": "dist/candidates/0.4.0-p3-rel-01/SHA256SUMS",
-    "sha256": "c47c32f896ccca219ee82d0c278934577911e018aa5ba10afc9da7b12c0baba3",
+    "sha256": "39afc092916afc64387b3f2ab27ed95fbd727e4c3cbe58886d4bfb4b3bb052c8",
     "size_bytes": 186
   },
   "artifacts": {
@@ -10,8 +10,8 @@
       "size_bytes": 815768
     },
     "agentsec-0.4.0.tar.gz": {
-      "sha256": "e6ae05c075e28477b0973230a9387be9ccad35cac975d7410dba2aacda492887",
-      "size_bytes": 2368787
+      "sha256": "4614a5bc43f7ed4c6e416e6ad76a4944efaf91749ed1eeb0eebf7f3167141201",
+      "size_bytes": 2368927
     }
   },
   "authority_boundary": {
@@ -48,7 +48,7 @@
     "format": "agentsec-candidate-artifact-reconciliation-report",
     "format_version": "0.2.0",
     "path": "dist/candidates/0.4.0-p3-rel-01/reconciliation-report.json",
-    "sha256": "43535a48a1d725ee460eb873b4f5a293cfbc9b9fe2744f5976e82d1e6f0b40db",
+    "sha256": "098719b60a3035952a8c12cd5367b8b191b994fe7bbbab0083ef47647c5b284f",
     "size_bytes": 3092,
     "task_id": "P3-REL-03"
   },
