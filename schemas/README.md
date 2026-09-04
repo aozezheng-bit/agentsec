@@ -44,8 +44,10 @@ schemas/risk/                      Operation Context Contract 0.1.0; Homi Risk S
                                    Extraction Report 0.1.0; Context-aware
                                    Deterministic Risk Report 0.1.0; Context Risk
                                    Score Report 0.1.0
-schemas/runtime/                   External Runtime Attestation 0.1.0; Evidence
-                                   Reconciliation Report 0.1.0
+schemas/runtime/                   External Runtime Attestation 0.2.0; Evidence
+                                   Reconciliation Report 0.2.0; Trusted Issuer
+                                   Registry 0.1.0; Trust Verification 0.1.0;
+                                   Replay Store 0.1.0
 schemas/score-context/             Agentic Score Context Schema 0.1.0; Attack Path Score Context 0.1.0
 schemas/semantic-analysis/         Semantic Analysis Input 0.1.0,
                                    constrained Model Output 0.1.0,
@@ -231,3 +233,11 @@ P3-20 Semantic Gate Evaluation Schemas:
 
 - `semantic-analysis/semantic-gate-evaluation-import.schema.json`
 - `semantic-analysis/semantic-gate-report-only-promotion.schema.json`
+
+
+The RISK-07 runtime schemas separate external evidence from trust. The Trust
+Registry stores issuer metadata and an environment-variable name, not key
+material. The Trust Verification Report records signature, time, issuer/key,
+and replay outcomes. The Replay Store stores only hashed nonces and attestation
+digests. All three contracts are report-only and cannot authorize runtime
+actions or CI decisions.

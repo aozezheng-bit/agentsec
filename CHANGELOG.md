@@ -1,5 +1,16 @@
 # Changelog
 
+## RISK-07 — Runtime Attestation Trust / Replay Hardening (2026-09-04)
+
+- Added Trusted Issuer Registry with `issuer`/`key_id` rotation, revocation,
+  validity windows, and environment-variable-only key lookup.
+- Added HMAC-SHA256 signature verification, freshness checks, nonce replay
+  protection, fail-closed Trust Verification Report, and RISK-06 binding.
+- Added replay-safe Homi CLI flags, Bundle/Skill display, runtime schemas, and
+  focused regression coverage.
+- Trust remains report-only: no permission, identity, Policy, CI, or exploitability
+  authority; missing trust input keeps runtime evidence at Confidence D.
+
 ## RISK-06 — Runtime Attestation / Evidence Reconciliation (2026-09-04)
 
 - Added a strict, report-only Runtime Attestation contract for externally

@@ -4,6 +4,9 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
+import tempfile
+from datetime import UTC, datetime
 from pathlib import Path
 
 import pytest
@@ -19,6 +22,7 @@ from agentsec.risk import (
     DataSharingScope,
     DeterministicContextRuleEngine,
     DeterministicRuntimeEvidenceReconciler,
+    DeterministicRuntimeTrustVerifier,
     Frequency,
     OperationAction,
     OperationContext,
@@ -35,10 +39,15 @@ from agentsec.risk import (
     RuntimeAttestationError,
     RuntimeAttestationMethod,
     RuntimeObservation,
+    RuntimeReplayStore,
+    RuntimeSignatureAlgorithm,
+    RuntimeTrustDecision,
     RuntimeVerificationStatus,
+    TrustedRuntimeIssuer,
     build_operation_evidence,
     build_runtime_attestation,
     build_runtime_observation,
+    build_runtime_trust_registry,
     canonical_operation_context_sha256,
     decode_runtime_attestation_json,
     encode_runtime_attestation_json,
@@ -128,10 +137,36 @@ def _attestation(
         agent_snapshot_sha256=snapshot,
         context_sha256=canonical_operation_context_sha256(context_set),
         issuer="external-sandbox",
+        signature_algorithm=RuntimeSignatureAlgorithm.HMAC_SHA256,
         method=RuntimeAttestationMethod.RUNTIME_VERIFICATION,
         verification_status=status,
         observations=observations,
         limitations=("External sandbox supplied sanitized evidence.",),
+        key_id="test-key",
+        issued_at="2026-09-04T00:00:00Z",
+        expires_at="2026-09-04T01:00:00Z",
+        nonce=("nonce-" + observations[0].operation_id).ljust(16, "0"),
+        signing_key=b"k" * 32,
+    )
+
+
+def _trust(attestation: RuntimeAttestation) -> RuntimeTrustDecision:
+    os.environ["AGENTSEC_TEST_RUNTIME_KEY"] = "k" * 32
+    registry = build_runtime_trust_registry(
+        (
+            TrustedRuntimeIssuer(
+                issuer="external-sandbox",
+                key_id="test-key",
+                algorithm=RuntimeSignatureAlgorithm.HMAC_SHA256,
+                secret_env_var="AGENTSEC_TEST_RUNTIME_KEY",
+            ),
+        )
+    )
+    return DeterministicRuntimeTrustVerifier().verify(
+        attestation,
+        registry,
+        replay_store=RuntimeReplayStore(Path(tempfile.mkdtemp()) / "replay.json"),
+        now=datetime(2026, 9, 4, 0, 30, tzinfo=UTC),
     )
 
 
@@ -146,7 +181,7 @@ def test_observation_and_attestation_ids_are_deterministic_and_build_sorts() -> 
     assert attestation.observations[0].operation_id == "operation.a"
     assert attestation.observations[1].operation_id == "operation.b"
     assert attestation.attestation_id.startswith("runtime-attestation-sha256:")
-    assert attestation.evidence_confidence is EvidenceConfidence.A
+    assert attestation.evidence_confidence is EvidenceConfidence.D
 
 
 def test_verified_attestation_reconciles_and_allows_confidence_a_only_as_evidence() -> (
@@ -161,6 +196,7 @@ def test_verified_attestation_reconciles_and_allows_confidence_a_only_as_evidenc
         risk_report,
         attestation,
         expected_agent_snapshot_sha256=_SNAPSHOT,
+        trust_decision=_trust(attestation),
     )
 
     assert report.status is ReconciliationStatus.RECONCILED
@@ -186,6 +222,7 @@ def test_unverified_attestation_is_explicit_and_cannot_use_confidence_a() -> Non
         risk_report,
         attestation,
         expected_agent_snapshot_sha256=_SNAPSHOT,
+        trust_decision=_trust(attestation),
     )
 
     assert report.status is ReconciliationStatus.UNVERIFIED
@@ -206,6 +243,7 @@ def test_partial_coverage_and_observed_false_are_not_matches() -> None:
         risk_report,
         attestation,
         expected_agent_snapshot_sha256=_SNAPSHOT,
+        trust_decision=_trust(attestation),
     )
 
     assert report.status is ReconciliationStatus.PARTIAL
@@ -241,6 +279,7 @@ def test_action_and_target_mismatch_are_conflicts() -> None:
         risk_report,
         attestation,
         expected_agent_snapshot_sha256=_SNAPSHOT,
+        trust_decision=_trust(attestation),
     )
 
     assert report.status is ReconciliationStatus.CONFLICT
@@ -261,6 +300,7 @@ def test_observed_not_declared_operation_is_conflict() -> None:
         risk_report,
         attestation,
         expected_agent_snapshot_sha256=_SNAPSHOT,
+        trust_decision=_trust(attestation),
     )
 
     assert report.status is ReconciliationStatus.CONFLICT
@@ -292,10 +332,16 @@ def test_context_risk_and_snapshot_bindings_are_strict() -> None:
             agent_snapshot_sha256=_SNAPSHOT,
             context_sha256="d" * 64,
             issuer=bad_attestation.issuer,
+            key_id=bad_attestation.key_id,
+            signature_algorithm=bad_attestation.signature_algorithm,
+            issued_at=bad_attestation.issued_at,
+            expires_at=bad_attestation.expires_at,
+            nonce=bad_attestation.nonce,
             method=bad_attestation.method,
             verification_status=bad_attestation.verification_status,
             observations=bad_attestation.observations,
             limitations=bad_attestation.limitations,
+            signing_key=b"k" * 32,
         )
         DeterministicRuntimeEvidenceReconciler().reconcile(
             context_set,
@@ -368,4 +414,10 @@ def test_attestation_rejects_raw_url_and_secret_like_metadata() -> None:
             verification_status=RuntimeVerificationStatus.VERIFIED,
             observations=(_observation("operation.read"),),
             limitations=("token=raw-sensitive-value",),
+            key_id="test-key",
+            signature_algorithm=RuntimeSignatureAlgorithm.HMAC_SHA256,
+            issued_at="2026-09-04T00:00:00Z",
+            expires_at="2026-09-04T01:00:00Z",
+            nonce="sensitive-nonce-01",
+            signing_key=b"k" * 32,
         )

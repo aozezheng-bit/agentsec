@@ -61,6 +61,7 @@ P2-HOMI-03～05 Homi profile/combination/simulation      Complete
 P2-HOMI-06 Homi real-project report-only pilot           Complete 2026-08-25
 P2-HOMI-07 Homi CLI Packaging                         Complete 2026-08-25
 RISK-06 Runtime Attestation / Evidence Reconciliation Complete 2026-09-04; external evidence import only
+RISK-07 Runtime Attestation Trust / Replay Hardening       Complete locally 2026-09-04; report-only; Homi publish pending
 ```
 
 Latest P2-EXIT-08A review artifacts:
@@ -1030,3 +1031,28 @@ report-only: `runtime_verified=false`, `ci_blocked=false`, and no Sidecar grants
 runtime or release authority. GitHub/Homi synchronization remains pending a
 clean candidate isolation, package fingerprint comparison, and explicit release
 approval.
+
+
+## RISK-07 implementation status
+
+RISK-07 is complete in the local source candidate. Runtime Attestation 0.2
+requires `key_id`, `signature_algorithm`, `issued_at`, `expires_at`, `nonce`,
+and detached signature. `TrustedRuntimeIssuer` and `RuntimeTrustRegistry`
+provide explicit trust roots without storing secrets.
+
+`agentsec homi reconcile-runtime` now emits:
+
+```text
+homi-runtime-trust-verification.json
+homi-runtime-reconciliation.json
+homi-runtime-replay-store.json
+```
+
+Trust failure, missing registry, stale/future evidence, revoked/unknown key,
+invalid signature, replay, or replay-store failure keeps
+`runtime_verified=false` and Evidence Confidence D. Trust plus partial/conflict
+reconciliation is B; trust plus complete reconciliation is A. The entire path
+remains `report_only=true`, `policy_authority=false`, and `ci_blocked=false`.
+
+External Endpoint, credential, KMS, data-retention, and Homi publication
+approvals remain organizational prerequisites for a real runtime pilot.

@@ -133,3 +133,10 @@ PYTHONPATH=src .venv/bin/pytest -q \
 - 脱敏和最小化数据协议。
 
 在这些条件满足前，仓库只提供导入、验证、对账和报告能力，不声称“Real Provider”或“真实运行时安全验证”已经完成。
+
+## RISK-07 follow-up
+
+RISK-07 adds trust verification around this RISK-06 input. A self-declared
+`verification_status=verified` is not trusted without an approved issuer/key,
+valid signature and time window, and first-use nonce in a persistent replay
+Store. See `docs/tasks/RISK-07-runtime-attestation-trust-replay-hardening.md`.

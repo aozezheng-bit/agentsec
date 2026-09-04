@@ -290,6 +290,24 @@ def interface_provenance_registry() -> tuple[InterfaceProvenance, ...]:
                 schema_file="schemas/runtime/evidence-reconciliation.schema.json",
             ),
             _product(
+                "RUNTIME_TRUST_REGISTRY_VERSION",
+                versioning.RUNTIME_TRUST_REGISTRY_VERSION,
+                "runtime_evidence",
+                schema_file="schemas/runtime/runtime-trust-registry.schema.json",
+            ),
+            _product(
+                "RUNTIME_REPLAY_STORE_VERSION",
+                versioning.RUNTIME_REPLAY_STORE_VERSION,
+                "runtime_evidence",
+                schema_file="schemas/runtime/runtime-replay-store.schema.json",
+            ),
+            _report(
+                "RUNTIME_TRUST_VERIFICATION_REPORT_VERSION",
+                versioning.RUNTIME_TRUST_VERIFICATION_REPORT_VERSION,
+                "runtime_evidence",
+                schema_file=("schemas/runtime/runtime-trust-verification.schema.json"),
+            ),
+            _product(
                 "RELEASE_MANIFEST_VERSION",
                 versioning.RELEASE_MANIFEST_VERSION,
                 "release_provenance",
@@ -1068,6 +1086,15 @@ def schema_file_ownership() -> dict[str, str]:
             ),
             "schemas/runtime/evidence-reconciliation.schema.json": (
                 "EVIDENCE_RECONCILIATION_REPORT_VERSION"
+            ),
+            "schemas/runtime/runtime-trust-registry.schema.json": (
+                "RUNTIME_TRUST_REGISTRY_VERSION"
+            ),
+            "schemas/runtime/runtime-trust-verification.schema.json": (
+                "RUNTIME_TRUST_VERIFICATION_REPORT_VERSION"
+            ),
+            "schemas/runtime/runtime-replay-store.schema.json": (
+                "RUNTIME_REPLAY_STORE_VERSION"
             ),
             "schemas/semantic-analysis/semantic-analysis-input.schema.json": (
                 "SEMANTIC_INPUT_SCHEMA_VERSION"

@@ -46,13 +46,25 @@
         "D"
       ]
     },
+    "expires_at": {
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$",
+      "type": "string"
+    },
     "format": {
       "const": "agentsec-runtime-attestation"
     },
     "format_version": {
-      "const": "0.1.0"
+      "const": "0.2.0"
+    },
+    "issued_at": {
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$",
+      "type": "string"
     },
     "issuer": {
+      "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$",
+      "type": "string"
+    },
+    "key_id": {
       "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$",
       "type": "string"
     },
@@ -72,6 +84,10 @@
         "reproducible_test",
         "actual_tool_enumeration"
       ]
+    },
+    "nonce": {
+      "pattern": "^[A-Za-z0-9._:-]{16,128}$",
+      "type": "string"
     },
     "observations": {
       "items": {
@@ -156,7 +172,16 @@
       "const": true
     },
     "runtime_verified": {
-      "type": "boolean"
+      "const": false
+    },
+    "signature": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "signature_algorithm": {
+      "enum": [
+        "hmac_sha256"
+      ]
     },
     "verification_status": {
       "enum": [
@@ -173,12 +198,18 @@
     "agent_snapshot_sha256",
     "context_sha256",
     "issuer",
+    "key_id",
+    "signature_algorithm",
+    "issued_at",
+    "expires_at",
+    "nonce",
     "method",
     "verification_status",
     "observations",
     "limitations",
     "evidence_confidence",
     "runtime_verified",
+    "signature",
     "report_only",
     "policy_authority",
     "ci_blocked",

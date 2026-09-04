@@ -51,7 +51,7 @@
       "const": "agentsec-evidence-reconciliation"
     },
     "format_version": {
-      "const": "0.1.0"
+      "const": "0.2.0"
     },
     "limitations": {
       "items": {
@@ -153,6 +153,13 @@
       "pattern": "^[0-9a-f]{64}$",
       "type": "string"
     },
+    "source_trust_verification_id": {
+      "pattern": "^runtime-trust-verification-sha256:[0-9a-f]{64}$",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
     "status": {
       "enum": [
         "reconciled",
@@ -160,6 +167,9 @@
         "conflict",
         "unverified"
       ]
+    },
+    "trust_verified": {
+      "type": "boolean"
     },
     "unknown_context_dimensions": {
       "items": {
@@ -184,6 +194,8 @@
     "source_context_sha256",
     "source_risk_report_sha256",
     "source_attestation_sha256",
+    "source_trust_verification_id",
+    "trust_verified",
     "status",
     "runtime_verified",
     "current_posture_eligible",

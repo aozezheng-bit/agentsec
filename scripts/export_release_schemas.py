@@ -50,6 +50,7 @@ from agentsec.risk import (
     export_context_risk_score_json_schema,
     export_operation_context_json_schema,
     export_runtime_attestation_json_schema,
+    export_runtime_trust_json_schemas,
 )
 from agentsec.semantic import (
     export_scenario_metrics_json_schema,
@@ -107,6 +108,7 @@ def main() -> None:
     export_homi_operation_context_json_schema(schema_root / "risk")
     export_homi_risk_state_json_schema(schema_root / "risk")
     export_runtime_attestation_json_schema(schema_root / "runtime")
+    export_runtime_trust_json_schemas(schema_root / "runtime")
     export_semantic_json_schemas(schema_root / "semantic-analysis")
     export_semantic_invocation_json_schemas(schema_root / "semantic-analysis")
     export_semantic_evaluation_json_schema(

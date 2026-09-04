@@ -1,0 +1,147 @@
+{
+  "$id": "https://agentsec.local/schemas/runtime/runtime-trust-verification.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "authority": {
+      "additionalProperties": false,
+      "properties": {
+        "ci_blocked": {
+          "const": false
+        },
+        "policy_authority": {
+          "const": false
+        },
+        "report_only": {
+          "const": true
+        }
+      },
+      "required": [
+        "report_only",
+        "policy_authority",
+        "ci_blocked"
+      ],
+      "type": "object"
+    },
+    "ci_blocked": {
+      "const": false
+    },
+    "evaluated_at": {
+      "type": "string"
+    },
+    "format": {
+      "const": "agentsec-runtime-trust-verification"
+    },
+    "format_version": {
+      "const": "0.1.0"
+    },
+    "issuer": {
+      "type": "string"
+    },
+    "issuer_trusted": {
+      "type": "boolean"
+    },
+    "key_fingerprint_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "key_id": {
+      "type": "string"
+    },
+    "key_trusted": {
+      "type": "boolean"
+    },
+    "policy_authority": {
+      "const": false
+    },
+    "reason_codes": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 16,
+      "minItems": 1,
+      "type": "array"
+    },
+    "replay_detected": {
+      "type": "boolean"
+    },
+    "report_only": {
+      "const": true
+    },
+    "signature_algorithm": {
+      "enum": [
+        "hmac_sha256"
+      ]
+    },
+    "signature_verified": {
+      "type": "boolean"
+    },
+    "source_attestation_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "trusted",
+        "missing",
+        "unknown_issuer",
+        "key_revoked",
+        "key_mismatch",
+        "signature_invalid",
+        "expired",
+        "not_yet_valid",
+        "replayed",
+        "replay_store_error",
+        "unsupported_algorithm",
+        "unverified_attestation",
+        "key_unavailable"
+      ]
+    },
+    "time_valid": {
+      "type": "boolean"
+    },
+    "trust_registry_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "trusted": {
+      "type": "boolean"
+    },
+    "verification_id": {
+      "pattern": "^runtime-trust-verification-sha256:[0-9a-f]{64}$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "format",
+    "format_version",
+    "verification_id",
+    "source_attestation_sha256",
+    "trust_registry_sha256",
+    "issuer",
+    "key_id",
+    "signature_algorithm",
+    "status",
+    "trusted",
+    "issuer_trusted",
+    "key_trusted",
+    "signature_verified",
+    "time_valid",
+    "replay_detected",
+    "evaluated_at",
+    "reason_codes",
+    "key_fingerprint_sha256",
+    "report_only",
+    "policy_authority",
+    "ci_blocked",
+    "authority"
+  ],
+  "title": "AgentSec Runtime Trust Verification",
+  "type": "object"
+}

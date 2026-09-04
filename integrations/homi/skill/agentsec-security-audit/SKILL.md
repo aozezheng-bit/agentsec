@@ -223,8 +223,21 @@ unverified, undeclared, and Unknown observations remain explicit.
 agentsec homi reconcile-runtime \
   --report-dir /tmp/agentsec-homi-report \
   --attestation /tmp/runtime-attestation.json \
+  --trust-registry /tmp/runtime-trust-registry.json \
+  --replay-store /tmp/agentsec-homi-report/homi-runtime-replay-store.json \
   --force
 ```
+
+The registry contains `issuer`, `key_id`, algorithm, validity limits, and an
+environment-variable name. It never contains key material. AgentSec reads that
+variable only during verification; it never reads credentials from scanned
+Homi files. Verification emits
+`homi-runtime-trust-verification.json` before reconciliation. Signature,
+issuer/key, time-window, declared verification state, and nonce replay checks
+are deterministic and fail closed. The replay store keeps only hashed nonce and
+attestation identifiers, uses a lock plus atomic replace, rejects symlinks, and
+is report-only. Without trusted verification, reconciliation remains
+`runtime_verified=false` / Confidence D.
 
 `homi-posture.json` separates the existing deterministic potential-impact score
 from current posture. Static declarations keep a numeric potential-impact

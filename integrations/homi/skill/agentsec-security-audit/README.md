@@ -43,7 +43,9 @@ homi-context-risk.json  # RISK-04 context-aware deterministic risk Findings
 homi-risk-score.json  # RISK-05 potential/residual/posture/drift scores
 homi-posture.json  # potential impact vs current posture sidecar
 homi-calibration.json  # calibrated HOMI-COMB-003/004 Finding decisions
+homi-runtime-trust-verification.json  # trusted issuer/signature/time/replay result
 homi-runtime-reconciliation.json  # external Runtime Attestation reconciliation
+homi-runtime-replay-store.json  # hashed nonce replay markers; no raw nonce/secret
 ```
 
 The HTML is suitable for opening directly in Homi or a local browser. It is
@@ -75,6 +77,25 @@ commands/reconcile-runtime.sh \
   /tmp/agentsec-homi-report \
   /tmp/runtime-attestation.json
 ```
+
+For trusted verification, provide a registry that stores only issuer metadata
+and an environment-variable name. The secret value stays outside files and
+reports:
+
+```bash
+export AGENTSEC_RUNTIME_TRUST_REGISTRY=/tmp/runtime-trust-registry.json
+export AGENTSEC_RUNTIME_REPLAY_STORE=/tmp/agentsec-homi-report/homi-runtime-replay-store.json
+export RUNTIME_ATTESTATION_KEY='use-an-approved-secret-manager-value'
+commands/reconcile-runtime.sh /tmp/agentsec-homi-report /tmp/runtime-attestation.json
+```
+
+The command writes both `homi-runtime-trust-verification.json` and
+`homi-runtime-reconciliation.json`. A trusted result requires registered
+issuer/key, matching HMAC-SHA256 signature, valid `issued_at`/`expires_at`, and
+first-use nonce. Missing registry, bad signature, expired evidence, revoked
+key, store failure, or replay fails closed to `runtime_verified=false` and
+Evidence Confidence D. Trust remains report-only: it grants no permission,
+does not authenticate identity, and cannot block CI.
 
 对账会绑定三类来源：Homi Pilot Snapshot、Operation Context、RISK-04 Context
 Risk。只有外部证据已验证、所有声明操作均匹配、上下文覆盖完整且没有冲突时，

@@ -6,17 +6,22 @@ import hashlib
 import json
 from pathlib import Path
 
+import pytest
 from typer.testing import CliRunner
 
 from agentsec.cli.app import create_app
 from agentsec.risk import (
     OperationContextSet,
     RuntimeAttestationMethod,
+    RuntimeSignatureAlgorithm,
     RuntimeVerificationStatus,
+    TrustedRuntimeIssuer,
     build_runtime_attestation,
     build_runtime_observation,
+    build_runtime_trust_registry,
     canonical_operation_context_sha256,
     encode_runtime_attestation_json,
+    encode_runtime_trust_registry_json,
 )
 
 runner = CliRunner()
@@ -67,18 +72,40 @@ def _attestation_for_report(report_dir: Path) -> Path:
         agent_snapshot_sha256=pilot_digest,
         context_sha256=canonical_operation_context_sha256(context_set),
         issuer="external-sandbox",
+        key_id="test-key",
+        signature_algorithm=RuntimeSignatureAlgorithm.HMAC_SHA256,
+        issued_at="2026-09-04T00:00:00Z",
+        expires_at="2026-09-04T23:59:59Z",
+        nonce="homi-test-nonce-01",
         method=RuntimeAttestationMethod.RUNTIME_VERIFICATION,
         verification_status=RuntimeVerificationStatus.VERIFIED,
         observations=observations,
         limitations=("Sanitized external sandbox evidence.",),
+        signing_key=b"k" * 32,
     )
     path = report_dir.parent / "runtime-attestation.json"
     path.write_text(encode_runtime_attestation_json(attestation), encoding="utf-8")
     return path
 
 
+def _trust_registry(path: Path) -> Path:
+    registry = build_runtime_trust_registry(
+        (
+            TrustedRuntimeIssuer(
+                issuer="external-sandbox",
+                key_id="test-key",
+                algorithm=RuntimeSignatureAlgorithm.HMAC_SHA256,
+                secret_env_var="AGENTSEC_HOMI_RUNTIME_KEY",
+            ),
+        )
+    )
+    path.write_text(encode_runtime_trust_registry_json(registry), encoding="utf-8")
+    return path
+
+
 def test_reconcile_runtime_writes_bound_sidecar_and_bundle_displays_it(
     tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     workspace = tmp_path / "agent"
     report_dir = tmp_path / "reports"
@@ -98,6 +125,8 @@ def test_reconcile_runtime_writes_bound_sidecar_and_bundle_displays_it(
     )
     assert generated.exit_code == 0, generated.output
     attestation_path = _attestation_for_report(report_dir)
+    registry_path = _trust_registry(tmp_path / "runtime-trust-registry.json")
+    monkeypatch.setenv("AGENTSEC_HOMI_RUNTIME_KEY", "k" * 32)
 
     reconciled = runner.invoke(
         create_app(),
@@ -108,6 +137,8 @@ def test_reconcile_runtime_writes_bound_sidecar_and_bundle_displays_it(
             str(report_dir),
             "--attestation",
             str(attestation_path),
+            "--trust-registry",
+            str(registry_path),
             "--force",
         ],
     )
@@ -124,6 +155,16 @@ def test_reconcile_runtime_writes_bound_sidecar_and_bundle_displays_it(
     assert payload["report_only"] is True
     assert payload["policy_authority"] is False
     assert payload["ci_blocked"] is False
+    assert payload["trust_verified"] is True
+    assert payload["evidence_confidence"] == "B"
+    trust = json.loads(
+        (report_dir / "homi-runtime-trust-verification.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    assert trust["trusted"] is True
+    assert trust["signature_verified"] is True
+    assert trust["replay_detected"] is False
 
     bundled = runner.invoke(
         create_app(),
@@ -144,6 +185,8 @@ def test_reconcile_runtime_writes_bound_sidecar_and_bundle_displays_it(
     assert bundled.exit_code == 0, bundled.output
     html = (tmp_path / "combined.html").read_text(encoding="utf-8")
     assert "运行时证据对账" in html
+    assert "运行时信任验证" in html
+    assert "signature_time_and_replay_valid" in html
     assert "Evidence Confidence" in html
     assert "不授予权限" in html
 
@@ -184,3 +227,47 @@ def test_reconcile_runtime_rejects_snapshot_mismatch(tmp_path: Path) -> None:
     )
     assert result.exit_code == 4
     assert not (report_dir / "homi-runtime-reconciliation.json").exists()
+
+
+def test_reconcile_runtime_replay_fails_closed(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    workspace = tmp_path / "agent"
+    report_dir = tmp_path / "reports"
+    _workspace(workspace)
+    generated = runner.invoke(
+        create_app(),
+        ["homi", "report", str(workspace), "--output-dir", str(report_dir), "--force"],
+    )
+    assert generated.exit_code == 0, generated.output
+    attestation_path = _attestation_for_report(report_dir)
+    registry_path = _trust_registry(tmp_path / "runtime-trust-registry.json")
+    monkeypatch.setenv("AGENTSEC_HOMI_RUNTIME_KEY", "k" * 32)
+    args = [
+        "homi",
+        "reconcile-runtime",
+        "--report-dir",
+        str(report_dir),
+        "--attestation",
+        str(attestation_path),
+        "--trust-registry",
+        str(registry_path),
+        "--force",
+    ]
+    first = runner.invoke(create_app(), args)
+    assert first.exit_code == 0, first.output
+    second = runner.invoke(create_app(), args)
+    assert second.exit_code == 0, second.output
+    trust = json.loads(
+        (report_dir / "homi-runtime-trust-verification.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    reconciliation = json.loads(
+        (report_dir / "homi-runtime-reconciliation.json").read_text(encoding="utf-8")
+    )
+    assert trust["status"] == "replayed"
+    assert trust["trusted"] is False
+    assert reconciliation["status"] == "unverified"
+    assert reconciliation["evidence_confidence"] == "D"

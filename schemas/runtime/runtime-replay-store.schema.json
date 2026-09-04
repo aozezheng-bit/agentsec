@@ -1,0 +1,91 @@
+{
+  "$id": "https://agentsec.local/schemas/runtime/runtime-replay-store.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "authority": {
+      "additionalProperties": false,
+      "properties": {
+        "ci_blocked": {
+          "const": false
+        },
+        "policy_authority": {
+          "const": false
+        },
+        "report_only": {
+          "const": true
+        }
+      },
+      "required": [
+        "report_only",
+        "policy_authority",
+        "ci_blocked"
+      ],
+      "type": "object"
+    },
+    "ci_blocked": {
+      "const": false
+    },
+    "entries": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "accepted_at": {
+            "type": "string"
+          },
+          "attestation_sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "expires_at": {
+            "type": "string"
+          },
+          "issuer": {
+            "type": "string"
+          },
+          "key_id": {
+            "type": "string"
+          },
+          "nonce_sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "issuer",
+          "key_id",
+          "nonce_sha256",
+          "attestation_sha256",
+          "accepted_at",
+          "expires_at"
+        ],
+        "type": "object"
+      },
+      "maxItems": 4096,
+      "type": "array"
+    },
+    "format": {
+      "const": "agentsec-runtime-replay-store"
+    },
+    "format_version": {
+      "const": "0.1.0"
+    },
+    "policy_authority": {
+      "const": false
+    },
+    "report_only": {
+      "const": true
+    }
+  },
+  "required": [
+    "format",
+    "format_version",
+    "entries",
+    "report_only",
+    "policy_authority",
+    "ci_blocked",
+    "authority"
+  ],
+  "title": "AgentSec Runtime Replay Store",
+  "type": "object"
+}

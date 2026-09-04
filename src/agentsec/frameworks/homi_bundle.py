@@ -23,6 +23,7 @@ from agentsec.risk.context_rules import (
     decode_context_risk_json,
 )
 from agentsec.risk.runtime_attestation import decode_evidence_reconciliation_json
+from agentsec.risk.runtime_trust import decode_runtime_trust_verification_json
 
 HOMI_COMBINED_REPORT_FORMAT: Literal["agentsec-homi-combined-report"] = (
     "agentsec-homi-combined-report"
@@ -86,6 +87,8 @@ class HomiCombinedReport:
     risk_state_report_sha256: str | None = None
     runtime_reconciliation_report: dict[str, Any] | None = None
     runtime_reconciliation_report_sha256: str | None = None
+    runtime_trust_verification_report: dict[str, Any] | None = None
+    runtime_trust_verification_report_sha256: str | None = None
 
     def to_dict(self) -> dict[str, object]:
         return {
@@ -117,8 +120,16 @@ class HomiCombinedReport:
             "runtime_reconciliation_report_sha256": (
                 self.runtime_reconciliation_report_sha256
             ),
+            "runtime_trust_verification_report": self.runtime_trust_verification_report,
+            "runtime_trust_verification_report_sha256": (
+                self.runtime_trust_verification_report_sha256
+            ),
             "runtime_evidence": {
                 "supplied": self.runtime_reconciliation_report is not None,
+                "trust_verified": (
+                    self.runtime_trust_verification_report is not None
+                    and self.runtime_trust_verification_report.get("trusted") is True
+                ),
                 "verified": (
                     self.runtime_reconciliation_report is not None
                     and self.runtime_reconciliation_report.get("runtime_verified")
@@ -200,12 +211,17 @@ def build_homi_combined_report(
         operation_context,
         context_risk,
     )
+    runtime_trust, runtime_trust_digest = _read_runtime_trust_sidecar(
+        pilot_path,
+        pilot_digest,
+    )
     runtime_reconciliation, runtime_reconciliation_digest = (
         _read_runtime_reconciliation_sidecar(
             pilot_path,
             pilot_digest,
             operation_context,
             context_risk,
+            runtime_trust,
         )
     )
     return HomiCombinedReport(
@@ -238,6 +254,8 @@ def build_homi_combined_report(
         risk_score_report_sha256=risk_score_digest,
         runtime_reconciliation_report=runtime_reconciliation,
         runtime_reconciliation_report_sha256=runtime_reconciliation_digest,
+        runtime_trust_verification_report=runtime_trust,
+        runtime_trust_verification_report_sha256=runtime_trust_digest,
     )
 
 
@@ -509,6 +527,10 @@ def render_homi_combined_report_text(
                 report.runtime_reconciliation_report,
                 chinese=False,
             ),
+            _runtime_trust_text_summary(
+                report.runtime_trust_verification_report,
+                chinese=False,
+            ),
             "",
             "Recommendations (advisory only)",
         ]
@@ -535,6 +557,10 @@ def render_homi_combined_report_text(
         _context_score_text_summary(report.risk_score_report, chinese=True),
         _runtime_reconciliation_text_summary(
             report.runtime_reconciliation_report,
+            chinese=True,
+        ),
+        _runtime_trust_text_summary(
+            report.runtime_trust_verification_report,
             chinese=True,
         ),
         "",
@@ -614,6 +640,10 @@ def render_homi_combined_report_html(
         ),
         "runtime_reconciliation_summary": _runtime_reconciliation_summary(
             report.runtime_reconciliation_report,
+            chinese,
+        ),
+        "runtime_trust_summary": _runtime_trust_summary(
+            report.runtime_trust_verification_report,
             chinese,
         ),
         "recommendations_title": escape(labels["recommendations_title"]),
@@ -1249,6 +1279,43 @@ def _runtime_reconciliation_text_summary(
     )
 
 
+def _runtime_trust_text_summary(
+    report: dict[str, Any] | None,
+    *,
+    chinese: bool,
+) -> str:
+    if not isinstance(report, dict):
+        return (
+            "Runtime trust verification: not supplied."
+            if not chinese
+            else "运行时信任验证：未提供 Trusted Issuer / Key Registry。"
+        )
+    status = _text(report.get("status"), "unknown")
+    trusted = report.get("trusted") is True
+    signature = report.get("signature_verified") is True
+    time_valid = report.get("time_valid") is True
+    replay = report.get("replay_detected") is True
+    reasons = report.get("reason_codes")
+    reason_text = (
+        ", ".join(item for item in reasons if isinstance(item, str))
+        if isinstance(reasons, list)
+        else ""
+    )
+    if chinese:
+        return (
+            f"运行时信任验证：状态 {status}；可信 {trusted}；签名有效 {signature}；"
+            f"时效有效 {time_valid}；检测到重放 {replay}；"
+            f"原因 {reason_text or '未提供'}。密钥只通过环境变量读取，"
+            "报告不包含密钥值。"
+        )
+    return (
+        f"Runtime trust verification: status={status}; trusted={trusted}; "
+        f"signature_verified={signature}; time_valid={time_valid}; "
+        f"replay_detected={replay}; reasons={reason_text or 'none'}. "
+        "Keys are read only from environment variables and never reported."
+    )
+
+
 def _runtime_reconciliation_summary(
     report: dict[str, Any] | None,
     chinese: bool,
@@ -1341,6 +1408,46 @@ def _runtime_reconciliation_summary(
         f"<p class='muted'>{escape(limitation_text)}</p>" if limitation_text else ""
     )
     return f"{cards}{detail}<p class='muted'>{escape(note)}</p>"
+
+
+def _runtime_trust_summary(
+    report: dict[str, Any] | None,
+    chinese: bool,
+) -> str:
+    if not isinstance(report, dict):
+        text = (
+            "本次未提供信任注册表，Runtime Attestation 不会被视为可信。"
+            if chinese
+            else "No trust registry was supplied; Runtime Attestation is untrusted."
+        )
+        return f"<div class='callout'>{escape(text)}</div>"
+    status = _text(report.get("status"), "unknown")
+    values = (
+        ("信任状态" if chinese else "Trust status", status),
+        (
+            "可信" if chinese else "Trusted",
+            "是" if report.get("trusted") is True else "否",
+        ),
+        (
+            "签名验证" if chinese else "Signature",
+            "通过" if report.get("signature_verified") is True else "失败",
+        ),
+        (
+            "时间窗口" if chinese else "Time window",
+            "有效" if report.get("time_valid") is True else "无效",
+        ),
+        (
+            "重放检测" if chinese else "Replay",
+            "命中" if report.get("replay_detected") is True else "未命中",
+        ),
+    )
+    reasons = report.get("reason_codes")
+    reason_text = (
+        "；".join(item for item in reasons if isinstance(item, str))
+        if isinstance(reasons, list)
+        else ""
+    )
+    return f"{_metric_cards(values)}<p class='muted'>{escape(reason_text)}</p>"
 
 
 def _validate_report_only_operation_context(
@@ -1483,6 +1590,7 @@ def _read_runtime_reconciliation_sidecar(
     pilot_digest: str,
     operation_context: dict[str, Any] | None,
     context_risk: dict[str, Any] | None,
+    trust_report: dict[str, Any] | None,
 ) -> tuple[dict[str, Any] | None, str | None]:
     """Read and verify the optional RISK-06 reconciliation sidecar."""
 
@@ -1528,7 +1636,44 @@ def _read_runtime_reconciliation_sidecar(
         raise HomiCombinedReportError(
             "homi-runtime-reconciliation.json is not bound to Context Risk"
         )
+    if trust_report is None:
+        if reconciliation.source_trust_verification_id is not None:
+            raise HomiCombinedReportError(
+                "runtime reconciliation references missing trust verification"
+            )
+    elif reconciliation.source_trust_verification_id != trust_report.get(
+        "verification_id"
+    ):
+        raise HomiCombinedReportError(
+            "homi-runtime-reconciliation.json is not bound to Runtime Trust"
+        )
+    if reconciliation.trust_verified != (trust_report or {}).get("trusted", False):
+        raise HomiCombinedReportError(
+            "homi-runtime-reconciliation trust status is inconsistent"
+        )
     return payload, digest
+
+
+def _read_runtime_trust_sidecar(
+    pilot_path: Path,
+    pilot_digest: str,
+) -> tuple[dict[str, Any] | None, str | None]:
+    """Read the optional trust verification report and validate its contract."""
+
+    del pilot_digest
+    sidecar_path = pilot_path.parent / "homi-runtime-trust-verification.json"
+    if not sidecar_path.exists():
+        return None, None
+    payload, digest = _read_json(sidecar_path, "homi-runtime-trust-verification.json")
+    try:
+        decision = decode_runtime_trust_verification_json(
+            json.dumps(payload, ensure_ascii=False, sort_keys=True)
+        )
+    except (TypeError, ValueError) as error:
+        raise HomiCombinedReportError(
+            "homi-runtime-trust-verification.json is invalid"
+        ) from error
+    return decision.to_dict(), digest
 
 
 def _validate_report_only_risk_state(state: dict[str, Any] | None) -> None:

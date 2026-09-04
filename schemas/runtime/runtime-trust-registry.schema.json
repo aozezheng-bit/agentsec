@@ -1,0 +1,121 @@
+{
+  "$id": "https://agentsec.local/schemas/runtime/runtime-trust-registry.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "authority": {
+      "additionalProperties": false,
+      "properties": {
+        "ci_blocked": {
+          "const": false
+        },
+        "policy_authority": {
+          "const": false
+        },
+        "report_only": {
+          "const": true
+        }
+      },
+      "required": [
+        "report_only",
+        "policy_authority",
+        "ci_blocked"
+      ],
+      "type": "object"
+    },
+    "ci_blocked": {
+      "const": false
+    },
+    "format": {
+      "const": "agentsec-runtime-trust-registry"
+    },
+    "format_version": {
+      "const": "0.1.0"
+    },
+    "issuers": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "algorithm": {
+            "enum": [
+              "hmac_sha256"
+            ]
+          },
+          "allowed_clock_skew_seconds": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "issuer": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "key_id": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "max_attestation_age_seconds": {
+            "minimum": 1,
+            "type": "integer"
+          },
+          "not_after": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "not_before": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "secret_env_var": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "active",
+              "revoked"
+            ]
+          }
+        },
+        "required": [
+          "issuer",
+          "key_id",
+          "algorithm",
+          "secret_env_var",
+          "status",
+          "not_before",
+          "not_after",
+          "max_attestation_age_seconds",
+          "allowed_clock_skew_seconds"
+        ],
+        "type": "object"
+      },
+      "maxItems": 128,
+      "minItems": 1,
+      "type": "array"
+    },
+    "policy_authority": {
+      "const": false
+    },
+    "report_only": {
+      "const": true
+    }
+  },
+  "required": [
+    "format",
+    "format_version",
+    "issuers",
+    "report_only",
+    "policy_authority",
+    "ci_blocked",
+    "authority"
+  ],
+  "title": "AgentSec Runtime Trust Registry",
+  "type": "object"
+}

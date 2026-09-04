@@ -92,6 +92,13 @@ from agentsec.risk.runtime_attestation import (
     decode_runtime_attestation_json,
     encode_evidence_reconciliation_json,
 )
+from agentsec.risk.runtime_trust import (
+    DeterministicRuntimeTrustVerifier,
+    RuntimeReplayStore,
+    RuntimeTrustRegistry,
+    decode_runtime_trust_registry_json,
+    encode_runtime_trust_verification_json,
+)
 
 _HOMI_MAX_OUTPUT_BYTES = 67_108_864
 
@@ -504,6 +511,23 @@ def register_homi_commands(
                 help="External sanitized Runtime Attestation JSON.",
             ),
         ],
+        trust_registry_path: Annotated[
+            Path | None,
+            typer.Option(
+                "--trust-registry",
+                help="Optional trusted issuer/key registry JSON.",
+            ),
+        ] = None,
+        replay_store_path: Annotated[
+            Path | None,
+            typer.Option(
+                "--replay-store",
+                help=(
+                    "Replay store JSON; defaults to "
+                    "<report-dir>/homi-runtime-replay-store.json."
+                ),
+            ),
+        ] = None,
         output_path: Annotated[
             Path | None,
             typer.Option(
@@ -522,15 +546,44 @@ def register_homi_commands(
         effective_output = output_path or (
             report_dir / "homi-runtime-reconciliation.json"
         )
+        effective_trust_output = report_dir / "homi-runtime-trust-verification.json"
+        effective_replay_store = replay_store_path or (
+            report_dir / "homi-runtime-replay-store.json"
+        )
         try:
             pilot_digest, context_set, risk_report, attestation = (
                 _load_runtime_reconciliation_inputs(report_dir, attestation_path)
+            )
+            registry = (
+                _load_runtime_trust_registry(trust_registry_path)
+                if trust_registry_path is not None
+                else None
+            )
+            _validate_runtime_binding_preflight(
+                pilot_digest,
+                context_set,
+                risk_report,
+                attestation,
+            )
+            trust_decision = DeterministicRuntimeTrustVerifier().verify(
+                attestation,
+                registry,
+                replay_store=RuntimeReplayStore(effective_replay_store),
             )
             reconciliation = DeterministicRuntimeEvidenceReconciler().reconcile(
                 context_set,
                 risk_report,
                 attestation,
                 expected_agent_snapshot_sha256=pilot_digest,
+                trust_decision=trust_decision,
+            )
+            _write_diff_output(
+                encode_runtime_trust_verification_json(trust_decision),
+                effective_trust_output,
+                force=force,
+                protected_paths=(attestation_path, trust_registry_path)
+                if trust_registry_path is not None
+                else (attestation_path,),
             )
             _write_diff_output(
                 encode_evidence_reconciliation_json(reconciliation),
@@ -541,9 +594,13 @@ def register_homi_commands(
                     report_dir / "homi-operation-context.json",
                     report_dir / "homi-context-risk.json",
                     attestation_path,
+                    effective_trust_output,
                 ),
             )
-            typer.echo(f"Runtime evidence reconciliation written to {effective_output}")
+            typer.echo(
+                "Runtime trust verification and evidence reconciliation written to "
+                f"{report_dir}"
+            )
         except (
             HomiPilotError,
             HomiCapabilityDiffError,
@@ -890,6 +947,40 @@ def _load_runtime_reconciliation_inputs(
     except (TypeError, ValueError) as error:
         raise HomiPilotError("runtime reconciliation reports are invalid") from error
     return pilot_digest, context_set, risk_report, attestation
+
+
+def _load_runtime_trust_registry(path: Path) -> RuntimeTrustRegistry:
+    if path.is_symlink() or not path.is_file():
+        raise HomiPilotError("--trust-registry must be a regular file")
+    if path.stat().st_size > _HOMI_MAX_OUTPUT_BYTES:
+        raise HomiPilotError("--trust-registry exceeds size limit")
+    try:
+        return decode_runtime_trust_registry_json(path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeDecodeError, ValueError) as error:
+        raise HomiPilotError("--trust-registry is invalid") from error
+
+
+def _validate_runtime_binding_preflight(
+    pilot_digest: str,
+    context_set: OperationContextSet,
+    risk_report: ContextRiskReport,
+    attestation: RuntimeAttestation,
+) -> None:
+    """Validate source bindings before replay state can be consumed."""
+
+    context_digest = canonical_operation_context_sha256(context_set)
+    if attestation.agent_snapshot_sha256 != pilot_digest:
+        raise RuntimeAttestationError(
+            "runtime attestation is not bound to the expected Agent Snapshot"
+        )
+    if risk_report.source_context_sha256 != context_digest:
+        raise RuntimeAttestationError(
+            "RISK-04 report is not bound to Operation Context"
+        )
+    if attestation.context_sha256 != context_digest:
+        raise RuntimeAttestationError(
+            "runtime attestation is not bound to Operation Context"
+        )
 
 
 def _render_report(
