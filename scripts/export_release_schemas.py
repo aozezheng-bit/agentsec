@@ -104,9 +104,13 @@ def main() -> None:
     from agentsec.frameworks.homi_risk_state import (
         export_homi_risk_state_json_schema,
     )
+    from agentsec.frameworks.homi_snapshot import (
+        export_homi_snapshot_json_schema,
+    )
 
     export_homi_operation_context_json_schema(schema_root / "risk")
     export_homi_risk_state_json_schema(schema_root / "risk")
+    export_homi_snapshot_json_schema(schema_root / "risk")
     export_runtime_attestation_json_schema(schema_root / "runtime")
     export_runtime_trust_json_schemas(schema_root / "runtime")
     export_semantic_json_schemas(schema_root / "semantic-analysis")

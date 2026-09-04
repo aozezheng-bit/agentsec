@@ -43,7 +43,7 @@ schemas/risk/                      Operation Context Contract 0.1.0; Homi Risk S
                                    Report 0.1.0; Homi Operation Context
                                    Extraction Report 0.1.0; Context-aware
                                    Deterministic Risk Report 0.1.0; Context Risk
-                                   Score Report 0.1.0
+                                   Score Report 0.1.0; Homi Agent Snapshot 0.1.0
 schemas/runtime/                   External Runtime Attestation 0.2.0; Evidence
                                    Reconciliation Report 0.2.0; Trusted Issuer
                                    Registry 0.1.0; Trust Verification 0.1.0;

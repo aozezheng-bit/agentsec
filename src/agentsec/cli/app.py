@@ -38,7 +38,7 @@ from agentsec.cli.baseline import register_baseline_commands
 from agentsec.cli.capability import register_capability_commands
 from agentsec.cli.diff import register_diff_command
 from agentsec.cli.exit_codes import ExitCode
-from agentsec.cli.homi import register_homi_commands
+from agentsec.cli.homi import register_homi_commands, register_snapshot_commands
 from agentsec.cli.manifest import register_manifest_command
 from agentsec.cli.rules import register_rules_commands
 from agentsec.cli.scan import register_scan_command
@@ -212,6 +212,7 @@ def create_app(
     )
     register_semantic_commands(application)
     register_homi_commands(application, homi_pilot)
+    register_snapshot_commands(application, homi_pilot)
     return application
 
 

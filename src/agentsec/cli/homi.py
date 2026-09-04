@@ -71,6 +71,15 @@ from agentsec.frameworks.homi_simulation import (
     encode_homi_safe_simulation_json,
     render_homi_safe_simulation_text,
 )
+from agentsec.frameworks.homi_snapshot import (
+    HomiSnapshot,
+    HomiSnapshotVerification,
+    build_homi_snapshot,
+    decode_homi_snapshot_json,
+    encode_homi_snapshot_json,
+    encode_homi_snapshot_verification_json,
+    verify_homi_snapshot,
+)
 from agentsec.risk.context import (
     OperationContextSet,
     canonical_operation_context_sha256,
@@ -227,6 +236,8 @@ def register_homi_commands(
         context_settings={"help_option_names": ["-h", "--help"]},
     )
     effective_pilot = pilot or DeterministicHomiReportOnlyPilot()
+
+    _register_snapshot_commands(homi_application, effective_pilot)
 
     @homi_application.command("fingerprint")
     def fingerprint_command(
@@ -1103,6 +1114,159 @@ def _write_diff_output(
         raise
 
 
+def _register_snapshot_commands(
+    parent: typer.Typer, pilot: DeterministicHomiReportOnlyPilot
+) -> None:
+    """Register `snapshot create|verify` under one parent command group."""
+
+    snapshot_application = typer.Typer(
+        help="Create or verify deterministic, report-only Homi Agent Snapshots.",
+        add_completion=False,
+        no_args_is_help=True,
+        rich_markup_mode="rich",
+        context_settings={"help_option_names": ["-h", "--help"]},
+    )
+    parent.add_typer(snapshot_application, name="snapshot")
+
+    @snapshot_application.command("create")
+    def snapshot_create_command(
+        workspace: HomiWorkspaceArgument = Path("."),
+        output_format: HomiFormatOption = HomiCliFormat.JSON,
+        output_path: HomiOutputOption = None,
+        pilot_id: HomiPilotIdOption = "homi-snapshot-cli",
+        project_name: HomiProjectNameOption = None,
+        owner: HomiOwnerOption = "cli-user",
+        force: HomiForceOption = False,
+    ) -> None:
+        """Write a deterministic Homi Agent Snapshot for one workspace."""
+
+        _require_force_output(output_path, force)
+        request = _request_or_exit(
+            workspace=workspace,
+            output_anchor=output_path,
+            pilot_id=pilot_id,
+            project_name=project_name,
+            owner=owner,
+            reviewer_id=None,
+            scenario_selection=None,
+        )
+        try:
+            snapshot = build_homi_snapshot(pilot.run(request))
+            rendered = (
+                encode_homi_snapshot_json(snapshot)
+                if output_format is HomiCliFormat.JSON
+                else _render_homi_snapshot_text(snapshot)
+            )
+            if output_path is None:
+                typer.echo(rendered, nl=False)
+            else:
+                _write_diff_output(
+                    rendered, output_path, force=force, protected_paths=()
+                )
+        except (HomiPilotError, ValueError, OSError) as error:
+            typer.echo(f"Homi snapshot creation failed safely: {error}", err=True)
+            raise typer.Exit(code=ExitCode.ARTIFACT_ERROR) from error
+
+    @snapshot_application.command("verify")
+    def snapshot_verify_command(
+        baseline_path: Annotated[
+            Path,
+            typer.Option(
+                "--baseline", help="Baseline Homi Agent Snapshot JSON artifact."
+            ),
+        ],
+        workspace: HomiWorkspaceArgument = Path("."),
+        output_format: HomiFormatOption = HomiCliFormat.JSON,
+        output_path: HomiOutputOption = None,
+        pilot_id: HomiPilotIdOption = "homi-snapshot-cli",
+        project_name: HomiProjectNameOption = None,
+        owner: HomiOwnerOption = "cli-user",
+        force: HomiForceOption = False,
+    ) -> None:
+        """Verify one workspace against a baseline Snapshot (report-only)."""
+
+        _require_force_output(output_path, force)
+        try:
+            baseline = decode_homi_snapshot_json(
+                baseline_path.read_text(encoding="utf-8")
+            )
+        except (OSError, ValueError) as error:
+            typer.echo(f"Homi snapshot baseline is invalid: {error}", err=True)
+            raise typer.Exit(code=ExitCode.ARTIFACT_ERROR) from error
+        request = _request_or_exit(
+            workspace=workspace,
+            output_anchor=output_path,
+            pilot_id=pilot_id,
+            project_name=project_name,
+            owner=owner,
+            reviewer_id=None,
+            scenario_selection=None,
+        )
+        try:
+            current = build_homi_snapshot(pilot.run(request))
+            verification = verify_homi_snapshot(baseline, current)
+            rendered = (
+                encode_homi_snapshot_verification_json(verification)
+                if output_format is HomiCliFormat.JSON
+                else _render_homi_snapshot_verification_text(verification)
+            )
+            if output_path is None:
+                typer.echo(rendered, nl=False)
+            else:
+                _write_diff_output(
+                    rendered,
+                    output_path,
+                    force=force,
+                    protected_paths=(baseline_path,),
+                )
+        except (HomiPilotError, ValueError, OSError) as error:
+            typer.echo(f"Homi snapshot verification failed safely: {error}", err=True)
+            raise typer.Exit(code=ExitCode.ARTIFACT_ERROR) from error
+
+
+def register_snapshot_commands(
+    application: typer.Typer,
+    pilot: DeterministicHomiReportOnlyPilot | None = None,
+) -> None:
+    """Register top-level `agentsec snapshot create|verify` commands."""
+
+    _register_snapshot_commands(
+        application, pilot or DeterministicHomiReportOnlyPilot()
+    )
+
+
+def _render_homi_snapshot_text(snapshot: HomiSnapshot) -> str:
+    lines = [
+        "AgentSec Homi Agent Snapshot",
+        f"Project: {snapshot.project_name}",
+        f"Snapshot digest: {snapshot.snapshot_digest}",
+        f"Workspace fingerprint: {snapshot.workspace_fingerprint}",
+        (
+            f"Files: {len(snapshot.files)}  "
+            f"Capabilities: {len(snapshot.capabilities)}  "
+            f"Findings: {len(snapshot.findings)}"
+        ),
+        "Authority: report_only=true; runtime_verified=false; ci_blocked=false",
+    ]
+    return "\n".join(lines) + "\n"
+
+
+def _render_homi_snapshot_verification_text(
+    verification: HomiSnapshotVerification,
+) -> str:
+    lines = [
+        "AgentSec Homi Agent Snapshot Verification",
+        f"Status: {verification.status.value}",
+        f"Baseline digest: {verification.baseline_snapshot_digest}",
+        f"Current digest: {verification.current_snapshot_digest}",
+        f"File changes: {', '.join(verification.file_changes) or 'none'}",
+        f"Findings added: {', '.join(verification.findings_added) or 'none'}",
+        f"Findings removed: {', '.join(verification.findings_removed) or 'none'}",
+        "Authority: report_only=true; runtime_verified=false; ci_blocked=false",
+    ]
+    return "\n".join(lines) + "\n"
+
+
 def _overlaps(left: Path, right: Path) -> bool:
     return left == right or left in right.parents or right in left.parents
 
@@ -1112,4 +1276,5 @@ __all__ = [
     "HomiCombinedFormat",
     "HomiDiffFormat",
     "register_homi_commands",
+    "register_snapshot_commands",
 ]

@@ -1,0 +1,224 @@
+{
+  "$defs": {
+    "signalSummaries": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "signal_id": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "state": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "signal_id",
+          "state"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    }
+  },
+  "$id": "https://agentsec.local/schemas/risk/homi-snapshot.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "adapter_version": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "authority": {
+      "additionalProperties": false,
+      "properties": {
+        "ci_blocked": {
+          "const": false
+        },
+        "report_only": {
+          "const": true
+        },
+        "runtime_verified": {
+          "const": false
+        }
+      },
+      "required": [
+        "report_only",
+        "runtime_verified",
+        "ci_blocked"
+      ],
+      "type": "object"
+    },
+    "capabilities": {
+      "$ref": "#/$defs/signalSummaries"
+    },
+    "ci_blocked": {
+      "const": false
+    },
+    "combination_rule_pack_version": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "coverage_metrics": {
+      "type": "object"
+    },
+    "files": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "content_sha256": {
+            "anyOf": [
+              {
+                "pattern": "^[0-9a-f]{64}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "line_count": {
+            "anyOf": [
+              {
+                "minimum": 0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "name": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "size_bytes": {
+            "anyOf": [
+              {
+                "minimum": 0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "state": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "state",
+          "content_sha256",
+          "size_bytes",
+          "line_count"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "findings": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "finding_id": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "rule_id": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "score": {
+            "maximum": 10,
+            "minimum": 0,
+            "type": "number"
+          },
+          "severity": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "finding_id",
+          "rule_id",
+          "severity",
+          "score"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "format": {
+      "const": "agentsec-homi-snapshot"
+    },
+    "format_version": {
+      "const": "0.1.0",
+      "type": "string"
+    },
+    "owner": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "persona_signals": {
+      "$ref": "#/$defs/signalSummaries"
+    },
+    "pilot_id": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "profile_model_version": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "project_name": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "report_only": {
+      "const": true
+    },
+    "runtime_verified": {
+      "const": false
+    },
+    "snapshot_digest": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "source_report_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "workspace_fingerprint": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "format",
+    "format_version",
+    "snapshot_digest",
+    "workspace_fingerprint",
+    "project_name",
+    "adapter_version",
+    "profile_model_version",
+    "combination_rule_pack_version",
+    "source_report_sha256",
+    "files",
+    "capabilities",
+    "persona_signals",
+    "findings",
+    "coverage_metrics",
+    "pilot_id",
+    "owner",
+    "report_only",
+    "runtime_verified",
+    "ci_blocked",
+    "authority"
+  ],
+  "title": "AgentSec Homi Agent Snapshot",
+  "type": "object"
+}

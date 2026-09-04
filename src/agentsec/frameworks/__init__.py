@@ -182,6 +182,26 @@ _HOMI_RISK_STATE_EXPORTS = frozenset(
         "export_homi_risk_state_json_schema",
     }
 )
+_HOMI_SNAPSHOT_EXPORTS = frozenset(
+    {
+        "HOMI_SNAPSHOT_BASIS",
+        "HOMI_SNAPSHOT_FORMAT",
+        "HOMI_SNAPSHOT_FORMAT_VERSION",
+        "HOMI_SNAPSHOT_VERIFICATION_FORMAT",
+        "HomiSnapshot",
+        "HomiSnapshotFileSummary",
+        "HomiSnapshotFindingSummary",
+        "HomiSnapshotSignalSummary",
+        "HomiSnapshotStatus",
+        "HomiSnapshotVerification",
+        "build_homi_snapshot",
+        "decode_homi_snapshot_json",
+        "encode_homi_snapshot_json",
+        "encode_homi_snapshot_verification_json",
+        "export_homi_snapshot_json_schema",
+        "verify_homi_snapshot",
+    }
+)
 _HOMI_POSTURE_EXPORTS = frozenset(
     {
         "HOMI_POSTURE_FORMAT",
@@ -246,6 +266,8 @@ def __getattr__(name: str) -> Any:
         module = import_module(".homi_operation_context", __name__)
     elif name in _HOMI_RISK_STATE_EXPORTS:
         module = import_module(".homi_risk_state", __name__)
+    elif name in _HOMI_SNAPSHOT_EXPORTS:
+        module = import_module(".homi_snapshot", __name__)
     elif name in _HOMI_POSTURE_EXPORTS:
         module = import_module(".homi_posture", __name__)
     elif name in _HOMI_CALIBRATION_EXPORTS:
@@ -319,6 +341,22 @@ __all__ = [
     "build_homi_risk_state_report",
     "encode_homi_risk_state_json",
     "export_homi_risk_state_json_schema",
+    "HOMI_SNAPSHOT_BASIS",
+    "HOMI_SNAPSHOT_FORMAT",
+    "HOMI_SNAPSHOT_FORMAT_VERSION",
+    "HOMI_SNAPSHOT_VERIFICATION_FORMAT",
+    "HomiSnapshot",
+    "HomiSnapshotFileSummary",
+    "HomiSnapshotFindingSummary",
+    "HomiSnapshotSignalSummary",
+    "HomiSnapshotStatus",
+    "HomiSnapshotVerification",
+    "build_homi_snapshot",
+    "decode_homi_snapshot_json",
+    "encode_homi_snapshot_json",
+    "encode_homi_snapshot_verification_json",
+    "export_homi_snapshot_json_schema",
+    "verify_homi_snapshot",
     "HOMI_OPERATION_CONTEXT_BASIS",
     "HOMI_OPERATION_CONTEXT_FORMAT",
     "HOMI_OPERATION_CONTEXT_FORMAT_VERSION",
