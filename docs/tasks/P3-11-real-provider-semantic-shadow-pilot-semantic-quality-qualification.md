@@ -33,7 +33,7 @@ Policy, CI, Hard Gate, or release authority.
 案例                  45（testdata 28 / homi_snapshot 10 / demo 7；中文 8 例）
 判断                  108 条（determination: supported 101 / not_supported 7）
 标注方式              ai_draft_human_confirmed（AI 起草底稿 + 人工逐案例复核确认）
-签署人                呈屿（复核记录：REVIEW-WORKSHEET.zh.md，45 例全部确认，零修改）
+签署人                internal-reviewer（复核记录：REVIEW-WORKSHEET.zh.md，45 例全部确认，零修改）
 产物                  pilots/semantic-quality-p3-11/gold-labels/semantic-gold-labels.json
 审计链                review-submission.ai-draft.json（AI 底稿）
                       review-submission.completed.json（人工确认版）

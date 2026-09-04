@@ -1,0 +1,396 @@
+{
+  "$id": "https://agentsec.local/schemas/risk/context-risk-score.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "authority": {
+      "additionalProperties": false,
+      "properties": {
+        "ci_blocked": {
+          "const": false
+        },
+        "policy_authority": {
+          "const": false
+        },
+        "report_only": {
+          "const": true
+        },
+        "runtime_verified": {
+          "const": false
+        }
+      },
+      "required": [
+        "report_only",
+        "runtime_verified",
+        "policy_authority",
+        "ci_blocked"
+      ],
+      "type": "object"
+    },
+    "ci_blocked": {
+      "const": false
+    },
+    "contribution_count": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "contributions": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "confidence": {
+            "enum": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ]
+          },
+          "context_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "uniqueItems": true
+          },
+          "control_coverage": {
+            "enum": [
+              "none",
+              "partial",
+              "strong"
+            ]
+          },
+          "control_factor": {
+            "maximum": 1,
+            "minimum": 0,
+            "type": "number"
+          },
+          "evidence_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "uniqueItems": true
+          },
+          "finding_id": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "likelihood": {
+            "enum": [
+              "very_low",
+              "low",
+              "moderate",
+              "high",
+              "very_high"
+            ]
+          },
+          "potential_impact_level": {
+            "enum": [
+              "very_low",
+              "low",
+              "moderate",
+              "high",
+              "very_high"
+            ]
+          },
+          "potential_impact_score": {
+            "maximum": 10,
+            "minimum": 0,
+            "type": "number"
+          },
+          "potential_risk_level": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "residual_risk_score": {
+            "maximum": 10,
+            "minimum": 0,
+            "type": "number"
+          },
+          "rule_id": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "severity": {
+            "enum": [
+              "none",
+              "low",
+              "medium",
+              "high",
+              "critical"
+            ]
+          }
+        },
+        "required": [
+          "finding_id",
+          "rule_id",
+          "potential_impact_score",
+          "potential_risk_level",
+          "potential_impact_level",
+          "likelihood",
+          "severity",
+          "confidence",
+          "control_coverage",
+          "control_factor",
+          "residual_risk_score",
+          "context_ids",
+          "evidence_ids"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "coverage_complete": {
+      "type": "boolean"
+    },
+    "current_posture": {
+      "enum": [
+        "template_only",
+        "latent_unverified",
+        "active_unverified",
+        "runtime_attested",
+        "not_established"
+      ]
+    },
+    "current_posture_score": {
+      "maximum": 10,
+      "minimum": 0,
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "drift": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "added_context_ids": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "uniqueItems": true
+            },
+            "added_finding_ids": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "uniqueItems": true
+            },
+            "baseline_context_sha256": {
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            "baseline_potential_impact_score": {
+              "maximum": 10,
+              "minimum": 0,
+              "type": "number"
+            },
+            "baseline_residual_risk_score": {
+              "maximum": 10,
+              "minimum": 0,
+              "type": "number"
+            },
+            "baseline_risk_report_sha256": {
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            "basis": {
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1,
+              "type": "array"
+            },
+            "direction": {
+              "enum": [
+                "increased",
+                "decreased",
+                "unchanged",
+                "unknown"
+              ]
+            },
+            "drift_score": {
+              "maximum": 10,
+              "minimum": 0,
+              "type": "number"
+            },
+            "modified_context_ids": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "uniqueItems": true
+            },
+            "potential_impact_delta": {
+              "maximum": 10,
+              "minimum": -10,
+              "type": "number"
+            },
+            "removed_context_ids": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "uniqueItems": true
+            },
+            "residual_risk_delta": {
+              "maximum": 10,
+              "minimum": -10,
+              "type": "number"
+            },
+            "resolved_finding_ids": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "baseline_context_sha256",
+            "baseline_risk_report_sha256",
+            "baseline_potential_impact_score",
+            "baseline_residual_risk_score",
+            "potential_impact_delta",
+            "residual_risk_delta",
+            "drift_score",
+            "direction",
+            "added_finding_ids",
+            "resolved_finding_ids",
+            "added_context_ids",
+            "removed_context_ids",
+            "modified_context_ids",
+            "basis"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "drift_score": {
+      "maximum": 10,
+      "minimum": 0,
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "format": {
+      "const": "agentsec-context-risk-score"
+    },
+    "format_version": {
+      "const": "0.1.0"
+    },
+    "limitations": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "model_version": {
+      "const": "0.1.0"
+    },
+    "policy_authority": {
+      "const": false
+    },
+    "potential_impact_level": {
+      "enum": [
+        "very_low",
+        "low",
+        "moderate",
+        "high",
+        "very_high"
+      ]
+    },
+    "potential_impact_score": {
+      "maximum": 10,
+      "minimum": 0,
+      "type": "number"
+    },
+    "report_only": {
+      "const": true
+    },
+    "residual_risk_level": {
+      "enum": [
+        "none",
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ]
+    },
+    "residual_risk_score": {
+      "maximum": 10,
+      "minimum": 0,
+      "type": "number"
+    },
+    "runtime_verified": {
+      "const": false
+    },
+    "scoring_basis": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "source_context_format": {
+      "const": "agentsec-operation-context-set"
+    },
+    "source_context_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "source_risk_report_format": {
+      "const": "agentsec-context-risk-report"
+    },
+    "source_risk_report_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "unknown_dimensions": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "format",
+    "format_version",
+    "model_version",
+    "source_context_sha256",
+    "source_risk_report_sha256",
+    "source_context_format",
+    "source_risk_report_format",
+    "coverage_complete",
+    "unknown_dimensions",
+    "potential_impact_score",
+    "potential_impact_level",
+    "residual_risk_score",
+    "residual_risk_level",
+    "current_posture",
+    "current_posture_score",
+    "contribution_count",
+    "contributions",
+    "drift",
+    "drift_score",
+    "limitations",
+    "scoring_basis",
+    "report_only",
+    "runtime_verified",
+    "policy_authority",
+    "ci_blocked",
+    "authority"
+  ],
+  "title": "AgentSec Context Risk Score Report",
+  "type": "object"
+}

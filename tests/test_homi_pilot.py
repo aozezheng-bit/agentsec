@@ -126,6 +126,14 @@ def test_run_and_write_creates_controlled_non_clobbering_artifacts(
     text_path = output / "homi-pilot-report.md"
     assert json_path.is_file()
     assert text_path.is_file()
+    assert (output / "homi-build-fingerprint.json").is_file()
+    assert (output / "homi-operationality.json").is_file()
+    assert (output / "homi-posture.json").is_file()
+    assert (output / "homi-calibration.json").is_file()
+    assert (output / "homi-risk-state.json").is_file()
+    assert (output / "homi-operation-context.json").is_file()
+    assert (output / "homi-context-risk.json").is_file()
+    assert (output / "homi-risk-score.json").is_file()
     before = json_path.read_text(encoding="utf-8")
     with pytest.raises(HomiPilotError, match="already exist"):
         DeterministicHomiReportOnlyPilot().run_and_write(request)

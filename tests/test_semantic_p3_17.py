@@ -201,7 +201,7 @@ def _draft(
 def _confirmed_set(
     draft: SemanticFeedbackDraft,
     *,
-    reviewer: str = "呈屿",
+    reviewer: str = "internal-reviewer",
     statement: str = ("本人逐行复核了 AI 起草的 FP/FN 反馈行，并确认每行最终判断。"),
     select: set[str] | None = None,
 ) -> SemanticFeedbackSet:

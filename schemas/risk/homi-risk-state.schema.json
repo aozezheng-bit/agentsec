@@ -1,0 +1,185 @@
+{
+  "$id": "https://agentsec.local/schemas/risk/homi-risk-state.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "authority": {
+      "additionalProperties": false,
+      "properties": {
+        "ci_blocked": {
+          "const": false
+        },
+        "report_only": {
+          "const": true
+        },
+        "runtime_verified": {
+          "const": false
+        }
+      },
+      "required": [
+        "report_only",
+        "runtime_verified",
+        "ci_blocked"
+      ],
+      "type": "object"
+    },
+    "basis": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 4,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "ci_blocked": {
+      "const": false
+    },
+    "counts": {
+      "additionalProperties": false,
+      "properties": {
+        "active": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "latent": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "runtime_attested": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "template": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "unknown": {
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "template",
+        "latent",
+        "active",
+        "runtime_attested",
+        "unknown"
+      ],
+      "type": "object"
+    },
+    "entries": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "confidence": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "declared_state": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "item_id": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "method": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "rationale_code": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "runtime_verified": {
+            "const": false
+          },
+          "scope": {
+            "enum": [
+              "file",
+              "capability",
+              "persona"
+            ]
+          },
+          "source_paths": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "uniqueItems": true
+          },
+          "state": {
+            "enum": [
+              "template",
+              "latent",
+              "active",
+              "runtime_attested",
+              "unknown"
+            ]
+          }
+        },
+        "required": [
+          "scope",
+          "item_id",
+          "declared_state",
+          "state",
+          "rationale_code",
+          "confidence",
+          "method",
+          "source_paths",
+          "runtime_verified"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "file_count": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "format": {
+      "const": "agentsec-homi-risk-state"
+    },
+    "format_version": {
+      "const": "0.1.0"
+    },
+    "report_only": {
+      "const": true
+    },
+    "runtime_verified": {
+      "const": false
+    },
+    "signal_count": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "source_report_format": {
+      "const": "agentsec-homi-report-only-pilot"
+    },
+    "source_report_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "format",
+    "format_version",
+    "source_report_sha256",
+    "source_report_format",
+    "basis",
+    "file_count",
+    "signal_count",
+    "counts",
+    "entries",
+    "report_only",
+    "runtime_verified",
+    "ci_blocked",
+    "authority"
+  ],
+  "title": "AgentSec Homi Risk State Report",
+  "type": "object"
+}

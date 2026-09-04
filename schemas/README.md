@@ -39,6 +39,13 @@ schemas/pilot/                     Pilot Plan/Report/Human Labels 0.1.0,
 schemas/policy/                    Organization Policy 0.3.0, Organization
                                    Assessment Output 0.3.0, Qualified Gate
                                    Registry 0.1.0
+schemas/risk/                      Operation Context Contract 0.1.0; Homi Risk State
+                                   Report 0.1.0; Homi Operation Context
+                                   Extraction Report 0.1.0; Context-aware
+                                   Deterministic Risk Report 0.1.0; Context Risk
+                                   Score Report 0.1.0
+schemas/runtime/                   External Runtime Attestation 0.1.0; Evidence
+                                   Reconciliation Report 0.1.0
 schemas/score-context/             Agentic Score Context Schema 0.1.0; Attack Path Score Context 0.1.0
 schemas/semantic-analysis/         Semantic Analysis Input 0.1.0,
                                    constrained Model Output 0.1.0,
@@ -67,6 +74,34 @@ wrapper. It embeds the canonical sanitized Assessment Output `0.7.0` and adds a
 strict deterministic `high|critical` Severity decision. It is emitted only when
 `agentsec scan --fail-on` is explicitly selected; default Assessment JSON stays
 unchanged.
+
+The Homi Operation Context Extraction Report is a RISK-03 Homi adapter
+contract. It binds a sanitized `OperationContextSet` to the exact Homi Pilot
+report digest and preserves Unknown/needs_context fields rather than guessing
+authorization, trigger, data, or runtime reachability.
+
+The Homi Risk State Report is a RISK-02 static classification contract. It
+adds file-level and signal-level `template`, `latent`, `active`,
+`runtime_attested`, and `unknown` states. The current static builder cannot
+produce `runtime_attested`; missing or skipped coverage is `unknown`, not a
+security finding and not a clean pass.
+
+The Context-aware Deterministic Risk Report is the RISK-04 rule-engine
+contract. It evaluates structured operation combinations rather than
+capability presence alone. Public-web reads of public data, persona text, and
+long-term memory do not become high-risk Findings by themselves. Unknown
+dimensions are emitted as `coverage` observations, not as proof of a
+vulnerability or a clean pass. RISK-04 is report-only and does not calculate a
+numeric score; residual-risk quantification is reserved for RISK-05.
+
+The Context Risk Score Report is the RISK-05 report-only quantification
+contract. It keeps potential impact, residual risk, current posture, and
+upward risk drift separate. Potential impact uses the existing NIST matrix and
+AgentSec representative values; residual risk applies only a bounded explicit
+control-coverage adjustment. Static input keeps `current_posture_score` null,
+and a baseline is required before `drift` can be calculated. The score is a
+policy metric, not a loss probability, runtime attestation, authorization, or
+CI decision.
 
 The current source-tree Domain and Assessment schemas are versioned source-of-truth
 contracts. They are newer than the historical accepted 0.1.0/0.2.0 release

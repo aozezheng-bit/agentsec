@@ -3,7 +3,7 @@
 - Status: Accepted
 - Date: 2026-08-31
 - Task: P3-11C
-- Decision owner: 呈屿 (release/organization owner)
+- Decision owner: internal-reviewer (release/organization owner)
 - Scope: first real Shadow invocation over the P3-11A/B gold set
 
 ## Context

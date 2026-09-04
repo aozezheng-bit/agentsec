@@ -1,0 +1,189 @@
+{
+  "$id": "https://agentsec.local/schemas/runtime/runtime-attestation.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "agent_snapshot_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "attestation_id": {
+      "pattern": "^runtime-attestation-sha256:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "authority": {
+      "additionalProperties": false,
+      "properties": {
+        "ci_blocked": {
+          "const": false
+        },
+        "policy_authority": {
+          "const": false
+        },
+        "report_only": {
+          "const": true
+        }
+      },
+      "required": [
+        "report_only",
+        "policy_authority",
+        "ci_blocked"
+      ],
+      "type": "object"
+    },
+    "ci_blocked": {
+      "const": false
+    },
+    "context_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "evidence_confidence": {
+      "enum": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    },
+    "format": {
+      "const": "agentsec-runtime-attestation"
+    },
+    "format_version": {
+      "const": "0.1.0"
+    },
+    "issuer": {
+      "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$",
+      "type": "string"
+    },
+    "limitations": {
+      "items": {
+        "maxLength": 512,
+        "type": "string"
+      },
+      "maxItems": 32,
+      "minItems": 1,
+      "type": "array"
+    },
+    "method": {
+      "enum": [
+        "signed_attestation",
+        "runtime_verification",
+        "reproducible_test",
+        "actual_tool_enumeration"
+      ]
+    },
+    "observations": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "action": {
+            "enum": [
+              "read",
+              "write",
+              "send",
+              "execute",
+              "delete",
+              "schedule",
+              "store",
+              "modify_policy",
+              "modify_identity",
+              "unknown"
+            ]
+          },
+          "evidence_sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "observation_id": {
+            "pattern": "^runtime-observation-sha256:[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "observed": {
+            "type": "boolean"
+          },
+          "observed_at": {
+            "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$",
+            "type": "string"
+          },
+          "operation_id": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "source_ref": {
+            "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$",
+            "type": "string"
+          },
+          "target": {
+            "enum": [
+              "public_web",
+              "external_service",
+              "external_message_channel",
+              "local_file",
+              "agent_control_file",
+              "workspace",
+              "user_profile",
+              "user_mailbox",
+              "credential",
+              "secret",
+              "production_system",
+              "tool_registry",
+              "mcp_server",
+              "unknown"
+            ]
+          }
+        },
+        "required": [
+          "observation_id",
+          "operation_id",
+          "action",
+          "target",
+          "observed",
+          "evidence_sha256",
+          "source_ref",
+          "observed_at"
+        ],
+        "type": "object"
+      },
+      "maxItems": 128,
+      "minItems": 1,
+      "type": "array"
+    },
+    "policy_authority": {
+      "const": false
+    },
+    "report_only": {
+      "const": true
+    },
+    "runtime_verified": {
+      "type": "boolean"
+    },
+    "verification_status": {
+      "enum": [
+        "verified",
+        "unverified",
+        "rejected"
+      ]
+    }
+  },
+  "required": [
+    "format",
+    "format_version",
+    "attestation_id",
+    "agent_snapshot_sha256",
+    "context_sha256",
+    "issuer",
+    "method",
+    "verification_status",
+    "observations",
+    "limitations",
+    "evidence_confidence",
+    "runtime_verified",
+    "report_only",
+    "policy_authority",
+    "ci_blocked",
+    "authority"
+  ],
+  "title": "AgentSec Runtime Attestation",
+  "type": "object"
+}

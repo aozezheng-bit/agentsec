@@ -28,6 +28,7 @@ def test_homi_skill_contains_required_contract_files() -> None:
         "commands/score.sh",
         "commands/attack-graph.sh",
         "commands/homi-diff.sh",
+        "commands/reconcile-runtime.sh",
         "tests/smoke.sh",
     )
     for relative in required:

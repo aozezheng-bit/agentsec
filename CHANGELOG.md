@@ -1,5 +1,18 @@
 # Changelog
 
+## RISK-06 — Runtime Attestation / Evidence Reconciliation (2026-09-04)
+
+- Added a strict, report-only Runtime Attestation contract for externally
+  generated, value-minimized runtime observations.
+- Added Snapshot/Operation Context/RISK-04 canonical hash binding, deterministic
+  reconciliation states, explicit partial/conflict/unknown evidence, and
+  confidence rules without permission or CI authority.
+- Added `agentsec homi reconcile-runtime`, runtime JSON Schemas, Homi Bundle
+  sidecar display, Homi Skill guidance, and regression coverage.
+- Runtime Attestation generation, endpoint/credential approval, sandbox
+  execution, identity authentication, and exploitability proof remain outside
+  AgentSec.
+
 ## P3-20 — Provider Evaluation Import / Semantic Gate Qualification (2026-09-01)
 
 - Added Candidate/Corpus/Provider/Model/Prompt/Evaluation Digest binding.
@@ -113,7 +126,7 @@
   set verification, and the `REVIEW-GUIDE.zh.md` runbook (keys,
   recovery, exit codes, authority boundary);
 - complete the human review: all 54 draft rows were reviewed and
-  confirmed by 呈屿 on 2026-08-31 through the REVIEW-GUIDE workflow
+  confirmed by internal-reviewer on 2026-08-31 through the REVIEW-GUIDE workflow
   (provenance ai_draft_human_confirmed, zero draft-judgment edits);
   the confirmed set landed at
   `pilots/semantic-feedback-p3-17/confirmed/semantic-feedback-set.json`
@@ -436,7 +449,7 @@
   content-addressed `semantic-evidence-sha256` Evidence IDs;
 - ship the Chinese labeling guide, annotation workflow, submission template,
   AI draft, and the human-confirmed review worksheet (45/45 cases confirmed
-  with zero edits, reviewer 呈屿, `label_provenance=ai_draft_human_confirmed`);
+  with zero edits, reviewer internal-reviewer, `label_provenance=ai_draft_human_confirmed`);
 - add the fail-closed import validator that emits 108 gold judgments
   (supported 101 / not_supported 7) as a machine-readable case set at
   `pilots/semantic-quality-p3-11/gold-labels/semantic-gold-labels.json`;

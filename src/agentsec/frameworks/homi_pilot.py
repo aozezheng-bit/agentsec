@@ -15,7 +15,7 @@ from dataclasses import dataclass
 from enum import StrEnum
 from html import escape
 from pathlib import Path
-from typing import Literal
+from typing import TYPE_CHECKING, Literal
 
 from agentsec.frameworks.base import (
     FrameworkInspectionLimits,
@@ -56,6 +56,10 @@ from agentsec.frameworks.homi_simulation import (
     HomiSafeSimulationRequest,
     HomiSafeSimulationResult,
 )
+
+if TYPE_CHECKING:
+    from agentsec.frameworks.homi_calibration import HomiCalibrationReport
+    from agentsec.frameworks.homi_posture import HomiPostureReport
 
 HOMI_PILOT_FORMAT: Literal["agentsec-homi-report-only-pilot"] = (
     "agentsec-homi-report-only-pilot"
@@ -451,16 +455,110 @@ class DeterministicHomiReportOnlyPilot:
         )
 
     def run_and_write(self, request: HomiPilotRequest) -> HomiPilotReport:
-        """Run a Pilot and write controlled JSON/Text artifacts without clobbering."""
+        """Run a Pilot and write controlled report/provenance artifacts."""
 
         report = self.run(request)
         output_root = _prepare_output_root(request.output_root)
-        json_path = output_root / "homi-pilot-report.json"
-        text_path = output_root / "homi-pilot-report.md"
-        if json_path.exists() or text_path.exists():
+        output_paths = (
+            output_root / "homi-pilot-report.json",
+            output_root / "homi-pilot-report.md",
+            output_root / "homi-build-fingerprint.json",
+            output_root / "homi-operationality.json",
+            output_root / "homi-posture.json",
+            output_root / "homi-calibration.json",
+            output_root / "homi-risk-state.json",
+            output_root / "homi-operation-context.json",
+            output_root / "homi-context-risk.json",
+            output_root / "homi-risk-score.json",
+        )
+        if any(path.exists() for path in output_paths):
             raise HomiPilotError("Homi Pilot output artifacts already exist")
-        json_path.write_text(encode_homi_pilot_json(report), encoding="utf-8")
+        json_path, text_path = output_paths[:2]
+        json_payload = encode_homi_pilot_json(report)
+        json_path.write_text(json_payload, encoding="utf-8")
         text_path.write_text(render_homi_pilot_text(report), encoding="utf-8")
+        from agentsec.frameworks.homi_calibration import (
+            build_homi_calibration_report,
+            encode_homi_calibration_json,
+        )
+        from agentsec.frameworks.homi_operation_context import (
+            build_homi_operation_context_report_from_workspace,
+            encode_homi_operation_context_json,
+        )
+        from agentsec.frameworks.homi_operationality import (
+            build_homi_operationality_report,
+            encode_homi_operationality_json,
+        )
+        from agentsec.frameworks.homi_posture import (
+            build_homi_posture_report,
+            encode_homi_posture_json,
+        )
+        from agentsec.frameworks.homi_provenance import (
+            build_homi_build_provenance,
+            encode_homi_build_provenance_json,
+        )
+        from agentsec.frameworks.homi_risk_state import (
+            build_homi_risk_state_report,
+            encode_homi_risk_state_json,
+        )
+        from agentsec.risk.context_rules import (
+            DeterministicContextRuleEngine,
+            encode_context_risk_json,
+        )
+        from agentsec.risk.context_score import (
+            DeterministicContextRiskScoreEngine,
+            encode_context_risk_score_json,
+        )
+
+        (output_root / "homi-build-fingerprint.json").write_text(
+            encode_homi_build_provenance_json(
+                build_homi_build_provenance(
+                    pilot_format_version=HOMI_PILOT_FORMAT_VERSION
+                )
+            ),
+            encoding="utf-8",
+        )
+        (output_root / "homi-operationality.json").write_text(
+            encode_homi_operationality_json(build_homi_operationality_report(report)),
+            encoding="utf-8",
+        )
+        (output_root / "homi-posture.json").write_text(
+            encode_homi_posture_json(build_homi_posture_report(report)),
+            encoding="utf-8",
+        )
+        (output_root / "homi-calibration.json").write_text(
+            encode_homi_calibration_json(build_homi_calibration_report(report)),
+            encoding="utf-8",
+        )
+        (output_root / "homi-risk-state.json").write_text(
+            encode_homi_risk_state_json(build_homi_risk_state_report(report)),
+            encoding="utf-8",
+        )
+        operation_context_report = build_homi_operation_context_report_from_workspace(
+            request.target_root,
+            report,
+            limits=request.limits,
+        )
+        (output_root / "homi-operation-context.json").write_text(
+            encode_homi_operation_context_json(operation_context_report),
+            encoding="utf-8",
+        )
+        context_risk_report = DeterministicContextRuleEngine().run(
+            operation_context_report.context_set
+        )
+        (output_root / "homi-context-risk.json").write_text(
+            encode_context_risk_json(context_risk_report),
+            encoding="utf-8",
+        )
+        (output_root / "homi-risk-score.json").write_text(
+            encode_context_risk_score_json(
+                DeterministicContextRiskScoreEngine().run(
+                    operation_context_report.context_set,
+                    context_risk_report,
+                )
+            ),
+            encoding="utf-8",
+        )
         return report
 
 
@@ -626,6 +724,8 @@ def render_homi_pilot_text(
     report: HomiPilotReport,
     *,
     language: HomiPilotLanguage = HomiPilotLanguage.EN,
+    posture: HomiPostureReport | None = None,
+    calibration: HomiCalibrationReport | None = None,
 ) -> str:
     """Render a bounded management/developer-facing Homi Pilot summary."""
 
@@ -633,9 +733,10 @@ def render_homi_pilot_text(
         raise TypeError("Homi Pilot text renderer requires HomiPilotReport")
     if not isinstance(language, HomiPilotLanguage):
         raise TypeError("Homi Pilot language is invalid")
+    posture, calibration = _presentation_artifacts(report, posture, calibration)
     if language is HomiPilotLanguage.ZH:
-        return _render_zh(report)
-    return _render_en(report)
+        return _render_zh(report, posture, calibration)
+    return _render_en(report, posture, calibration)
 
 
 def _simulation_count(report: HomiPilotReport, outcome: str) -> int:
@@ -649,13 +750,29 @@ def _simulation_count(report: HomiPilotReport, outcome: str) -> int:
     )
 
 
-def _render_en(report: HomiPilotReport) -> str:
+def _render_en(
+    report: HomiPilotReport,
+    posture: HomiPostureReport,
+    calibration: HomiCalibrationReport,
+) -> str:
+    findings = calibration.retained_findings
     lines = [
         "AgentSec Homi Real-project Report-only Pilot",
         f"Pilot: {report.pilot_id}",
         f"Project: {report.project_name}",
         f"Status: {report.status.value}",
         "Mode: external_report_only; acceptance_ready=false; CI blocking=false",
+        "",
+        "Risk Interpretation",
+        f"  Raw potential impact max: {posture.raw_potential_impact_score:.1f}",
+        f"  Potential impact max: {posture.potential_impact_score:.1f}",
+        f"  Current posture: {posture.current_posture.value}",
+        "  Current posture score: not established (no runtime attestation)",
+        (
+            "  Calibrated Findings: "
+            f"{len(findings)}/{calibration.original_finding_count}; "
+            f"suppressed: {calibration.suppressed_finding_count}"
+        ),
         "",
         "Coverage",
         f"  Inspection complete: {report.inspection_complete}",
@@ -680,7 +797,7 @@ def _render_en(report: HomiPilotReport) -> str:
         "  Manifest unknown: not supplied to this report",
         "",
         "Combination Findings",
-        f"  Findings: {len(report.combination_result.findings)}",
+        f"  Findings after calibration: {len(findings)}",
         f"  Rule failures: {len(report.combination_result.failures)}",
         "",
         "Safe Simulation",
@@ -701,7 +818,12 @@ def _render_en(report: HomiPilotReport) -> str:
     return "\n".join(lines) + "\n"
 
 
-def _render_zh(report: HomiPilotReport) -> str:
+def _render_zh(
+    report: HomiPilotReport,
+    posture: HomiPostureReport,
+    calibration: HomiCalibrationReport,
+) -> str:
+    findings = calibration.retained_findings
     values = {
         name: _simulation_count(report, name)
         for name in (
@@ -717,6 +839,17 @@ def _render_zh(report: HomiPilotReport) -> str:
         f"项目：{report.project_name}",
         f"状态：{report.status.value}",
         "模式：external_report_only；不可用于验收；不阻断 CI",
+        "",
+        "风险口径",
+        f"  原始静态潜在影响最高分：{posture.raw_potential_impact_score:.1f}",
+        f"  最高潜在影响分：{posture.potential_impact_score:.1f}",
+        f"  当前安全态势：{_current_posture_label(posture.current_posture.value)}",
+        "  当前态势分：尚未建立（没有运行时证明）",
+        (
+            "  校准后 Findings："
+            f"{len(findings)}/{calibration.original_finding_count}；"
+            f"抑制：{calibration.suppressed_finding_count}"
+        ),
         "",
         "覆盖情况",
         f"  扫描完整：{report.inspection_complete}",
@@ -735,7 +868,7 @@ def _render_zh(report: HomiPilotReport) -> str:
         "  Manifest Unknown：本报告未提供 Manifest",
         "",
         "组合风险",
-        f"  Findings：{len(report.combination_result.findings)}",
+        f"  校准后 Findings：{len(findings)}",
         f"  Rule Failures：{len(report.combination_result.failures)}",
         "",
         "安全模拟",
@@ -757,6 +890,8 @@ def render_homi_pilot_html(
     report: HomiPilotReport,
     *,
     language: HomiPilotLanguage = HomiPilotLanguage.ZH,
+    posture: HomiPostureReport | None = None,
+    calibration: HomiCalibrationReport | None = None,
 ) -> str:
     """Render a self-contained, source-free HTML Homi security report."""
 
@@ -764,13 +899,14 @@ def render_homi_pilot_html(
         raise TypeError("Homi Pilot HTML renderer requires HomiPilotReport")
     if not isinstance(language, HomiPilotLanguage):
         raise TypeError("Homi Pilot language is invalid")
+    posture, calibration = _presentation_artifacts(report, posture, calibration)
 
     from importlib.resources import files
     from string import Template
 
     chinese = language is HomiPilotLanguage.ZH
     metrics = report.coverage_metrics
-    findings = report.combination_result.findings
+    findings = calibration.retained_findings
     title = (
         "AgentSec Homi Agent 安全报告"
         if chinese
@@ -787,8 +923,46 @@ def render_homi_pilot_html(
         "status_label": escape(_homi_status_label(report, chinese)),
         "highest_risk": escape(_highest_homi_risk(findings)),
         "finding_count": str(len(findings)),
+        "highest_risk_label": escape(
+            "最高潜在影响" if chinese else "Highest potential impact"
+        ),
+        "potential_impact_label": escape(
+            "最高潜在影响分" if chinese else "Maximum potential impact"
+        ),
+        "raw_potential_impact_label": escape(
+            "原始静态潜在影响" if chinese else "Raw static potential impact"
+        ),
+        "raw_potential_impact": f"{posture.raw_potential_impact_score:.1f}",
+        "potential_impact": f"{posture.potential_impact_score:.1f}",
+        "current_posture_label": escape(
+            "当前安全态势" if chinese else "Current posture"
+        ),
+        "current_posture": escape(
+            _current_posture_label(posture.current_posture.value)
+            if chinese
+            else posture.current_posture.value
+        ),
+        "current_posture_score_label": escape(
+            "当前态势分" if chinese else "Current posture score"
+        ),
+        "current_posture_score": escape(
+            "未建立（无运行时证明）"
+            if chinese
+            else "Not established (no runtime attestation)"
+        ),
+        "calibrated_findings_label": escape(
+            "校准后 Findings" if chinese else "Calibrated Findings"
+        ),
+        "calibrated_findings": (
+            f"{len(findings)}/{calibration.original_finding_count}"
+        ),
+        "suppressed_findings_label": escape(
+            "模板校准抑制" if chinese else "Suppressed by calibration"
+        ),
+        "suppressed_findings": str(calibration.suppressed_finding_count),
         "summary_title": escape(copy["summary_title"]),
         "summary": escape(copy["summary"]),
+        "risk_interpretation_title": escape(copy["risk_interpretation_title"]),
         "coverage_title": escape(copy["coverage_title"]),
         "capability_total_label": escape(copy["capability_total"]),
         "capability_total": str(metrics["capability_total"]),
@@ -803,7 +977,7 @@ def render_homi_pilot_html(
         "manifest_unknown_label": escape(copy["manifest_unknown"]),
         "manifest_unknown": escape("未提供" if chinese else "Not supplied"),
         "findings_title": escape(copy["findings_title"]),
-        "finding_cards": _render_homi_finding_cards(report, chinese),
+        "finding_cards": _render_homi_finding_cards(report, chinese, posture),
         "capabilities_title": escape(copy["capabilities_title"]),
         "state_label": escape(copy["state"]),
         "confidence_label": escape(copy["confidence"]),
@@ -819,12 +993,37 @@ def render_homi_pilot_html(
         "limitations": "".join(
             f"<li>{escape(item)}</li>" for item in report.limitations
         ),
+        "calibration_title": escape("校准说明" if chinese else "Calibration notes"),
+        "calibration_items": _render_homi_calibration_items(calibration, chinese),
         "footer": escape(copy["footer"]),
         "adapter_version": escape(report.adapter_version),
         "evidence_mode": escape(report.evidence_mode),
     }
     template = files("agentsec").joinpath("templates/homi_pilot_report.html")
     return Template(template.read_text(encoding="utf-8")).safe_substitute(substitutions)
+
+
+def _presentation_artifacts(
+    report: HomiPilotReport,
+    posture: HomiPostureReport | None,
+    calibration: HomiCalibrationReport | None,
+) -> tuple[HomiPostureReport, HomiCalibrationReport]:
+    from agentsec.frameworks.homi_calibration import build_homi_calibration_report
+    from agentsec.frameworks.homi_posture import build_homi_posture_report
+
+    resolved_posture = posture or build_homi_posture_report(report)
+    resolved_calibration = calibration or build_homi_calibration_report(report)
+    return resolved_posture, resolved_calibration
+
+
+def _current_posture_label(value: str) -> str:
+    return {
+        "template_only": "仅模板",
+        "latent_unverified": "潜在/未验证",
+        "active_unverified": "静态活跃/未验证",
+        "runtime_attested": "运行时已证明",
+        "not_established": "尚未建立",
+    }.get(value, value)
 
 
 def _metric_int(metrics: dict[str, object], key: str) -> int:
@@ -863,6 +1062,7 @@ def _html_copy(chinese: bool) -> dict[str, str]:
             "runtime_unknown": "运行时 Unknown",
             "manifest_unknown": "Manifest Unknown",
             "findings_title": "风险 Findings",
+            "risk_interpretation_title": "风险口径",
             "capabilities_title": "能力画像",
             "files_title": "标准文件状态",
             "boundary_title": "安全模拟与边界",
@@ -890,6 +1090,7 @@ def _html_copy(chinese: bool) -> dict[str, str]:
         "runtime_unknown": "Runtime unknown",
         "manifest_unknown": "Manifest unknown",
         "findings_title": "Risk Findings",
+        "risk_interpretation_title": "Risk Interpretation",
         "capabilities_title": "Capability Profile",
         "files_title": "Standard File Status",
         "boundary_title": "Safe Simulation and Boundaries",
@@ -907,11 +1108,21 @@ def _html_copy(chinese: bool) -> dict[str, str]:
     }
 
 
-def _render_homi_finding_cards(report: HomiPilotReport, chinese: bool) -> str:
-    findings = report.combination_result.findings
+def _render_homi_finding_cards(
+    report: HomiPilotReport,
+    chinese: bool,
+    posture: HomiPostureReport,
+) -> str:
+    retained_ids = {item.finding_id for item in posture.findings}
+    findings = tuple(
+        item
+        for item in report.combination_result.findings
+        if item.finding_id in retained_ids
+    )
     if not findings:
         label = "暂无组合风险 Finding。" if chinese else "No combination Findings."
         return f"<div class='empty'>{escape(label)}</div>"
+    by_id = {item.finding_id: item for item in posture.findings}
     language = HomiCombinationLanguage.ZH if chinese else HomiCombinationLanguage.EN
     cards: list[str] = []
     for finding in findings:
@@ -925,13 +1136,28 @@ def _render_homi_finding_cards(report: HomiPilotReport, chinese: bool) -> str:
         )
         evidence = "".join(f"<li>{escape(path)}</li>" for path in paths)
         severity = escape(finding.impact.value)
-        limitation = (
-            finding.limitations[0]
-            if finding.limitations
+        posture_finding = by_id.get(finding.finding_id)
+        current_posture = (
+            _current_posture_label(posture_finding.current_posture.value)
+            if chinese and posture_finding is not None
             else (
-                "静态证据不等同于运行时证明。"
-                if chinese
-                else "Static evidence is not runtime proof."
+                posture_finding.current_posture.value
+                if posture_finding is not None
+                else "not_established"
+            )
+        )
+        current_score = "未建立" if chinese else "not established"
+        if (
+            posture_finding is not None
+            and posture_finding.current_posture_score is not None
+        ):
+            current_score = f"{posture_finding.current_posture_score:.1f}"
+        limitation = (
+            "静态声明不证明运行时 Tool、权限或能力可达性。"
+            if chinese
+            else (
+                "Static declarations do not prove runtime Tool, permission, or "
+                "capability reachability."
             )
         )
         cards.append(
@@ -939,29 +1165,57 @@ def _render_homi_finding_cards(report: HomiPilotReport, chinese: bool) -> str:
             "<div class='finding-head'>"
             "<span class='badge badge-{severity}'>{severity}</span>"
             "<strong>{rule_id}</strong>"
-            "<span class='score'>score {score:.1f}</span></div>"
+            "<span class='score'>{potential_label} {score:.1f}</span></div>"
             "<h3>{title}</h3><p>{description}</p>"
             "<div class='finding-meta'>"
             "<span>{confidence}: {confidence_value}</span>"
-            "<span>{likelihood}: {likelihood_value}</span></div>"
+            "<span>{likelihood}: {likelihood_value}</span>"
+            "<span>{posture_label}: {posture_value}</span>"
+            "<span>{posture_score_label}: {posture_score}</span></div>"
             "<details><summary>{evidence_label}</summary>"
             "<ul>{evidence}</ul><p class='muted'>{limitation}</p>"
             "</details></article>".format(
                 severity=severity,
                 rule_id=escape(finding.rule_id),
                 score=finding.score,
+                potential_label="潜在影响" if chinese else "Potential impact",
                 title=escape(text.title),
                 description=escape(text.description),
                 confidence="证据置信度" if chinese else "Evidence confidence",
                 confidence_value=escape(finding.confidence.value),
                 likelihood="可能性" if chinese else "Likelihood",
                 likelihood_value=escape(finding.likelihood.value),
+                posture_label="当前态势" if chinese else "Current posture",
+                posture_value=escape(current_posture),
+                posture_score_label="当前态势分"
+                if chinese
+                else "Current posture score",
+                posture_score=escape(current_score),
                 evidence_label="查看证据位置" if chinese else "View evidence locations",
                 evidence=evidence or "<li>—</li>",
                 limitation=escape(limitation),
             )
         )
     return "".join(cards)
+
+
+def _render_homi_calibration_items(
+    calibration: HomiCalibrationReport,
+    chinese: bool,
+) -> str:
+    suppressed = [
+        item for item in calibration.decisions if item.disposition.value == "suppressed"
+    ]
+    if not suppressed:
+        return (
+            "<p class='muted'>没有因模板校准而抑制的 Finding。</p>"
+            if chinese
+            else "<p class='muted'>No Findings were suppressed by calibration.</p>"
+        )
+    return "".join(
+        f"<li><strong>{escape(item.rule_id)}</strong>：{escape(item.rationale)}</li>"
+        for item in suppressed
+    )
 
 
 def _render_homi_capability_rows(report: HomiPilotReport) -> str:

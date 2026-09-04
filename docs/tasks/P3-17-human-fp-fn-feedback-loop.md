@@ -68,7 +68,7 @@ docs/decisions/0104-human-fp-fn-feedback-loop.md
 
 ## Human confirmation (completed 2026-08-31)
 
-All 54 draft rows were reviewed and confirmed by 呈屿 through the
+All 54 draft rows were reviewed and confirmed by internal-reviewer through the
 REVIEW-GUIDE interactive workflow (progress, completed submission, and
 the confirmed set all landed under `pilots/semantic-feedback-p3-17/`;
 `feedback_sha256 a51af675…f2c02`). Closed-loop spot checks:

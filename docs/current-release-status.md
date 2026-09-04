@@ -2,7 +2,7 @@
 
 - Authority: this is the single authoritative release/status page
   (P2-EXIT-05). When other documents disagree, this page wins.
-- Date: 2026-09-01
+- Date: 2026-09-04
 - Companion architecture page: `docs/current-architecture.md`
 
 ## 1. Package status
@@ -34,7 +34,7 @@ Phase 0  foundation                       complete (P0-01～P0-07)
 Phase 1  Markdown static scanning PoC     complete (P1-01～P1-31, 0.1.0)
 Phase 2  structured capability profile    complete; P2-EXIT accepted
 Phase 3  LLM and composite risk           Shadow-only started;
-                                          P3-01～P3-10 complete; P3-11A/P3-11B/P3-11C complete; P3-12～P3-17 metrics, replay, Shadow Mode, and FP/FN feedback loop complete; P3-18～P3-20 semantic Gate definition/qualification, Gate-specific human Corpus, live-Pilot seam, and Evaluation Import complete (report-only; live Pilot pending organizational approval); semantic candidates, Finding links, Rule proposals, calibration, replay, and pipeline aggregation remain non-authoritative
+                                          P3-01～P3-10 complete; P3-11A/P3-11B/P3-11C complete; P3-12～P3-17 metrics, replay, Shadow Mode, and FP/FN feedback loop complete; P3-18～P3-20 semantic Gate definition/qualification, Gate-specific human Corpus, live-Pilot seam, and Evaluation Import complete (report-only; live Pilot pending organizational approval); RISK-06 Runtime Attestation / Evidence Reconciliation complete as an external-evidence import/reconciliation seam; semantic candidates, Finding links, Rule proposals, calibration, replay, and pipeline aggregation remain non-authoritative
 ```
 
 ## 3. P2-EXIT remediation progress (source: P2-AUDIT-01)
@@ -60,6 +60,7 @@ P2-HOMI-02 Homi File Role/Precedence/Conflict Model    Complete 2026-08-25
 P2-HOMI-03～05 Homi profile/combination/simulation      Complete
 P2-HOMI-06 Homi real-project report-only pilot           Complete 2026-08-25
 P2-HOMI-07 Homi CLI Packaging                         Complete 2026-08-25
+RISK-06 Runtime Attestation / Evidence Reconciliation Complete 2026-09-04; external evidence import only
 ```
 
 Latest P2-EXIT-08A review artifacts:
@@ -143,6 +144,12 @@ HOMI_PROFILE_MODEL_VERSION            0.2.0
 HOMI_PILOT_FORMAT_VERSION             0.2.0
 HOMI_SAFE_SIMULATION_MODEL_VERSION    0.2.0
 EXTERNAL_HOMI_REVIEW_SCHEMA_VERSION   0.1.0
+HOMI_BUILD_PROVENANCE_VERSION         0.1.0
+HOMI_OPERATIONALITY_OUTPUT_VERSION    0.1.0
+HOMI_POSTURE_OUTPUT_VERSION           0.1.0
+HOMI_CALIBRATION_OUTPUT_VERSION       0.1.0
+RUNTIME_ATTESTATION_REPORT_VERSION    0.1.0
+EVIDENCE_RECONCILIATION_REPORT_VERSION 0.1.0
 SEMANTIC_ANALYZER_VERSION             0.1.0
 SEMANTIC_INPUT_SCHEMA_VERSION         0.1.0
 SEMANTIC_MODEL_OUTPUT_SCHEMA_VERSION  0.1.0
@@ -172,8 +179,8 @@ P2-EXIT-07  complete: package API, lockfiles, SBOM/license evidence,
             reproducible build, and Reviewer/Human Evidence sdist exclusion
 P2-EXIT-08A entry_readiness = ready_for_candidate; all five required checks pass
 P2-EXIT-08 Stage 2 candidate_acceptance = candidate_go; all required checks pass
-Phase 3     P3-01～P3-10 complete; P3-11A/P3-11B/P3-11C complete; P3-12～P3-17 metrics, replay, Shadow Mode, and FP/FN feedback loop complete; P3-18～P3-20 semantic Gate definition/qualification, Gate-specific human Corpus, live-Pilot seam, and Evaluation Import complete (report-only); semantic candidates, Finding links, Rule proposals, calibration, replay, pipeline aggregation, and Rule Pack staging remain non-authoritative
-Phase 3 B   P3-12～P3-17 metrics, replay, Shadow Mode, and FP/FN feedback loop complete (report-only; confirmed 54-row feedback set signed); P3-18 Gate definition/qualification, P3-19 human Corpus and live-Pilot seam, and P3-20 Evaluation Import complete; next step is the organization-approved P3-19 live Pilot
+Phase 3     P3-01～P3-10 complete; P3-11A/P3-11B/P3-11C complete; P3-12～P3-17 metrics, replay, Shadow Mode, and FP/FN feedback loop complete; P3-18～P3-20 semantic Gate definition/qualification, Gate-specific human Corpus, live-Pilot seam, and Evaluation Import complete (report-only); RISK-06 Runtime Attestation / Evidence Reconciliation complete as an external-evidence import/reconciliation seam; semantic candidates, Finding links, Rule proposals, calibration, replay, pipeline aggregation, and Rule Pack staging remain non-authoritative
+Phase 3 B   P3-12～P3-17 metrics, replay, Shadow Mode, and FP/FN feedback loop complete (report-only; confirmed 54-row feedback set signed); P3-18 Gate definition/qualification, P3-19 human Corpus and live-Pilot seam, and P3-20 Evaluation Import complete; RISK-06 external Runtime Attestation import/reconciliation seam complete; next step is the organization-approved P3-19 live Pilot
 Phase 3 AG  P3-AG-01～P3-AG-08 complete (see sections 20, 23, 25, 26, 28);
             association API/CLI, story Demo, and calibration are report-only; next AG task is human corpus expansion
 Release     local candidate accepted; remote publication and production deployment not performed
@@ -439,7 +446,7 @@ artifact signature, SLSA provenance, Runtime Attestation, or LLM authority.
 Task                              P3-11A Complete
 Cases / judgments                 45 / 108 (supported 101, not_supported 7)
 Label provenance                  ai_draft_human_confirmed (AI draft plus per-case human confirmation)
-Reviewer                          呈屿 (45/45 confirmed, zero edits; REVIEW-WORKSHEET.zh.md)
+Reviewer                          internal-reviewer (45/45 confirmed, zero edits; REVIEW-WORKSHEET.zh.md)
 Artifacts                         pilots/semantic-quality-p3-11/gold-labels/semantic-gold-labels.json
 Authority                         report_only=true; blocks=false
 ```
@@ -827,7 +834,7 @@ Pilot draft                       pilots/semantic-feedback-p3-17/draft/:
                                   FP=57/FN=61)
 Confirmed set                     pilots/semantic-feedback-p3-17/confirmed/
                                   semantic-feedback-set.json — 54 rows
-                                  (FN 54/FP 0), reviewer 呈屿, provenance
+                                  (FN 54/FP 0), reviewer internal-reviewer, provenance
                                   ai_draft_human_confirmed (54/54 confirmed
                                   on 2026-08-31 via REVIEW-GUIDE workflow;
                                   feedback_sha256 a51af6750a63…f2c02)
@@ -1004,3 +1011,22 @@ Candidate artifacts                rebuilt current; release-bundle tests pass
 
 Serial full-suite runs pass consistently; concurrent full-suite runs can
 produce one-off subprocess contention failures unrelated to this change.
+
+## 32. Homi recalibration status (2026-09-03)
+
+```text
+P3-HOMI-RECAL-02  local complete: build fingerprint, package digest, Heartbeat regression
+P3-HOMI-RECAL-03  local complete: template/latent/active/runtime_attested sidecar
+P3-HOMI-RECAL-04  local complete: raw/calibrated potential impact and current posture split
+P3-HOMI-RECAL-05  local complete: deterministic HOMI-COMB-003/004 calibration sidecar
+P3-HOMI-RECAL-06  local verification complete; Homi remote publication paused
+```
+
+The current-turn implementation produces `homi-build-fingerprint.json`,
+`homi-operationality.json`, `homi-posture.json`, and `homi-calibration.json`.
+`homi bundle` consumes same-directory Sidecars only when their
+`source_report_sha256` binds them to the Pilot JSON. Static Homi reports remain
+report-only: `runtime_verified=false`, `ci_blocked=false`, and no Sidecar grants
+runtime or release authority. GitHub/Homi synchronization remains pending a
+clean candidate isolation, package fingerprint comparison, and explicit release
+approval.

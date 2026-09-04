@@ -1,7 +1,7 @@
 {
   "format": "agentsec-semantic-quality-qualification-report",
   "schema_version": "0.1.0",
-  "reviewer_id": "呈屿",
+  "reviewer_id": "internal-reviewer",
   "label_provenance": "ai_draft_human_confirmed",
   "provider_id": "offline-fixture",
   "model_id": "agentsec-semantic-fixture-v1",

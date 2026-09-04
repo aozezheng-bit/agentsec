@@ -44,7 +44,7 @@ DEFAULT_CONFIRMED_DIR = PILOT_ROOT / "confirmed"
 P3_12_PACK = REPOSITORY_ROOT / "pilots" / "agentdojo-style-p3-12" / "scenarios.json"
 P3_13_PACK = REPOSITORY_ROOT / "pilots" / "injecagent-style-p3-13" / "scenarios.json"
 
-DEFAULT_REVIEWER = "呈屿"
+DEFAULT_REVIEWER = "internal-reviewer"
 DEFAULT_STATEMENT = (
     "本人逐行复核了 AI 起草的 false_positive/false_negative 反馈行，"
     "对照各案例脱敏文本独立判断并确认每行结论；判断责任在签署人。"

@@ -3,7 +3,7 @@
   "schema_version": "0.1.0",
   "feedback_sha256": "a51af6750a636ab8466f91d3feab6c8ed0eaf5ab92aff6c2a145dfc148fb6c02",
   "label_provenance": "ai_draft_human_confirmed",
-  "reviewer_id": "呈屿",
+  "reviewer_id": "internal-reviewer",
   "independence_statement": "本人逐行复核了 AI 起草的 false_positive/false_negative 反馈行，对照各案例脱敏文本独立判断并确认每行结论；判断责任在签署人。",
   "context": {
     "source_pack_sha256": [

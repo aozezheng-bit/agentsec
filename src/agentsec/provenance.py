@@ -79,6 +79,10 @@ from agentsec.semantic import (
     SEMANTIC_TRIAL_CASE_SET_VERSION,
     SEMANTIC_TRIAL_CONFIG_VERSION,
 )
+from agentsec.versioning import (
+    CONTEXT_RISK_REPORT_VERSION,
+    CONTEXT_RULE_PACK_VERSION,
+)
 from agentsec.vulnerabilities.input import VULNERABILITY_INPUT_VERSION
 from agentsec.vulnerabilities.sources import VULNERABILITY_CATALOG_VERSION
 
@@ -246,6 +250,46 @@ def interface_provenance_registry() -> tuple[InterfaceProvenance, ...]:
                 schema_file="schemas/score-context/score-context.schema.json",
             ),
             _product(
+                "OPERATION_CONTEXT_SCHEMA_VERSION",
+                versioning.OPERATION_CONTEXT_SCHEMA_VERSION,
+                "risk_context",
+                schema_file="schemas/risk/operation-context.schema.json",
+            ),
+            _product(
+                "CONTEXT_RULE_PACK_VERSION",
+                CONTEXT_RULE_PACK_VERSION,
+                "risk_context",
+            ),
+            _report(
+                "CONTEXT_RISK_REPORT_VERSION",
+                CONTEXT_RISK_REPORT_VERSION,
+                "risk_context",
+                schema_file="schemas/risk/context-risk-report.schema.json",
+            ),
+            _product(
+                "CONTEXT_RISK_SCORE_MODEL_VERSION",
+                versioning.CONTEXT_RISK_SCORE_MODEL_VERSION,
+                "risk_context",
+            ),
+            _report(
+                "CONTEXT_RISK_SCORE_REPORT_VERSION",
+                versioning.CONTEXT_RISK_SCORE_REPORT_VERSION,
+                "risk_context",
+                schema_file="schemas/risk/context-risk-score.schema.json",
+            ),
+            _report(
+                "RUNTIME_ATTESTATION_REPORT_VERSION",
+                versioning.RUNTIME_ATTESTATION_REPORT_VERSION,
+                "runtime_evidence",
+                schema_file="schemas/runtime/runtime-attestation.schema.json",
+            ),
+            _report(
+                "EVIDENCE_RECONCILIATION_REPORT_VERSION",
+                versioning.EVIDENCE_RECONCILIATION_REPORT_VERSION,
+                "runtime_evidence",
+                schema_file="schemas/runtime/evidence-reconciliation.schema.json",
+            ),
+            _product(
                 "RELEASE_MANIFEST_VERSION",
                 versioning.RELEASE_MANIFEST_VERSION,
                 "release_provenance",
@@ -298,6 +342,39 @@ def interface_provenance_registry() -> tuple[InterfaceProvenance, ...]:
                     "schemas/semantic-analysis/"
                     "semantic-gate-report-only-promotion.schema.json"
                 ),
+            ),
+            # Homi recalibration sidecar contracts
+            _product(
+                "HOMI_BUILD_PROVENANCE_VERSION",
+                versioning.HOMI_BUILD_PROVENANCE_VERSION,
+                "homi_provenance",
+            ),
+            _report(
+                "HOMI_OPERATIONALITY_OUTPUT_VERSION",
+                versioning.HOMI_OPERATIONALITY_OUTPUT_VERSION,
+                "homi_reports",
+            ),
+            _report(
+                "HOMI_POSTURE_OUTPUT_VERSION",
+                versioning.HOMI_POSTURE_OUTPUT_VERSION,
+                "homi_reports",
+            ),
+            _report(
+                "HOMI_CALIBRATION_OUTPUT_VERSION",
+                versioning.HOMI_CALIBRATION_OUTPUT_VERSION,
+                "homi_reports",
+            ),
+            _report(
+                "HOMI_RISK_STATE_OUTPUT_VERSION",
+                versioning.HOMI_RISK_STATE_OUTPUT_VERSION,
+                "homi_reports",
+                schema_file="schemas/risk/homi-risk-state.schema.json",
+            ),
+            _report(
+                "HOMI_OPERATION_CONTEXT_OUTPUT_VERSION",
+                versioning.HOMI_OPERATION_CONTEXT_OUTPUT_VERSION,
+                "homi_reports",
+                schema_file="schemas/risk/homi-operation-context.schema.json",
             ),
             # Scoring and enrichment models
             _product(
@@ -970,6 +1047,27 @@ def schema_file_ownership() -> dict[str, str]:
             ),
             "schemas/score-context/attack-path-score-context.schema.json": (
                 "ATTACK_PATH_SCORE_CONTEXT_VERSION"
+            ),
+            "schemas/risk/operation-context.schema.json": (
+                "OPERATION_CONTEXT_SCHEMA_VERSION"
+            ),
+            "schemas/risk/context-risk-report.schema.json": (
+                "CONTEXT_RISK_REPORT_VERSION"
+            ),
+            "schemas/risk/context-risk-score.schema.json": (
+                "CONTEXT_RISK_SCORE_REPORT_VERSION"
+            ),
+            "schemas/risk/homi-risk-state.schema.json": (
+                "HOMI_RISK_STATE_OUTPUT_VERSION"
+            ),
+            "schemas/risk/homi-operation-context.schema.json": (
+                "HOMI_OPERATION_CONTEXT_OUTPUT_VERSION"
+            ),
+            "schemas/runtime/runtime-attestation.schema.json": (
+                "RUNTIME_ATTESTATION_REPORT_VERSION"
+            ),
+            "schemas/runtime/evidence-reconciliation.schema.json": (
+                "EVIDENCE_RECONCILIATION_REPORT_VERSION"
             ),
             "schemas/semantic-analysis/semantic-analysis-input.schema.json": (
                 "SEMANTIC_INPUT_SCHEMA_VERSION"

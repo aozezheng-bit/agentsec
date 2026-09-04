@@ -56,21 +56,21 @@ th { background: #f8fafc; }
 </header>
 <section class="card">
   <h2>${summary_label}</h2>
-  <p>added=${capability_added} · removed=${capability_removed} · modified=${capability_modified}</p>
-  <p>Finding added=${finding_added} · resolved=${finding_resolved} · changed=${finding_changed}</p>
+  <p>${capability_added_label}=${capability_added} · ${capability_removed_label}=${capability_removed} · ${capability_modified_label}=${capability_modified}</p>
+  <p>Finding ${finding_added_label}=${finding_added} · ${finding_resolved_label}=${finding_resolved} · ${finding_changed_label}=${finding_changed}</p>
   <p class="note">report_only=true · runtime_verified=false · ci_blocked=false · ${authority_note}</p>
 </section>
 <section class="card">
   <h2>${capability_label}</h2>
   <table>
-    <thead><tr><th>Signal</th><th>Change</th><th>Before</th><th>After</th></tr></thead>
+    <thead><tr><th>${signal_label}</th><th>${change_label}</th><th>${before_label}</th><th>${after_label}</th></tr></thead>
     <tbody>${capability_rows}</tbody>
   </table>
 </section>
 <section class="card">
   <h2>${finding_label}</h2>
   <table>
-    <thead><tr><th>Rule ID</th><th>Delta</th><th>Before severity</th><th>After severity</th></tr></thead>
+    <thead><tr><th>${rule_id_label}</th><th>${delta_label}</th><th>${before_severity_label}</th><th>${after_severity_label}</th></tr></thead>
     <tbody>${finding_rows}</tbody>
   </table>
 </section>

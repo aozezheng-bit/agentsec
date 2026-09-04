@@ -1,0 +1,207 @@
+{
+  "$id": "https://agentsec.local/schemas/runtime/evidence-reconciliation.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "authority": {
+      "additionalProperties": false,
+      "properties": {
+        "ci_blocked": {
+          "const": false
+        },
+        "policy_authority": {
+          "const": false
+        },
+        "report_only": {
+          "const": true
+        }
+      },
+      "required": [
+        "report_only",
+        "policy_authority",
+        "ci_blocked"
+      ],
+      "type": "object"
+    },
+    "ci_blocked": {
+      "const": false
+    },
+    "context_coverage_complete": {
+      "type": "boolean"
+    },
+    "current_posture_eligible": {
+      "type": "boolean"
+    },
+    "declared_not_observed_operation_ids": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "evidence_confidence": {
+      "enum": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    },
+    "format": {
+      "const": "agentsec-evidence-reconciliation"
+    },
+    "format_version": {
+      "const": "0.1.0"
+    },
+    "limitations": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "matched_operation_ids": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "mismatches": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "declared_action": {
+            "type": "string"
+          },
+          "declared_target": {
+            "type": "string"
+          },
+          "fields": {
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1,
+            "type": "array"
+          },
+          "observation_id": {
+            "type": "string"
+          },
+          "observed_action": {
+            "type": "string"
+          },
+          "observed_target": {
+            "type": "string"
+          },
+          "operation_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "operation_id",
+          "observation_id",
+          "declared_action",
+          "observed_action",
+          "declared_target",
+          "observed_target",
+          "fields"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "observed_not_declared_operation_ids": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "policy_authority": {
+      "const": false
+    },
+    "reconciled_risk_finding_ids": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "reconciliation_id": {
+      "pattern": "^reconciliation-sha256:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "report_only": {
+      "const": true
+    },
+    "runtime_verified": {
+      "type": "boolean"
+    },
+    "source_agent_snapshot_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "source_attestation_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "source_context_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "source_risk_report_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "reconciled",
+        "partial",
+        "conflict",
+        "unverified"
+      ]
+    },
+    "unknown_context_dimensions": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "unreconciled_risk_finding_ids": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "format",
+    "format_version",
+    "reconciliation_id",
+    "source_agent_snapshot_sha256",
+    "source_context_sha256",
+    "source_risk_report_sha256",
+    "source_attestation_sha256",
+    "status",
+    "runtime_verified",
+    "current_posture_eligible",
+    "evidence_confidence",
+    "context_coverage_complete",
+    "unknown_context_dimensions",
+    "matched_operation_ids",
+    "declared_not_observed_operation_ids",
+    "observed_not_declared_operation_ids",
+    "mismatches",
+    "reconciled_risk_finding_ids",
+    "unreconciled_risk_finding_ids",
+    "limitations",
+    "report_only",
+    "policy_authority",
+    "ci_blocked",
+    "authority"
+  ],
+  "title": "AgentSec Evidence Reconciliation Report",
+  "type": "object"
+}

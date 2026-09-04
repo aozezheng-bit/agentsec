@@ -44,7 +44,13 @@ from agentsec.reporting import (
     export_organization_policy_json_schema,
     export_score_context_json_schema,
 )
-from agentsec.risk import export_attack_path_score_context_json_schema
+from agentsec.risk import (
+    export_attack_path_score_context_json_schema,
+    export_context_risk_json_schema,
+    export_context_risk_score_json_schema,
+    export_operation_context_json_schema,
+    export_runtime_attestation_json_schema,
+)
 from agentsec.semantic import (
     export_scenario_metrics_json_schema,
     export_scenario_replay_json_schema,
@@ -88,6 +94,19 @@ def main() -> None:
     export_attack_path_score_context_json_schema(
         schema_root / "score-context" / "attack-path-score-context.schema.json"
     )
+    export_operation_context_json_schema(schema_root / "risk")
+    export_context_risk_json_schema(schema_root / "risk")
+    export_context_risk_score_json_schema(schema_root / "risk")
+    from agentsec.frameworks.homi_operation_context import (
+        export_homi_operation_context_json_schema,
+    )
+    from agentsec.frameworks.homi_risk_state import (
+        export_homi_risk_state_json_schema,
+    )
+
+    export_homi_operation_context_json_schema(schema_root / "risk")
+    export_homi_risk_state_json_schema(schema_root / "risk")
+    export_runtime_attestation_json_schema(schema_root / "runtime")
     export_semantic_json_schemas(schema_root / "semantic-analysis")
     export_semantic_invocation_json_schemas(schema_root / "semantic-analysis")
     export_semantic_evaluation_json_schema(

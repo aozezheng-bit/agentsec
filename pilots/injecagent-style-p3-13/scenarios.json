@@ -3,7 +3,7 @@
   "schema_version": "0.1.0",
   "pilot_task": "P3-13",
   "label_provenance": "p3-11a_gold_derived",
-  "source_gold_labels_sha256": "7986db4266dc9569b8c681c24b52c8762f26fc5cbcddbcdabd427096b2d0668f",
+  "source_gold_labels_sha256": "16948de1ce86677e3d24110282f491ec297558b8367d61d6a1c6a6fa01ecb345",
   "scenario_count": 7,
   "normal_task_count": 7,
   "attack_task_count": 7,

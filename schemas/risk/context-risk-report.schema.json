@@ -1,0 +1,229 @@
+{
+  "$id": "https://agentsec.local/schemas/risk/context-risk-report.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "authority": {
+      "additionalProperties": false,
+      "properties": {
+        "ci_blocked": {
+          "const": false
+        },
+        "policy_authority": {
+          "const": false
+        },
+        "report_only": {
+          "const": true
+        },
+        "runtime_verified": {
+          "const": false
+        }
+      },
+      "required": [
+        "report_only",
+        "runtime_verified",
+        "policy_authority",
+        "ci_blocked"
+      ],
+      "type": "object"
+    },
+    "ci_blocked": {
+      "const": false
+    },
+    "context_count": {
+      "minimum": 1,
+      "type": "integer"
+    },
+    "coverage_complete": {
+      "type": "boolean"
+    },
+    "coverage_finding_count": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "evaluated_rule_ids": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "findings": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "category": {
+            "type": "string"
+          },
+          "ci_blocked": {
+            "const": false
+          },
+          "confidence": {
+            "enum": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ]
+          },
+          "context_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "uniqueItems": true
+          },
+          "evidence_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "uniqueItems": true
+          },
+          "finding_id": {
+            "pattern": "^context-risk-sha256:[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "impact": {
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "risk",
+              "coverage"
+            ]
+          },
+          "likelihood": {
+            "type": "string"
+          },
+          "limitations": {
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1,
+            "type": "array"
+          },
+          "policy_authority": {
+            "const": false
+          },
+          "rationale": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "rationale_code": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "report_only": {
+            "const": true
+          },
+          "rule_id": {
+            "pattern": "^CTX-(?:RISK|COVERAGE)-[0-9]{3}$",
+            "type": "string"
+          },
+          "rule_pack_version": {
+            "const": "0.1.0"
+          },
+          "runtime_verified": {
+            "const": false
+          },
+          "severity": {
+            "enum": [
+              "none",
+              "low",
+              "medium",
+              "high",
+              "critical"
+            ]
+          }
+        },
+        "required": [
+          "finding_id",
+          "rule_id",
+          "kind",
+          "category",
+          "likelihood",
+          "impact",
+          "severity",
+          "confidence",
+          "context_ids",
+          "evidence_ids",
+          "rationale_code",
+          "rationale",
+          "limitations",
+          "rule_pack_version",
+          "report_only",
+          "runtime_verified",
+          "policy_authority",
+          "ci_blocked"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "format": {
+      "const": "agentsec-context-risk-report"
+    },
+    "format_version": {
+      "const": "0.1.0"
+    },
+    "mapping_basis": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "policy_authority": {
+      "const": false
+    },
+    "report_only": {
+      "const": true
+    },
+    "risk_finding_count": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "rule_pack_version": {
+      "const": "0.1.0"
+    },
+    "runtime_verified": {
+      "const": false
+    },
+    "source_context_format": {
+      "const": "agentsec-operation-context-set"
+    },
+    "source_context_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "unknown_dimensions": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "format",
+    "format_version",
+    "source_context_sha256",
+    "source_context_format",
+    "mapping_basis",
+    "rule_pack_version",
+    "evaluated_rule_ids",
+    "context_count",
+    "coverage_complete",
+    "unknown_dimensions",
+    "risk_finding_count",
+    "coverage_finding_count",
+    "findings",
+    "report_only",
+    "runtime_verified",
+    "policy_authority",
+    "ci_blocked",
+    "authority"
+  ],
+  "title": "AgentSec Context-aware Deterministic Risk Report",
+  "type": "object"
+}

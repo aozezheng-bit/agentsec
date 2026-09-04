@@ -9,7 +9,7 @@
 
 P3-11A produced 45 human-confirmed gold-label cases (AI draft, human
 per-item confirmation, provenance `ai_draft_human_confirmed`, reviewer
-呈屿). P3-03/P3-07 already provide a deterministic evaluation harness and
+internal-reviewer). P3-03/P3-07 already provide a deterministic evaluation harness and
 P3-05 provides provider quality thresholds, but no artifact decides and
 records qualification over the imported gold set. During gate
 construction, two label-corpus defects were exposed deterministically:

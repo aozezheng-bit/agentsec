@@ -99,6 +99,20 @@ _HOMI_SIMULATION_EXPORTS = frozenset(
         "render_homi_safe_simulation_text",
     }
 )
+_HOMI_BUNDLE_EXPORTS = frozenset(
+    {
+        "HOMI_COMBINED_REPORT_FORMAT",
+        "HOMI_COMBINED_REPORT_VERSION",
+        "HomiCombinedReport",
+        "HomiCombinedReportError",
+        "HomiRecommendation",
+        "build_homi_combined_report",
+        "build_homi_recommendations",
+        "encode_homi_combined_report_json",
+        "render_homi_combined_report_html",
+        "render_homi_combined_report_text",
+    }
+)
 _HOMI_DIFF_EXPORTS = frozenset(
     {
         "HOMI_CAPABILITY_DIFF_FORMAT",
@@ -113,6 +127,81 @@ _HOMI_DIFF_EXPORTS = frozenset(
         "encode_homi_capability_diff_json",
         "render_homi_capability_diff_html",
         "render_homi_capability_diff_text",
+    }
+)
+_HOMI_PROVENANCE_EXPORTS = frozenset(
+    {
+        "HOMI_BUILD_COMMIT_ENVIRONMENT",
+        "HOMI_BUILD_COMMIT_UNAVAILABLE",
+        "HOMI_BUILD_DIGEST_ALGORITHM",
+        "HOMI_BUILD_PROVENANCE_VERSION",
+        "HomiBuildProvenance",
+        "build_homi_build_provenance",
+        "encode_homi_build_provenance_json",
+        "render_homi_build_provenance_text",
+    }
+)
+_HOMI_OPERATIONALITY_EXPORTS = frozenset(
+    {
+        "HOMI_OPERATIONALITY_FORMAT",
+        "HOMI_OPERATIONALITY_FORMAT_VERSION",
+        "HomiOperationality",
+        "HomiOperationalityEntry",
+        "HomiOperationalityReport",
+        "build_homi_operationality_report",
+        "encode_homi_operationality_json",
+    }
+)
+_HOMI_OPERATION_CONTEXT_EXPORTS = frozenset(
+    {
+        "HOMI_OPERATION_CONTEXT_BASIS",
+        "HOMI_OPERATION_CONTEXT_FORMAT",
+        "HOMI_OPERATION_CONTEXT_FORMAT_VERSION",
+        "HomiOperationContextExtractionError",
+        "HomiOperationContextExtractor",
+        "HomiOperationContextReport",
+        "build_homi_operation_context_report",
+        "build_homi_operation_context_report_from_workspace",
+        "build_manifest_operation_context_set",
+        "build_homi_operation_context_set",
+        "encode_homi_operation_context_json",
+        "export_homi_operation_context_json_schema",
+    }
+)
+_HOMI_RISK_STATE_EXPORTS = frozenset(
+    {
+        "HOMI_RISK_STATE_BASIS",
+        "HOMI_RISK_STATE_FORMAT",
+        "HOMI_RISK_STATE_FORMAT_VERSION",
+        "HomiRiskState",
+        "HomiRiskStateEntry",
+        "HomiRiskStateReport",
+        "HomiRiskStateScope",
+        "build_homi_risk_state_report",
+        "encode_homi_risk_state_json",
+        "export_homi_risk_state_json_schema",
+    }
+)
+_HOMI_POSTURE_EXPORTS = frozenset(
+    {
+        "HOMI_POSTURE_FORMAT",
+        "HOMI_POSTURE_FORMAT_VERSION",
+        "HomiCurrentPosture",
+        "HomiPostureFinding",
+        "HomiPostureReport",
+        "build_homi_posture_report",
+        "encode_homi_posture_json",
+    }
+)
+_HOMI_CALIBRATION_EXPORTS = frozenset(
+    {
+        "HOMI_CALIBRATION_FORMAT",
+        "HOMI_CALIBRATION_FORMAT_VERSION",
+        "HomiCalibrationDecision",
+        "HomiCalibrationDisposition",
+        "HomiCalibrationReport",
+        "build_homi_calibration_report",
+        "encode_homi_calibration_json",
     }
 )
 _HOMI_PILOT_EXPORTS = frozenset(
@@ -143,10 +232,24 @@ def __getattr__(name: str) -> Any:
 
     if name in _HOMI_COMBINATION_EXPORTS:
         module = import_module(".homi_combination", __name__)
+    elif name in _HOMI_BUNDLE_EXPORTS:
+        module = import_module(".homi_bundle", __name__)
     elif name in _HOMI_DIFF_EXPORTS:
         module = import_module(".homi_diff", __name__)
     elif name in _HOMI_SIMULATION_EXPORTS:
         module = import_module(".homi_simulation", __name__)
+    elif name in _HOMI_PROVENANCE_EXPORTS:
+        module = import_module(".homi_provenance", __name__)
+    elif name in _HOMI_OPERATIONALITY_EXPORTS:
+        module = import_module(".homi_operationality", __name__)
+    elif name in _HOMI_OPERATION_CONTEXT_EXPORTS:
+        module = import_module(".homi_operation_context", __name__)
+    elif name in _HOMI_RISK_STATE_EXPORTS:
+        module = import_module(".homi_risk_state", __name__)
+    elif name in _HOMI_POSTURE_EXPORTS:
+        module = import_module(".homi_posture", __name__)
+    elif name in _HOMI_CALIBRATION_EXPORTS:
+        module = import_module(".homi_calibration", __name__)
     elif name in _HOMI_PILOT_EXPORTS:
         module = import_module(".homi_pilot", __name__)
     else:
@@ -191,6 +294,57 @@ __all__ = [
     "encode_homi_capability_diff_json",
     "render_homi_capability_diff_html",
     "render_homi_capability_diff_text",
+    "HOMI_BUILD_COMMIT_ENVIRONMENT",
+    "HOMI_BUILD_COMMIT_UNAVAILABLE",
+    "HOMI_BUILD_DIGEST_ALGORITHM",
+    "HOMI_BUILD_PROVENANCE_VERSION",
+    "HomiBuildProvenance",
+    "build_homi_build_provenance",
+    "encode_homi_build_provenance_json",
+    "render_homi_build_provenance_text",
+    "HOMI_OPERATIONALITY_FORMAT",
+    "HOMI_OPERATIONALITY_FORMAT_VERSION",
+    "HomiOperationality",
+    "HomiOperationalityEntry",
+    "HomiOperationalityReport",
+    "build_homi_operationality_report",
+    "encode_homi_operationality_json",
+    "HOMI_RISK_STATE_BASIS",
+    "HOMI_RISK_STATE_FORMAT",
+    "HOMI_RISK_STATE_FORMAT_VERSION",
+    "HomiRiskState",
+    "HomiRiskStateEntry",
+    "HomiRiskStateReport",
+    "HomiRiskStateScope",
+    "build_homi_risk_state_report",
+    "encode_homi_risk_state_json",
+    "export_homi_risk_state_json_schema",
+    "HOMI_OPERATION_CONTEXT_BASIS",
+    "HOMI_OPERATION_CONTEXT_FORMAT",
+    "HOMI_OPERATION_CONTEXT_FORMAT_VERSION",
+    "HomiOperationContextExtractionError",
+    "HomiOperationContextExtractor",
+    "HomiOperationContextReport",
+    "build_homi_operation_context_report",
+    "build_homi_operation_context_report_from_workspace",
+    "build_manifest_operation_context_set",
+    "build_homi_operation_context_set",
+    "encode_homi_operation_context_json",
+    "export_homi_operation_context_json_schema",
+    "HOMI_POSTURE_FORMAT",
+    "HOMI_POSTURE_FORMAT_VERSION",
+    "HomiCurrentPosture",
+    "HomiPostureFinding",
+    "HomiPostureReport",
+    "build_homi_posture_report",
+    "encode_homi_posture_json",
+    "HOMI_CALIBRATION_FORMAT",
+    "HOMI_CALIBRATION_FORMAT_VERSION",
+    "HomiCalibrationDecision",
+    "HomiCalibrationDisposition",
+    "HomiCalibrationReport",
+    "build_homi_calibration_report",
+    "encode_homi_calibration_json",
     "HomiAuthorityDomain",
     "HomiObservationCode",
     "HomiObservationKind",
@@ -200,6 +354,16 @@ __all__ = [
     "HomiVisibility",
     "HomiWorkspacePolicyResolver",
     "HomiWorkspaceResolution",
+    "HOMI_COMBINED_REPORT_FORMAT",
+    "HOMI_COMBINED_REPORT_VERSION",
+    "HomiCombinedReport",
+    "HomiCombinedReportError",
+    "HomiRecommendation",
+    "build_homi_combined_report",
+    "build_homi_recommendations",
+    "encode_homi_combined_report_json",
+    "render_homi_combined_report_html",
+    "render_homi_combined_report_text",
     "HOMI_COMBINATION_RISK_MAPPING_BASIS",
     "HOMI_COMBINATION_RULE_PACK_VERSION",
     "DeterministicHomiCombinationRuleEngine",

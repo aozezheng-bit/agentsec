@@ -1,0 +1,588 @@
+{
+  "$defs": {
+    "AuthorizationContext": {
+      "additionalProperties": false,
+      "description": "Authorization facts, separate from runtime permission.",
+      "properties": {
+        "approval_present": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Approval Present"
+        },
+        "approval_required": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Approval Required"
+        },
+        "state": {
+          "$ref": "#/$defs/AuthorizationState",
+          "default": "unknown"
+        }
+      },
+      "title": "AuthorizationContext",
+      "type": "object"
+    },
+    "AuthorizationState": {
+      "description": "Authorization and approval state without granting authority.",
+      "enum": [
+        "user_confirmed",
+        "policy_allowed",
+        "approval_required",
+        "approval_missing",
+        "not_required",
+        "unknown"
+      ],
+      "title": "AuthorizationState",
+      "type": "string"
+    },
+    "ControlEffectiveness": {
+      "additionalProperties": false,
+      "description": "Explicit control observations; no field grants runtime authority.",
+      "properties": {
+        "allowlist": {
+          "$ref": "#/$defs/ControlState",
+          "default": "unknown"
+        },
+        "approval": {
+          "$ref": "#/$defs/ControlState",
+          "default": "unknown"
+        },
+        "audit": {
+          "$ref": "#/$defs/ControlState",
+          "default": "unknown"
+        },
+        "rate_limit": {
+          "$ref": "#/$defs/ControlState",
+          "default": "unknown"
+        },
+        "redaction": {
+          "$ref": "#/$defs/ControlState",
+          "default": "unknown"
+        },
+        "retention": {
+          "$ref": "#/$defs/ControlState",
+          "default": "unknown"
+        },
+        "user_consent": {
+          "$ref": "#/$defs/ControlState",
+          "default": "unknown"
+        }
+      },
+      "title": "ControlEffectiveness",
+      "type": "object"
+    },
+    "ControlState": {
+      "description": "Presence state of a named control.",
+      "enum": [
+        "present",
+        "absent",
+        "unknown",
+        "not_applicable"
+      ],
+      "title": "ControlState",
+      "type": "string"
+    },
+    "DataClassification": {
+      "description": "Sensitivity class of data touched by an operation.",
+      "enum": [
+        "public",
+        "internal",
+        "user_preference",
+        "personal",
+        "sensitive",
+        "credential",
+        "secret",
+        "unknown"
+      ],
+      "title": "DataClassification",
+      "type": "string"
+    },
+    "DataRetention": {
+      "description": "Retention class for data handled by an operation.",
+      "enum": [
+        "ephemeral",
+        "session",
+        "bounded",
+        "indefinite",
+        "unknown"
+      ],
+      "title": "DataRetention",
+      "type": "string"
+    },
+    "DataScope": {
+      "additionalProperties": false,
+      "description": "Data sensitivity, sharing, and retention context.",
+      "properties": {
+        "classification": {
+          "$ref": "#/$defs/DataClassification"
+        },
+        "retention": {
+          "$ref": "#/$defs/DataRetention",
+          "default": "unknown"
+        },
+        "sharing": {
+          "$ref": "#/$defs/DataSharingScope",
+          "default": "unknown"
+        }
+      },
+      "required": [
+        "classification"
+      ],
+      "title": "DataScope",
+      "type": "object"
+    },
+    "DataSharingScope": {
+      "description": "Destination scope for persisted or transferred data.",
+      "enum": [
+        "none",
+        "main_session",
+        "workspace",
+        "organization",
+        "external",
+        "unknown"
+      ],
+      "title": "DataSharingScope",
+      "type": "string"
+    },
+    "EvidenceConfidence": {
+      "description": "Confidence in evidence, independent from finding severity.",
+      "enum": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "title": "EvidenceConfidence",
+      "type": "string"
+    },
+    "Frequency": {
+      "description": "Expected operation frequency.",
+      "enum": [
+        "one_time",
+        "periodic",
+        "continuous",
+        "unknown"
+      ],
+      "title": "Frequency",
+      "type": "string"
+    },
+    "OperationAction": {
+      "description": "Atomic action represented by an Operation Context.",
+      "enum": [
+        "read",
+        "write",
+        "send",
+        "execute",
+        "delete",
+        "schedule",
+        "store",
+        "modify_policy",
+        "modify_identity",
+        "unknown"
+      ],
+      "title": "OperationAction",
+      "type": "string"
+    },
+    "OperationContext": {
+      "additionalProperties": false,
+      "description": "One structured operation claim with bounded static evidence.",
+      "properties": {
+        "action": {
+          "$ref": "#/$defs/OperationAction"
+        },
+        "authorization": {
+          "$ref": "#/$defs/AuthorizationContext"
+        },
+        "controls": {
+          "$ref": "#/$defs/ControlEffectiveness",
+          "default": {
+            "allowlist": "unknown",
+            "approval": "unknown",
+            "audit": "unknown",
+            "rate_limit": "unknown",
+            "redaction": "unknown",
+            "retention": "unknown",
+            "user_consent": "unknown"
+          }
+        },
+        "data_scope": {
+          "$ref": "#/$defs/DataScope"
+        },
+        "evidence": {
+          "items": {
+            "$ref": "#/$defs/OperationEvidence"
+          },
+          "maxItems": 32,
+          "minItems": 1,
+          "title": "Evidence",
+          "type": "array"
+        },
+        "format": {
+          "const": "agentsec-operation-context",
+          "default": "agentsec-operation-context",
+          "title": "Format",
+          "type": "string"
+        },
+        "frequency": {
+          "$ref": "#/$defs/Frequency",
+          "default": "unknown"
+        },
+        "operation_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$",
+          "title": "Operation Id",
+          "type": "string"
+        },
+        "purpose": {
+          "$ref": "#/$defs/OperationPurpose"
+        },
+        "reversibility": {
+          "$ref": "#/$defs/OperationReversibility",
+          "default": "unknown"
+        },
+        "runtime_authority": {
+          "const": false,
+          "default": false,
+          "title": "Runtime Authority",
+          "type": "boolean"
+        },
+        "runtime_verified": {
+          "const": false,
+          "default": false,
+          "title": "Runtime Verified",
+          "type": "boolean"
+        },
+        "schema_version": {
+          "const": "0.1.0",
+          "default": "0.1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "scope": {
+          "$ref": "#/$defs/OperationScope",
+          "default": "unknown"
+        },
+        "status": {
+          "$ref": "#/$defs/OperationContextStatus"
+        },
+        "target": {
+          "$ref": "#/$defs/OperationTarget"
+        },
+        "trigger": {
+          "$ref": "#/$defs/OperationTrigger"
+        }
+      },
+      "required": [
+        "operation_id",
+        "action",
+        "target",
+        "data_scope",
+        "trigger",
+        "purpose",
+        "authorization",
+        "evidence",
+        "status"
+      ],
+      "title": "OperationContext",
+      "type": "object"
+    },
+    "OperationContextStatus": {
+      "description": "Completeness of the extracted Operation Context.",
+      "enum": [
+        "complete",
+        "partial",
+        "needs_context",
+        "unknown"
+      ],
+      "title": "OperationContextStatus",
+      "type": "string"
+    },
+    "OperationEvidence": {
+      "additionalProperties": false,
+      "description": "Value-minimized source evidence for one operation context.",
+      "properties": {
+        "confidence": {
+          "$ref": "#/$defs/EvidenceConfidence"
+        },
+        "content_sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Content Sha256",
+          "type": "string"
+        },
+        "end_line": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "End Line"
+        },
+        "evidence_id": {
+          "pattern": "^operation-evidence-sha256:[0-9a-f]{64}$",
+          "title": "Evidence Id",
+          "type": "string"
+        },
+        "extraction_method": {
+          "$ref": "#/$defs/OperationEvidenceMethod"
+        },
+        "field_path": {
+          "anyOf": [
+            {
+              "maxLength": 256,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Field Path"
+        },
+        "secret_values_included": {
+          "const": false,
+          "default": false,
+          "title": "Secret Values Included",
+          "type": "boolean"
+        },
+        "source_path": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Source Path",
+          "type": "string"
+        },
+        "start_line": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Start Line"
+        },
+        "value_minimized": {
+          "const": true,
+          "default": true,
+          "title": "Value Minimized",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "evidence_id",
+        "source_path",
+        "content_sha256",
+        "extraction_method",
+        "confidence"
+      ],
+      "title": "OperationEvidence",
+      "type": "object"
+    },
+    "OperationEvidenceMethod": {
+      "description": "Trusted extraction source for static Operation Context evidence.",
+      "enum": [
+        "static_declaration",
+        "static_template_classification",
+        "static_diff",
+        "structural_file_state",
+        "manifest",
+        "policy_boundary"
+      ],
+      "title": "OperationEvidenceMethod",
+      "type": "string"
+    },
+    "OperationPurpose": {
+      "description": "Declared purpose of an operation.",
+      "enum": [
+        "search",
+        "analysis",
+        "notification",
+        "maintenance",
+        "persistence",
+        "administration",
+        "deployment",
+        "external_communication",
+        "control_file_update",
+        "unknown"
+      ],
+      "title": "OperationPurpose",
+      "type": "string"
+    },
+    "OperationReversibility": {
+      "description": "Whether an operation's effects can be reversed.",
+      "enum": [
+        "reversible",
+        "partially_reversible",
+        "irreversible",
+        "unknown"
+      ],
+      "title": "OperationReversibility",
+      "type": "string"
+    },
+    "OperationScope": {
+      "description": "Blast-radius scope of an operation.",
+      "enum": [
+        "single_item",
+        "single_file",
+        "workspace",
+        "user_scope",
+        "organization",
+        "external",
+        "global",
+        "unknown"
+      ],
+      "title": "OperationScope",
+      "type": "string"
+    },
+    "OperationTarget": {
+      "description": "Bounded target classes for an Agent operation.",
+      "enum": [
+        "public_web",
+        "external_service",
+        "external_message_channel",
+        "local_file",
+        "agent_control_file",
+        "workspace",
+        "user_profile",
+        "user_mailbox",
+        "credential",
+        "secret",
+        "production_system",
+        "tool_registry",
+        "mcp_server",
+        "unknown"
+      ],
+      "title": "OperationTarget",
+      "type": "string"
+    },
+    "OperationTrigger": {
+      "description": "Trigger or autonomy class for an operation.",
+      "enum": [
+        "user_requested",
+        "user_confirmed",
+        "policy_triggered",
+        "scheduled",
+        "proactive",
+        "autonomous",
+        "unknown"
+      ],
+      "title": "OperationTrigger",
+      "type": "string"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Bounded batch envelope for extracted operation contexts.",
+  "properties": {
+    "basis": {
+      "default": [
+        "AgentSec RISK-01 deterministic Operation Context Contract 0.1.0",
+        "Operation Context describes evidence and grants no runtime authority"
+      ],
+      "items": {
+        "type": "string"
+      },
+      "title": "Basis",
+      "type": "array"
+    },
+    "contexts": {
+      "items": {
+        "$ref": "#/$defs/OperationContext"
+      },
+      "maxItems": 128,
+      "minItems": 1,
+      "title": "Contexts",
+      "type": "array"
+    },
+    "coverage_complete": {
+      "title": "Coverage Complete",
+      "type": "boolean"
+    },
+    "format": {
+      "const": "agentsec-operation-context-set",
+      "default": "agentsec-operation-context-set",
+      "title": "Format",
+      "type": "string"
+    },
+    "report_only": {
+      "const": true,
+      "default": true,
+      "title": "Report Only",
+      "type": "boolean"
+    },
+    "runtime_authority": {
+      "const": false,
+      "default": false,
+      "title": "Runtime Authority",
+      "type": "boolean"
+    },
+    "runtime_verified": {
+      "const": false,
+      "default": false,
+      "title": "Runtime Verified",
+      "type": "boolean"
+    },
+    "schema_version": {
+      "const": "0.1.0",
+      "default": "0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "subject_id": {
+      "anyOf": [
+        {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Subject Id"
+    },
+    "unknown_dimensions": {
+      "default": [],
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$",
+        "type": "string"
+      },
+      "title": "Unknown Dimensions",
+      "type": "array"
+    }
+  },
+  "required": [
+    "contexts",
+    "coverage_complete"
+  ],
+  "title": "OperationContextSet",
+  "type": "object",
+  "x-agentsec-operation-context-schema-version": "0.1.0"
+}

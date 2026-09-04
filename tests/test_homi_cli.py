@@ -146,6 +146,20 @@ def test_homi_report_writes_paired_artifacts_and_no_clobber(tmp_path: Path) -> N
     assert first.exit_code == 0, first.output
     assert (output_dir / "homi-pilot-report.json").is_file()
     assert (output_dir / "homi-pilot-report.md").is_file()
+    context_risk = output_dir / "homi-context-risk.json"
+    assert context_risk.is_file()
+    context_risk_payload = json.loads(context_risk.read_text(encoding="utf-8"))
+    assert context_risk_payload["format"] == "agentsec-context-risk-report"
+    assert context_risk_payload["report_only"] is True
+    assert context_risk_payload["runtime_verified"] is False
+    assert context_risk_payload["policy_authority"] is False
+    assert context_risk_payload["ci_blocked"] is False
+    risk_score = output_dir / "homi-risk-score.json"
+    assert risk_score.is_file()
+    risk_score_payload = json.loads(risk_score.read_text(encoding="utf-8"))
+    assert risk_score_payload["format"] == "agentsec-context-risk-score"
+    assert risk_score_payload["current_posture_score"] is None
+    assert risk_score_payload["authority"]["policy_authority"] is False
     html = output_dir / "homi-pilot-report.html"
     assert html.is_file()
     html_text = html.read_text(encoding="utf-8")
@@ -171,6 +185,63 @@ def test_homi_report_writes_paired_artifacts_and_no_clobber(tmp_path: Path) -> N
         ],
     )
     assert forced.exit_code == 0, forced.output
+
+
+def test_homi_report_computes_baseline_relative_context_risk_drift(
+    tmp_path: Path,
+) -> None:
+    baseline_workspace = tmp_path / "baseline-agent"
+    current_workspace = tmp_path / "current-agent"
+    for workspace in (baseline_workspace, current_workspace):
+        workspace.mkdir()
+        _write(workspace / "SOUL.md", "Be helpful.\n")
+        _write(workspace / "IDENTITY.md", "Name: Demo\n")
+        _write(workspace / "USER.md", "Timezone: Asia/Shanghai\n")
+        _write(workspace / "TOOLS.md", "No external tools.\n")
+        _write(workspace / "HEARTBEAT.md", "# disabled\n")
+    _write(baseline_workspace / "AGENTS.md", "# Workspace\nRead files only.\n")
+    _write(
+        current_workspace / "AGENTS.md",
+        "# Workspace\n"
+        "Read files only.\n"
+        "Read secrets only with approval.\n"
+        "Sending emails requires asking first.\n",
+    )
+    baseline_output = tmp_path / "baseline-report"
+    current_output = tmp_path / "current-report"
+
+    baseline = runner.invoke(
+        create_app(),
+        [
+            "homi",
+            "report",
+            str(baseline_workspace),
+            "--output-dir",
+            str(baseline_output),
+            "--force",
+        ],
+    )
+    assert baseline.exit_code == 0, baseline.output
+    current = runner.invoke(
+        create_app(),
+        [
+            "homi",
+            "report",
+            str(current_workspace),
+            "--output-dir",
+            str(current_output),
+            "--baseline-dir",
+            str(baseline_output),
+            "--force",
+        ],
+    )
+    assert current.exit_code == 0, current.output
+    payload = json.loads(
+        (current_output / "homi-risk-score.json").read_text(encoding="utf-8")
+    )
+    assert payload["drift"] is not None
+    assert payload["drift"]["direction"] == "increased"
+    assert payload["drift"]["added_finding_ids"]
 
 
 def test_homi_partial_scan_returns_incomplete_without_risk_blocking(

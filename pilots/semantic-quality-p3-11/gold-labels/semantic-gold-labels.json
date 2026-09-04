@@ -1,7 +1,7 @@
 {
   "format": "agentsec-p3-11-semantic-gold-labels",
   "format_version": "0.1.0",
-  "reviewer_id": "呈屿",
+  "reviewer_id": "internal-reviewer",
   "independence_statement": "本人逐案例复核了 CodeFuse 起草的 45 个语义判断（对照 cases.json 脱敏文本，未查看任何扫描报告、规则实现、testdata 原始文件或其他 Scanner 输出），并亲自确认或修改了每条最终判断；本表为 AI 起草、人工逐条确认的金标准，判断责任在签署人。复核记录见 REVIEW-WORKSHEET.zh.md（45 例全部确认，无修改）。",
   "label_provenance": "ai_draft_human_confirmed",
   "case_count": 45,

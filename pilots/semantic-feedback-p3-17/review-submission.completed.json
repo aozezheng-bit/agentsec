@@ -1,7 +1,7 @@
 {
   "format": "agentsec-p3-17-feedback-submission",
   "format_version": "0.1.0",
-  "reviewer_id": "呈屿",
+  "reviewer_id": "internal-reviewer",
   "independence_statement": "本人逐行复核了 AI 起草的 false_positive/false_negative 反馈行，对照各案例脱敏文本独立判断并确认每行结论；判断责任在签署人。",
   "label_provenance": "ai_draft_human_confirmed",
   "context": {
