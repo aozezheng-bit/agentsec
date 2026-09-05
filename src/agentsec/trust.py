@@ -26,7 +26,14 @@ class TrustError(ValueError):
 
 
 def ensure_safe_relative_posix_path(value: str, *, label: str) -> str:
-    """Validate one relative POSIX path without empty or dot segments."""
+    """Validate one relative POSIX path without empty or dot segments.
+
+    Parent (``..``) segments are allowed here on purpose: policy-relative
+    registry paths legitimately reference sibling directories, and lexical
+    analysis cannot distinguish those from escapes. Escapes are rejected at
+    the resolution layer, which knows the trust root (see
+    ``resolve_trust_policy_path`` and the capability enforce registry check).
+    """
 
     if (
         not value

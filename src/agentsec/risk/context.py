@@ -280,10 +280,12 @@ class OperationEvidence(_Strict):
     def source_path_must_be_relative(cls, value: str) -> str:
         return validate_relative_path(value)
 
-    @field_validator("field_path")
+    @field_validator("field_path", mode="before")
     @classmethod
-    def field_path_must_be_exact(cls, value: str | None) -> str | None:
-        if value is not None and value != value.strip():
+    def field_path_must_be_exact(cls, value: object) -> object:
+        """Reject padded field paths before str_strip_whitespace normalizes them."""
+
+        if isinstance(value, str) and value != value.strip():
             raise ValueError("field_path must not contain outer whitespace")
         return value
 

@@ -400,6 +400,18 @@ def interface_provenance_registry() -> tuple[InterfaceProvenance, ...]:
                 "homi_reports",
                 schema_file="schemas/risk/homi-snapshot.schema.json",
             ),
+            _report(
+                "HOMI_DRIFT_REPORT_VERSION",
+                versioning.HOMI_DRIFT_REPORT_VERSION,
+                "homi_reports",
+                schema_file="schemas/risk/homi-drift-report.schema.json",
+            ),
+            _report(
+                "HOMI_RISK_REPORT_VERSION",
+                versioning.HOMI_RISK_REPORT_VERSION,
+                "homi_reports",
+                schema_file="schemas/risk/homi-risk-report.schema.json",
+            ),
             # Scoring and enrichment models
             _product(
                 "AGENTIC_FACTOR_MODEL_VERSION",
@@ -1087,9 +1099,9 @@ def schema_file_ownership() -> dict[str, str]:
             "schemas/risk/homi-operation-context.schema.json": (
                 "HOMI_OPERATION_CONTEXT_OUTPUT_VERSION"
             ),
-            "schemas/risk/homi-snapshot.schema.json": (
-                "HOMI_SNAPSHOT_OUTPUT_VERSION"
-            ),
+            "schemas/risk/homi-snapshot.schema.json": ("HOMI_SNAPSHOT_OUTPUT_VERSION"),
+            "schemas/risk/homi-drift-report.schema.json": ("HOMI_DRIFT_REPORT_VERSION"),
+            "schemas/risk/homi-risk-report.schema.json": ("HOMI_RISK_REPORT_VERSION"),
             "schemas/runtime/runtime-attestation.schema.json": (
                 "RUNTIME_ATTESTATION_REPORT_VERSION"
             ),

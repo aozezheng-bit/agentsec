@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AgentSec Homi Agent 安全报告</title>
+<style>
+:root {
+  color-scheme: light;
+  --ink: #172033;
+  --muted: #667085;
+  --line: #e5e7eb;
+  --panel: #ffffff;
+  --bg: #f5f7fb;
+  --accent: #315efb;
+  --danger: #c62828;
+  --warn: #b45309;
+  --ok: #16794c;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 14px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+main { max-width: 1180px; margin: 0 auto; padding: 28px 20px 56px; }
+.hero {
+  color: #fff;
+  padding: 28px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #182848, #315efb);
+  box-shadow: 0 12px 30px #1828482b;
+}
+h1 { margin: 0 0 8px; font-size: 28px; }
+h2 { margin: 28px 0 12px; font-size: 20px; }
+h3 { margin: 8px 0; font-size: 16px; }
+.subtitle { color: #dbe5ff; }
+.hero-grid, .metric-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 12px;
+  margin-top: 18px;
+}
+.hero-grid strong, .metric strong { display: block; font-size: 25px; margin-top: 4px; }
+.card, .finding, .panel {
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--panel);
+  box-shadow: 0 4px 14px #1828480b;
+}
+.metric small, .muted { color: var(--muted); }
+.callout { padding: 14px 16px; border: 1px solid #bfdbfe; border-radius: 12px; background: #eff6ff; }
+.finding-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 14px; }
+.finding { border-left: 5px solid #f59e0b; }
+.finding-high, .finding-critical { border-left-color: #dc2626; }
+.finding-head, .finding-meta { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.finding-meta { color: var(--muted); font-size: 12px; }
+.score { margin-left: auto; font-weight: 700; }
+.badge, .state {
+  display: inline-block;
+  padding: 2px 9px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.badge-high, .badge-critical { color: var(--danger); background: #fee2e2; }
+.badge-medium { color: var(--warn); background: #fef3c7; }
+.badge-low { color: var(--ok); background: #dcfce7; }
+.state-present, .state-conditional { color: #1d4ed8; background: #dbeafe; }
+.state-unknown { color: #6b7280; background: #f3f4f6; }
+.state-example-only { color: #92400e; background: #fef3c7; }
+.state-absent { color: var(--ok); background: #ecfdf3; }
+.state-missing, .state-skipped { color: #991b1b; background: #fee2e2; }
+table { width: 100%; border-collapse: collapse; overflow: hidden; background: var(--panel); }
+th, td { padding: 9px 11px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+th { color: #475467; background: #f8fafc; font-size: 12px; }
+tr:last-child td { border-bottom: 0; }
+details { margin-top: 10px; }
+summary { cursor: pointer; color: var(--accent); font-weight: 600; }
+ul { margin: 8px 0; }
+.empty { padding: 20px; color: var(--muted); text-align: center; }
+footer { margin-top: 30px; color: var(--muted); font-size: 12px; }
+@media (max-width: 700px) {
+  main { padding: 16px 10px 40px; }
+  h1 { font-size: 23px; }
+  th, td { padding: 7px; font-size: 12px; }
+}
+</style>
+</head>
+<body>
+<main>
+<header class="hero">
+  <h1>AgentSec Homi Agent 安全报告</h1>
+  <p class="subtitle">scenario-12 · Pilot homi-cli-pilot</p>
+  <div class="hero-grid">
+    <div><span>状态 / Status</span><strong>完整</strong></div>
+    <div><span>最高潜在影响</span><strong>none</strong></div>
+    <div><span>Findings</span><strong>0</strong></div>
+  </div>
+</header>
+<section>
+  <h2>结论摘要</h2>
+  <div class="callout">这是一次只读、静态、报告型安全评估。它展示 Agent 文件表达的能力和组合风险，不证明运行时可达性，也不会自动修改 Agent 或阻断 CI。</div>
+</section>
+<section>
+  <h2>风险口径</h2>
+  <div class="metric-grid">
+    <div class="card metric"><small>原始静态潜在影响</small><strong>0.0</strong></div>
+    <div class="card metric"><small>最高潜在影响分</small><strong>0.0</strong></div>
+    <div class="card metric"><small>当前安全态势</small><strong>尚未建立</strong></div>
+    <div class="card metric"><small>当前态势分</small><strong>未建立（无运行时证明）</strong></div>
+    <div class="card metric"><small>校准后 Findings</small><strong>0/0</strong></div>
+    <div class="card metric"><small>模板校准抑制</small><strong>0</strong></div>
+  </div>
+</section>
+<section>
+  <h2>覆盖与 Unknown 指标</h2>
+  <div class="metric-grid">
+    <div class="card metric"><small>能力总数</small><strong>22</strong></div>
+    <div class="card metric"><small>能力 Unknown</small><strong>17</strong></div>
+    <div class="card metric"><small>示例能力</small><strong>0</strong></div>
+    <div class="card metric"><small>标准文件</small><strong>6/6</strong></div>
+    <div class="card metric"><small>运行时 Unknown</small><strong>未采集</strong></div>
+    <div class="card metric"><small>Manifest Unknown</small><strong>未提供</strong></div>
+  </div>
+</section>
+<section>
+  <h2>校准说明</h2>
+  <div class="card"><ul><p class='muted'>没有因模板校准而抑制的 Finding。</p></ul></div>
+</section>
+<section>
+  <h2>风险 Findings</h2>
+  <div class="finding-grid"><div class='empty'>暂无组合风险 Finding。</div></div>
+</section>
+<section>
+  <h2>能力画像</h2>
+  <div class="panel"><table>
+    <thead><tr><th>Signal</th><th>状态</th><th>证据置信度</th><th>证据文件</th></tr></thead>
+    <tbody><tr><td>camera_access</td><td><span class='state state-unknown'>unknown</span></td><td>D</td><td>—</td></tr><tr><td>control_file_self_modification</td><td><span class='state state-unknown'>unknown</span></td><td>D</td><td>—</td></tr><tr><td>cron_schedule</td><td><span class='state state-unknown'>unknown</span></td><td>D</td><td>—</td></tr><tr><td>external_message_send</td><td><span class='state state-unknown'>unknown</span></td><td>D</td><td>—</td></tr><tr><td>external_network_read</td><td><span class='state state-unknown'>unknown</span></td><td>D</td><td>—</td></tr><tr><td>group_chat_participation</td><td><span class='state state-present'>present</span></td><td>D</td><td>AGENTS.md</td></tr><tr><td>heartbeat_schedule</td><td><span class='state state-absent'>absent</span></td><td>B</td><td>HEARTBEAT.md</td></tr><tr><td>identity_self_modification</td><td><span class='state state-unknown'>unknown</span></td><td>D</td><td>—</td></tr><tr><td>mcp_access</td><td><span class='state state-unknown'>unknown</span></td><td>D</td><td>—</td></tr><tr><td>memory_read</td><td><span class='state state-present'>present</span></td><td>D</td><td>AGENTS.md</td></tr><tr><td>memory_write</td><td><span class='state state-unknown'>unknown</span></td><td>D</td><td>—</td></tr><tr><td>oauth_access</td><td><span class='state state-unknown'>unknown</span></td><td>D</td><td>—</td></tr><tr><td>persistent_memory</td><td><span class='state state-present'>present</span></td><td>D</td><td>AGENTS.md</td></tr><tr><td>persona_self_modification</td><td><span class='state state-unknown'>unknown</span></td><td>D</td><td>—</td></tr><tr><td>secret_access</td><td><span class='state state-unknown'>unknown</span></td><td>D</td><td>—</td></tr><tr><td>shell_execution</td><td><span class='state state-unknown'>unknown</span></td><td>D</td><td>—</td></tr><tr><td>skill_tool_discovery</td><td><span class='state state-unknown'>unknown</span></td><td>D</td><td>—</td></tr><tr><td>ssh_access</td><td><span class='state state-unknown'>unknown</span></td><td>D</td><td>—</td></tr><tr><td>tts_output</td><td><span class='state state-unknown'>unknown</span></td><td>D</td><td>—</td></tr><tr><td>user_profile_persistence</td><td><span class='state state-unknown'>unknown</span></td><td>D</td><td>—</td></tr><tr><td>workspace_read</td><td><span class='state state-present'>present</span></td><td>D</td><td>AGENTS.md</td></tr><tr><td>workspace_write</td><td><span class='state state-unknown'>unknown</span></td><td>D</td><td>—</td></tr></tbody>
+  </table></div>
+</section>
+<section>
+  <h2>标准文件状态</h2>
+  <div class="panel"><table>
+    <thead><tr><th>File</th><th>状态</th><th>Bytes</th><th>Lines</th></tr></thead>
+    <tbody><tr><td>AGENTS.md</td><td><span class='state state-present'>present</span></td><td>849</td><td>38</td></tr><tr><td>HEARTBEAT.md</td><td><span class='state state-empty'>empty</span></td><td>65</td><td>3</td></tr><tr><td>IDENTITY.md</td><td><span class='state state-present'>present</span></td><td>196</td><td>8</td></tr><tr><td>SOUL.md</td><td><span class='state state-present'>present</span></td><td>183</td><td>7</td></tr><tr><td>TOOLS.md</td><td><span class='state state-present'>present</span></td><td>170</td><td>5</td></tr><tr><td>USER.md</td><td><span class='state state-present'>present</span></td><td>148</td><td>6</td></tr></tbody>
+  </table></div>
+</section>
+<section>
+  <h2>安全模拟与边界</h2>
+  <div class="card">
+    <p>模拟只生成内存中的决策路径，不执行任何外部动作。</p>
+    <p>运行时验证： <strong>false</strong> · CI 阻断： <strong>false</strong> · report_only=<strong>true</strong></p>
+  </div>
+</section>
+<section>
+  <h2>限制</h2>
+  <div class="card"><ul><li>This is an external report-only Pilot; acceptance_ready is always false.</li><li>The target workspace is untrusted input and no project code, hooks, skills, commands, MCP, or scheduler was executed.</li><li>Static Homi declarations do not prove runtime Tool, OAuth, permission, identity, scheduler, or exploit reachability.</li><li>No raw User, tool, credential, IP address, URL, Avatar, or Secret value is included in the report.</li><li>Human review and real runtime attestation are outside this Pilot run.</li></ul></div>
+</section>
+<footer>AgentSec 0.2.0 · external_report_only · 不读取或展示原始 Secret 值。</footer>
+</main>
+</body>
+</html>

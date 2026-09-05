@@ -9,31 +9,46 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SKILL = ROOT / "integrations" / "homi" / "skill" / "agentsec-security-audit"
 
+REQUIRED_CONTRACT_FILES = (
+    "SKILL.md",
+    "README.md",
+    "agents/openai.yaml",
+    "references/integration-contract.md",
+    "references/remediation-advisory-prompt.zh.md",
+    "references/report-interpretation.md",
+    "references/security-boundary.md",
+    "schemas/request.schema.json",
+    "schemas/response.schema.json",
+    "commands/scan.sh",
+    "commands/report.sh",
+    "commands/manifest.sh",
+    "commands/capability.sh",
+    "commands/diff.sh",
+    "commands/score.sh",
+    "commands/attack-graph.sh",
+    "commands/homi-diff.sh",
+    "commands/reconcile-runtime.sh",
+    "commands/snapshot.sh",
+    "commands/drift.sh",
+    "commands/risk.sh",
+    "commands/bundle.sh",
+    "commands/fingerprint.sh",
+    "tests/smoke.sh",
+)
+
 
 def test_homi_skill_contains_required_contract_files() -> None:
-    required = (
-        "SKILL.md",
-        "README.md",
-        "agents/openai.yaml",
-        "references/integration-contract.md",
-        "references/report-interpretation.md",
-        "references/security-boundary.md",
-        "schemas/request.schema.json",
-        "schemas/response.schema.json",
-        "commands/scan.sh",
-        "commands/report.sh",
-        "commands/manifest.sh",
-        "commands/capability.sh",
-        "commands/diff.sh",
-        "commands/score.sh",
-        "commands/attack-graph.sh",
-        "commands/homi-diff.sh",
-        "commands/reconcile-runtime.sh",
-        "tests/smoke.sh",
-    )
-    for relative in required:
+    for relative in REQUIRED_CONTRACT_FILES:
         path = SKILL / relative
         assert path.is_file(), relative
+
+
+def test_homi_skill_command_scripts_are_all_listed_as_required() -> None:
+    shell_scripts = {
+        f"commands/{path.name}" for path in (SKILL / "commands").glob("*.sh")
+    }
+    assert shell_scripts
+    assert shell_scripts <= set(REQUIRED_CONTRACT_FILES)
 
 
 def test_homi_skill_entrypoint_has_valid_frontmatter_and_no_scaffold() -> None:

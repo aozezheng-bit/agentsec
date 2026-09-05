@@ -1,5 +1,273 @@
 {
   "$defs": {
+    "contextFindingSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "category": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "confidence": {
+          "enum": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "type": "string"
+        },
+        "context_ids": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "evidence_ids": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "finding_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "impact": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "risk",
+            "coverage"
+          ],
+          "type": "string"
+        },
+        "likelihood": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "rationale_code": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "rule_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "severity": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "finding_id",
+        "rule_id",
+        "kind",
+        "category",
+        "likelihood",
+        "impact",
+        "severity",
+        "confidence",
+        "context_ids",
+        "evidence_ids",
+        "rationale_code"
+      ],
+      "type": "object"
+    },
+    "contextScoreSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "contribution_count": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "coverage_complete": {
+          "type": "boolean"
+        },
+        "current_posture": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "current_posture_score": {
+          "anyOf": [
+            {
+              "maximum": 10,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "model_version": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "potential_impact_level": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "potential_impact_score": {
+          "maximum": 10,
+          "minimum": 0,
+          "type": "number"
+        },
+        "residual_risk_level": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "residual_risk_score": {
+          "maximum": 10,
+          "minimum": 0,
+          "type": "number"
+        },
+        "unknown_dimensions": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "model_version",
+        "coverage_complete",
+        "unknown_dimensions",
+        "potential_impact_score",
+        "potential_impact_level",
+        "residual_risk_score",
+        "residual_risk_level",
+        "current_posture",
+        "current_posture_score",
+        "contribution_count"
+      ],
+      "type": "object"
+    },
+    "operationContextSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "action": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "authorization_state": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "controls_absent": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "controls_not_applicable": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "controls_present": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "controls_unknown": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "data_classification": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "data_retention": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "data_sharing": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "evidence_ids": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "frequency": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "operation_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "purpose": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "reversibility": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "scope": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "status": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "target": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "trigger": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "operation_id",
+        "action",
+        "target",
+        "data_classification",
+        "data_sharing",
+        "data_retention",
+        "trigger",
+        "purpose",
+        "authorization_state",
+        "reversibility",
+        "scope",
+        "frequency",
+        "status",
+        "controls_present",
+        "controls_absent",
+        "controls_unknown",
+        "controls_not_applicable",
+        "evidence_ids"
+      ],
+      "type": "object"
+    },
     "signalSummaries": {
       "items": {
         "additionalProperties": false,
@@ -58,6 +326,23 @@
     },
     "combination_rule_pack_version": {
       "minLength": 1,
+      "type": "string"
+    },
+    "context_findings": {
+      "items": {
+        "$ref": "#/$defs/contextFindingSummary"
+      },
+      "type": "array"
+    },
+    "context_risk_report_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "context_score": {
+      "$ref": "#/$defs/contextScoreSummary"
+    },
+    "context_score_report_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
       "type": "string"
     },
     "coverage_metrics": {
@@ -156,8 +441,59 @@
       "const": "agentsec-homi-snapshot"
     },
     "format_version": {
-      "const": "0.1.0",
+      "const": "0.3.0",
       "type": "string"
+    },
+    "observations": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "code": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "kind": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "resolution": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "roles": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "source_paths": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "code",
+          "kind",
+          "roles",
+          "source_paths",
+          "resolution"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "operation_context_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "operation_contexts": {
+      "items": {
+        "$ref": "#/$defs/operationContextSummary"
+      },
+      "minItems": 1,
+      "type": "array"
     },
     "owner": {
       "minLength": 1,
@@ -192,6 +528,10 @@
       "pattern": "^[0-9a-f]{64}$",
       "type": "string"
     },
+    "subject_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]{0,127}$",
+      "type": "string"
+    },
     "workspace_fingerprint": {
       "pattern": "^[0-9a-f]{64}$",
       "type": "string"
@@ -202,6 +542,7 @@
     "format_version",
     "snapshot_digest",
     "workspace_fingerprint",
+    "subject_id",
     "project_name",
     "adapter_version",
     "profile_model_version",
@@ -211,6 +552,13 @@
     "capabilities",
     "persona_signals",
     "findings",
+    "observations",
+    "operation_context_sha256",
+    "context_risk_report_sha256",
+    "context_score_report_sha256",
+    "operation_contexts",
+    "context_findings",
+    "context_score",
     "coverage_metrics",
     "pilot_id",
     "owner",

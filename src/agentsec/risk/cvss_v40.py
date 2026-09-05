@@ -430,6 +430,11 @@ def calculate_cvss_v40_base_score(metrics: Mapping[str, str]) -> float:
         available = value - lower_scores[name]
         if math.isfinite(available) and available >= 0:
             normalized.append(available * distances[name] / max_severity[name])
+    # Official calculator rule: the eq5 percentage is always 0, but eq5
+    # still counts toward the averaging divisor when its lower macro exists.
+    eq5_available = value - lower_scores["eq5"]
+    if math.isfinite(eq5_available) and eq5_available >= 0:
+        normalized.append(0.0)
 
     if normalized:
         value -= sum(normalized) / len(normalized)
@@ -485,14 +490,16 @@ def _lower_macro_scores(levels: tuple[int, ...]) -> dict[str, float]:
         "eq1": CVSS_V40_LOOKUP.get(f"{eq1 + 1}{eq2}{eq3}{eq4}{eq5}{eq6}", float("nan")),
         "eq2": CVSS_V40_LOOKUP.get(f"{eq1}{eq2 + 1}{eq3}{eq4}{eq5}{eq6}", float("nan")),
         "eq4": CVSS_V40_LOOKUP.get(f"{eq1}{eq2}{eq3}{eq4 + 1}{eq5}{eq6}", float("nan")),
+        "eq5": CVSS_V40_LOOKUP.get(f"{eq1}{eq2}{eq3}{eq4}{eq5 + 1}{eq6}", float("nan")),
     }
     if eq3 == 0 and eq6 == 0:
         left = CVSS_V40_LOOKUP.get(f"{eq1}{eq2}{eq3}{eq4}{eq5}{eq6 + 1}", float("nan"))
         right = CVSS_V40_LOOKUP.get(f"{eq1}{eq2}{eq3 + 1}{eq4}{eq5}{eq6}", float("nan"))
         scores["eq3eq6"] = max(left, right)
     elif eq3 == 1 and eq6 == 0:
+        # Official calculator: 10 --> 11 (eq6 increases, eq3 stays).
         scores["eq3eq6"] = CVSS_V40_LOOKUP.get(
-            f"{eq1}{eq2}{eq3 + 1}{eq4}{eq5}{eq6 + 1}", float("nan")
+            f"{eq1}{eq2}{eq3}{eq4}{eq5}{eq6 + 1}", float("nan")
         )
     elif (eq3, eq6) in ((0, 1), (1, 1)):
         scores["eq3eq6"] = CVSS_V40_LOOKUP.get(

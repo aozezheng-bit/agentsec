@@ -1,0 +1,78 @@
+{
+  "scenario-01": {
+    "expected_risk_direction": "low",
+    "expected_rule_ids": []
+  },
+  "scenario-02": {
+    "expected_risk_direction": "low",
+    "expected_rule_ids": []
+  },
+  "scenario-03": {
+    "expected_risk_direction": "low",
+    "expected_rule_ids": []
+  },
+  "scenario-04": {
+    "expected_risk_direction": "low",
+    "expected_rule_ids": []
+  },
+  "scenario-05": {
+    "expected_risk_direction": "low",
+    "expected_rule_ids": []
+  },
+  "scenario-06": {
+    "expected_risk_direction": "low",
+    "expected_rule_ids": []
+  },
+  "scenario-07": {
+    "expected_risk_direction": "high",
+    "expected_rule_ids": [
+      "CTX-RISK-007"
+    ]
+  },
+  "scenario-08": {
+    "expected_risk_direction": "high",
+    "expected_rule_ids": [
+      "CTX-RISK-002"
+    ]
+  },
+  "scenario-09": {
+    "expected_risk_direction": "review",
+    "expected_rule_ids": []
+  },
+  "scenario-10": {
+    "expected_risk_direction": "elevated",
+    "expected_rule_ids": [
+      "CTX-RISK-008"
+    ]
+  },
+  "scenario-11": {
+    "expected_risk_direction": "review",
+    "expected_rule_ids": []
+  },
+  "scenario-12": {
+    "expected_risk_direction": "high",
+    "expected_rule_ids": [
+      "CTX-RISK-003",
+      "CTX-RISK-006"
+    ]
+  },
+  "scenario-13": {
+    "expected_risk_direction": "review",
+    "expected_rule_ids": []
+  },
+  "scenario-14": {
+    "expected_risk_direction": "high",
+    "expected_rule_ids": [
+      "CTX-RISK-003",
+      "CTX-RISK-006"
+    ]
+  },
+  "scenario-15": {
+    "expected_risk_direction": "low",
+    "expected_rule_ids": []
+  },
+  "scenario-16": {
+    "expected_risk_direction": "review",
+    "expected_rule_ids": []
+  }
+}

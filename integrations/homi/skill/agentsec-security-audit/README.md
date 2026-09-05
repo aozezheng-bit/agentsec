@@ -132,3 +132,35 @@ commands/bundle.sh /path/to/homi-pilot-report.json \
 如果 Pilot 目录中存在同一 SHA-256 绑定的 Operationality、Posture 和 Calibration
 Sidecar，联合报告会自动采用校准后的 Finding 展示，并同时保留原始静态影响分作为审计
 参考。Sidecar 绑定失败时会拒绝生成联合报告。
+
+### Stable Agent identity for Snapshot / Drift / Risk
+
+Homi must provide its immutable Agent identifier explicitly. Example:
+
+```bash
+commands/snapshot.sh create homi:agent:01HXYZ /path/to/workspace \
+  --output /tmp/homi-snapshot.json
+commands/drift.sh homi:agent:01HXYZ /path/to/workspace /tmp/homi-snapshot.json
+commands/risk.sh homi:agent:01HXYZ /path/to/workspace \
+  /tmp/homi-snapshot.json /tmp/homi-operation-context.json
+```
+
+Do not use display name, Workspace path, `IDENTITY.md`, or file digest as
+identity. `subject_id` binds evidence only; it does not prove platform login,
+DID ownership, OAuth identity, or runtime reachability.
+
+### Context-aware Snapshot 0.3
+
+`commands/snapshot.sh` now creates one atomic identity-and-risk baseline. Besides
+file/capability/persona state, Snapshot contains value-minimized Operation
+Context, Context Finding, and Potential/Residual/Posture score summaries.
+`commands/drift.sh` reports operation, Context Finding, and Context Score changes
+as separate layers. Existing Snapshot 0.2 artifacts must be recreated; Skill
+must not infer missing Context data.
+
+### Directional Drift 0.4 / Risk 0.5
+
+Drift now distinguishes added, increased, decreased, resolved, unchanged, and
+non-directional evidence. Same-Rule Findings are keyed by `finding_id`, so
+multiple targets are preserved. Benign content changes may remain `drifted`, but
+positive risk drift stays `0.0` unless risk or risk-relevant controls worsen.

@@ -72,6 +72,7 @@ from agentsec.reporting import (
     CapabilityDiffTextRenderer,
 )
 from agentsec.trust import (
+    TRUST_MODE_EXTERNAL_TRUST_ROOT,
     TrustError,
     resolve_trust_policy_path,
     safe_file_sha256,
@@ -359,9 +360,21 @@ def register_capability_commands(
         qualification_registry = None
         if policy.qualification is not None:
             try:
-                candidate = load_qualification_registry(
+                registry_candidate = (
                     effective_policy_path.parent / policy.qualification.registry_path
                 )
+                if trust_mode == TRUST_MODE_EXTERNAL_TRUST_ROOT:
+                    if trust_root is None:
+                        raise PolicyError("external trust root is missing")
+                    # A trust-root policy may only load a registry that
+                    # resolves inside the same trust root.
+                    registry_resolved = registry_candidate.resolve(strict=True)
+                    trust_base = trust_root.resolve(strict=True)
+                    if not registry_resolved.is_relative_to(trust_base):
+                        raise PolicyError(
+                            "qualification registry escapes the trust root"
+                        )
+                candidate = load_qualification_registry(registry_candidate)
                 verify_expected_sha256(
                     candidate.sha256,
                     policy.qualification.registry_sha256,

@@ -51,7 +51,7 @@ CONTEXT_RISK_SCORE_FORMAT: Literal["agentsec-context-risk-score"] = (
 )
 CONTEXT_RISK_SCORE_FORMAT_VERSION = CONTEXT_RISK_SCORE_REPORT_VERSION
 CONTEXT_RISK_SCORE_BASIS = (
-    "AgentSec RISK-05 context residual-risk and risk-drift contract 0.1.0",
+    "AgentSec RISK-09A calibrated directional context risk contract 0.3.0",
     (
         "Potential impact uses the existing NIST likelihood-impact matrix and "
         "AgentSec representatives"
@@ -61,7 +61,12 @@ CONTEXT_RISK_SCORE_BASIS = (
         "away a critical signal"
     ),
     "Static Operation Context does not establish current runtime posture",
-    "Risk drift measures upward change against an explicitly supplied baseline",
+    (
+        "Only added/increased risk, relevant control weakening, and upward "
+        "residual risk score positive drift"
+    ),
+    "Benign, resolved, decreased, or non-directional context changes score zero drift",
+    "Positive drift score cannot exceed current residual risk score",
 )
 
 _CONTROL_FACTOR = {
@@ -191,10 +196,16 @@ class ContextRiskDriftAssessment:
     drift_score: float
     direction: RiskDriftDirection
     added_finding_ids: tuple[str, ...]
+    increased_finding_ids: tuple[str, ...]
+    decreased_finding_ids: tuple[str, ...]
     resolved_finding_ids: tuple[str, ...]
+    non_directional_finding_ids: tuple[str, ...]
     added_context_ids: tuple[str, ...]
     removed_context_ids: tuple[str, ...]
     modified_context_ids: tuple[str, ...]
+    risky_added_context_ids: tuple[str, ...]
+    control_weakening_count: int
+    control_strengthening_count: int
     basis: tuple[str, ...] = CONTEXT_RISK_SCORE_BASIS
 
     def __post_init__(self) -> None:
@@ -214,10 +225,26 @@ class ContextRiskDriftAssessment:
         if not isinstance(self.direction, RiskDriftDirection):
             raise TypeError("risk drift direction is invalid")
         _validate_sorted_unique(self.added_finding_ids, "added finding IDs")
+        _validate_sorted_unique(self.increased_finding_ids, "increased finding IDs")
+        _validate_sorted_unique(self.decreased_finding_ids, "decreased finding IDs")
         _validate_sorted_unique(self.resolved_finding_ids, "resolved finding IDs")
+        _validate_sorted_unique(
+            self.non_directional_finding_ids,
+            "non-directional finding IDs",
+        )
         _validate_sorted_unique(self.added_context_ids, "added context IDs")
         _validate_sorted_unique(self.removed_context_ids, "removed context IDs")
         _validate_sorted_unique(self.modified_context_ids, "modified context IDs")
+        _validate_sorted_unique(
+            self.risky_added_context_ids,
+            "risky added context IDs",
+        )
+        for value, label in (
+            (self.control_weakening_count, "control weakening count"),
+            (self.control_strengthening_count, "control strengthening count"),
+        ):
+            if not isinstance(value, int) or isinstance(value, bool) or value < 0:
+                raise ContextRiskScoreError(f"{label} is invalid")
         if self.basis != CONTEXT_RISK_SCORE_BASIS:
             raise ContextRiskScoreError("risk drift basis is inconsistent")
 
@@ -232,10 +259,16 @@ class ContextRiskDriftAssessment:
             "drift_score": self.drift_score,
             "direction": self.direction.value,
             "added_finding_ids": list(self.added_finding_ids),
+            "increased_finding_ids": list(self.increased_finding_ids),
+            "decreased_finding_ids": list(self.decreased_finding_ids),
             "resolved_finding_ids": list(self.resolved_finding_ids),
+            "non_directional_finding_ids": list(self.non_directional_finding_ids),
             "added_context_ids": list(self.added_context_ids),
             "removed_context_ids": list(self.removed_context_ids),
             "modified_context_ids": list(self.modified_context_ids),
+            "risky_added_context_ids": list(self.risky_added_context_ids),
+            "control_weakening_count": self.control_weakening_count,
+            "control_strengthening_count": self.control_strengthening_count,
             "basis": list(self.basis),
         }
 
@@ -426,6 +459,7 @@ class DeterministicContextRiskScoreEngine:
                 baseline_context,
                 baseline_report,
                 baseline_score,
+                contributions,
             )
         limitations = list(
             (
@@ -681,10 +715,16 @@ def _drift_schema() -> dict[str, object]:
             "drift_score",
             "direction",
             "added_finding_ids",
+            "increased_finding_ids",
+            "decreased_finding_ids",
             "resolved_finding_ids",
+            "non_directional_finding_ids",
             "added_context_ids",
             "removed_context_ids",
             "modified_context_ids",
+            "risky_added_context_ids",
+            "control_weakening_count",
+            "control_strengthening_count",
             "basis",
         ],
         "properties": {
@@ -712,7 +752,22 @@ def _drift_schema() -> dict[str, object]:
                 "items": {"type": "string"},
                 "uniqueItems": True,
             },
+            "increased_finding_ids": {
+                "type": "array",
+                "items": {"type": "string"},
+                "uniqueItems": True,
+            },
+            "decreased_finding_ids": {
+                "type": "array",
+                "items": {"type": "string"},
+                "uniqueItems": True,
+            },
             "resolved_finding_ids": {
+                "type": "array",
+                "items": {"type": "string"},
+                "uniqueItems": True,
+            },
+            "non_directional_finding_ids": {
                 "type": "array",
                 "items": {"type": "string"},
                 "uniqueItems": True,
@@ -732,6 +787,13 @@ def _drift_schema() -> dict[str, object]:
                 "items": {"type": "string"},
                 "uniqueItems": True,
             },
+            "risky_added_context_ids": {
+                "type": "array",
+                "items": {"type": "string"},
+                "uniqueItems": True,
+            },
+            "control_weakening_count": {"type": "integer", "minimum": 0},
+            "control_strengthening_count": {"type": "integer", "minimum": 0},
             "basis": {"type": "array", "items": {"type": "string"}, "minItems": 1},
         },
     }
@@ -745,6 +807,7 @@ def _build_drift(
     baseline_context: OperationContextSet,
     baseline_report: ContextRiskReport,
     baseline_score: ContextRiskScoreReport,
+    contributions: tuple[ContextRiskScoreContribution, ...],
 ) -> ContextRiskDriftAssessment:
     current_contexts = {item.operation_id: item for item in context_set.contexts}
     old_contexts = {item.operation_id: item for item in baseline_context.contexts}
@@ -757,35 +820,93 @@ def _build_drift(
             if current_contexts[operation_id] != old_contexts[operation_id]
         )
     )
-    current_findings = {item.finding_id for item in risk_report.risk_findings}
-    old_findings = {item.finding_id for item in baseline_report.risk_findings}
-    added_finding_ids = tuple(sorted(current_findings - old_findings))
-    resolved_finding_ids = tuple(sorted(old_findings - current_findings))
+    current_groups = _contribution_groups(contributions)
+    baseline_groups = _contribution_groups(baseline_score.contributions)
+    added_keys = set(current_groups) - set(baseline_groups)
+    resolved_keys = set(baseline_groups) - set(current_groups)
+    shared_keys = set(current_groups) & set(baseline_groups)
+    added_finding_ids = tuple(
+        sorted(item.finding_id for key in added_keys for item in current_groups[key])
+    )
+    resolved_finding_ids = tuple(
+        sorted(
+            item.finding_id for key in resolved_keys for item in baseline_groups[key]
+        )
+    )
+    increased_finding_ids = tuple(
+        sorted(
+            item.finding_id
+            for key in shared_keys
+            if _group_residual(current_groups[key])
+            > _group_residual(baseline_groups[key])
+            for item in current_groups[key]
+        )
+    )
+    decreased_finding_ids = tuple(
+        sorted(
+            item.finding_id
+            for key in shared_keys
+            if _group_residual(current_groups[key])
+            < _group_residual(baseline_groups[key])
+            for item in current_groups[key]
+        )
+    )
+    non_directional_finding_ids = tuple(
+        sorted(
+            item.finding_id
+            for key in shared_keys
+            if _group_residual(current_groups[key])
+            == _group_residual(baseline_groups[key])
+            and _group_finding_ids(current_groups[key])
+            != _group_finding_ids(baseline_groups[key])
+            for item in current_groups[key]
+        )
+    )
+    risky_context_ids = {
+        context_id
+        for item in (*contributions, *baseline_score.contributions)
+        for context_id in item.context_ids
+    }
+    risky_added_context_ids = tuple(sorted(set(added_context_ids) & risky_context_ids))
+    control_weakening_count, control_strengthening_count = _control_transitions(
+        current_contexts,
+        old_contexts,
+        risky_context_ids,
+    )
     potential_delta = round(potential - baseline_score.potential_impact_score, 2)
     residual_delta = round(residual - baseline_score.residual_risk_score, 2)
-    if added_finding_ids or residual_delta > 0:
+    if (
+        added_finding_ids
+        or increased_finding_ids
+        or residual_delta > 0
+        or control_weakening_count > 0
+    ):
         direction = RiskDriftDirection.INCREASED
-    elif resolved_finding_ids or residual_delta < 0:
+    elif (
+        resolved_finding_ids
+        or decreased_finding_ids
+        or residual_delta < 0
+        or control_strengthening_count > 0
+    ):
         direction = RiskDriftDirection.DECREASED
-    elif modified_context_ids or added_context_ids or removed_context_ids:
+    elif (
+        modified_context_ids
+        or added_context_ids
+        or removed_context_ids
+        or non_directional_finding_ids
+    ):
         direction = RiskDriftDirection.UNKNOWN
     else:
         direction = RiskDriftDirection.UNCHANGED
-    upward_context_count = (
-        len(modified_context_ids)
-        if direction in {RiskDriftDirection.INCREASED, RiskDriftDirection.UNKNOWN}
-        else 0
+    uncapped_drift_score = round(
+        max(0.0, residual_delta)
+        + 1.5 * len(added_finding_ids)
+        + 1.0 * len(increased_finding_ids)
+        + 0.75 * control_weakening_count
+        + 0.25 * len(risky_added_context_ids),
+        2,
     )
-    drift_score = min(
-        10.0,
-        round(
-            max(0.0, residual_delta)
-            + 1.5 * len(added_finding_ids)
-            + 0.75 * upward_context_count
-            + 0.25 * len(added_context_ids),
-            2,
-        ),
-    )
+    drift_score = min(10.0, residual, uncapped_drift_score)
     return ContextRiskDriftAssessment(
         baseline_context_sha256=canonical_operation_context_sha256(baseline_context),
         baseline_risk_report_sha256=canonical_context_risk_sha256(baseline_report),
@@ -796,11 +917,85 @@ def _build_drift(
         drift_score=drift_score,
         direction=direction,
         added_finding_ids=added_finding_ids,
+        increased_finding_ids=increased_finding_ids,
+        decreased_finding_ids=decreased_finding_ids,
         resolved_finding_ids=resolved_finding_ids,
+        non_directional_finding_ids=non_directional_finding_ids,
         added_context_ids=added_context_ids,
         removed_context_ids=removed_context_ids,
         modified_context_ids=modified_context_ids,
+        risky_added_context_ids=risky_added_context_ids,
+        control_weakening_count=control_weakening_count,
+        control_strengthening_count=control_strengthening_count,
     )
+
+
+def _contribution_groups(
+    contributions: tuple[ContextRiskScoreContribution, ...],
+) -> dict[tuple[str, tuple[str, ...]], tuple[ContextRiskScoreContribution, ...]]:
+    grouped: dict[tuple[str, tuple[str, ...]], list[ContextRiskScoreContribution]] = {}
+    for item in contributions:
+        grouped.setdefault((item.rule_id, item.context_ids), []).append(item)
+    return {
+        key: tuple(sorted(values, key=lambda item: item.finding_id))
+        for key, values in grouped.items()
+    }
+
+
+def _group_residual(items: tuple[ContextRiskScoreContribution, ...]) -> float:
+    return max((item.residual_risk_score for item in items), default=0.0)
+
+
+def _group_finding_ids(
+    items: tuple[ContextRiskScoreContribution, ...],
+) -> tuple[str, ...]:
+    return tuple(item.finding_id for item in items)
+
+
+def _control_transitions(
+    current_contexts: dict[str, OperationContext],
+    baseline_contexts: dict[str, OperationContext],
+    risk_relevant_context_ids: set[str],
+) -> tuple[int, int]:
+    weakening = 0
+    strengthening = 0
+    shared_ids = (
+        set(current_contexts) & set(baseline_contexts) & risk_relevant_context_ids
+    )
+    for operation_id in shared_ids:
+        current = current_contexts[operation_id]
+        baseline = baseline_contexts[operation_id]
+        for name in _CONTROL_VALUES:
+            before = getattr(baseline.controls, name)
+            after = getattr(current.controls, name)
+            if before is ControlState.PRESENT and after in {
+                ControlState.ABSENT,
+                ControlState.UNKNOWN,
+            }:
+                weakening += 1
+            elif after is ControlState.PRESENT and before in {
+                ControlState.ABSENT,
+                ControlState.UNKNOWN,
+            }:
+                strengthening += 1
+        before_auth = _authorization_strength(baseline.authorization.state)
+        after_auth = _authorization_strength(current.authorization.state)
+        if after_auth < before_auth:
+            weakening += 1
+        elif after_auth > before_auth:
+            strengthening += 1
+    return weakening, strengthening
+
+
+def _authorization_strength(state: AuthorizationState) -> int:
+    return {
+        AuthorizationState.APPROVAL_MISSING: 0,
+        AuthorizationState.UNKNOWN: 1,
+        AuthorizationState.NOT_REQUIRED: 2,
+        AuthorizationState.APPROVAL_REQUIRED: 3,
+        AuthorizationState.POLICY_ALLOWED: 4,
+        AuthorizationState.USER_CONFIRMED: 4,
+    }[state]
 
 
 def _control_coverage(contexts: list[OperationContext]) -> ControlCoverage:

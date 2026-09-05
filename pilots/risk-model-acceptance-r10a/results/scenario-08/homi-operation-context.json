@@ -1,0 +1,211 @@
+{
+  "authority": {
+    "ci_blocked": false,
+    "report_only": true,
+    "runtime_verified": false
+  },
+  "basis": [
+    "AgentSec RISK-09A deterministic Homi Operation Context extraction 0.2.0",
+    "Only source-backed action declarations become Operation Contexts",
+    "Unknown authorization, trigger, data, and control facts remain unknown",
+    "Operation Context is evidence input and grants no runtime authority"
+  ],
+  "ci_blocked": false,
+  "context_set": {
+    "basis": [
+      "AgentSec RISK-09A deterministic Homi Operation Context extraction 0.2.0",
+      "Only source-backed action declarations become Operation Contexts",
+      "Unknown authorization, trigger, data, and control facts remain unknown",
+      "Operation Context is evidence input and grants no runtime authority"
+    ],
+    "contexts": [
+      {
+        "action": "read",
+        "authorization": {
+          "approval_present": null,
+          "approval_required": null,
+          "state": "unknown"
+        },
+        "controls": {
+          "allowlist": "unknown",
+          "approval": "unknown",
+          "audit": "unknown",
+          "rate_limit": "unknown",
+          "redaction": "unknown",
+          "retention": "unknown",
+          "user_consent": "unknown"
+        },
+        "data_scope": {
+          "classification": "personal",
+          "retention": "session",
+          "sharing": "main_session"
+        },
+        "evidence": [
+          {
+            "confidence": "D",
+            "content_sha256": "83e1c6dd7e005d9f3db89c4405df696f5969d0a946d597cd6f94f9884abbde05",
+            "end_line": 34,
+            "evidence_id": "operation-evidence-sha256:666212dfe699552ada41be036e93a6da0ea0ec5923db045c264911fbe7bf5f4a",
+            "extraction_method": "static_declaration",
+            "field_path": null,
+            "secret_values_included": false,
+            "source_path": "AGENTS.md",
+            "start_line": 34,
+            "value_minimized": true
+          },
+          {
+            "confidence": "D",
+            "content_sha256": "324b2a8c65f834a3824ee9551912372e0d45a90c68deb0b06ffd6bbcf0f7217a",
+            "end_line": 3,
+            "evidence_id": "operation-evidence-sha256:a4163911a4fcd6527ceceffa7b4c1d8a7d2012456fea9795025363db9467ed09",
+            "extraction_method": "static_declaration",
+            "field_path": null,
+            "secret_values_included": false,
+            "source_path": "HEARTBEAT.md",
+            "start_line": 3,
+            "value_minimized": true
+          }
+        ],
+        "format": "agentsec-operation-context",
+        "frequency": "periodic",
+        "operation_id": "homi.mailbox.scheduled-read",
+        "purpose": "notification",
+        "reversibility": "reversible",
+        "runtime_authority": false,
+        "runtime_verified": false,
+        "schema_version": "0.1.0",
+        "scope": "user_scope",
+        "status": "needs_context",
+        "target": "user_mailbox",
+        "trigger": "scheduled"
+      },
+      {
+        "action": "read",
+        "authorization": {
+          "approval_present": null,
+          "approval_required": null,
+          "state": "unknown"
+        },
+        "controls": {
+          "allowlist": "unknown",
+          "approval": "unknown",
+          "audit": "unknown",
+          "rate_limit": "unknown",
+          "redaction": "unknown",
+          "retention": "unknown",
+          "user_consent": "unknown"
+        },
+        "data_scope": {
+          "classification": "public",
+          "retention": "ephemeral",
+          "sharing": "none"
+        },
+        "evidence": [
+          {
+            "confidence": "D",
+            "content_sha256": "83e1c6dd7e005d9f3db89c4405df696f5969d0a946d597cd6f94f9884abbde05",
+            "end_line": 34,
+            "evidence_id": "operation-evidence-sha256:666212dfe699552ada41be036e93a6da0ea0ec5923db045c264911fbe7bf5f4a",
+            "extraction_method": "static_declaration",
+            "field_path": null,
+            "secret_values_included": false,
+            "source_path": "AGENTS.md",
+            "start_line": 34,
+            "value_minimized": true
+          }
+        ],
+        "format": "agentsec-operation-context",
+        "frequency": "periodic",
+        "operation_id": "homi.network.scheduled-read",
+        "purpose": "search",
+        "reversibility": "reversible",
+        "runtime_authority": false,
+        "runtime_verified": false,
+        "schema_version": "0.1.0",
+        "scope": "external",
+        "status": "needs_context",
+        "target": "external_service",
+        "trigger": "scheduled"
+      },
+      {
+        "action": "read",
+        "authorization": {
+          "approval_present": null,
+          "approval_required": null,
+          "state": "unknown"
+        },
+        "controls": {
+          "allowlist": "unknown",
+          "approval": "unknown",
+          "audit": "unknown",
+          "rate_limit": "unknown",
+          "redaction": "unknown",
+          "retention": "unknown",
+          "user_consent": "unknown"
+        },
+        "data_scope": {
+          "classification": "internal",
+          "retention": "ephemeral",
+          "sharing": "none"
+        },
+        "evidence": [
+          {
+            "confidence": "D",
+            "content_sha256": "83e1c6dd7e005d9f3db89c4405df696f5969d0a946d597cd6f94f9884abbde05",
+            "end_line": 12,
+            "evidence_id": "operation-evidence-sha256:a190022d97dca62a9eee913f2214b13c042c297bc7539085190056e60765e41f",
+            "extraction_method": "static_declaration",
+            "field_path": null,
+            "secret_values_included": false,
+            "source_path": "AGENTS.md",
+            "start_line": 12,
+            "value_minimized": true
+          },
+          {
+            "confidence": "D",
+            "content_sha256": "83e1c6dd7e005d9f3db89c4405df696f5969d0a946d597cd6f94f9884abbde05",
+            "end_line": 25,
+            "evidence_id": "operation-evidence-sha256:7cf07838a584065dcad1d26747a9b22185224741c0a311c0c671ba916b9a4dcb",
+            "extraction_method": "static_declaration",
+            "field_path": null,
+            "secret_values_included": false,
+            "source_path": "AGENTS.md",
+            "start_line": 25,
+            "value_minimized": true
+          }
+        ],
+        "format": "agentsec-operation-context",
+        "frequency": "one_time",
+        "operation_id": "homi.workspace.read",
+        "purpose": "analysis",
+        "reversibility": "reversible",
+        "runtime_authority": false,
+        "runtime_verified": false,
+        "schema_version": "0.1.0",
+        "scope": "workspace",
+        "status": "needs_context",
+        "target": "workspace",
+        "trigger": "unknown"
+      }
+    ],
+    "coverage_complete": false,
+    "format": "agentsec-operation-context-set",
+    "report_only": true,
+    "runtime_authority": false,
+    "runtime_verified": false,
+    "schema_version": "0.1.0",
+    "subject_id": "homi-workspace",
+    "unknown_dimensions": [
+      "homi.mailbox.scheduled-read.authorization.state",
+      "homi.network.scheduled-read.authorization.state",
+      "homi.workspace.read.authorization.state",
+      "homi.workspace.read.trigger"
+    ]
+  },
+  "format": "agentsec-homi-operation-context-extraction",
+  "format_version": "0.2.0",
+  "report_only": true,
+  "runtime_verified": false,
+  "source_report_format": "agentsec-homi-report-only-pilot",
+  "source_report_sha256": "0e1ba2c58e616ed489fc215bd2305a4bb8c6963e1266f36b4a6152edd11a7fec"
+}

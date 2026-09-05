@@ -14,6 +14,7 @@ from agentsec.semantic import (
     SemanticProviderRequest,
     SemanticProviderResponse,
 )
+from agentsec.semantic.evaluation import SemanticEvaluationHarness
 from agentsec.semantic.invocation import SemanticShadowInvocationAdapter
 from agentsec.semantic.models import (
     SemanticCandidateDisposition,
@@ -286,3 +287,29 @@ def test_live_output_limitations_and_candidates_normalize_value_neutrally() -> N
     passing = json.dumps({"analysis_id": "case", "candidates": []})
     assert _normalize_output_limitations(passing, None) == passing  # type: ignore[arg-type]
     assert _normalize_output_limitations("not json", None) == "not json"  # type: ignore[arg-type]
+
+
+def test_gate_rejects_zero_case_evaluation_report() -> None:
+    """M3 hardening: an empty evaluation can never look qualified or perfect.
+
+    A zero-case evaluation report previously produced vacuous precision and
+    recall of 1.0 and could pass ``qualify_evaluation_report`` as QUALIFIED;
+    both the metrics and the gate decision must fail closed now.
+    """
+
+    gold = _gold()
+    adapter = _adapter(_PerfectProvider(gold))
+    report = SemanticEvaluationHarness().evaluate((), adapter)
+
+    assert report.metrics.case_count == 0
+    assert report.metrics.precision == 0.0
+    assert report.metrics.recall == 0.0
+
+    qualification = SemanticQualityGate().qualify_evaluation_report(
+        gold=gold,
+        report=report,
+        thresholds=ProviderQualityThresholds(min_case_count=1),
+    )
+    assert qualification.status is QualityGateStatus.NOT_QUALIFIED
+    assert "completed_cases" in qualification.failed_checks
+    assert "evaluation_case_count_zero" in qualification.reasons

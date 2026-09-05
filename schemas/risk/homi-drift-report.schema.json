@@ -1,0 +1,444 @@
+{
+  "$defs": {
+    "signalChanges": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "after_state": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "before_state": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "change_type": {
+            "enum": [
+              "added",
+              "removed",
+              "modified"
+            ],
+            "type": "string"
+          },
+          "scope": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "signal_id": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "signal_id",
+          "scope",
+          "change_type",
+          "before_state",
+          "after_state"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    }
+  },
+  "$id": "https://agentsec.local/schemas/risk/homi-drift-report.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "authority": {
+      "additionalProperties": false,
+      "properties": {
+        "ci_blocked": {
+          "const": false
+        },
+        "report_only": {
+          "const": true
+        },
+        "runtime_verified": {
+          "const": false
+        }
+      },
+      "required": [
+        "report_only",
+        "runtime_verified",
+        "ci_blocked"
+      ],
+      "type": "object"
+    },
+    "baseline_binding": {
+      "additionalProperties": {
+        "type": "boolean"
+      },
+      "type": "object"
+    },
+    "baseline_project_name": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "baseline_snapshot_digest": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "baseline_subject_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]{0,127}$",
+      "type": "string"
+    },
+    "baseline_workspace_fingerprint": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "basis": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "capability_changes": {
+      "$ref": "#/$defs/signalChanges"
+    },
+    "ci_blocked": {
+      "const": false
+    },
+    "context_finding_changes": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "context_score_changed": {
+      "type": "boolean"
+    },
+    "control_strengthening_count": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "control_weakening_count": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "coverage_drift": {
+      "additionalProperties": {
+        "properties": {
+          "after": {},
+          "before": {}
+        },
+        "type": "object"
+      },
+      "type": "object"
+    },
+    "current_project_name": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "current_snapshot_digest": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "current_subject_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]{0,127}$",
+      "type": "string"
+    },
+    "current_workspace_fingerprint": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "decreased_finding_ids": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "file_changes": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "after_sha256": {
+            "anyOf": [
+              {
+                "pattern": "^[0-9a-f]{64}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "after_state": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "before_sha256": {
+            "anyOf": [
+              {
+                "pattern": "^[0-9a-f]{64}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "before_state": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "change_type": {
+            "enum": [
+              "added",
+              "removed",
+              "modified"
+            ],
+            "type": "string"
+          },
+          "name": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "change_type",
+          "before_state",
+          "after_state",
+          "before_sha256",
+          "after_sha256"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "finding_deltas": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "after_score": {
+            "anyOf": [
+              {
+                "maximum": 10,
+                "minimum": 0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "after_severity": {
+            "anyOf": [
+              {
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "before_score": {
+            "anyOf": [
+              {
+                "maximum": 10,
+                "minimum": 0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "before_severity": {
+            "anyOf": [
+              {
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "delta_type": {
+            "enum": [
+              "added",
+              "resolved",
+              "increased",
+              "decreased",
+              "changed",
+              "unchanged"
+            ],
+            "type": "string"
+          },
+          "finding_id": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "rule_id": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "finding_id",
+          "rule_id",
+          "delta_type",
+          "before_severity",
+          "after_severity",
+          "before_score",
+          "after_score"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "format": {
+      "const": "agentsec-homi-drift-report"
+    },
+    "format_version": {
+      "const": "0.4.0",
+      "type": "string"
+    },
+    "increased_finding_ids": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "observation_changes": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "change_type": {
+            "enum": [
+              "added",
+              "removed",
+              "modified"
+            ],
+            "type": "string"
+          },
+          "code": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "kind": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "kind",
+          "change_type"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "operation_context_changes": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "persona_changes": {
+      "$ref": "#/$defs/signalChanges"
+    },
+    "report_only": {
+      "const": true
+    },
+    "resolved_finding_ids": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "risk_direction": {
+      "enum": [
+        "increased",
+        "decreased",
+        "unchanged",
+        "unknown"
+      ],
+      "type": "string"
+    },
+    "runtime_verified": {
+      "const": false
+    },
+    "score_delta": {
+      "properties": {
+        "after_total": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "authority": {
+          "const": "presentation_only"
+        },
+        "before_total": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "delta": {
+          "type": "number"
+        },
+        "kind": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "before_total",
+        "after_total",
+        "delta"
+      ],
+      "type": "object"
+    },
+    "status": {
+      "enum": [
+        "verified",
+        "drifted",
+        "identity_mismatch"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "format",
+    "format_version",
+    "basis",
+    "status",
+    "baseline_snapshot_digest",
+    "current_snapshot_digest",
+    "baseline_workspace_fingerprint",
+    "current_workspace_fingerprint",
+    "baseline_subject_id",
+    "current_subject_id",
+    "baseline_project_name",
+    "current_project_name",
+    "baseline_binding",
+    "operation_context_changes",
+    "context_finding_changes",
+    "context_score_changed",
+    "risk_direction",
+    "increased_finding_ids",
+    "decreased_finding_ids",
+    "resolved_finding_ids",
+    "control_weakening_count",
+    "control_strengthening_count",
+    "file_changes",
+    "capability_changes",
+    "persona_changes",
+    "finding_deltas",
+    "observation_changes",
+    "coverage_drift",
+    "score_delta",
+    "report_only",
+    "runtime_verified",
+    "ci_blocked",
+    "authority"
+  ],
+  "title": "AgentSec Homi Layered Drift Report",
+  "type": "object"
+}

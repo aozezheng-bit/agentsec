@@ -208,6 +208,21 @@
               "minItems": 1,
               "type": "array"
             },
+            "control_strengthening_count": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "control_weakening_count": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "decreased_finding_ids": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "uniqueItems": true
+            },
             "direction": {
               "enum": [
                 "increased",
@@ -221,7 +236,21 @@
               "minimum": 0,
               "type": "number"
             },
+            "increased_finding_ids": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "uniqueItems": true
+            },
             "modified_context_ids": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "uniqueItems": true
+            },
+            "non_directional_finding_ids": {
               "items": {
                 "type": "string"
               },
@@ -251,6 +280,13 @@
               },
               "type": "array",
               "uniqueItems": true
+            },
+            "risky_added_context_ids": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "uniqueItems": true
             }
           },
           "required": [
@@ -263,10 +299,16 @@
             "drift_score",
             "direction",
             "added_finding_ids",
+            "increased_finding_ids",
+            "decreased_finding_ids",
             "resolved_finding_ids",
+            "non_directional_finding_ids",
             "added_context_ids",
             "removed_context_ids",
             "modified_context_ids",
+            "risky_added_context_ids",
+            "control_weakening_count",
+            "control_strengthening_count",
             "basis"
           ],
           "type": "object"
@@ -285,7 +327,7 @@
       "const": "agentsec-context-risk-score"
     },
     "format_version": {
-      "const": "0.1.0"
+      "const": "0.3.0"
     },
     "limitations": {
       "items": {
@@ -295,7 +337,7 @@
       "type": "array"
     },
     "model_version": {
-      "const": "0.1.0"
+      "const": "0.3.0"
     },
     "policy_authority": {
       "const": false

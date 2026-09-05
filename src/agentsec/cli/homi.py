@@ -32,7 +32,15 @@ from agentsec.frameworks.homi_diff import (
     render_homi_capability_diff_html,
     render_homi_capability_diff_text,
 )
+from agentsec.frameworks.homi_drift import (
+    HomiDriftReport,
+    build_homi_drift_report,
+    encode_homi_drift_report_json,
+)
 from agentsec.frameworks.homi_operation_context import (
+    HOMI_OPERATION_CONTEXT_FORMAT,
+    HOMI_OPERATION_CONTEXT_FORMAT_VERSION,
+    HomiOperationContextReport,
     build_homi_operation_context_report_from_workspace,
     encode_homi_operation_context_json,
 )
@@ -59,6 +67,11 @@ from agentsec.frameworks.homi_provenance import (
     build_homi_build_provenance,
     encode_homi_build_provenance_json,
     render_homi_build_provenance_text,
+)
+from agentsec.frameworks.homi_risk import (
+    HomiRiskReport,
+    build_homi_risk_report,
+    encode_homi_risk_report_json,
 )
 from agentsec.frameworks.homi_risk_state import (
     build_homi_risk_state_report,
@@ -167,6 +180,16 @@ HomiProjectNameOption = Annotated[
     str | None,
     typer.Option("--project-name", help="Human-readable project name."),
 ]
+HomiSubjectIdOption = Annotated[
+    str,
+    typer.Option(
+        "--subject-id",
+        help=(
+            "Stable platform-owned Agent identifier; never derived from mutable "
+            "workspace files or project name."
+        ),
+    ),
+]
 HomiOwnerOption = Annotated[
     str,
     typer.Option("--owner", help="Project or security owner label."),
@@ -238,6 +261,174 @@ def register_homi_commands(
     effective_pilot = pilot or DeterministicHomiReportOnlyPilot()
 
     _register_snapshot_commands(homi_application, effective_pilot)
+
+    @homi_application.command("drift")
+    def drift_command(
+        baseline_path: Annotated[
+            Path,
+            typer.Option(
+                "--baseline", help="Baseline Homi Agent Snapshot JSON artifact."
+            ),
+        ],
+        subject_id: HomiSubjectIdOption,
+        workspace: HomiWorkspaceArgument = Path("."),
+        output_format: HomiFormatOption = HomiCliFormat.JSON,
+        output_path: HomiOutputOption = None,
+        pilot_id: HomiPilotIdOption = "homi-drift-cli",
+        project_name: HomiProjectNameOption = None,
+        owner: HomiOwnerOption = "cli-user",
+        force: HomiForceOption = False,
+    ) -> None:
+        """Emit the layered report-only Drift report against a Snapshot."""
+
+        _require_force_output(output_path, force)
+        try:
+            baseline = decode_homi_snapshot_json(
+                baseline_path.read_text(encoding="utf-8")
+            )
+        except (OSError, ValueError) as error:
+            typer.echo(f"Homi drift baseline is invalid: {error}", err=True)
+            raise typer.Exit(code=ExitCode.ARTIFACT_ERROR) from error
+        request = _request_or_exit(
+            workspace=workspace,
+            output_anchor=output_path,
+            pilot_id=pilot_id,
+            project_name=project_name,
+            owner=owner,
+            reviewer_id=None,
+            scenario_selection=None,
+        )
+        try:
+            pilot_report = effective_pilot.run(request)
+            operation_context = build_homi_operation_context_report_from_workspace(
+                request.target_root,
+                pilot_report,
+                limits=request.limits,
+            )
+            current = build_homi_snapshot(
+                pilot_report,
+                subject_id=subject_id,
+                operation_context=operation_context,
+            )
+            drift = build_homi_drift_report(baseline, current)
+            rendered = (
+                encode_homi_drift_report_json(drift)
+                if output_format is HomiCliFormat.JSON
+                else _render_homi_drift_text(drift)
+            )
+            if output_path is None:
+                typer.echo(rendered, nl=False)
+            else:
+                _write_diff_output(
+                    rendered,
+                    output_path,
+                    force=force,
+                    protected_paths=(baseline_path,),
+                )
+        except (HomiPilotError, ValueError, OSError) as error:
+            typer.echo(f"Homi drift report failed safely: {error}", err=True)
+            raise typer.Exit(code=ExitCode.ARTIFACT_ERROR) from error
+
+    @homi_application.command("risk")
+    def risk_command(
+        subject_id: HomiSubjectIdOption,
+        workspace: HomiWorkspaceArgument = Path("."),
+        baseline_path: Annotated[
+            Path | None,
+            typer.Option(
+                "--baseline",
+                help="Optional baseline Homi Agent Snapshot for drift risk.",
+            ),
+        ] = None,
+        baseline_context_path: Annotated[
+            Path | None,
+            typer.Option(
+                "--baseline-context",
+                help=(
+                    "Optional baseline homi-operation-context.json bound to "
+                    "--baseline; required for numeric context-risk drift."
+                ),
+            ),
+        ] = None,
+        output_format: HomiFormatOption = HomiCliFormat.JSON,
+        output_path: HomiOutputOption = None,
+        pilot_id: HomiPilotIdOption = "homi-risk-cli",
+        project_name: HomiProjectNameOption = None,
+        owner: HomiOwnerOption = "cli-user",
+        force: HomiForceOption = False,
+    ) -> None:
+        """Emit the unified report-only Homi Risk report."""
+
+        _require_force_output(output_path, force)
+        baseline = None
+        baseline_operation_context = None
+        if baseline_path is not None:
+            try:
+                baseline = decode_homi_snapshot_json(
+                    baseline_path.read_text(encoding="utf-8")
+                )
+            except (OSError, ValueError) as error:
+                typer.echo(f"Homi risk baseline is invalid: {error}", err=True)
+                raise typer.Exit(code=ExitCode.ARTIFACT_ERROR) from error
+        if baseline_context_path is not None:
+            if baseline is None:
+                typer.echo(
+                    "Homi risk --baseline-context requires --baseline.", err=True
+                )
+                raise typer.Exit(code=ExitCode.CONFIGURATION_ERROR)
+            try:
+                baseline_operation_context = _load_homi_operation_context_report(
+                    baseline_context_path
+                )
+            except (HomiPilotError, OSError, ValueError) as error:
+                typer.echo(f"Homi risk context baseline is invalid: {error}", err=True)
+                raise typer.Exit(code=ExitCode.ARTIFACT_ERROR) from error
+        request = _request_or_exit(
+            workspace=workspace,
+            output_anchor=output_path,
+            pilot_id=pilot_id,
+            project_name=project_name,
+            owner=owner,
+            reviewer_id=None,
+            scenario_selection=None,
+        )
+        try:
+            pilot_report = effective_pilot.run(request)
+            operation_context = build_homi_operation_context_report_from_workspace(
+                request.target_root,
+                pilot_report,
+                limits=request.limits,
+            )
+            risk = build_homi_risk_report(
+                pilot_report,
+                subject_id=subject_id,
+                operation_context=operation_context,
+                baseline=baseline,
+                baseline_operation_context=baseline_operation_context,
+            )
+            rendered = (
+                encode_homi_risk_report_json(risk)
+                if output_format is HomiCliFormat.JSON
+                else _render_homi_risk_text(risk)
+            )
+            if output_path is None:
+                typer.echo(rendered, nl=False)
+            else:
+                _write_diff_output(
+                    rendered,
+                    output_path,
+                    force=force,
+                    protected_paths=(
+                        tuple(
+                            path
+                            for path in (baseline_path, baseline_context_path)
+                            if path is not None
+                        )
+                    ),
+                )
+        except (HomiPilotError, ValueError, OSError) as error:
+            typer.echo(f"Homi risk report failed safely: {error}", err=True)
+            raise typer.Exit(code=ExitCode.ARTIFACT_ERROR) from error
 
     @homi_application.command("fingerprint")
     def fingerprint_command(
@@ -885,6 +1076,49 @@ def _load_context_risk_baseline(
     return context_set, risk_report
 
 
+def _load_homi_operation_context_report(path: Path) -> HomiOperationContextReport:
+    """Load one sanitized, Pilot-bound Operation Context artifact."""
+
+    if not isinstance(path, Path) or path.is_symlink() or not path.is_file():
+        raise HomiPilotError("baseline Operation Context must be a regular file")
+    if path.stat().st_size > _HOMI_MAX_OUTPUT_BYTES:
+        raise HomiPilotError("baseline Operation Context exceeds size limit")
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as error:
+        raise HomiPilotError(
+            "baseline Operation Context is not readable JSON"
+        ) from error
+    if not isinstance(payload, dict):
+        raise HomiPilotError("baseline Operation Context JSON must be an object")
+    authority = payload.get("authority")
+    if (
+        payload.get("format") != HOMI_OPERATION_CONTEXT_FORMAT
+        or payload.get("format_version") != HOMI_OPERATION_CONTEXT_FORMAT_VERSION
+        or payload.get("report_only") is not True
+        or payload.get("runtime_verified") is not False
+        or payload.get("ci_blocked") is not False
+        or not isinstance(authority, dict)
+        or authority.get("report_only") is not True
+        or authority.get("runtime_verified") is not False
+        or authority.get("ci_blocked") is not False
+    ):
+        raise HomiPilotError("baseline Operation Context contract is invalid")
+    try:
+        context_set = OperationContextSet.model_validate(payload.get("context_set"))
+        return HomiOperationContextReport(
+            format=HOMI_OPERATION_CONTEXT_FORMAT,
+            format_version=HOMI_OPERATION_CONTEXT_FORMAT_VERSION,
+            source_report_sha256=str(payload.get("source_report_sha256", "")),
+            source_report_format=str(payload.get("source_report_format", "")),
+            context_set=context_set,
+        )
+    except (TypeError, ValueError) as error:
+        raise HomiPilotError(
+            "baseline Operation Context contract is invalid"
+        ) from error
+
+
 def _load_runtime_reconciliation_inputs(
     report_dir: Path,
     attestation_path: Path,
@@ -1130,6 +1364,7 @@ def _register_snapshot_commands(
 
     @snapshot_application.command("create")
     def snapshot_create_command(
+        subject_id: HomiSubjectIdOption,
         workspace: HomiWorkspaceArgument = Path("."),
         output_format: HomiFormatOption = HomiCliFormat.JSON,
         output_path: HomiOutputOption = None,
@@ -1151,7 +1386,17 @@ def _register_snapshot_commands(
             scenario_selection=None,
         )
         try:
-            snapshot = build_homi_snapshot(pilot.run(request))
+            pilot_report = pilot.run(request)
+            operation_context = build_homi_operation_context_report_from_workspace(
+                request.target_root,
+                pilot_report,
+                limits=request.limits,
+            )
+            snapshot = build_homi_snapshot(
+                pilot_report,
+                subject_id=subject_id,
+                operation_context=operation_context,
+            )
             rendered = (
                 encode_homi_snapshot_json(snapshot)
                 if output_format is HomiCliFormat.JSON
@@ -1175,6 +1420,7 @@ def _register_snapshot_commands(
                 "--baseline", help="Baseline Homi Agent Snapshot JSON artifact."
             ),
         ],
+        subject_id: HomiSubjectIdOption,
         workspace: HomiWorkspaceArgument = Path("."),
         output_format: HomiFormatOption = HomiCliFormat.JSON,
         output_path: HomiOutputOption = None,
@@ -1203,7 +1449,17 @@ def _register_snapshot_commands(
             scenario_selection=None,
         )
         try:
-            current = build_homi_snapshot(pilot.run(request))
+            pilot_report = pilot.run(request)
+            operation_context = build_homi_operation_context_report_from_workspace(
+                request.target_root,
+                pilot_report,
+                limits=request.limits,
+            )
+            current = build_homi_snapshot(
+                pilot_report,
+                subject_id=subject_id,
+                operation_context=operation_context,
+            )
             verification = verify_homi_snapshot(baseline, current)
             rendered = (
                 encode_homi_snapshot_verification_json(verification)
@@ -1238,15 +1494,140 @@ def register_snapshot_commands(
 def _render_homi_snapshot_text(snapshot: HomiSnapshot) -> str:
     lines = [
         "AgentSec Homi Agent Snapshot",
+        f"Subject ID: {snapshot.subject_id}",
         f"Project: {snapshot.project_name}",
         f"Snapshot digest: {snapshot.snapshot_digest}",
         f"Workspace fingerprint: {snapshot.workspace_fingerprint}",
         (
             f"Files: {len(snapshot.files)}  "
             f"Capabilities: {len(snapshot.capabilities)}  "
-            f"Findings: {len(snapshot.findings)}"
+            f"Findings: {len(snapshot.findings)}  "
+            f"Operations: {len(snapshot.operation_contexts)}  "
+            f"Context Findings: {len(snapshot.context_findings)}"
+        ),
+        (
+            "Context score: "
+            f"potential={snapshot.context_score.potential_impact_score:.2f} "
+            f"residual={snapshot.context_score.residual_risk_score:.2f} "
+            f"posture={snapshot.context_score.current_posture}"
         ),
         "Authority: report_only=true; runtime_verified=false; ci_blocked=false",
+    ]
+    return "\n".join(lines) + "\n"
+
+
+def _render_homi_risk_text(risk: HomiRiskReport) -> str:
+    drift_score = (
+        "not established"
+        if risk.drift_risk_score is None
+        else f"{risk.drift_risk_score:.2f} ({risk.drift_risk_level})"
+    )
+    lines = [
+        "AgentSec Homi Unified Risk Report",
+        f"Subject ID: {risk.subject_id}",
+        f"Risk: {risk.risk_score:.2f} ({risk.risk_level})",
+        f"Basis: {risk.risk_basis}",
+        f"Reasons: {', '.join(risk.risk_reasons) or 'none'}",
+        (
+            f"Potential impact: {risk.potential_impact_score:.2f} "
+            f"({risk.potential_impact_level})"
+        ),
+        f"Residual risk: {risk.residual_risk_score:.2f} ({risk.residual_risk_level})",
+        f"Current posture: {risk.current_posture} (score={risk.current_posture_score})",
+        f"Evidence confidence: {risk.evidence_confidence or 'not applicable'}",
+        (
+            f"Context: operations={risk.context_count} "
+            f"risk_findings={risk.context_risk_finding_count} "
+            f"coverage_findings={risk.context_coverage_finding_count} "
+            f"coverage_complete={str(risk.context_coverage_complete).lower()}"
+        ),
+        (
+            f"Declaration signals: {risk.declaration_signal_score:.2f} "
+            f"({risk.declaration_signal_level}); non-authoritative"
+        ),
+        (
+            f"Drift: {risk.drift_status}; risk={drift_score}; "
+            f"direction={risk.drift_direction}"
+        ),
+        f"Drift basis: {risk.drift_risk_basis}",
+        f"Drift reasons: {', '.join(risk.drift_reasons) or 'none'}",
+        (
+            f"Directional Findings: increased={len(risk.increased_finding_ids)} "
+            f"decreased={len(risk.decreased_finding_ids)} "
+            f"resolved={len(risk.resolved_finding_ids)}"
+        ),
+        (
+            f"Control transitions: weakened={risk.control_weakening_count} "
+            f"strengthened={risk.control_strengthening_count}"
+        ),
+        f"Limitations: {' | '.join(risk.limitations)}",
+        (
+            f"Layers: files={risk.file_change_count} "
+            f"capabilities={risk.capability_change_count} "
+            f"persona={risk.persona_change_count} "
+            f"findings={risk.finding_delta_count} "
+            f"suppressed={risk.suppressed_finding_count}"
+        ),
+        (
+            "Authority: report_only=true; runtime_verified=false; "
+            "policy_authority=false; ci_blocked=false"
+        ),
+        "Static report-only evidence; not runtime verification.",
+    ]
+    return "\n".join(lines) + "\n"
+
+
+def _drift_score_number(value: object) -> float:
+    if not isinstance(value, (int, float)) or isinstance(value, bool):
+        raise ValueError("Homi drift score delta value is invalid")
+    return float(value)
+
+
+def _render_homi_drift_text(drift: HomiDriftReport) -> str:
+    status = drift.status
+    file_changes = drift.file_changes
+    capability_changes = drift.capability_changes
+    finding_deltas = drift.finding_deltas
+    score_delta = drift.score_delta
+    lines = [
+        "AgentSec Homi Layered Drift Report",
+        f"Subject: {drift.baseline_subject_id} -> {drift.current_subject_id}",
+        f"Status: {status.value}",
+        f"File changes: {len(file_changes)}",
+        f"Capability changes: {len(capability_changes)}",
+        f"Operation Context changes: {len(drift.operation_context_changes)}",
+        f"Context Finding changes: {len(drift.context_finding_changes)}",
+        f"Context Score changed: {str(drift.context_score_changed).lower()}",
+        f"Risk direction: {drift.risk_direction}",
+        (
+            f"Directional Findings: increased={len(drift.increased_finding_ids)} "
+            f"decreased={len(drift.decreased_finding_ids)} "
+            f"resolved={len(drift.resolved_finding_ids)}"
+        ),
+        (
+            f"Control transitions: weakened={drift.control_weakening_count} "
+            f"strengthened={drift.control_strengthening_count}"
+        ),
+        (
+            "Finding deltas: "
+            + (
+                ", ".join(
+                    f"{item.rule_id}/{item.finding_id} ({item.delta_type.value})"
+                    for item in finding_deltas
+                    if item.delta_type.value != "unchanged"
+                )
+                or "none"
+            )
+        ),
+        (
+            "Presentation-only score: {before} -> {after} ({delta:+.2f})".format(
+                before=_drift_score_number(score_delta["before_total"]),
+                after=_drift_score_number(score_delta["after_total"]),
+                delta=_drift_score_number(score_delta["delta"]),
+            )
+        ),
+        "Authority: report_only=true; runtime_verified=false; ci_blocked=false",
+        "Static drift evidence only; not runtime verification.",
     ]
     return "\n".join(lines) + "\n"
 
@@ -1257,11 +1638,28 @@ def _render_homi_snapshot_verification_text(
     lines = [
         "AgentSec Homi Agent Snapshot Verification",
         f"Status: {verification.status.value}",
+        (
+            f"Subject: {verification.baseline_subject_id} -> "
+            f"{verification.current_subject_id}"
+        ),
         f"Baseline digest: {verification.baseline_snapshot_digest}",
         f"Current digest: {verification.current_snapshot_digest}",
         f"File changes: {', '.join(verification.file_changes) or 'none'}",
         f"Findings added: {', '.join(verification.findings_added) or 'none'}",
         f"Findings removed: {', '.join(verification.findings_removed) or 'none'}",
+        (
+            "Operation Context changes: "
+            f"{', '.join(verification.operation_context_changes) or 'none'}"
+        ),
+        (
+            "Context Findings added: "
+            f"{', '.join(verification.context_findings_added) or 'none'}"
+        ),
+        (
+            "Context Findings removed: "
+            f"{', '.join(verification.context_findings_removed) or 'none'}"
+        ),
+        f"Context Score changed: {str(verification.context_score_changed).lower()}",
         "Authority: report_only=true; runtime_verified=false; ci_blocked=false",
     ]
     return "\n".join(lines) + "\n"

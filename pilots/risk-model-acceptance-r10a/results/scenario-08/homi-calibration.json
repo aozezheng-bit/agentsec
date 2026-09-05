@@ -1,0 +1,125 @@
+{
+  "authority": {
+    "ci_blocked": false,
+    "report_only": true,
+    "runtime_verified": false
+  },
+  "ci_blocked": false,
+  "decisions": [
+    {
+      "disposition": "retained",
+      "finding_id": "homi-combination-sha256:bc42e8323f501f7e28fae7370e6f52b7b0c487aa2e1b1503607210a0c7e843e3",
+      "rationale": "This Finding is outside the HOMI-COMB-003/004 calibration scope.",
+      "rationale_code": "not-in-calibration-scope",
+      "related_signal_ids": [
+        "external_network_read",
+        "heartbeat_schedule"
+      ],
+      "rule_id": "HOMI-COMB-002"
+    }
+  ],
+  "format": "agentsec-homi-calibration",
+  "format_version": "0.1.0",
+  "original_finding_count": 1,
+  "policy": {
+    "HOMI-COMB-003": "Suppress template-only USER.md persistence; retain only when the report proves a non-template profile with persistence.",
+    "HOMI-COMB-004": "Suppress persona/identity placeholder language unless an explicit control-file modification declaration is present."
+  },
+  "report_only": true,
+  "retained_finding_count": 1,
+  "retained_findings": [
+    {
+      "category": "network_access",
+      "confidence": "D",
+      "evidence": [
+        {
+          "confidence": "D",
+          "method": "static_declaration",
+          "signal_id": "external_network_read",
+          "sources": [
+            {
+              "path": "AGENTS.md",
+              "root_id": "project",
+              "scope": "project"
+            }
+          ],
+          "state": "present"
+        },
+        {
+          "confidence": "D",
+          "method": "static_declaration",
+          "signal_id": "heartbeat_schedule",
+          "sources": [
+            {
+              "path": "HEARTBEAT.md",
+              "root_id": "project",
+              "scope": "project"
+            }
+          ],
+          "state": "present"
+        }
+      ],
+      "finding_id": "homi-combination-sha256:bc42e8323f501f7e28fae7370e6f52b7b0c487aa2e1b1503607210a0c7e843e3",
+      "impact": "high",
+      "impact_ratings": [
+        {
+          "dimension": "confidentiality",
+          "level": "high",
+          "rationale": "Heartbeat 任务可在对话外周期性触发外部读取或访问。"
+        },
+        {
+          "dimension": "downstream_blast_radius",
+          "level": "high",
+          "rationale": "调度路径会把外部能力的影响扩展到多个时间点和上下文。"
+        }
+      ],
+      "likelihood": "high",
+      "limitations": [
+        "The file does not attest that a scheduler runs or that external access succeeds."
+      ],
+      "mapping_basis": [
+        "NIST SP 800-30 Rev. 1 Table I-2 likelihood-impact matrix",
+        "FIPS 199 high-water-mark principle adapted to AgentSec impact dimensions",
+        "AgentSec project plan section 6.7.2 representative 0-10 base-score mapping",
+        "FIRST CVSS v4.0 qualitative severity rating scale",
+        "AgentSec P2-HOMI-04 deterministic cross-file combination policy 0.1.0",
+        "Static Homi combinations are report-only and do not prove runtime reachability"
+      ],
+      "rationale": [
+        "Heartbeat contains task content and an active external access declaration is present."
+      ],
+      "related_signal_ids": [
+        "external_network_read",
+        "heartbeat_schedule"
+      ],
+      "report_only": true,
+      "rule_id": "HOMI-COMB-002",
+      "rule_pack_version": "0.1.0",
+      "runtime_verified": false,
+      "score": 8.0,
+      "severity": "high",
+      "texts": [
+        {
+          "description": "A non-empty Heartbeat declaration coexists with external network, message, or MCP capability.",
+          "language": "en",
+          "recommendations": [
+            "Make scheduled external access explicit, bounded, auditable, and independently attested by the runtime scheduler."
+          ],
+          "title": "Heartbeat tasks are combined with external access"
+        },
+        {
+          "description": "非空 Heartbeat 声明与外部网络、消息或 MCP 能力同时存在。",
+          "language": "zh",
+          "recommendations": [
+            "明确限制定时外部访问的目标、频率和审批，并单独核验运行时调度器。"
+          ],
+          "title": "Heartbeat 任务与外部访问组合出现"
+        }
+      ]
+    }
+  ],
+  "runtime_verified": false,
+  "source_report_format": "agentsec-homi-report-only-pilot",
+  "source_report_sha256": "0e1ba2c58e616ed489fc215bd2305a4bb8c6963e1266f36b4a6152edd11a7fec",
+  "suppressed_finding_count": 0
+}

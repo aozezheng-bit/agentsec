@@ -1,0 +1,98 @@
+{
+  "authority": {
+    "ci_blocked": false,
+    "policy_authority": false,
+    "report_only": true,
+    "runtime_verified": false
+  },
+  "ci_blocked": false,
+  "context_count": 2,
+  "coverage_complete": false,
+  "coverage_finding_count": 1,
+  "evaluated_rule_ids": [
+    "CTX-COVERAGE-001",
+    "CTX-RISK-001",
+    "CTX-RISK-002",
+    "CTX-RISK-003",
+    "CTX-RISK-004",
+    "CTX-RISK-005",
+    "CTX-RISK-006",
+    "CTX-RISK-007",
+    "CTX-RISK-008"
+  ],
+  "findings": [
+    {
+      "category": "scan_coverage",
+      "ci_blocked": false,
+      "confidence": "D",
+      "context_ids": [
+        "homi.external-message.send"
+      ],
+      "evidence_ids": [
+        "operation-evidence-sha256:28ea297741f6b513b401ac18972635b5a8b37bfaa64c6660f392bc5d80d7e00a"
+      ],
+      "finding_id": "context-risk-sha256:97ad25b4ad8a4ef1cae129f62973931325b034f54289eb71aaa6ea42ccf0ead6",
+      "impact": "low",
+      "kind": "coverage",
+      "likelihood": "very_low",
+      "limitations": [
+        "Unknown is a coverage state, not proof of a vulnerability or a clean pass."
+      ],
+      "policy_authority": false,
+      "rationale": "Operation Context coverage is incomplete or contains Unknown dimensions; risk conclusions require additional context.",
+      "rationale_code": "operation_context_incomplete",
+      "report_only": true,
+      "rule_id": "CTX-COVERAGE-001",
+      "rule_pack_version": "0.2.0",
+      "runtime_verified": false,
+      "severity": "none"
+    },
+    {
+      "category": "external_tooling",
+      "ci_blocked": false,
+      "confidence": "D",
+      "context_ids": [
+        "homi.external-message.send"
+      ],
+      "evidence_ids": [
+        "operation-evidence-sha256:28ea297741f6b513b401ac18972635b5a8b37bfaa64c6660f392bc5d80d7e00a"
+      ],
+      "finding_id": "context-risk-sha256:95b412827f21d83bb802aa206b848cf7166c1eb4b3fb9b27d0984f4f25a94618",
+      "impact": "high",
+      "kind": "risk",
+      "likelihood": "moderate",
+      "limitations": [
+        "Static declaration does not prove destination reachability, message content, or successful delivery."
+      ],
+      "policy_authority": false,
+      "rationale": "An external send or write operation may proceed autonomously without explicit approval.",
+      "rationale_code": "autonomous_external_side_effect_without_approval",
+      "report_only": true,
+      "rule_id": "CTX-RISK-008",
+      "rule_pack_version": "0.2.0",
+      "runtime_verified": false,
+      "severity": "medium"
+    }
+  ],
+  "format": "agentsec-context-risk-report",
+  "format_version": "0.2.0",
+  "mapping_basis": [
+    "AgentSec RISK-09A deterministic context-aware rule contract 0.2.0",
+    "Risk requires an operation-context combination; capability presence alone is insufficient",
+    "Public-web reads with public data are not elevated without autonomy, sensitive data, side effects, or control weakness",
+    "Unknown context is a coverage observation, not proof of a vulnerability or a clean pass",
+    "Risk signals have no numeric score; RISK-05 owns residual-risk quantification"
+  ],
+  "policy_authority": false,
+  "report_only": true,
+  "risk_finding_count": 1,
+  "rule_pack_version": "0.2.0",
+  "runtime_verified": false,
+  "source_context_format": "agentsec-operation-context-set",
+  "source_context_sha256": "64708a9215bfd38fcb46980eb8693f23dc82dff1c30a8b4b5ba6cd50763c27c7",
+  "unknown_dimensions": [
+    "homi.external-message.send.data_scope.classification",
+    "homi.workspace.read.authorization.state",
+    "homi.workspace.read.trigger"
+  ]
+}

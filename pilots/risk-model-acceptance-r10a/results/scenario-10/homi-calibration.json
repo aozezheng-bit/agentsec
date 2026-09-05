@@ -1,0 +1,125 @@
+{
+  "authority": {
+    "ci_blocked": false,
+    "report_only": true,
+    "runtime_verified": false
+  },
+  "ci_blocked": false,
+  "decisions": [
+    {
+      "disposition": "retained",
+      "finding_id": "homi-combination-sha256:cd81887a662b39c10a138000fff5d8d37e3a1719803684174c1b9cb267b0bea4",
+      "rationale": "This Finding is outside the HOMI-COMB-003/004 calibration scope.",
+      "rationale_code": "not-in-calibration-scope",
+      "related_signal_ids": [
+        "external_message_send",
+        "proactive"
+      ],
+      "rule_id": "HOMI-COMB-001"
+    }
+  ],
+  "format": "agentsec-homi-calibration",
+  "format_version": "0.1.0",
+  "original_finding_count": 1,
+  "policy": {
+    "HOMI-COMB-003": "Suppress template-only USER.md persistence; retain only when the report proves a non-template profile with persistence.",
+    "HOMI-COMB-004": "Suppress persona/identity placeholder language unless an explicit control-file modification declaration is present."
+  },
+  "report_only": true,
+  "retained_finding_count": 1,
+  "retained_findings": [
+    {
+      "category": "external_tooling",
+      "confidence": "D",
+      "evidence": [
+        {
+          "confidence": "D",
+          "method": "static_declaration",
+          "signal_id": "external_message_send",
+          "sources": [
+            {
+              "path": "AGENTS.md",
+              "root_id": "project",
+              "scope": "project"
+            }
+          ],
+          "state": "conditional"
+        },
+        {
+          "confidence": "D",
+          "method": "static_declaration",
+          "signal_id": "proactive",
+          "sources": [
+            {
+              "path": "SOUL.md",
+              "root_id": "project",
+              "scope": "project"
+            }
+          ],
+          "state": "present"
+        }
+      ],
+      "finding_id": "homi-combination-sha256:cd81887a662b39c10a138000fff5d8d37e3a1719803684174c1b9cb267b0bea4",
+      "impact": "high",
+      "impact_ratings": [
+        {
+          "dimension": "confidentiality",
+          "level": "high",
+          "rationale": "主动行为与外部能力组合可能扩大敏感数据的主动外发范围。"
+        },
+        {
+          "dimension": "downstream_blast_radius",
+          "level": "high",
+          "rationale": "外部工具可能将 Agent 行为扩展到当前工作区之外。"
+        }
+      ],
+      "likelihood": "moderate",
+      "limitations": [
+        "Static declarations do not prove that the runtime can reach or use the capability."
+      ],
+      "mapping_basis": [
+        "NIST SP 800-30 Rev. 1 Table I-2 likelihood-impact matrix",
+        "FIPS 199 high-water-mark principle adapted to AgentSec impact dimensions",
+        "AgentSec project plan section 6.7.2 representative 0-10 base-score mapping",
+        "FIRST CVSS v4.0 qualitative severity rating scale",
+        "AgentSec P2-HOMI-04 deterministic cross-file combination policy 0.1.0",
+        "Static Homi combinations are report-only and do not prove runtime reachability"
+      ],
+      "rationale": [
+        "Proactive persona behavior and one or more active external capabilities are present."
+      ],
+      "related_signal_ids": [
+        "external_message_send",
+        "proactive"
+      ],
+      "report_only": true,
+      "rule_id": "HOMI-COMB-001",
+      "rule_pack_version": "0.1.0",
+      "runtime_verified": false,
+      "score": 5.5,
+      "severity": "medium",
+      "texts": [
+        {
+          "description": "The persona encourages proactive behavior while a network, message, or external tool capability is statically declared.",
+          "language": "en",
+          "recommendations": [
+            "Keep external capabilities least-privileged, require approval for side effects, and verify the runtime Tool Registry separately."
+          ],
+          "title": "Proactive behavior is combined with an active external capability"
+        },
+        {
+          "description": "人格规范鼓励主动行动，同时静态声明了网络、消息或外部工具能力。",
+          "language": "zh",
+          "recommendations": [
+            "限制外部能力权限，对副作用保留人工审批，并单独核验运行时 Tool Registry。"
+          ],
+          "title": "主动行为与外部能力组合出现"
+        }
+      ]
+    }
+  ],
+  "runtime_verified": false,
+  "source_report_format": "agentsec-homi-report-only-pilot",
+  "source_report_sha256": "5e6c7691bc8ee6538565e2c308b1de41649587b0e1515e8305a91ac00c4f3e44",
+  "suppressed_finding_count": 0
+}

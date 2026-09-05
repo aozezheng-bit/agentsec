@@ -1,0 +1,23 @@
+{
+  "authority": {
+    "ci_blocked": false,
+    "report_only": true,
+    "runtime_verified": false
+  },
+  "ci_blocked": false,
+  "decisions": [],
+  "format": "agentsec-homi-calibration",
+  "format_version": "0.1.0",
+  "original_finding_count": 0,
+  "policy": {
+    "HOMI-COMB-003": "Suppress template-only USER.md persistence; retain only when the report proves a non-template profile with persistence.",
+    "HOMI-COMB-004": "Suppress persona/identity placeholder language unless an explicit control-file modification declaration is present."
+  },
+  "report_only": true,
+  "retained_finding_count": 0,
+  "retained_findings": [],
+  "runtime_verified": false,
+  "source_report_format": "agentsec-homi-report-only-pilot",
+  "source_report_sha256": "565e59f86cdb7db9b7bc9d24508ac459292b806fa956c103d6a9dec85b65d2fb",
+  "suppressed_finding_count": 0
+}

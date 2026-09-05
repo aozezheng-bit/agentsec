@@ -624,7 +624,7 @@
       "const": "agentsec-homi-operation-context-extraction"
     },
     "format_version": {
-      "const": "0.1.0"
+      "const": "0.2.0"
     },
     "report_only": {
       "const": true

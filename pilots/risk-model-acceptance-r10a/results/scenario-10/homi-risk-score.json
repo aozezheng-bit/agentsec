@@ -1,0 +1,107 @@
+{
+  "authority": {
+    "ci_blocked": false,
+    "policy_authority": false,
+    "report_only": true,
+    "runtime_verified": false
+  },
+  "ci_blocked": false,
+  "contribution_count": 1,
+  "contributions": [
+    {
+      "confidence": "D",
+      "context_ids": [
+        "homi.external-message.send"
+      ],
+      "control_coverage": "none",
+      "control_factor": 1.0,
+      "evidence_ids": [
+        "operation-evidence-sha256:28ea297741f6b513b401ac18972635b5a8b37bfaa64c6660f392bc5d80d7e00a"
+      ],
+      "finding_id": "context-risk-sha256:95b412827f21d83bb802aa206b848cf7166c1eb4b3fb9b27d0984f4f25a94618",
+      "likelihood": "moderate",
+      "potential_impact_level": "high",
+      "potential_impact_score": 5.5,
+      "potential_risk_level": "moderate",
+      "residual_risk_score": 5.5,
+      "rule_id": "CTX-RISK-008",
+      "severity": "medium"
+    }
+  ],
+  "coverage_complete": false,
+  "current_posture": "latent_unverified",
+  "current_posture_score": null,
+  "drift": {
+    "added_context_ids": [
+      "homi.external-message.send"
+    ],
+    "added_finding_ids": [
+      "context-risk-sha256:95b412827f21d83bb802aa206b848cf7166c1eb4b3fb9b27d0984f4f25a94618"
+    ],
+    "baseline_context_sha256": "47e27f128d81af1e182c868992f3ebfbf8fab86115495b8381dee3c9f2de458e",
+    "baseline_potential_impact_score": 0.0,
+    "baseline_residual_risk_score": 0.0,
+    "baseline_risk_report_sha256": "e34e063be9ec2d25492452f91e9bdf083c79608d1583ae0769bd10af7be52b3f",
+    "basis": [
+      "AgentSec RISK-09A calibrated directional context risk contract 0.3.0",
+      "Potential impact uses the existing NIST likelihood-impact matrix and AgentSec representatives",
+      "Residual risk uses bounded explicit control coverage and never averages away a critical signal",
+      "Static Operation Context does not establish current runtime posture",
+      "Only added/increased risk, relevant control weakening, and upward residual risk score positive drift",
+      "Benign, resolved, decreased, or non-directional context changes score zero drift",
+      "Positive drift score cannot exceed current residual risk score"
+    ],
+    "control_strengthening_count": 0,
+    "control_weakening_count": 0,
+    "decreased_finding_ids": [],
+    "direction": "increased",
+    "drift_score": 5.5,
+    "increased_finding_ids": [],
+    "modified_context_ids": [
+      "homi.workspace.read"
+    ],
+    "non_directional_finding_ids": [],
+    "potential_impact_delta": 5.5,
+    "removed_context_ids": [],
+    "residual_risk_delta": 5.5,
+    "resolved_finding_ids": [],
+    "risky_added_context_ids": [
+      "homi.external-message.send"
+    ]
+  },
+  "drift_score": 5.5,
+  "format": "agentsec-context-risk-score",
+  "format_version": "0.3.0",
+  "limitations": [
+    "Static Operation Context does not prove runtime reachability, successful execution, or exploitability.",
+    "Current posture score remains null until an independent runtime attestation contract is supplied.",
+    "Residual-risk adjustment is an AgentSec policy metric and requires future human calibration; it is not a loss probability.",
+    "Coverage is incomplete or contains Unknown dimensions; scores are provisional and must not be interpreted as a clean pass."
+  ],
+  "model_version": "0.3.0",
+  "policy_authority": false,
+  "potential_impact_level": "moderate",
+  "potential_impact_score": 5.5,
+  "report_only": true,
+  "residual_risk_level": "medium",
+  "residual_risk_score": 5.5,
+  "runtime_verified": false,
+  "scoring_basis": [
+    "AgentSec RISK-09A calibrated directional context risk contract 0.3.0",
+    "Potential impact uses the existing NIST likelihood-impact matrix and AgentSec representatives",
+    "Residual risk uses bounded explicit control coverage and never averages away a critical signal",
+    "Static Operation Context does not establish current runtime posture",
+    "Only added/increased risk, relevant control weakening, and upward residual risk score positive drift",
+    "Benign, resolved, decreased, or non-directional context changes score zero drift",
+    "Positive drift score cannot exceed current residual risk score"
+  ],
+  "source_context_format": "agentsec-operation-context-set",
+  "source_context_sha256": "64708a9215bfd38fcb46980eb8693f23dc82dff1c30a8b4b5ba6cd50763c27c7",
+  "source_risk_report_format": "agentsec-context-risk-report",
+  "source_risk_report_sha256": "a873e89eed20edbd2b3f8b7513a650a1fefcb327b4aaa913b3db1250b3164bb9",
+  "unknown_dimensions": [
+    "homi.external-message.send.data_scope.classification",
+    "homi.workspace.read.authorization.state",
+    "homi.workspace.read.trigger"
+  ]
+}

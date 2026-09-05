@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
 import pytest
@@ -48,6 +49,9 @@ Search the web and check calendars.
 
 
 def _attestation_for_report(report_dir: Path) -> Path:
+    now = datetime.now(UTC).replace(microsecond=0)
+    issued_at = (now - timedelta(minutes=1)).strftime("%Y-%m-%dT%H:%M:%SZ")
+    expires_at = (now + timedelta(hours=1)).strftime("%Y-%m-%dT%H:%M:%SZ")
     pilot_path = report_dir / "homi-pilot-report.json"
     pilot_digest = hashlib.sha256(pilot_path.read_bytes()).hexdigest()
     context_payload = json.loads(
@@ -64,7 +68,7 @@ def _attestation_for_report(report_dir: Path) -> Path:
                 context.operation_id.encode("utf-8")
             ).hexdigest(),
             source_ref="sandbox-event:summary",
-            observed_at="2026-09-04T00:00:00Z",
+            observed_at=issued_at,
         )
         for context in context_set.contexts
     )
@@ -74,8 +78,8 @@ def _attestation_for_report(report_dir: Path) -> Path:
         issuer="external-sandbox",
         key_id="test-key",
         signature_algorithm=RuntimeSignatureAlgorithm.HMAC_SHA256,
-        issued_at="2026-09-04T00:00:00Z",
-        expires_at="2026-09-04T23:59:59Z",
+        issued_at=issued_at,
+        expires_at=expires_at,
         nonce="homi-test-nonce-01",
         method=RuntimeAttestationMethod.RUNTIME_VERIFICATION,
         verification_status=RuntimeVerificationStatus.VERIFIED,

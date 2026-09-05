@@ -1,0 +1,659 @@
+{
+  "acceptance_ready": false,
+  "adapter_version": "0.2.0",
+  "all_standard_files_present": true,
+  "capabilities": [
+    {
+      "confidence": "D",
+      "method": "runtime_unverified",
+      "signal_id": "camera_access",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "method": "runtime_unverified",
+      "signal_id": "control_file_self_modification",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "method": "runtime_unverified",
+      "signal_id": "cron_schedule",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "method": "runtime_unverified",
+      "signal_id": "external_message_send",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "method": "runtime_unverified",
+      "signal_id": "external_network_read",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "method": "static_declaration",
+      "signal_id": "group_chat_participation",
+      "source_paths": [
+        "AGENTS.md"
+      ],
+      "state": "present"
+    },
+    {
+      "confidence": "B",
+      "method": "structural_file_state",
+      "signal_id": "heartbeat_schedule",
+      "source_paths": [
+        "HEARTBEAT.md"
+      ],
+      "state": "absent"
+    },
+    {
+      "confidence": "D",
+      "method": "runtime_unverified",
+      "signal_id": "identity_self_modification",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "method": "runtime_unverified",
+      "signal_id": "mcp_access",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "method": "static_declaration",
+      "signal_id": "memory_read",
+      "source_paths": [
+        "AGENTS.md"
+      ],
+      "state": "present"
+    },
+    {
+      "confidence": "D",
+      "method": "runtime_unverified",
+      "signal_id": "memory_write",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "method": "runtime_unverified",
+      "signal_id": "oauth_access",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "method": "static_declaration",
+      "signal_id": "persistent_memory",
+      "source_paths": [
+        "AGENTS.md"
+      ],
+      "state": "present"
+    },
+    {
+      "confidence": "D",
+      "method": "runtime_unverified",
+      "signal_id": "persona_self_modification",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "method": "runtime_unverified",
+      "signal_id": "secret_access",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "method": "runtime_unverified",
+      "signal_id": "shell_execution",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "method": "runtime_unverified",
+      "signal_id": "skill_tool_discovery",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "method": "runtime_unverified",
+      "signal_id": "ssh_access",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "method": "runtime_unverified",
+      "signal_id": "tts_output",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "method": "runtime_unverified",
+      "signal_id": "user_profile_persistence",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "method": "static_declaration",
+      "signal_id": "workspace_read",
+      "source_paths": [
+        "AGENTS.md"
+      ],
+      "state": "present"
+    },
+    {
+      "confidence": "D",
+      "method": "runtime_unverified",
+      "signal_id": "workspace_write",
+      "source_paths": [],
+      "state": "unknown"
+    }
+  ],
+  "ci_blocked": false,
+  "combination": {
+    "complete": true,
+    "evaluated_rule_ids": [
+      "HOMI-COMB-001",
+      "HOMI-COMB-002",
+      "HOMI-COMB-003",
+      "HOMI-COMB-004",
+      "HOMI-COMB-005"
+    ],
+    "failures": [],
+    "findings": [],
+    "profile_complete": true,
+    "rule_pack_version": "0.1.0",
+    "suppressed_example_capabilities": []
+  },
+  "coverage_metrics": {
+    "capability_example_only_count": 0,
+    "capability_known_count": 5,
+    "capability_total": 22,
+    "capability_unknown_count": 17,
+    "manifest_unknown_count": null,
+    "runtime_attestation_status": "not_collected",
+    "runtime_unknown_count": null,
+    "standard_file_missing_count": 0,
+    "standard_file_skipped_count": 0,
+    "standard_file_total": 6
+  },
+  "evidence_mode": "external_report_only",
+  "files": [
+    {
+      "content_sha256": "a2aeb372b731f241d32ee0851c67ada47ff72348699dc09d59c19b82f7f40d44",
+      "issue_codes": [],
+      "line_count": 38,
+      "name": "AGENTS.md",
+      "size_bytes": 849,
+      "state": "present"
+    },
+    {
+      "content_sha256": "f9e992e4525f5c6df5c206ecfd015f81cac2cabf4b3af04f923dd524cd7bcb8a",
+      "issue_codes": [],
+      "line_count": 3,
+      "name": "HEARTBEAT.md",
+      "size_bytes": 65,
+      "state": "empty"
+    },
+    {
+      "content_sha256": "d63d94908adbfd666d2b368c4207644d1e097b35c9e1812127c50afd8121e8a6",
+      "issue_codes": [],
+      "line_count": 8,
+      "name": "IDENTITY.md",
+      "size_bytes": 196,
+      "state": "present"
+    },
+    {
+      "content_sha256": "0d3a4224ab5415a2d648e6d3930f9c8aa3c74a1617022306d51bda7e751746c3",
+      "issue_codes": [],
+      "line_count": 7,
+      "name": "SOUL.md",
+      "size_bytes": 183,
+      "state": "present"
+    },
+    {
+      "content_sha256": "0a1c79511903b8e69f00e4fb42e573b6a5e155b16493d41b6644bc48794bf0e0",
+      "issue_codes": [],
+      "line_count": 5,
+      "name": "TOOLS.md",
+      "size_bytes": 170,
+      "state": "present"
+    },
+    {
+      "content_sha256": "6f4012766781484a6c45416ff2edd4aa768aceed797178090201b51168f167c9",
+      "issue_codes": [],
+      "line_count": 6,
+      "name": "USER.md",
+      "size_bytes": 148,
+      "state": "present"
+    }
+  ],
+  "format": "agentsec-homi-report-only-pilot",
+  "format_version": "0.2.0",
+  "heartbeat": {
+    "api_calls_enabled_by_file": false,
+    "runtime_verified": false,
+    "signal": {
+      "confidence": "B",
+      "method": "structural_file_state",
+      "signal_id": "heartbeat_schedule",
+      "source_paths": [
+        "HEARTBEAT.md"
+      ],
+      "state": "absent"
+    },
+    "state": "absent",
+    "tasks_present": false
+  },
+  "identity": {
+    "avatar_kind": "none",
+    "creature_present": true,
+    "emoji_present": true,
+    "identity_disclosure": {
+      "confidence": "D",
+      "method": "static_declaration",
+      "signal_id": "identity_disclosure",
+      "source_paths": [
+        "IDENTITY.md"
+      ],
+      "state": "present"
+    },
+    "name_present": true,
+    "self_assignment": {
+      "confidence": "D",
+      "method": "runtime_unverified",
+      "signal_id": "identity_self_modification",
+      "source_paths": [
+        "IDENTITY.md"
+      ],
+      "state": "unknown"
+    },
+    "vibe_present": true
+  },
+  "inspection_complete": true,
+  "limitations": [
+    "This is an external report-only Pilot; acceptance_ready is always false.",
+    "The target workspace is untrusted input and no project code, hooks, skills, commands, MCP, or scheduler was executed.",
+    "Static Homi declarations do not prove runtime Tool, OAuth, permission, identity, scheduler, or exploit reachability.",
+    "No raw User, tool, credential, IP address, URL, Avatar, or Secret value is included in the report.",
+    "Human review and real runtime attestation are outside this Pilot run."
+  ],
+  "observations": [
+    {
+      "code": "empty_heartbeat_disabled",
+      "kind": "authority_boundary",
+      "resolution": "heartbeat_disabled_by_empty_file_static_state",
+      "roles": [
+        "heartbeat_schedule"
+      ],
+      "source_paths": [
+        "HEARTBEAT.md"
+      ]
+    },
+    {
+      "code": "identity_not_runtime_authority",
+      "kind": "authority_boundary",
+      "resolution": "identity_metadata_does_not_grant_runtime_authority",
+      "roles": [
+        "identity"
+      ],
+      "source_paths": [
+        "IDENTITY.md"
+      ]
+    },
+    {
+      "code": "tools_not_authority",
+      "kind": "authority_boundary",
+      "resolution": "tools_notes_do_not_grant_runtime_tool_authority",
+      "roles": [
+        "tool_notes"
+      ],
+      "source_paths": [
+        "TOOLS.md"
+      ]
+    },
+    {
+      "code": "user_profile_main_session_only",
+      "kind": "authority_boundary",
+      "resolution": "user_profile_is_main_session_only",
+      "roles": [
+        "user_profile"
+      ],
+      "source_paths": [
+        "USER.md"
+      ]
+    }
+  ],
+  "owner": "cli-user",
+  "persona_signals": [
+    {
+      "confidence": "D",
+      "method": "static_declaration",
+      "signal_id": "external_approval",
+      "source_paths": [
+        "SOUL.md"
+      ],
+      "state": "present"
+    }
+  ],
+  "pilot_id": "homi-cli-pilot",
+  "profile_complete": true,
+  "profile_model_version": "0.2.0",
+  "project_name": "scenario-12",
+  "report_only": true,
+  "resolution_status": "resolved",
+  "reviewer_ids": [],
+  "runtime_verified": false,
+  "simulation": {
+    "combination_rule_failures": [],
+    "combination_rule_pack_version": "0.1.0",
+    "complete": true,
+    "executed": false,
+    "format": "agentsec-homi-safe-simulation",
+    "format_version": "0.1.0",
+    "limitations": [
+      "AgentSec P2-HOMI-05 deterministic dry-run simulation contract 0.1.0",
+      "Simulation is an in-memory plan and never executes source or external actions",
+      "Static declarations do not prove runtime reachability or scheduler execution",
+      "Example-only tool notes are suppressed rather than treated as active access"
+    ],
+    "mode": "dry_run",
+    "model_version": "0.2.0",
+    "outcome_counts": {
+      "blocked_example_only": 0,
+      "blocked_static_boundary": 1,
+      "declared_path": 0,
+      "not_declared": 1,
+      "unknown_coverage": 3
+    },
+    "profile_complete": true,
+    "runtime_verified": false,
+    "scenarios": [
+      {
+        "action": "external_network_read",
+        "description": "Preview whether a Heartbeat tick would reach a declared external network-read path.",
+        "scenario_id": "HOMI-SIM-001",
+        "trigger": "heartbeat_tick"
+      },
+      {
+        "action": "external_tool_use",
+        "description": "Preview whether proactive behavior would reach an active external capability.",
+        "scenario_id": "HOMI-SIM-002",
+        "trigger": "proactive_persona"
+      },
+      {
+        "action": "memory_persist",
+        "description": "Preview whether a user-profile update would enter persistent memory.",
+        "scenario_id": "HOMI-SIM-003",
+        "trigger": "user_profile_update"
+      },
+      {
+        "action": "control_file_write",
+        "description": "Preview whether persona and identity self-modification guidance forms a control-file write path.",
+        "scenario_id": "HOMI-SIM-004",
+        "trigger": "control_file_update"
+      },
+      {
+        "action": "tool_discovery",
+        "description": "Preview whether Skill discovery would reach an active local tool binding.",
+        "scenario_id": "HOMI-SIM-005",
+        "trigger": "skill_discovery"
+      }
+    ],
+    "side_effects": false,
+    "static_combination_finding_ids": [],
+    "steps": [
+      {
+        "action": "external_network_read",
+        "evidence": [
+          {
+            "confidence": "D",
+            "method": "runtime_unverified",
+            "signal_id": "external_network_read",
+            "sources": [],
+            "state": "unknown"
+          },
+          {
+            "confidence": "B",
+            "method": "structural_file_state",
+            "signal_id": "heartbeat_schedule",
+            "sources": [
+              {
+                "path": "HEARTBEAT.md",
+                "root_id": "project",
+                "scope": "project"
+              }
+            ],
+            "state": "absent"
+          }
+        ],
+        "executed": false,
+        "limitations": [
+          "This is a dry-run decision trace; no source, scheduler, tool, network, or file operation was executed."
+        ],
+        "outcome": "blocked_static_boundary",
+        "rationale": [
+          "HEARTBEAT.md is structurally empty; the simulated scheduler path is disabled by the static boundary."
+        ],
+        "related_signal_ids": [
+          "external_network_read",
+          "heartbeat_schedule"
+        ],
+        "runtime_verified": false,
+        "scenario_id": "HOMI-SIM-001",
+        "side_effects": false,
+        "trigger": "heartbeat_tick"
+      },
+      {
+        "action": "external_tool_use",
+        "evidence": [],
+        "executed": false,
+        "limitations": [
+          "This is a dry-run decision trace; no source, scheduler, tool, network, or file operation was executed."
+        ],
+        "outcome": "not_declared",
+        "rationale": [
+          "No proactive persona signal is present."
+        ],
+        "related_signal_ids": [],
+        "runtime_verified": false,
+        "scenario_id": "HOMI-SIM-002",
+        "side_effects": false,
+        "trigger": "proactive_persona"
+      },
+      {
+        "action": "memory_persist",
+        "evidence": [
+          {
+            "confidence": "D",
+            "method": "static_declaration",
+            "signal_id": "persistent_memory",
+            "sources": [
+              {
+                "path": "AGENTS.md",
+                "root_id": "project",
+                "scope": "project"
+              }
+            ],
+            "state": "present"
+          },
+          {
+            "confidence": "D",
+            "method": "runtime_unverified",
+            "signal_id": "user_profile_persistence",
+            "sources": [
+              {
+                "path": "USER.md",
+                "root_id": "project",
+                "scope": "project"
+              }
+            ],
+            "state": "unknown"
+          }
+        ],
+        "executed": false,
+        "limitations": [
+          "This is a dry-run decision trace; no source, scheduler, tool, network, or file operation was executed."
+        ],
+        "outcome": "unknown_coverage",
+        "rationale": [
+          "User persistence or persistent-memory state is not fully known."
+        ],
+        "related_signal_ids": [
+          "persistent_memory",
+          "user_profile_persistence"
+        ],
+        "runtime_verified": false,
+        "scenario_id": "HOMI-SIM-003",
+        "side_effects": false,
+        "trigger": "user_profile_update"
+      },
+      {
+        "action": "control_file_write",
+        "evidence": [
+          {
+            "confidence": "D",
+            "method": "runtime_unverified",
+            "signal_id": "identity_self_modification",
+            "sources": [
+              {
+                "path": "IDENTITY.md",
+                "root_id": "project",
+                "scope": "project"
+              }
+            ],
+            "state": "unknown"
+          }
+        ],
+        "executed": false,
+        "limitations": [
+          "This is a dry-run decision trace; no source, scheduler, tool, network, or file operation was executed."
+        ],
+        "outcome": "unknown_coverage",
+        "rationale": [
+          "Persona or identity self-modification state is unknown."
+        ],
+        "related_signal_ids": [
+          "identity_self_modification"
+        ],
+        "runtime_verified": false,
+        "scenario_id": "HOMI-SIM-004",
+        "side_effects": false,
+        "trigger": "control_file_update"
+      },
+      {
+        "action": "tool_discovery",
+        "evidence": [
+          {
+            "confidence": "D",
+            "method": "runtime_unverified",
+            "signal_id": "skill_tool_discovery",
+            "sources": [],
+            "state": "unknown"
+          }
+        ],
+        "executed": false,
+        "limitations": [
+          "This is a dry-run decision trace; no source, scheduler, tool, network, or file operation was executed."
+        ],
+        "outcome": "unknown_coverage",
+        "rationale": [
+          "Skill tool-discovery state is unknown."
+        ],
+        "related_signal_ids": [
+          "skill_tool_discovery"
+        ],
+        "runtime_verified": false,
+        "scenario_id": "HOMI-SIM-005",
+        "side_effects": false,
+        "trigger": "skill_discovery"
+      }
+    ]
+  },
+  "status": "complete",
+  "tools": {
+    "bindings": {
+      "camera": {
+        "confidence": "D",
+        "method": "runtime_unverified",
+        "signal_id": "camera_access",
+        "source_paths": [],
+        "state": "unknown"
+      },
+      "mcp": {
+        "confidence": "D",
+        "method": "runtime_unverified",
+        "signal_id": "mcp_access",
+        "source_paths": [],
+        "state": "unknown"
+      },
+      "oauth": {
+        "confidence": "D",
+        "method": "runtime_unverified",
+        "signal_id": "oauth_access",
+        "source_paths": [],
+        "state": "unknown"
+      },
+      "secret_access": {
+        "confidence": "D",
+        "method": "runtime_unverified",
+        "signal_id": "secret_access",
+        "source_paths": [],
+        "state": "unknown"
+      },
+      "ssh": {
+        "confidence": "D",
+        "method": "runtime_unverified",
+        "signal_id": "ssh_access",
+        "source_paths": [],
+        "state": "unknown"
+      },
+      "tts": {
+        "confidence": "D",
+        "method": "runtime_unverified",
+        "signal_id": "tts_output",
+        "source_paths": [],
+        "state": "unknown"
+      }
+    },
+    "runtime_authority": false
+  },
+  "user_privacy": {
+    "file_state": "present",
+    "main_session_only": true,
+    "observed_field_names": [
+      "name",
+      "timezone"
+    ],
+    "persistence": {
+      "confidence": "D",
+      "method": "runtime_unverified",
+      "signal_id": "user_profile_persistence",
+      "source_paths": [
+        "USER.md"
+      ],
+      "state": "unknown"
+    },
+    "shared_context_allowed": false,
+    "template_present": false
+  }
+}

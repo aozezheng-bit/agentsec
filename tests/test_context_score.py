@@ -236,6 +236,81 @@ def test_resolved_context_risk_is_marked_decreased() -> None:
     assert report.drift.modified_context_ids == ("operation.shared-secret",)
 
 
+def test_benign_context_change_has_zero_directional_drift_score() -> None:
+    baseline_context = _context("operation.public-read")
+    current_context = baseline_context.model_copy(
+        update={"frequency": Frequency.PERIODIC}
+    )
+    baseline_set = _set(baseline_context)
+    current_set = _set(current_context)
+    baseline_risk = DeterministicContextRuleEngine().run(baseline_set)
+    current_risk = DeterministicContextRuleEngine().run(current_set)
+
+    report = DeterministicContextRiskScoreEngine().run(
+        current_set,
+        current_risk,
+        baseline=(baseline_set, baseline_risk),
+    )
+
+    assert report.drift is not None
+    assert report.drift.direction is RiskDriftDirection.UNKNOWN
+    assert report.drift.drift_score == 0.0
+    assert report.drift.increased_finding_ids == ()
+    assert report.drift.decreased_finding_ids == ()
+    assert report.drift.control_weakening_count == 0
+
+
+def test_control_weakening_is_directional_risk_increase() -> None:
+    strong_controls = ControlEffectiveness(
+        approval=ControlState.PRESENT,
+        user_consent=ControlState.PRESENT,
+        audit=ControlState.PRESENT,
+        redaction=ControlState.PRESENT,
+    )
+    baseline_context = _context(
+        "operation.send-secret",
+        action=OperationAction.SEND,
+        target=OperationTarget.EXTERNAL_SERVICE,
+        classification=DataClassification.SECRET,
+        sharing=DataSharingScope.EXTERNAL,
+        authorization=AuthorizationState.USER_CONFIRMED,
+        controls=strong_controls,
+    )
+    current_context = baseline_context.model_copy(
+        update={
+            "authorization": AuthorizationContext(
+                state=AuthorizationState.APPROVAL_MISSING,
+                approval_required=True,
+                approval_present=False,
+            ),
+            "controls": ControlEffectiveness(
+                approval=ControlState.ABSENT,
+                user_consent=ControlState.ABSENT,
+                audit=ControlState.UNKNOWN,
+                redaction=ControlState.ABSENT,
+            ),
+        }
+    )
+    baseline_set = _set(baseline_context)
+    current_set = _set(current_context)
+    baseline_risk = DeterministicContextRuleEngine().run(baseline_set)
+    current_risk = DeterministicContextRuleEngine().run(current_set)
+
+    report = DeterministicContextRiskScoreEngine().run(
+        current_set,
+        current_risk,
+        baseline=(baseline_set, baseline_risk),
+    )
+
+    assert report.drift is not None
+    assert report.drift.direction is RiskDriftDirection.INCREASED
+    assert report.drift.drift_score > 0.0
+    assert report.drift.drift_score <= report.residual_risk_score
+    assert report.drift.control_weakening_count >= 1
+    assert report.drift.control_strengthening_count == 0
+    assert report.drift.increased_finding_ids or report.drift.added_finding_ids
+
+
 def test_context_score_binding_and_authority_are_strict() -> None:
     context_set = _set(_context("operation.public-read"))
     risk_report = DeterministicContextRuleEngine().run(context_set)
@@ -260,3 +335,11 @@ def test_context_score_schema_is_exportable(tmp_path: Path) -> None:
     assert path.name == "context-risk-score.schema.json"
     schema = json.loads(path.read_text(encoding="utf-8"))
     assert schema["properties"]["residual_risk_score"]["maximum"] == 10
+    assert schema["properties"]["format_version"]["const"] == "0.3.0"
+    drift = next(
+        item
+        for item in schema["properties"]["drift"]["anyOf"]
+        if item.get("type") == "object"
+    )
+    assert "increased_finding_ids" in drift["required"]
+    assert "control_weakening_count" in drift["required"]

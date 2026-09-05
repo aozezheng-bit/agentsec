@@ -221,7 +221,7 @@ def test_control_file_without_authorization_matches_high_impact_and_specific_rul
     assert ContextRuleId.CONTROL_FILE_WITHOUT_AUTHORIZATION in rule_ids
     by_rule = {finding.rule_id: finding for finding in report.risk_findings}
     assert by_rule[ContextRuleId.HIGH_IMPACT_WITHOUT_AUTHORIZATION].severity is (
-        Severity.CRITICAL
+        Severity.MEDIUM
     )
     assert by_rule[ContextRuleId.CONTROL_FILE_WITHOUT_AUTHORIZATION].severity is (
         Severity.HIGH
@@ -282,6 +282,77 @@ def test_indefinite_external_persistence_is_reported() -> None:
         finding.rule_id == ContextRuleId.INDEFINITE_EXTERNAL_PERSISTENCE
         for finding in report.risk_findings
     )
+
+
+def test_unbounded_personal_retention_requires_missing_retention_controls() -> None:
+    context = _context(
+        "operation.store-conversation",
+        action=OperationAction.STORE,
+        target=OperationTarget.USER_PROFILE,
+        classification=DataClassification.PERSONAL,
+        sharing=DataSharingScope.MAIN_SESSION,
+        retention=DataRetention.INDEFINITE,
+        purpose=OperationPurpose.PERSISTENCE,
+        authorization=AuthorizationState.UNKNOWN,
+    )
+    report = DeterministicContextRuleEngine().run(
+        _set(
+            context,
+            complete=False,
+            unknown_dimensions=("operation.store-conversation.authorization.state",),
+        )
+    )
+
+    finding = next(
+        item
+        for item in report.risk_findings
+        if item.rule_id == ContextRuleId.UNBOUNDED_SENSITIVE_RETENTION
+    )
+    assert finding.severity is Severity.HIGH
+
+
+def test_bounded_user_preference_retention_is_not_a_risk() -> None:
+    context = _context(
+        "operation.store-preference",
+        action=OperationAction.STORE,
+        target=OperationTarget.USER_PROFILE,
+        classification=DataClassification.USER_PREFERENCE,
+        sharing=DataSharingScope.MAIN_SESSION,
+        retention=DataRetention.BOUNDED,
+        purpose=OperationPurpose.PERSISTENCE,
+    )
+
+    report = DeterministicContextRuleEngine().run(_set(context))
+    assert report.risk_findings == ()
+
+
+def test_autonomous_external_send_without_approval_is_reported() -> None:
+    context = _context(
+        "operation.autonomous-send",
+        action=OperationAction.SEND,
+        target=OperationTarget.EXTERNAL_MESSAGE_CHANNEL,
+        classification=DataClassification.UNKNOWN,
+        sharing=DataSharingScope.EXTERNAL,
+        retention=DataRetention.UNKNOWN,
+        trigger=OperationTrigger.AUTONOMOUS,
+        purpose=OperationPurpose.EXTERNAL_COMMUNICATION,
+        authorization=AuthorizationState.APPROVAL_MISSING,
+        status=OperationContextStatus.NEEDS_CONTEXT,
+    )
+
+    report = DeterministicContextRuleEngine().run(
+        _set(
+            context,
+            complete=False,
+            unknown_dimensions=("operation.autonomous-send.data_scope.classification",),
+        )
+    )
+    finding = next(
+        item
+        for item in report.risk_findings
+        if item.rule_id == ContextRuleId.AUTONOMOUS_EXTERNAL_SIDE_EFFECT
+    )
+    assert finding.severity is Severity.MEDIUM
 
 
 def test_unknown_context_is_coverage_not_a_risk_finding() -> None:

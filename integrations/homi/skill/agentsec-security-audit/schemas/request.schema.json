@@ -1,54 +1,96 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://agentsec.local/schemas/homi-skill-request.schema.json",
-  "title": "AgentSec Homi Skill Request",
-  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "additionalProperties": false,
-  "required": [
-    "workspace"
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "operation": {
+            "enum": [
+              "snapshot",
+              "drift",
+              "risk"
+            ]
+          }
+        },
+        "required": [
+          "operation"
+        ]
+      },
+      "then": {
+        "properties": {
+          "subject_id": {
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]{0,127}$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "subject_id"
+        ]
+      }
+    }
   ],
   "properties": {
-    "workspace": {
-      "type": "string",
-      "minLength": 1,
-      "maxLength": 4096
+    "baseline": {
+      "description": "Atomic Snapshot 0.3 baseline path for Snapshot/Drift/Risk operations; must include subject and context summaries.",
+      "maxLength": 4096,
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "language": {
+      "default": "zh",
+      "enum": [
+        "zh",
+        "en"
+      ],
+      "type": "string"
     },
     "operation": {
-      "type": "string",
+      "default": "scan",
       "enum": [
         "scan",
         "report",
         "capability",
         "diff",
         "score",
-        "attack-graph"
+        "attack-graph",
+        "snapshot",
+        "drift",
+        "risk"
       ],
-      "default": "scan"
-    },
-    "baseline": {
-      "type": [
-        "string",
-        "null"
-      ],
-      "maxLength": 4096
-    },
-    "language": {
-      "type": "string",
-      "enum": [
-        "zh",
-        "en"
-      ],
-      "default": "zh"
+      "type": "string"
     },
     "output_format": {
-      "type": "string",
+      "default": "json",
       "enum": [
         "json",
         "text",
         "html",
         "sarif"
       ],
-      "default": "json"
+      "type": "string"
+    },
+    "subject_id": {
+      "default": null,
+      "description": "Platform-owned stable Agent identifier required for Snapshot, Drift, and unified Risk.",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]{0,127}$",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "workspace": {
+      "maxLength": 4096,
+      "minLength": 1,
+      "type": "string"
     }
-  }
+  },
+  "required": [
+    "workspace"
+  ],
+  "title": "AgentSec Homi Skill Request",
+  "type": "object"
 }

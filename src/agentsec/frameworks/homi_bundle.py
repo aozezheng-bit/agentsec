@@ -514,7 +514,7 @@ def render_homi_combined_report_text(
         lines = [
             "AgentSec Homi Combined Security Report",
             f"Status: {_text(pilot.get('status'), 'unknown')}",
-            f"Findings: {len(_pilot_findings(pilot))}",
+            f"Findings: {len(_calibrated_findings(pilot, report.calibration_report))}",
             "Mode: report-only; runtime_verified=false; ci_blocked=false",
             "",
             _risk_state_text_summary(report.risk_state_report, chinese=False),
@@ -770,15 +770,24 @@ def _calibrated_findings(
     if not isinstance(calibration, dict):
         return findings
     retained = calibration.get("retained_findings")
-    if not isinstance(retained, list):
+    if retained is None:
         return findings
-    retained_ids = {
-        item.get("finding_id")
-        for item in retained
-        if isinstance(item, dict) and isinstance(item.get("finding_id"), str)
-    }
-    if not retained_ids:
-        return []
+    if not isinstance(retained, list):
+        raise HomiCombinedReportError(
+            "calibration retained_findings must be a list of retained findings"
+        )
+    retained_ids: set[str] = set()
+    for item in retained:
+        if not isinstance(item, dict):
+            raise HomiCombinedReportError(
+                "calibration retained_findings entries must be objects"
+            )
+        finding_id = item.get("finding_id")
+        if not isinstance(finding_id, str):
+            raise HomiCombinedReportError(
+                "calibration retained_findings entries must carry a string finding_id"
+            )
+        retained_ids.add(finding_id)
     return [
         finding for finding in findings if finding.get("finding_id") in retained_ids
     ]

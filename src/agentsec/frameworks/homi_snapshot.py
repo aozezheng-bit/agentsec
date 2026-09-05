@@ -1,4 +1,4 @@
-"""Homi Agent Snapshot contract (RISK-06, snapshot line).
+"""Homi Agent Snapshot contract (RISK-08A stable subject binding).
 
 A Homi Snapshot is a deterministic, value-minimized summary of one exact
 Homi Pilot run: stable workspace fingerprint, file digests, capability and
@@ -13,16 +13,24 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 from collections.abc import Iterable
 from dataclasses import dataclass
 from enum import StrEnum
 from pathlib import Path
 from typing import Literal
 
+from agentsec.frameworks.homi_operation_context import HomiOperationContextReport
 from agentsec.frameworks.homi_pilot import (
     HomiPilotReport,
     encode_homi_pilot_json,
 )
+from agentsec.risk.context import OperationContext, canonical_operation_context_sha256
+from agentsec.risk.context_rules import (
+    DeterministicContextRuleEngine,
+    canonical_context_risk_sha256,
+)
+from agentsec.risk.context_score import DeterministicContextRiskScoreEngine
 from agentsec.versioning import HOMI_SNAPSHOT_OUTPUT_VERSION
 
 HOMI_SNAPSHOT_FORMAT: Literal["agentsec-homi-snapshot"] = "agentsec-homi-snapshot"
@@ -31,14 +39,22 @@ HOMI_SNAPSHOT_VERIFICATION_FORMAT: Literal["agentsec-homi-snapshot-verification"
     "agentsec-homi-snapshot-verification"
 )
 HOMI_SNAPSHOT_BASIS = (
-    "AgentSec RISK-06 Homi Agent Snapshot contract 0.1.0",
+    "AgentSec RISK-08B Homi Agent Snapshot context contract 0.3.0",
     "A Snapshot is static report-only evidence, not runtime verification",
-    "The snapshot digest excludes session metadata (pilot_id/owner)",
+    "An explicit platform subject_id owns Agent identity binding",
+    "Project name is display metadata and never determines Agent identity",
+    (
+        "The snapshot digest excludes session/display metadata "
+        "(pilot_id/owner/project_name)"
+    ),
     "The snapshot digest excludes the session-bound source report digest",
     "The workspace fingerprint is derived only from standard file digests",
+    "RISK-03/04/05 summaries and their canonical digests are Snapshot-bound",
+    "Context summaries contain enums and IDs, never raw source or secret values",
     "Comparing snapshots across different agents is rejected, not drifted",
 )
 _HEX = frozenset("0123456789abcdef")
+_SUBJECT_ID_PATTERN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._:/-]{0,127}$")
 
 
 class HomiSnapshotStatus(StrEnum):
@@ -131,6 +147,242 @@ class HomiSnapshotFindingSummary:
 
 
 @dataclass(frozen=True, slots=True)
+class HomiSnapshotObservationSummary:
+    """One policy observation summary (control layer)."""
+
+    code: str
+    kind: str
+    roles: tuple[str, ...]
+    source_paths: tuple[str, ...]
+    resolution: str
+
+    def __post_init__(self) -> None:
+        _require_text(self.code, "Homi snapshot observation code")
+        _require_text(self.kind, "Homi snapshot observation kind")
+        _require_text(self.resolution, "Homi snapshot observation resolution")
+        for label, values in (
+            ("roles", self.roles),
+            ("source paths", self.source_paths),
+        ):
+            if values != tuple(sorted(set(values))):
+                raise ValueError(
+                    f"Homi snapshot observation {label} must be sorted and unique"
+                )
+
+    def sort_key(self) -> tuple[str, str, tuple[str, ...]]:
+        return (self.code, self.kind, self.source_paths)
+
+    def to_dict(self) -> dict[str, object]:
+        return {
+            "code": self.code,
+            "kind": self.kind,
+            "roles": list(self.roles),
+            "source_paths": list(self.source_paths),
+            "resolution": self.resolution,
+        }
+
+
+@dataclass(frozen=True, slots=True)
+class HomiSnapshotOperationContextSummary:
+    """Value-minimized RISK-03 operation summary."""
+
+    operation_id: str
+    action: str
+    target: str
+    data_classification: str
+    data_sharing: str
+    data_retention: str
+    trigger: str
+    purpose: str
+    authorization_state: str
+    reversibility: str
+    scope: str
+    frequency: str
+    status: str
+    controls_present: tuple[str, ...]
+    controls_absent: tuple[str, ...]
+    controls_unknown: tuple[str, ...]
+    controls_not_applicable: tuple[str, ...]
+    evidence_ids: tuple[str, ...]
+
+    def __post_init__(self) -> None:
+        for label, value in (
+            ("operation_id", self.operation_id),
+            ("action", self.action),
+            ("target", self.target),
+            ("data_classification", self.data_classification),
+            ("data_sharing", self.data_sharing),
+            ("data_retention", self.data_retention),
+            ("trigger", self.trigger),
+            ("purpose", self.purpose),
+            ("authorization_state", self.authorization_state),
+            ("reversibility", self.reversibility),
+            ("scope", self.scope),
+            ("frequency", self.frequency),
+            ("status", self.status),
+        ):
+            _require_text(value, f"Homi snapshot context {label}")
+        groups = (
+            self.controls_present,
+            self.controls_absent,
+            self.controls_unknown,
+            self.controls_not_applicable,
+        )
+        for values in groups:
+            _require_string_tuple(values, "Homi snapshot context controls")
+        flattened = tuple(item for values in groups for item in values)
+        if len(flattened) != len(set(flattened)):
+            raise ValueError("Homi snapshot context controls overlap")
+        _require_string_tuple(self.evidence_ids, "Homi snapshot context Evidence IDs")
+
+    def sort_key(self) -> str:
+        return self.operation_id
+
+    def to_dict(self) -> dict[str, object]:
+        return {
+            "operation_id": self.operation_id,
+            "action": self.action,
+            "target": self.target,
+            "data_classification": self.data_classification,
+            "data_sharing": self.data_sharing,
+            "data_retention": self.data_retention,
+            "trigger": self.trigger,
+            "purpose": self.purpose,
+            "authorization_state": self.authorization_state,
+            "reversibility": self.reversibility,
+            "scope": self.scope,
+            "frequency": self.frequency,
+            "status": self.status,
+            "controls_present": list(self.controls_present),
+            "controls_absent": list(self.controls_absent),
+            "controls_unknown": list(self.controls_unknown),
+            "controls_not_applicable": list(self.controls_not_applicable),
+            "evidence_ids": list(self.evidence_ids),
+        }
+
+
+@dataclass(frozen=True, slots=True)
+class HomiSnapshotContextFindingSummary:
+    """Value-minimized RISK-04 Finding summary."""
+
+    finding_id: str
+    rule_id: str
+    kind: str
+    category: str
+    likelihood: str
+    impact: str
+    severity: str
+    confidence: str
+    context_ids: tuple[str, ...]
+    evidence_ids: tuple[str, ...]
+    rationale_code: str
+
+    def __post_init__(self) -> None:
+        for label, value in (
+            ("finding_id", self.finding_id),
+            ("rule_id", self.rule_id),
+            ("kind", self.kind),
+            ("category", self.category),
+            ("likelihood", self.likelihood),
+            ("impact", self.impact),
+            ("severity", self.severity),
+            ("confidence", self.confidence),
+            ("rationale_code", self.rationale_code),
+        ):
+            _require_text(value, f"Homi snapshot context Finding {label}")
+        _require_string_tuple(
+            self.context_ids, "Homi snapshot context Finding context IDs"
+        )
+        _require_string_tuple(
+            self.evidence_ids, "Homi snapshot context Finding Evidence IDs"
+        )
+
+    def sort_key(self) -> str:
+        return self.finding_id
+
+    def to_dict(self) -> dict[str, object]:
+        return {
+            "finding_id": self.finding_id,
+            "rule_id": self.rule_id,
+            "kind": self.kind,
+            "category": self.category,
+            "likelihood": self.likelihood,
+            "impact": self.impact,
+            "severity": self.severity,
+            "confidence": self.confidence,
+            "context_ids": list(self.context_ids),
+            "evidence_ids": list(self.evidence_ids),
+            "rationale_code": self.rationale_code,
+        }
+
+
+@dataclass(frozen=True, slots=True)
+class HomiSnapshotContextScoreSummary:
+    """Value-minimized RISK-05 score summary without runtime authority."""
+
+    model_version: str
+    coverage_complete: bool
+    unknown_dimensions: tuple[str, ...]
+    potential_impact_score: float
+    potential_impact_level: str
+    residual_risk_score: float
+    residual_risk_level: str
+    current_posture: str
+    current_posture_score: float | None
+    contribution_count: int
+
+    def __post_init__(self) -> None:
+        for label, value in (
+            ("model_version", self.model_version),
+            ("potential_impact_level", self.potential_impact_level),
+            ("residual_risk_level", self.residual_risk_level),
+            ("current_posture", self.current_posture),
+        ):
+            _require_text(value, f"Homi snapshot context score {label}")
+        if not isinstance(self.coverage_complete, bool):
+            raise TypeError("Homi snapshot context score coverage flag is invalid")
+        _require_string_tuple(
+            self.unknown_dimensions,
+            "Homi snapshot context score Unknown dimensions",
+        )
+        _require_score(
+            self.potential_impact_score,
+            "Homi snapshot context score potential impact",
+        )
+        _require_score(
+            self.residual_risk_score,
+            "Homi snapshot context score residual risk",
+        )
+        if self.residual_risk_score > self.potential_impact_score:
+            raise ValueError("Homi snapshot residual risk exceeds potential impact")
+        if self.current_posture_score is not None:
+            _require_score(
+                self.current_posture_score,
+                "Homi snapshot current posture score",
+            )
+        if (
+            not isinstance(self.contribution_count, int)
+            or isinstance(self.contribution_count, bool)
+            or self.contribution_count < 0
+        ):
+            raise ValueError("Homi snapshot context contribution count is invalid")
+
+    def to_dict(self) -> dict[str, object]:
+        return {
+            "model_version": self.model_version,
+            "coverage_complete": self.coverage_complete,
+            "unknown_dimensions": list(self.unknown_dimensions),
+            "potential_impact_score": self.potential_impact_score,
+            "potential_impact_level": self.potential_impact_level,
+            "residual_risk_score": self.residual_risk_score,
+            "residual_risk_level": self.residual_risk_level,
+            "current_posture": self.current_posture,
+            "current_posture_score": self.current_posture_score,
+            "contribution_count": self.contribution_count,
+        }
+
+
+@dataclass(frozen=True, slots=True)
 class HomiSnapshot:
     """Deterministic, report-only snapshot of one Homi Pilot run."""
 
@@ -138,6 +390,7 @@ class HomiSnapshot:
     format_version: str
     snapshot_digest: str
     workspace_fingerprint: str
+    subject_id: str
     project_name: str
     adapter_version: str
     profile_model_version: str
@@ -147,6 +400,13 @@ class HomiSnapshot:
     capabilities: tuple[HomiSnapshotSignalSummary, ...]
     persona_signals: tuple[HomiSnapshotSignalSummary, ...]
     findings: tuple[HomiSnapshotFindingSummary, ...]
+    observations: tuple[HomiSnapshotObservationSummary, ...]
+    operation_context_sha256: str
+    context_risk_report_sha256: str
+    context_score_report_sha256: str
+    operation_contexts: tuple[HomiSnapshotOperationContextSummary, ...]
+    context_findings: tuple[HomiSnapshotContextFindingSummary, ...]
+    context_score: HomiSnapshotContextScoreSummary
     coverage_metrics: dict[str, object]
     pilot_id: str
     owner: str
@@ -164,6 +424,19 @@ class HomiSnapshot:
             self.workspace_fingerprint, "Homi snapshot workspace fingerprint"
         )
         _require_digest(self.source_report_sha256, "Homi snapshot source digest")
+        _require_digest(
+            self.operation_context_sha256,
+            "Homi snapshot Operation Context digest",
+        )
+        _require_digest(
+            self.context_risk_report_sha256,
+            "Homi snapshot Context Risk digest",
+        )
+        _require_digest(
+            self.context_score_report_sha256,
+            "Homi snapshot Context Score digest",
+        )
+        _require_subject_id(self.subject_id)
         for label, value in (
             ("project_name", self.project_name),
             ("adapter_version", self.adapter_version),
@@ -177,6 +450,32 @@ class HomiSnapshot:
         _require_sorted_unique(self.capabilities, "Homi snapshot capabilities")
         _require_sorted_unique(self.persona_signals, "Homi snapshot persona signals")
         _require_sorted_unique(self.findings, "Homi snapshot findings")
+        _require_sorted_unique(self.observations, "Homi snapshot observations")
+        _require_sorted_unique(
+            self.operation_contexts,
+            "Homi snapshot Operation Contexts",
+        )
+        _require_sorted_unique(
+            self.context_findings,
+            "Homi snapshot Context Findings",
+        )
+        if not self.operation_contexts:
+            raise ValueError("Homi snapshot requires Operation Context summaries")
+        if not isinstance(self.context_score, HomiSnapshotContextScoreSummary):
+            raise TypeError("Homi snapshot Context Score summary is invalid")
+        operation_ids = {item.operation_id for item in self.operation_contexts}
+        if any(
+            not set(item.context_ids).issubset(operation_ids)
+            for item in self.context_findings
+        ):
+            raise ValueError(
+                "Homi snapshot Context Finding references unknown operation"
+            )
+        risk_finding_count = sum(item.kind == "risk" for item in self.context_findings)
+        if self.context_score.contribution_count != risk_finding_count:
+            raise ValueError(
+                "Homi snapshot Context Score contribution count is invalid"
+            )
         if not isinstance(self.coverage_metrics, dict):
             raise ValueError("Homi snapshot coverage metrics must be an object")
         if self.report_only is not True:
@@ -191,16 +490,16 @@ class HomiSnapshot:
     def canonical_payload(self) -> dict[str, object]:
         """Return the digest-covered content (session-bound fields excluded).
 
-        ``source_report_sha256`` and ``pilot_id``/``owner`` stay out of the
-        digest: they identify one Pilot session, not the workspace content,
-        and the same workspace must always produce the same digest.
+        ``source_report_sha256``, ``pilot_id``/``owner``, and ``project_name``
+        stay out of the digest. ``subject_id`` is the stable identity binding;
+        project name is mutable display metadata.
         """
 
         return {
             "format": self.format,
             "format_version": self.format_version,
             "workspace_fingerprint": self.workspace_fingerprint,
-            "project_name": self.project_name,
+            "subject_id": self.subject_id,
             "adapter_version": self.adapter_version,
             "profile_model_version": self.profile_model_version,
             "combination_rule_pack_version": self.combination_rule_pack_version,
@@ -208,6 +507,13 @@ class HomiSnapshot:
             "capabilities": [item.to_dict() for item in self.capabilities],
             "persona_signals": [item.to_dict() for item in self.persona_signals],
             "findings": [item.to_dict() for item in self.findings],
+            "observations": [item.to_dict() for item in self.observations],
+            "operation_context_sha256": self.operation_context_sha256,
+            "context_risk_report_sha256": self.context_risk_report_sha256,
+            "context_score_report_sha256": self.context_score_report_sha256,
+            "operation_contexts": [item.to_dict() for item in self.operation_contexts],
+            "context_findings": [item.to_dict() for item in self.context_findings],
+            "context_score": self.context_score.to_dict(),
             "coverage_metrics": self.coverage_metrics,
         }
 
@@ -215,6 +521,7 @@ class HomiSnapshot:
         return {
             **self.canonical_payload(),
             "snapshot_digest": self.snapshot_digest,
+            "project_name": self.project_name,
             "source_report_sha256": self.source_report_sha256,
             "pilot_id": self.pilot_id,
             "owner": self.owner,
@@ -240,12 +547,18 @@ class HomiSnapshotVerification:
     current_workspace_fingerprint: str
     baseline_snapshot_digest: str
     current_snapshot_digest: str
+    baseline_subject_id: str
+    current_subject_id: str
     baseline_project_name: str
     current_project_name: str
     file_changes: tuple[str, ...] = ()
     capability_changes: tuple[str, ...] = ()
     findings_added: tuple[str, ...] = ()
     findings_removed: tuple[str, ...] = ()
+    operation_context_changes: tuple[str, ...] = ()
+    context_findings_added: tuple[str, ...] = ()
+    context_findings_removed: tuple[str, ...] = ()
+    context_score_changed: bool = False
     report_only: Literal[True] = True
     runtime_verified: Literal[False] = False
     ci_blocked: Literal[False] = False
@@ -267,6 +580,8 @@ class HomiSnapshotVerification:
             ("current workspace fingerprint", self.current_workspace_fingerprint),
         ):
             _require_digest(value, f"Homi snapshot verification {label}")
+        _require_subject_id(self.baseline_subject_id)
+        _require_subject_id(self.current_subject_id)
         _require_text(
             self.baseline_project_name,
             "Homi snapshot verification baseline project name",
@@ -280,11 +595,16 @@ class HomiSnapshotVerification:
             ("capability changes", self.capability_changes),
             ("findings added", self.findings_added),
             ("findings removed", self.findings_removed),
+            ("Operation Context changes", self.operation_context_changes),
+            ("Context Findings added", self.context_findings_added),
+            ("Context Findings removed", self.context_findings_removed),
         ):
             if values != tuple(sorted(set(values))):
                 raise ValueError(
                     f"Homi snapshot verification {label} must be sorted and unique"
                 )
+        if not isinstance(self.context_score_changed, bool):
+            raise TypeError("Homi snapshot Context Score change flag is invalid")
         if self.report_only is not True or self.runtime_verified is not False:
             raise ValueError("Homi snapshot verification authority is invalid")
         if self.ci_blocked is not False:
@@ -299,12 +619,18 @@ class HomiSnapshotVerification:
             "current_workspace_fingerprint": self.current_workspace_fingerprint,
             "baseline_snapshot_digest": self.baseline_snapshot_digest,
             "current_snapshot_digest": self.current_snapshot_digest,
+            "baseline_subject_id": self.baseline_subject_id,
+            "current_subject_id": self.current_subject_id,
             "baseline_project_name": self.baseline_project_name,
             "current_project_name": self.current_project_name,
             "file_changes": list(self.file_changes),
             "capability_changes": list(self.capability_changes),
             "findings_added": list(self.findings_added),
             "findings_removed": list(self.findings_removed),
+            "operation_context_changes": list(self.operation_context_changes),
+            "context_findings_added": list(self.context_findings_added),
+            "context_findings_removed": list(self.context_findings_removed),
+            "context_score_changed": self.context_score_changed,
             "report_only": self.report_only,
             "runtime_verified": self.runtime_verified,
             "ci_blocked": self.ci_blocked,
@@ -316,11 +642,22 @@ class HomiSnapshotVerification:
         }
 
 
-def build_homi_snapshot(report: HomiPilotReport) -> HomiSnapshot:
+def build_homi_snapshot(
+    report: HomiPilotReport,
+    *,
+    subject_id: str,
+    operation_context: HomiOperationContextReport,
+) -> HomiSnapshot:
     """Build a deterministic Snapshot from one Homi Pilot report."""
 
     if not isinstance(report, HomiPilotReport):
         raise TypeError("Homi snapshot builder requires HomiPilotReport")
+    _require_subject_id(subject_id)
+    if not isinstance(operation_context, HomiOperationContextReport):
+        raise TypeError("Homi snapshot builder requires HomiOperationContextReport")
+    source = hashlib.sha256(encode_homi_pilot_json(report).encode("utf-8")).hexdigest()
+    if operation_context.source_report_sha256 != source:
+        raise ValueError("Homi Snapshot Operation Context is not bound to Pilot report")
     files = _sorted_unique(
         (
             HomiSnapshotFileSummary(
@@ -360,15 +697,72 @@ def build_homi_snapshot(report: HomiPilotReport) -> HomiSnapshot:
         ),
         "Homi snapshot findings",
     )
+    observations = _sorted_unique(
+        (
+            HomiSnapshotObservationSummary(
+                code=item.code.value,
+                kind=item.kind.value,
+                roles=item.roles,
+                source_paths=item.source_paths,
+                resolution=item.resolution,
+            )
+            for item in report.observations
+        ),
+        "Homi snapshot observations",
+    )
+    context_risk_report = DeterministicContextRuleEngine().run(
+        operation_context.context_set
+    )
+    context_score_report = DeterministicContextRiskScoreEngine().run(
+        operation_context.context_set,
+        context_risk_report,
+    )
+    operation_contexts = _sorted_unique(
+        (
+            _operation_context_summary(item)
+            for item in operation_context.context_set.contexts
+        ),
+        "Homi snapshot Operation Contexts",
+    )
+    context_findings = _sorted_unique(
+        (
+            HomiSnapshotContextFindingSummary(
+                finding_id=item.finding_id,
+                rule_id=item.rule_id,
+                kind=item.kind.value,
+                category=item.category.value,
+                likelihood=item.likelihood.value,
+                impact=item.impact.value,
+                severity=item.severity.value,
+                confidence=item.confidence.value,
+                context_ids=item.context_ids,
+                evidence_ids=item.evidence_ids,
+                rationale_code=item.rationale_code,
+            )
+            for item in context_risk_report.findings
+        ),
+        "Homi snapshot Context Findings",
+    )
+    context_score = HomiSnapshotContextScoreSummary(
+        model_version=context_score_report.model_version,
+        coverage_complete=context_score_report.coverage_complete,
+        unknown_dimensions=context_score_report.unknown_dimensions,
+        potential_impact_score=context_score_report.potential_impact_score,
+        potential_impact_level=context_score_report.potential_impact_level.value,
+        residual_risk_score=context_score_report.residual_risk_score,
+        residual_risk_level=context_score_report.residual_risk_level.value,
+        current_posture=context_score_report.current_posture.value,
+        current_posture_score=context_score_report.current_posture_score,
+        contribution_count=len(context_score_report.contributions),
+    )
     # The source hash binds the full Pilot report bytes (session metadata
     # included); it is cross-reference evidence and stays out of the digest.
-    source = hashlib.sha256(encode_homi_pilot_json(report).encode("utf-8")).hexdigest()
     workspace_fingerprint = _workspace_fingerprint(files)
     canonical = _canonical_payload(
         HOMI_SNAPSHOT_FORMAT,
         HOMI_SNAPSHOT_FORMAT_VERSION,
         workspace_fingerprint,
-        report.project_name,
+        subject_id,
         report.adapter_version,
         report.profile_model_version,
         report.combination_result.rule_pack_version,
@@ -376,6 +770,13 @@ def build_homi_snapshot(report: HomiPilotReport) -> HomiSnapshot:
         capabilities,
         persona_signals,
         findings,
+        observations,
+        canonical_operation_context_sha256(operation_context.context_set),
+        canonical_context_risk_sha256(context_risk_report),
+        _digest_of(context_score_report.to_dict()),
+        operation_contexts,
+        context_findings,
+        context_score,
         report.coverage_metrics,
     )
     return HomiSnapshot(
@@ -383,6 +784,7 @@ def build_homi_snapshot(report: HomiPilotReport) -> HomiSnapshot:
         format_version=HOMI_SNAPSHOT_FORMAT_VERSION,
         snapshot_digest=_digest_of(canonical),
         workspace_fingerprint=workspace_fingerprint,
+        subject_id=subject_id,
         project_name=report.project_name,
         adapter_version=report.adapter_version,
         profile_model_version=report.profile_model_version,
@@ -392,6 +794,15 @@ def build_homi_snapshot(report: HomiPilotReport) -> HomiSnapshot:
         capabilities=capabilities,
         persona_signals=persona_signals,
         findings=findings,
+        observations=observations,
+        operation_context_sha256=canonical_operation_context_sha256(
+            operation_context.context_set
+        ),
+        context_risk_report_sha256=canonical_context_risk_sha256(context_risk_report),
+        context_score_report_sha256=_digest_of(context_score_report.to_dict()),
+        operation_contexts=operation_contexts,
+        context_findings=context_findings,
+        context_score=context_score,
         coverage_metrics=report.coverage_metrics,
         pilot_id=report.pilot_id,
         owner=report.owner,
@@ -409,9 +820,7 @@ def verify_homi_snapshot(
         raise TypeError("Homi snapshot verification requires a current Snapshot")
     baseline_files = {item.name: item for item in baseline.files}
     current_files = {item.name: item for item in current.files}
-    same_agent = baseline.project_name == current.project_name and set(
-        baseline_files
-    ) == set(current_files)
+    same_agent = baseline.subject_id == current.subject_id
     if not same_agent:
         return HomiSnapshotVerification(
             format=HOMI_SNAPSHOT_VERIFICATION_FORMAT,
@@ -421,6 +830,8 @@ def verify_homi_snapshot(
             current_workspace_fingerprint=current.workspace_fingerprint,
             baseline_snapshot_digest=baseline.snapshot_digest,
             current_snapshot_digest=current.snapshot_digest,
+            baseline_subject_id=baseline.subject_id,
+            current_subject_id=current.subject_id,
             baseline_project_name=baseline.project_name,
             current_project_name=current.project_name,
         )
@@ -442,10 +853,27 @@ def verify_homi_snapshot(
     )
     baseline_findings = {item.rule_id for item in baseline.findings}
     current_findings = {item.rule_id for item in current.findings}
+    baseline_contexts = {
+        item.operation_id: item for item in baseline.operation_contexts
+    }
+    current_contexts = {item.operation_id: item for item in current.operation_contexts}
+    operation_context_changes = tuple(
+        sorted(
+            operation_id
+            for operation_id in set(baseline_contexts) | set(current_contexts)
+            if baseline_contexts.get(operation_id) != current_contexts.get(operation_id)
+        )
+    )
+    baseline_context_findings = {item.finding_id for item in baseline.context_findings}
+    current_context_findings = {item.finding_id for item in current.context_findings}
+    context_score_changed = baseline.context_score != current.context_score
     drifted = (
         bool(file_changes)
         or bool(capability_changes)
         or baseline_findings != current_findings
+        or bool(operation_context_changes)
+        or baseline_context_findings != current_context_findings
+        or context_score_changed
         or baseline.coverage_metrics != current.coverage_metrics
         or any(
             getattr(baseline, key) != getattr(current, key)
@@ -464,12 +892,22 @@ def verify_homi_snapshot(
         current_workspace_fingerprint=current.workspace_fingerprint,
         baseline_snapshot_digest=baseline.snapshot_digest,
         current_snapshot_digest=current.snapshot_digest,
+        baseline_subject_id=baseline.subject_id,
+        current_subject_id=current.subject_id,
         baseline_project_name=baseline.project_name,
         current_project_name=current.project_name,
         file_changes=file_changes,
         capability_changes=capability_changes,
         findings_added=tuple(sorted(current_findings - baseline_findings)),
         findings_removed=tuple(sorted(baseline_findings - current_findings)),
+        operation_context_changes=operation_context_changes,
+        context_findings_added=tuple(
+            sorted(current_context_findings - baseline_context_findings)
+        ),
+        context_findings_removed=tuple(
+            sorted(baseline_context_findings - current_context_findings)
+        ),
+        context_score_changed=context_score_changed,
     )
 
 
@@ -529,6 +967,25 @@ def decode_homi_snapshot_json(text: str) -> HomiSnapshot:
             (_decode_finding(item) for item in payload["findings"]),
             "Homi snapshot findings",
         )
+        observations = _sorted_unique(
+            (_decode_observation(item) for item in payload["observations"]),
+            "Homi snapshot observations",
+        )
+        operation_contexts = _sorted_unique(
+            (
+                _decode_operation_context_summary(item)
+                for item in payload["operation_contexts"]
+            ),
+            "Homi snapshot Operation Contexts",
+        )
+        context_findings = _sorted_unique(
+            (
+                _decode_context_finding_summary(item)
+                for item in payload["context_findings"]
+            ),
+            "Homi snapshot Context Findings",
+        )
+        context_score = _decode_context_score_summary(payload["context_score"])
         coverage = payload["coverage_metrics"]
         if not isinstance(coverage, dict):
             raise ValueError("Homi snapshot coverage metrics must be an object")
@@ -537,6 +994,7 @@ def decode_homi_snapshot_json(text: str) -> HomiSnapshot:
             format_version=_text_field(payload, "format_version"),
             snapshot_digest=_text_field(payload, "snapshot_digest"),
             workspace_fingerprint=_text_field(payload, "workspace_fingerprint"),
+            subject_id=_text_field(payload, "subject_id"),
             project_name=_text_field(payload, "project_name"),
             adapter_version=_text_field(payload, "adapter_version"),
             profile_model_version=_text_field(payload, "profile_model_version"),
@@ -548,6 +1006,17 @@ def decode_homi_snapshot_json(text: str) -> HomiSnapshot:
             capabilities=capabilities,
             persona_signals=persona_signals,
             findings=findings,
+            observations=observations,
+            operation_context_sha256=_text_field(payload, "operation_context_sha256"),
+            context_risk_report_sha256=_text_field(
+                payload, "context_risk_report_sha256"
+            ),
+            context_score_report_sha256=_text_field(
+                payload, "context_score_report_sha256"
+            ),
+            operation_contexts=operation_contexts,
+            context_findings=context_findings,
+            context_score=context_score,
             coverage_metrics=coverage,
             pilot_id=_text_field(payload, "pilot_id"),
             owner=_text_field(payload, "owner"),
@@ -576,6 +1045,7 @@ def export_homi_snapshot_json_schema(output_directory: Path) -> Path:
             "format_version",
             "snapshot_digest",
             "workspace_fingerprint",
+            "subject_id",
             "project_name",
             "adapter_version",
             "profile_model_version",
@@ -585,6 +1055,13 @@ def export_homi_snapshot_json_schema(output_directory: Path) -> Path:
             "capabilities",
             "persona_signals",
             "findings",
+            "observations",
+            "operation_context_sha256",
+            "context_risk_report_sha256",
+            "context_score_report_sha256",
+            "operation_contexts",
+            "context_findings",
+            "context_score",
             "coverage_metrics",
             "pilot_id",
             "owner",
@@ -602,6 +1079,10 @@ def export_homi_snapshot_json_schema(output_directory: Path) -> Path:
             "snapshot_digest": _SCHEMA_SHA256,
             "workspace_fingerprint": _SCHEMA_SHA256,
             "source_report_sha256": _SCHEMA_SHA256,
+            "subject_id": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]{0,127}$",
+            },
             "project_name": {"type": "string", "minLength": 1},
             "adapter_version": {"type": "string", "minLength": 1},
             "profile_model_version": {"type": "string", "minLength": 1},
@@ -653,6 +1134,34 @@ def export_homi_snapshot_json_schema(output_directory: Path) -> Path:
                     },
                 },
             },
+            "observations": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "additionalProperties": False,
+                    "required": ["code", "kind", "roles", "source_paths", "resolution"],
+                    "properties": {
+                        "code": {"type": "string", "minLength": 1},
+                        "kind": {"type": "string", "minLength": 1},
+                        "roles": {"type": "array", "items": {"type": "string"}},
+                        "source_paths": {"type": "array", "items": {"type": "string"}},
+                        "resolution": {"type": "string", "minLength": 1},
+                    },
+                },
+            },
+            "operation_context_sha256": _SCHEMA_SHA256,
+            "context_risk_report_sha256": _SCHEMA_SHA256,
+            "context_score_report_sha256": _SCHEMA_SHA256,
+            "operation_contexts": {
+                "type": "array",
+                "minItems": 1,
+                "items": {"$ref": "#/$defs/operationContextSummary"},
+            },
+            "context_findings": {
+                "type": "array",
+                "items": {"$ref": "#/$defs/contextFindingSummary"},
+            },
+            "context_score": {"$ref": "#/$defs/contextScoreSummary"},
             "coverage_metrics": {"type": "object"},
             "pilot_id": {"type": "string", "minLength": 1},
             "owner": {"type": "string", "minLength": 1},
@@ -662,6 +1171,86 @@ def export_homi_snapshot_json_schema(output_directory: Path) -> Path:
             "authority": _SCHEMA_AUTHORITY,
         },
         "$defs": {
+            "operationContextSummary": {
+                "type": "object",
+                "additionalProperties": False,
+                "required": list(
+                    HomiSnapshotOperationContextSummary.__dataclass_fields__
+                ),
+                "properties": {
+                    "operation_id": {"type": "string", "minLength": 1},
+                    "action": {"type": "string", "minLength": 1},
+                    "target": {"type": "string", "minLength": 1},
+                    "data_classification": {"type": "string", "minLength": 1},
+                    "data_sharing": {"type": "string", "minLength": 1},
+                    "data_retention": {"type": "string", "minLength": 1},
+                    "trigger": {"type": "string", "minLength": 1},
+                    "purpose": {"type": "string", "minLength": 1},
+                    "authorization_state": {"type": "string", "minLength": 1},
+                    "reversibility": {"type": "string", "minLength": 1},
+                    "scope": {"type": "string", "minLength": 1},
+                    "frequency": {"type": "string", "minLength": 1},
+                    "status": {"type": "string", "minLength": 1},
+                    "controls_present": _SCHEMA_STRING_ARRAY,
+                    "controls_absent": _SCHEMA_STRING_ARRAY,
+                    "controls_unknown": _SCHEMA_STRING_ARRAY,
+                    "controls_not_applicable": _SCHEMA_STRING_ARRAY,
+                    "evidence_ids": _SCHEMA_STRING_ARRAY,
+                },
+            },
+            "contextFindingSummary": {
+                "type": "object",
+                "additionalProperties": False,
+                "required": list(
+                    HomiSnapshotContextFindingSummary.__dataclass_fields__
+                ),
+                "properties": {
+                    "finding_id": {"type": "string", "minLength": 1},
+                    "rule_id": {"type": "string", "minLength": 1},
+                    "kind": {"type": "string", "enum": ["risk", "coverage"]},
+                    "category": {"type": "string", "minLength": 1},
+                    "likelihood": {"type": "string", "minLength": 1},
+                    "impact": {"type": "string", "minLength": 1},
+                    "severity": {"type": "string", "minLength": 1},
+                    "confidence": {
+                        "type": "string",
+                        "enum": ["A", "B", "C", "D"],
+                    },
+                    "context_ids": _SCHEMA_STRING_ARRAY,
+                    "evidence_ids": _SCHEMA_STRING_ARRAY,
+                    "rationale_code": {"type": "string", "minLength": 1},
+                },
+            },
+            "contextScoreSummary": {
+                "type": "object",
+                "additionalProperties": False,
+                "required": list(HomiSnapshotContextScoreSummary.__dataclass_fields__),
+                "properties": {
+                    "model_version": {"type": "string", "minLength": 1},
+                    "coverage_complete": {"type": "boolean"},
+                    "unknown_dimensions": _SCHEMA_STRING_ARRAY,
+                    "potential_impact_score": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 10,
+                    },
+                    "potential_impact_level": {"type": "string", "minLength": 1},
+                    "residual_risk_score": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 10,
+                    },
+                    "residual_risk_level": {"type": "string", "minLength": 1},
+                    "current_posture": {"type": "string", "minLength": 1},
+                    "current_posture_score": {
+                        "anyOf": [
+                            {"type": "number", "minimum": 0, "maximum": 10},
+                            {"type": "null"},
+                        ]
+                    },
+                    "contribution_count": {"type": "integer", "minimum": 0},
+                },
+            },
             "signalSummaries": {
                 "type": "array",
                 "items": {
@@ -687,6 +1276,11 @@ _SCHEMA_SHA256: dict[str, object] = {
     "type": "string",
     "pattern": "^[0-9a-f]{64}$",
 }
+_SCHEMA_STRING_ARRAY: dict[str, object] = {
+    "type": "array",
+    "items": {"type": "string", "minLength": 1},
+    "uniqueItems": True,
+}
 _SCHEMA_AUTHORITY: dict[str, object] = {
     "type": "object",
     "additionalProperties": False,
@@ -703,7 +1297,7 @@ def _canonical_payload(
     snapshot_format: str,
     format_version: str,
     workspace_fingerprint: str,
-    project_name: str,
+    subject_id: str,
     adapter_version: str,
     profile_model_version: str,
     combination_rule_pack_version: str,
@@ -711,13 +1305,20 @@ def _canonical_payload(
     capabilities: tuple[HomiSnapshotSignalSummary, ...],
     persona_signals: tuple[HomiSnapshotSignalSummary, ...],
     findings: tuple[HomiSnapshotFindingSummary, ...],
+    observations: tuple[HomiSnapshotObservationSummary, ...],
+    operation_context_sha256: str,
+    context_risk_report_sha256: str,
+    context_score_report_sha256: str,
+    operation_contexts: tuple[HomiSnapshotOperationContextSummary, ...],
+    context_findings: tuple[HomiSnapshotContextFindingSummary, ...],
+    context_score: HomiSnapshotContextScoreSummary,
     coverage_metrics: dict[str, object],
 ) -> dict[str, object]:
     return {
         "format": snapshot_format,
         "format_version": format_version,
         "workspace_fingerprint": workspace_fingerprint,
-        "project_name": project_name,
+        "subject_id": subject_id,
         "adapter_version": adapter_version,
         "profile_model_version": profile_model_version,
         "combination_rule_pack_version": combination_rule_pack_version,
@@ -725,8 +1326,45 @@ def _canonical_payload(
         "capabilities": [item.to_dict() for item in capabilities],
         "persona_signals": [item.to_dict() for item in persona_signals],
         "findings": [item.to_dict() for item in findings],
+        "observations": [item.to_dict() for item in observations],
+        "operation_context_sha256": operation_context_sha256,
+        "context_risk_report_sha256": context_risk_report_sha256,
+        "context_score_report_sha256": context_score_report_sha256,
+        "operation_contexts": [item.to_dict() for item in operation_contexts],
+        "context_findings": [item.to_dict() for item in context_findings],
+        "context_score": context_score.to_dict(),
         "coverage_metrics": coverage_metrics,
     }
+
+
+def _operation_context_summary(
+    context: OperationContext,
+) -> HomiSnapshotOperationContextSummary:
+    controls = context.controls.model_dump(mode="json")
+
+    def names_for(state: str) -> tuple[str, ...]:
+        return tuple(sorted(name for name, value in controls.items() if value == state))
+
+    return HomiSnapshotOperationContextSummary(
+        operation_id=context.operation_id,
+        action=context.action.value,
+        target=context.target.value,
+        data_classification=context.data_scope.classification.value,
+        data_sharing=context.data_scope.sharing.value,
+        data_retention=context.data_scope.retention.value,
+        trigger=context.trigger.value,
+        purpose=context.purpose.value,
+        authorization_state=context.authorization.state.value,
+        reversibility=context.reversibility.value,
+        scope=context.scope.value,
+        frequency=context.frequency.value,
+        status=context.status.value,
+        controls_present=names_for("present"),
+        controls_absent=names_for("absent"),
+        controls_unknown=names_for("unknown"),
+        controls_not_applicable=names_for("not_applicable"),
+        evidence_ids=tuple(sorted(item.evidence_id for item in context.evidence)),
+    )
 
 
 def _digest_of(payload: dict[str, object]) -> str:
@@ -784,6 +1422,116 @@ def _decode_finding(payload: object) -> HomiSnapshotFindingSummary:
     )
 
 
+def _decode_observation(payload: object) -> HomiSnapshotObservationSummary:
+    if not isinstance(payload, dict):
+        raise ValueError("Homi snapshot observation entry must be an object")
+
+    def _string_tuple(value: object) -> tuple[str, ...]:
+        if not isinstance(value, list) or any(
+            not isinstance(item, str) for item in value
+        ):
+            raise ValueError("Homi snapshot observation list is invalid")
+        return tuple(value)
+
+    return HomiSnapshotObservationSummary(
+        code=_text_field(payload, "code"),
+        kind=_text_field(payload, "kind"),
+        roles=_string_tuple(payload.get("roles", [])),
+        source_paths=_string_tuple(payload.get("source_paths", [])),
+        resolution=_text_field(payload, "resolution"),
+    )
+
+
+def _decode_operation_context_summary(
+    payload: object,
+) -> HomiSnapshotOperationContextSummary:
+    if not isinstance(payload, dict):
+        raise ValueError("Homi snapshot Operation Context entry must be an object")
+    return HomiSnapshotOperationContextSummary(
+        operation_id=_text_field(payload, "operation_id"),
+        action=_text_field(payload, "action"),
+        target=_text_field(payload, "target"),
+        data_classification=_text_field(payload, "data_classification"),
+        data_sharing=_text_field(payload, "data_sharing"),
+        data_retention=_text_field(payload, "data_retention"),
+        trigger=_text_field(payload, "trigger"),
+        purpose=_text_field(payload, "purpose"),
+        authorization_state=_text_field(payload, "authorization_state"),
+        reversibility=_text_field(payload, "reversibility"),
+        scope=_text_field(payload, "scope"),
+        frequency=_text_field(payload, "frequency"),
+        status=_text_field(payload, "status"),
+        controls_present=_text_tuple_field(payload, "controls_present"),
+        controls_absent=_text_tuple_field(payload, "controls_absent"),
+        controls_unknown=_text_tuple_field(payload, "controls_unknown"),
+        controls_not_applicable=_text_tuple_field(payload, "controls_not_applicable"),
+        evidence_ids=_text_tuple_field(payload, "evidence_ids"),
+    )
+
+
+def _decode_context_finding_summary(
+    payload: object,
+) -> HomiSnapshotContextFindingSummary:
+    if not isinstance(payload, dict):
+        raise ValueError("Homi snapshot Context Finding entry must be an object")
+    return HomiSnapshotContextFindingSummary(
+        finding_id=_text_field(payload, "finding_id"),
+        rule_id=_text_field(payload, "rule_id"),
+        kind=_text_field(payload, "kind"),
+        category=_text_field(payload, "category"),
+        likelihood=_text_field(payload, "likelihood"),
+        impact=_text_field(payload, "impact"),
+        severity=_text_field(payload, "severity"),
+        confidence=_text_field(payload, "confidence"),
+        context_ids=_text_tuple_field(payload, "context_ids"),
+        evidence_ids=_text_tuple_field(payload, "evidence_ids"),
+        rationale_code=_text_field(payload, "rationale_code"),
+    )
+
+
+def _decode_context_score_summary(
+    payload: object,
+) -> HomiSnapshotContextScoreSummary:
+    if not isinstance(payload, dict):
+        raise ValueError("Homi snapshot Context Score must be an object")
+    potential = payload.get("potential_impact_score")
+    residual = payload.get("residual_risk_score")
+    posture_score = payload.get("current_posture_score")
+    contribution_count = payload.get("contribution_count")
+    coverage_complete = payload.get("coverage_complete")
+    if not isinstance(potential, (int, float)) or isinstance(potential, bool):
+        raise ValueError("Homi snapshot potential impact score is invalid")
+    if not isinstance(residual, (int, float)) or isinstance(residual, bool):
+        raise ValueError("Homi snapshot residual risk score is invalid")
+    if posture_score is not None and (
+        not isinstance(posture_score, (int, float)) or isinstance(posture_score, bool)
+    ):
+        raise ValueError("Homi snapshot current posture score is invalid")
+    if not isinstance(contribution_count, int) or isinstance(contribution_count, bool):
+        raise ValueError("Homi snapshot contribution count is invalid")
+    if not isinstance(coverage_complete, bool):
+        raise ValueError("Homi snapshot Context Score coverage is invalid")
+    return HomiSnapshotContextScoreSummary(
+        model_version=_text_field(payload, "model_version"),
+        coverage_complete=coverage_complete,
+        unknown_dimensions=_text_tuple_field(payload, "unknown_dimensions"),
+        potential_impact_score=float(potential),
+        potential_impact_level=_text_field(payload, "potential_impact_level"),
+        residual_risk_score=float(residual),
+        residual_risk_level=_text_field(payload, "residual_risk_level"),
+        current_posture=_text_field(payload, "current_posture"),
+        current_posture_score=(None if posture_score is None else float(posture_score)),
+        contribution_count=contribution_count,
+    )
+
+
+def _text_tuple_field(payload: dict[str, object], key: str) -> tuple[str, ...]:
+    value = payload.get(key)
+    if not isinstance(value, list) or any(not isinstance(item, str) for item in value):
+        raise ValueError(f"Homi snapshot field {key} must be a text array")
+    return tuple(value)
+
+
 def _text_field(payload: dict[str, object], key: str) -> str:
     value = payload.get(key)
     if not isinstance(value, str) or not value.strip():
@@ -796,6 +1544,29 @@ def _require_text(value: str, label: str) -> None:
         raise ValueError(f"{label} must be non-empty text")
 
 
+def _require_score(value: float, label: str) -> None:
+    if (
+        not isinstance(value, (int, float))
+        or isinstance(value, bool)
+        or not 0.0 <= value <= 10.0
+    ):
+        raise ValueError(f"{label} is out of range")
+
+
+def _require_string_tuple(values: tuple[str, ...], label: str) -> None:
+    if values != tuple(sorted(set(values))) or any(
+        not isinstance(value, str) or not value.strip() for value in values
+    ):
+        raise ValueError(f"{label} must be sorted, unique, non-empty text")
+
+
+def _require_subject_id(value: str) -> None:
+    if not isinstance(value, str) or _SUBJECT_ID_PATTERN.fullmatch(value) is None:
+        raise ValueError(
+            "Homi snapshot subject_id must be an explicit stable opaque identifier"
+        )
+
+
 def _require_digest(value: str, label: str) -> None:
     if (
         not isinstance(value, str)
@@ -806,7 +1577,14 @@ def _require_digest(value: str, label: str) -> None:
 
 
 def _require_sorted_unique[
-    T: (HomiSnapshotFileSummary, HomiSnapshotSignalSummary, HomiSnapshotFindingSummary)
+    T: (
+        HomiSnapshotFileSummary,
+        HomiSnapshotSignalSummary,
+        HomiSnapshotFindingSummary,
+        HomiSnapshotObservationSummary,
+        HomiSnapshotOperationContextSummary,
+        HomiSnapshotContextFindingSummary,
+    )
 ](items: tuple[T, ...], label: str) -> None:
     keys = tuple(item.sort_key() for item in items)
     if keys != tuple(sorted(set(keys))):
@@ -814,7 +1592,14 @@ def _require_sorted_unique[
 
 
 def _sorted_unique[
-    T: (HomiSnapshotFileSummary, HomiSnapshotSignalSummary, HomiSnapshotFindingSummary)
+    T: (
+        HomiSnapshotFileSummary,
+        HomiSnapshotSignalSummary,
+        HomiSnapshotFindingSummary,
+        HomiSnapshotObservationSummary,
+        HomiSnapshotOperationContextSummary,
+        HomiSnapshotContextFindingSummary,
+    )
 ](items: Iterable[T], label: str) -> tuple[T, ...]:
     ordered = tuple(sorted(items, key=lambda item: item.sort_key()))
     _require_sorted_unique(ordered, label)
@@ -828,7 +1613,11 @@ __all__ = [
     "HOMI_SNAPSHOT_VERIFICATION_FORMAT",
     "HomiSnapshot",
     "HomiSnapshotFileSummary",
+    "HomiSnapshotContextFindingSummary",
+    "HomiSnapshotContextScoreSummary",
     "HomiSnapshotFindingSummary",
+    "HomiSnapshotObservationSummary",
+    "HomiSnapshotOperationContextSummary",
     "HomiSnapshotSignalSummary",
     "HomiSnapshotStatus",
     "HomiSnapshotVerification",

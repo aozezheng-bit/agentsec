@@ -1,0 +1,150 @@
+{
+  "authority": {
+    "ci_blocked": false,
+    "report_only": true,
+    "runtime_verified": false
+  },
+  "basis": [
+    "AgentSec RISK-09A deterministic Homi Operation Context extraction 0.2.0",
+    "Only source-backed action declarations become Operation Contexts",
+    "Unknown authorization, trigger, data, and control facts remain unknown",
+    "Operation Context is evidence input and grants no runtime authority"
+  ],
+  "ci_blocked": false,
+  "context_set": {
+    "basis": [
+      "AgentSec RISK-09A deterministic Homi Operation Context extraction 0.2.0",
+      "Only source-backed action declarations become Operation Contexts",
+      "Unknown authorization, trigger, data, and control facts remain unknown",
+      "Operation Context is evidence input and grants no runtime authority"
+    ],
+    "contexts": [
+      {
+        "action": "send",
+        "authorization": {
+          "approval_present": false,
+          "approval_required": true,
+          "state": "approval_missing"
+        },
+        "controls": {
+          "allowlist": "unknown",
+          "approval": "absent",
+          "audit": "unknown",
+          "rate_limit": "unknown",
+          "redaction": "unknown",
+          "retention": "unknown",
+          "user_consent": "absent"
+        },
+        "data_scope": {
+          "classification": "unknown",
+          "retention": "unknown",
+          "sharing": "external"
+        },
+        "evidence": [
+          {
+            "confidence": "D",
+            "content_sha256": "53801912f072ad8a976eb3c8f521f76b74975f3c5c9eb62f364adc0a60ad3d14",
+            "end_line": 34,
+            "evidence_id": "operation-evidence-sha256:28ea297741f6b513b401ac18972635b5a8b37bfaa64c6660f392bc5d80d7e00a",
+            "extraction_method": "static_declaration",
+            "field_path": null,
+            "secret_values_included": false,
+            "source_path": "AGENTS.md",
+            "start_line": 34,
+            "value_minimized": true
+          }
+        ],
+        "format": "agentsec-operation-context",
+        "frequency": "one_time",
+        "operation_id": "homi.external-message.send",
+        "purpose": "external_communication",
+        "reversibility": "partially_reversible",
+        "runtime_authority": false,
+        "runtime_verified": false,
+        "schema_version": "0.1.0",
+        "scope": "external",
+        "status": "needs_context",
+        "target": "external_message_channel",
+        "trigger": "autonomous"
+      },
+      {
+        "action": "read",
+        "authorization": {
+          "approval_present": null,
+          "approval_required": null,
+          "state": "unknown"
+        },
+        "controls": {
+          "allowlist": "unknown",
+          "approval": "unknown",
+          "audit": "unknown",
+          "rate_limit": "unknown",
+          "redaction": "unknown",
+          "retention": "unknown",
+          "user_consent": "unknown"
+        },
+        "data_scope": {
+          "classification": "internal",
+          "retention": "ephemeral",
+          "sharing": "none"
+        },
+        "evidence": [
+          {
+            "confidence": "D",
+            "content_sha256": "53801912f072ad8a976eb3c8f521f76b74975f3c5c9eb62f364adc0a60ad3d14",
+            "end_line": 12,
+            "evidence_id": "operation-evidence-sha256:077e3b39890ee1d40ab7e69a864b1eea35bfcd1f08f064066ec00bda998eca39",
+            "extraction_method": "static_declaration",
+            "field_path": null,
+            "secret_values_included": false,
+            "source_path": "AGENTS.md",
+            "start_line": 12,
+            "value_minimized": true
+          },
+          {
+            "confidence": "D",
+            "content_sha256": "53801912f072ad8a976eb3c8f521f76b74975f3c5c9eb62f364adc0a60ad3d14",
+            "end_line": 25,
+            "evidence_id": "operation-evidence-sha256:d3492f5f04ad4fc6ac6d68cb8bc35d77bba089b6ec6d2e4d7d5446313a61a0ec",
+            "extraction_method": "static_declaration",
+            "field_path": null,
+            "secret_values_included": false,
+            "source_path": "AGENTS.md",
+            "start_line": 25,
+            "value_minimized": true
+          }
+        ],
+        "format": "agentsec-operation-context",
+        "frequency": "one_time",
+        "operation_id": "homi.workspace.read",
+        "purpose": "analysis",
+        "reversibility": "reversible",
+        "runtime_authority": false,
+        "runtime_verified": false,
+        "schema_version": "0.1.0",
+        "scope": "workspace",
+        "status": "needs_context",
+        "target": "workspace",
+        "trigger": "unknown"
+      }
+    ],
+    "coverage_complete": false,
+    "format": "agentsec-operation-context-set",
+    "report_only": true,
+    "runtime_authority": false,
+    "runtime_verified": false,
+    "schema_version": "0.1.0",
+    "subject_id": "homi-workspace",
+    "unknown_dimensions": [
+      "homi.external-message.send.data_scope.classification",
+      "homi.workspace.read.authorization.state",
+      "homi.workspace.read.trigger"
+    ]
+  },
+  "format": "agentsec-homi-operation-context-extraction",
+  "format_version": "0.2.0",
+  "report_only": true,
+  "runtime_verified": false,
+  "source_report_format": "agentsec-homi-report-only-pilot",
+  "source_report_sha256": "5e6c7691bc8ee6538565e2c308b1de41649587b0e1515e8305a91ac00c4f3e44"
+}

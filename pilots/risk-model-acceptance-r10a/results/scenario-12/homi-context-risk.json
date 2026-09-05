@@ -1,0 +1,126 @@
+{
+  "authority": {
+    "ci_blocked": false,
+    "policy_authority": false,
+    "report_only": true,
+    "runtime_verified": false
+  },
+  "ci_blocked": false,
+  "context_count": 2,
+  "coverage_complete": false,
+  "coverage_finding_count": 1,
+  "evaluated_rule_ids": [
+    "CTX-COVERAGE-001",
+    "CTX-RISK-001",
+    "CTX-RISK-002",
+    "CTX-RISK-003",
+    "CTX-RISK-004",
+    "CTX-RISK-005",
+    "CTX-RISK-006",
+    "CTX-RISK-007",
+    "CTX-RISK-008"
+  ],
+  "findings": [
+    {
+      "category": "scan_coverage",
+      "ci_blocked": false,
+      "confidence": "D",
+      "context_ids": [
+        "homi.approval-policy.disable"
+      ],
+      "evidence_ids": [
+        "operation-evidence-sha256:147450f2cd3be6bc4c8e9d24f513244b8e82e077d665d7245ef299da2b642dc1",
+        "operation-evidence-sha256:cee35fa1dc6497f34fa566a57aad3f04be3563790cd7661a7993459ac30e9cd2"
+      ],
+      "finding_id": "context-risk-sha256:4d1001f8d53aa3873b27522f70cbfad2d1f1288c42b90cdb9d2ccda9da7d163b",
+      "impact": "low",
+      "kind": "coverage",
+      "likelihood": "very_low",
+      "limitations": [
+        "Unknown is a coverage state, not proof of a vulnerability or a clean pass."
+      ],
+      "policy_authority": false,
+      "rationale": "Operation Context coverage is incomplete or contains Unknown dimensions; risk conclusions require additional context.",
+      "rationale_code": "operation_context_incomplete",
+      "report_only": true,
+      "rule_id": "CTX-COVERAGE-001",
+      "rule_pack_version": "0.2.0",
+      "runtime_verified": false,
+      "severity": "none"
+    },
+    {
+      "category": "privileged_access",
+      "ci_blocked": false,
+      "confidence": "D",
+      "context_ids": [
+        "homi.approval-policy.disable"
+      ],
+      "evidence_ids": [
+        "operation-evidence-sha256:147450f2cd3be6bc4c8e9d24f513244b8e82e077d665d7245ef299da2b642dc1",
+        "operation-evidence-sha256:cee35fa1dc6497f34fa566a57aad3f04be3563790cd7661a7993459ac30e9cd2"
+      ],
+      "finding_id": "context-risk-sha256:8fd8bc948637f925481fba651d6927500152a90c677f8592552a6177c3012c8e",
+      "impact": "high",
+      "kind": "risk",
+      "likelihood": "moderate",
+      "limitations": [
+        "The declaration does not prove that the operation is available or executable at runtime."
+      ],
+      "policy_authority": false,
+      "rationale": "A high-impact operation targets a privileged, production, secret, tool, or control-file resource without explicit authorization.",
+      "rationale_code": "high_impact_without_authorization",
+      "report_only": true,
+      "rule_id": "CTX-RISK-003",
+      "rule_pack_version": "0.2.0",
+      "runtime_verified": false,
+      "severity": "medium"
+    },
+    {
+      "category": "self_modification",
+      "ci_blocked": false,
+      "confidence": "D",
+      "context_ids": [
+        "homi.approval-policy.disable"
+      ],
+      "evidence_ids": [
+        "operation-evidence-sha256:147450f2cd3be6bc4c8e9d24f513244b8e82e077d665d7245ef299da2b642dc1",
+        "operation-evidence-sha256:cee35fa1dc6497f34fa566a57aad3f04be3563790cd7661a7993459ac30e9cd2"
+      ],
+      "finding_id": "context-risk-sha256:e32f79214c6d6945f909e6291c50b9788e37af33a9105d31b7794d43de211fec",
+      "impact": "very_high",
+      "kind": "risk",
+      "likelihood": "moderate",
+      "limitations": [
+        "Static declaration does not prove that the file is writable at runtime."
+      ],
+      "policy_authority": false,
+      "rationale": "An Agent control or identity file can be modified without an explicit authorization context.",
+      "rationale_code": "control_file_update_without_authorization",
+      "report_only": true,
+      "rule_id": "CTX-RISK-006",
+      "rule_pack_version": "0.2.0",
+      "runtime_verified": false,
+      "severity": "high"
+    }
+  ],
+  "format": "agentsec-context-risk-report",
+  "format_version": "0.2.0",
+  "mapping_basis": [
+    "AgentSec RISK-09A deterministic context-aware rule contract 0.2.0",
+    "Risk requires an operation-context combination; capability presence alone is insufficient",
+    "Public-web reads with public data are not elevated without autonomy, sensitive data, side effects, or control weakness",
+    "Unknown context is a coverage observation, not proof of a vulnerability or a clean pass",
+    "Risk signals have no numeric score; RISK-05 owns residual-risk quantification"
+  ],
+  "policy_authority": false,
+  "report_only": true,
+  "risk_finding_count": 2,
+  "rule_pack_version": "0.2.0",
+  "runtime_verified": false,
+  "source_context_format": "agentsec-operation-context-set",
+  "source_context_sha256": "c31a6f1b7a2569739349a5af89dedf7280a779df310a7e785c285dd66817d40b",
+  "unknown_dimensions": [
+    "homi.workspace.read.authorization.state",
+    "homi.workspace.read.trigger"
+  ]
+}

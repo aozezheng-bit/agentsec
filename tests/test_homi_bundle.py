@@ -13,6 +13,7 @@ from agentsec.frameworks.homi_bundle import (
     build_homi_combined_report,
     encode_homi_combined_report_json,
     render_homi_combined_report_html,
+    render_homi_combined_report_text,
 )
 from agentsec.frameworks.homi_pilot import (
     DeterministicHomiReportOnlyPilot,
@@ -250,6 +251,77 @@ def test_combined_report_consumes_bound_calibration_and_posture_sidecars(
     assert "操作上下文 / Operation Context" in html
     assert "已提取 1 条操作上下文" in html
     assert "暂无风险 Finding" in html
+
+
+def _identified_pilot_with_two_findings() -> dict[str, object]:
+    pilot_payload = _pilot()
+    findings = pilot_payload["combination"]["findings"]  # type: ignore[index]
+    assert isinstance(findings, list)
+    first = findings[0]
+    assert isinstance(first, dict)
+    first["finding_id"] = "homi-combination-sha256:" + "a" * 64
+    second = dict(first)
+    second["finding_id"] = "homi-combination-sha256:" + "b" * 64
+    findings.append(second)
+    return pilot_payload
+
+
+def test_combined_report_text_counts_match_calibrated_findings_in_both_languages(
+    tmp_path: Path,
+) -> None:
+    pilot_path = _write(
+        tmp_path / "homi-pilot-report.json", _identified_pilot_with_two_findings()
+    )
+    pilot_digest = hashlib.sha256(pilot_path.read_bytes()).hexdigest()
+    _write(
+        tmp_path / "homi-calibration.json",
+        {
+            "format": "agentsec-homi-calibration",
+            "source_report_sha256": pilot_digest,
+            "retained_findings": [
+                {"finding_id": "homi-combination-sha256:" + "a" * 64}
+            ],
+        },
+    )
+
+    report = build_homi_combined_report(pilot_path)
+    en = render_homi_combined_report_text(report, language="en")
+    zh = render_homi_combined_report_text(report, language="zh")
+
+    assert "Findings: 1\n" in en
+    assert "风险 Findings：1 个" in zh
+    assert "Findings: 2" not in en
+    assert "风险 Findings：2 个" not in zh
+
+
+def test_combined_report_rejects_malformed_calibration_retained_findings(
+    tmp_path: Path,
+) -> None:
+    pilot_path = _write(
+        tmp_path / "homi-pilot-report.json", _identified_pilot_with_two_findings()
+    )
+    pilot_digest = hashlib.sha256(pilot_path.read_bytes()).hexdigest()
+    malformed_inputs = (
+        ["not-an-object"],
+        [{"finding_id": 123}],
+        {"finding_id": "homi-combination-sha256:" + "a" * 64},
+        "homi-combination-sha256:" + "a" * 64,
+    )
+    for retained in malformed_inputs:
+        _write(
+            tmp_path / "homi-calibration.json",
+            {
+                "format": "agentsec-homi-calibration",
+                "source_report_sha256": pilot_digest,
+                "retained_findings": retained,
+            },
+        )
+        try:
+            build_homi_combined_report(pilot_path)
+        except ValueError as error:
+            assert "retained_findings" in str(error)
+        else:
+            raise AssertionError("malformed retained_findings must be rejected")
 
 
 def test_combined_report_rejects_sidecar_bound_to_a_different_pilot(

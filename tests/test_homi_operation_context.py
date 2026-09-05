@@ -24,7 +24,9 @@ from agentsec.frameworks.base import FrameworkInspectionRequest
 from agentsec.manifests import AgentManifestBuilder
 from agentsec.risk import (
     AuthorizationState,
+    ControlState,
     DataClassification,
+    DataRetention,
     OperationAction,
     OperationContextStatus,
     OperationTarget,
@@ -228,3 +230,42 @@ def test_direct_report_builder_requires_pilot_report(tmp_path: Path) -> None:
     inspection = HomiAdapter().inspect_workspace(FrameworkInspectionRequest(workspace))
     with pytest.raises(TypeError, match="HomiPilotReport"):
         build_homi_operation_context_report(inspection, object())
+
+
+@pytest.mark.parametrize(
+    ("scenario", "operation_id"),
+    (
+        ("scenario-07", "homi.memory.persist"),
+        ("scenario-08", "homi.mailbox.scheduled-read"),
+        ("scenario-10", "homi.external-message.send"),
+        ("scenario-12", "homi.approval-policy.disable"),
+    ),
+)
+def test_risk_replay_scenarios_extract_action_context(
+    scenario: str,
+    operation_id: str,
+) -> None:
+    repository_root = Path(__file__).parents[1]
+    workspace = repository_root / "pilots" / "risk-replay-r09" / scenario
+    inspection = HomiAdapter().inspect_workspace(FrameworkInspectionRequest(workspace))
+    contexts = HomiOperationContextExtractor().extract(inspection)
+    by_id = {item.operation_id: item for item in contexts.contexts}
+
+    assert operation_id in by_id
+    if scenario == "scenario-07":
+        assert by_id[operation_id].data_scope.classification is (
+            DataClassification.PERSONAL
+        )
+        assert by_id[operation_id].data_scope.retention is DataRetention.INDEFINITE
+    if scenario == "scenario-08":
+        assert by_id[operation_id].target is OperationTarget.USER_MAILBOX
+        assert by_id[operation_id].trigger.value == "scheduled"
+    if scenario == "scenario-10":
+        assert by_id[operation_id].trigger.value == "autonomous"
+        assert by_id[operation_id].authorization.state is (
+            AuthorizationState.APPROVAL_MISSING
+        )
+        assert by_id[operation_id].controls.approval is ControlState.ABSENT
+    if scenario == "scenario-12":
+        assert by_id[operation_id].action is OperationAction.MODIFY_POLICY
+        assert by_id[operation_id].controls.approval is ControlState.ABSENT

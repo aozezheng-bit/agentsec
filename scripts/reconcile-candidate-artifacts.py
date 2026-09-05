@@ -519,6 +519,64 @@ def _installed_cli_smoke(wheel: Path, package_version: str) -> dict[str, Any]:
             raise ReconciliationError(
                 "installed candidate Score Attack Path context is invalid"
             )
+
+        homi_baseline = root / "homi-baseline"
+        homi_current = root / "homi-current"
+        _run(
+            [
+                str(venv_agentsec),
+                "homi",
+                "report",
+                str(ROOT / "pilots" / "risk-replay-r09" / "scenario-01"),
+                "--output-dir",
+                str(homi_baseline),
+                "--language",
+                "zh",
+                "--force",
+            ],
+            cwd=root,
+            env=env,
+        )
+        _run(
+            [
+                str(venv_agentsec),
+                "homi",
+                "report",
+                str(ROOT / "pilots" / "risk-replay-r09" / "scenario-08"),
+                "--output-dir",
+                str(homi_current),
+                "--baseline-dir",
+                str(homi_baseline),
+                "--language",
+                "zh",
+                "--force",
+            ],
+            cwd=root,
+            env=env,
+        )
+        homi_score = json.loads(
+            (homi_current / "homi-risk-score.json").read_text(encoding="utf-8")
+        )
+        homi_findings = json.loads(
+            (homi_current / "homi-context-risk.json").read_text(encoding="utf-8")
+        )
+        finding_ids = {
+            item.get("rule_id")
+            for item in homi_findings.get("findings", [])
+            if isinstance(item, dict) and item.get("kind") == "risk"
+        }
+        if (
+            homi_score.get("residual_risk_score") != 8.0
+            or homi_score.get("drift_score") != 8.0
+            or "CTX-RISK-002" not in finding_ids
+            or homi_score.get("report_only") is not True
+            or homi_score.get("runtime_verified") is not False
+            or homi_score.get("ci_blocked") is not False
+            or not (homi_current / "homi-pilot-report.html").is_file()
+        ):
+            raise ReconciliationError(
+                "installed candidate Homi context-risk smoke output is invalid"
+            )
         return {
             "version": True,
             "root_help": True,
@@ -526,6 +584,9 @@ def _installed_cli_smoke(wheel: Path, package_version: str) -> dict[str, Any]:
             "score_help": True,
             "attack_graph_json": True,
             "score_attack_path_context": True,
+            "homi_context_risk": True,
+            "homi_directional_drift": True,
+            "homi_html_report": True,
         }
 
 

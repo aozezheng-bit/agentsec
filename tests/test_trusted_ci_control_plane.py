@@ -9,6 +9,7 @@ import shutil
 from pathlib import Path
 from typing import Any
 
+import pytest
 from typer.testing import CliRunner
 
 from agentsec.cli import ExitCode, app
@@ -435,3 +436,64 @@ def test_repository_local_mode_is_labeled_in_reports(tmp_path: Path) -> None:
     assert result.exit_code == ExitCode.SUCCESS
     payload = json.loads(result.stdout)
     assert payload["trust"]["trust_mode"] == "repository_local"
+
+
+def test_safe_relative_posix_path_allows_parent_segments() -> None:
+    """Lexical paths allow ``..``; escapes are caught at the resolution layer.
+
+    Policy-relative registry paths legitimately reference sibling
+    directories (for example ``../calibration/...``), so the lexical guard
+    keeps rejecting only empty and ``.`` segments.
+    """
+
+    from agentsec.trust import TrustError, ensure_safe_relative_posix_path
+
+    assert ensure_safe_relative_posix_path("registry/policy.yaml", label="path")
+    assert ensure_safe_relative_posix_path("../calibration/registry.yaml", label="path")
+    assert ensure_safe_relative_posix_path("a/../b.yaml", label="path")
+    with pytest.raises(TrustError, match="safe relative POSIX path"):
+        ensure_safe_relative_posix_path("/absolute/path.yaml", label="path")
+
+
+def test_trust_root_rejects_escaping_qualification_registry(
+    tmp_path: Path,
+) -> None:
+    """M1 hardening: a trust-root policy cannot load an escaping registry."""
+
+    trust_root, policy = _trust_setup(
+        tmp_path,
+        gates=("HG-CAPCHAIN-001",),
+        unknown_free=False,
+    )
+
+    # Rewrite the pinned registry path to escape the trust root while the
+    # digest pin stays valid for the in-root copy.
+    escaping = policy.parent / "escaping-policy.yaml"
+    escaping.write_text(
+        policy.read_text(encoding="utf-8").replace(
+            "evidence/qualified-gate-registry.yaml",
+            "../qualified-gate-registry.yaml",
+        ),
+        encoding="utf-8",
+    )
+    escaping_registry = tmp_path / "qualified-gate-registry.yaml"
+    shutil.copy(REGISTRY_PATH, escaping_registry)
+
+    result = runner.invoke(
+        app,
+        [
+            "capability",
+            "enforce",
+            str(BASELINE_CAPABILITY),
+            "--agent-id",
+            "capability-drift-agent",
+            "--policy",
+            "escaping-policy.yaml",
+            "--trust-root",
+            str(trust_root),
+            "--format",
+            "json",
+        ],
+    )
+    assert result.exit_code == ExitCode.CONFIGURATION_ERROR
+    assert "escapes the trust root" in result.output

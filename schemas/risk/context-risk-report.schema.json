@@ -122,7 +122,7 @@
             "type": "string"
           },
           "rule_pack_version": {
-            "const": "0.1.0"
+            "const": "0.2.0"
           },
           "runtime_verified": {
             "const": false
@@ -165,7 +165,7 @@
       "const": "agentsec-context-risk-report"
     },
     "format_version": {
-      "const": "0.1.0"
+      "const": "0.2.0"
     },
     "mapping_basis": {
       "items": {
@@ -184,7 +184,7 @@
       "type": "integer"
     },
     "rule_pack_version": {
-      "const": "0.1.0"
+      "const": "0.2.0"
     },
     "runtime_verified": {
       "const": false

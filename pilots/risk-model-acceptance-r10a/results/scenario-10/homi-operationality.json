@@ -1,0 +1,285 @@
+{
+  "ci_blocked": false,
+  "counts": {
+    "active": 7,
+    "latent": 18,
+    "runtime_attested": 0,
+    "template": 0
+  },
+  "entries": [
+    {
+      "confidence": "D",
+      "method": "runtime_unverified",
+      "operationality": "latent",
+      "runtime_verified": false,
+      "scope": "capability",
+      "signal_id": "camera_access",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "method": "runtime_unverified",
+      "operationality": "latent",
+      "runtime_verified": false,
+      "scope": "capability",
+      "signal_id": "control_file_self_modification",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "method": "runtime_unverified",
+      "operationality": "latent",
+      "runtime_verified": false,
+      "scope": "capability",
+      "signal_id": "cron_schedule",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "method": "static_declaration",
+      "operationality": "active",
+      "runtime_verified": false,
+      "scope": "capability",
+      "signal_id": "external_message_send",
+      "source_paths": [
+        "AGENTS.md"
+      ],
+      "state": "conditional"
+    },
+    {
+      "confidence": "D",
+      "method": "runtime_unverified",
+      "operationality": "latent",
+      "runtime_verified": false,
+      "scope": "capability",
+      "signal_id": "external_network_read",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "method": "static_declaration",
+      "operationality": "active",
+      "runtime_verified": false,
+      "scope": "capability",
+      "signal_id": "group_chat_participation",
+      "source_paths": [
+        "AGENTS.md"
+      ],
+      "state": "present"
+    },
+    {
+      "confidence": "B",
+      "method": "structural_file_state",
+      "operationality": "latent",
+      "runtime_verified": false,
+      "scope": "capability",
+      "signal_id": "heartbeat_schedule",
+      "source_paths": [
+        "HEARTBEAT.md"
+      ],
+      "state": "absent"
+    },
+    {
+      "confidence": "D",
+      "method": "runtime_unverified",
+      "operationality": "latent",
+      "runtime_verified": false,
+      "scope": "capability",
+      "signal_id": "identity_self_modification",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "method": "runtime_unverified",
+      "operationality": "latent",
+      "runtime_verified": false,
+      "scope": "capability",
+      "signal_id": "mcp_access",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "method": "static_declaration",
+      "operationality": "active",
+      "runtime_verified": false,
+      "scope": "capability",
+      "signal_id": "memory_read",
+      "source_paths": [
+        "AGENTS.md"
+      ],
+      "state": "present"
+    },
+    {
+      "confidence": "D",
+      "method": "runtime_unverified",
+      "operationality": "latent",
+      "runtime_verified": false,
+      "scope": "capability",
+      "signal_id": "memory_write",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "method": "runtime_unverified",
+      "operationality": "latent",
+      "runtime_verified": false,
+      "scope": "capability",
+      "signal_id": "oauth_access",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "method": "static_declaration",
+      "operationality": "latent",
+      "runtime_verified": false,
+      "scope": "capability",
+      "signal_id": "persistent_memory",
+      "source_paths": [
+        "AGENTS.md"
+      ],
+      "state": "present"
+    },
+    {
+      "confidence": "D",
+      "method": "runtime_unverified",
+      "operationality": "latent",
+      "runtime_verified": false,
+      "scope": "capability",
+      "signal_id": "persona_self_modification",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "method": "runtime_unverified",
+      "operationality": "latent",
+      "runtime_verified": false,
+      "scope": "capability",
+      "signal_id": "secret_access",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "method": "runtime_unverified",
+      "operationality": "latent",
+      "runtime_verified": false,
+      "scope": "capability",
+      "signal_id": "shell_execution",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "method": "runtime_unverified",
+      "operationality": "latent",
+      "runtime_verified": false,
+      "scope": "capability",
+      "signal_id": "skill_tool_discovery",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "method": "runtime_unverified",
+      "operationality": "latent",
+      "runtime_verified": false,
+      "scope": "capability",
+      "signal_id": "ssh_access",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "method": "runtime_unverified",
+      "operationality": "latent",
+      "runtime_verified": false,
+      "scope": "capability",
+      "signal_id": "tts_output",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "method": "runtime_unverified",
+      "operationality": "latent",
+      "runtime_verified": false,
+      "scope": "capability",
+      "signal_id": "user_profile_persistence",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "method": "static_declaration",
+      "operationality": "active",
+      "runtime_verified": false,
+      "scope": "capability",
+      "signal_id": "workspace_read",
+      "source_paths": [
+        "AGENTS.md"
+      ],
+      "state": "present"
+    },
+    {
+      "confidence": "D",
+      "method": "runtime_unverified",
+      "operationality": "latent",
+      "runtime_verified": false,
+      "scope": "capability",
+      "signal_id": "workspace_write",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "method": "static_declaration",
+      "operationality": "active",
+      "runtime_verified": false,
+      "scope": "persona",
+      "signal_id": "external_approval",
+      "source_paths": [
+        "SOUL.md"
+      ],
+      "state": "present"
+    },
+    {
+      "confidence": "D",
+      "method": "static_declaration",
+      "operationality": "active",
+      "runtime_verified": false,
+      "scope": "persona",
+      "signal_id": "proactive",
+      "source_paths": [
+        "SOUL.md"
+      ],
+      "state": "present"
+    },
+    {
+      "confidence": "D",
+      "method": "static_declaration",
+      "operationality": "active",
+      "runtime_verified": false,
+      "scope": "persona",
+      "signal_id": "resourceful",
+      "source_paths": [
+        "SOUL.md"
+      ],
+      "state": "present"
+    }
+  ],
+  "format": "agentsec-homi-operationality",
+  "format_version": "0.1.0",
+  "report_only": true,
+  "runtime_verified": false,
+  "source_report_format": "agentsec-homi-report-only-pilot",
+  "source_report_sha256": "5e6c7691bc8ee6538565e2c308b1de41649587b0e1515e8305a91ac00c4f3e44"
+}

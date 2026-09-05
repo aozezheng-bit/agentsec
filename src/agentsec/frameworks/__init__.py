@@ -182,6 +182,35 @@ _HOMI_RISK_STATE_EXPORTS = frozenset(
         "export_homi_risk_state_json_schema",
     }
 )
+_HOMI_RISK_EXPORTS = frozenset(
+    {
+        "HOMI_RISK_BASIS",
+        "HOMI_RISK_FORMAT",
+        "HOMI_RISK_FORMAT_VERSION",
+        "HomiRiskFindingSummary",
+        "HomiRiskReport",
+        "build_homi_risk_report",
+        "encode_homi_risk_report_json",
+        "export_homi_risk_report_json_schema",
+    }
+)
+_HOMI_DRIFT_EXPORTS = frozenset(
+    {
+        "HOMI_DRIFT_BASIS",
+        "HOMI_DRIFT_FORMAT",
+        "HOMI_DRIFT_FORMAT_VERSION",
+        "HomiDriftChangeType",
+        "HomiDriftFileChange",
+        "HomiDriftFindingDelta",
+        "HomiDriftFindingDeltaType",
+        "HomiDriftObservationChange",
+        "HomiDriftReport",
+        "HomiDriftSignalChange",
+        "build_homi_drift_report",
+        "encode_homi_drift_report_json",
+        "export_homi_drift_report_json_schema",
+    }
+)
 _HOMI_SNAPSHOT_EXPORTS = frozenset(
     {
         "HOMI_SNAPSHOT_BASIS",
@@ -189,8 +218,12 @@ _HOMI_SNAPSHOT_EXPORTS = frozenset(
         "HOMI_SNAPSHOT_FORMAT_VERSION",
         "HOMI_SNAPSHOT_VERIFICATION_FORMAT",
         "HomiSnapshot",
+        "HomiSnapshotContextFindingSummary",
+        "HomiSnapshotContextScoreSummary",
         "HomiSnapshotFileSummary",
         "HomiSnapshotFindingSummary",
+        "HomiSnapshotObservationSummary",
+        "HomiSnapshotOperationContextSummary",
         "HomiSnapshotSignalSummary",
         "HomiSnapshotStatus",
         "HomiSnapshotVerification",
@@ -268,6 +301,10 @@ def __getattr__(name: str) -> Any:
         module = import_module(".homi_risk_state", __name__)
     elif name in _HOMI_SNAPSHOT_EXPORTS:
         module = import_module(".homi_snapshot", __name__)
+    elif name in _HOMI_DRIFT_EXPORTS:
+        module = import_module(".homi_drift", __name__)
+    elif name in _HOMI_RISK_EXPORTS:
+        module = import_module(".homi_risk", __name__)
     elif name in _HOMI_POSTURE_EXPORTS:
         module = import_module(".homi_posture", __name__)
     elif name in _HOMI_CALIBRATION_EXPORTS:
@@ -346,8 +383,12 @@ __all__ = [
     "HOMI_SNAPSHOT_FORMAT_VERSION",
     "HOMI_SNAPSHOT_VERIFICATION_FORMAT",
     "HomiSnapshot",
+    "HomiSnapshotContextFindingSummary",
+    "HomiSnapshotContextScoreSummary",
     "HomiSnapshotFileSummary",
     "HomiSnapshotFindingSummary",
+    "HomiSnapshotObservationSummary",
+    "HomiSnapshotOperationContextSummary",
     "HomiSnapshotSignalSummary",
     "HomiSnapshotStatus",
     "HomiSnapshotVerification",
@@ -357,6 +398,27 @@ __all__ = [
     "encode_homi_snapshot_verification_json",
     "export_homi_snapshot_json_schema",
     "verify_homi_snapshot",
+    "HOMI_DRIFT_BASIS",
+    "HOMI_DRIFT_FORMAT",
+    "HOMI_DRIFT_FORMAT_VERSION",
+    "HomiDriftChangeType",
+    "HomiDriftFileChange",
+    "HomiDriftFindingDelta",
+    "HomiDriftFindingDeltaType",
+    "HomiDriftObservationChange",
+    "HomiDriftReport",
+    "HomiDriftSignalChange",
+    "build_homi_drift_report",
+    "encode_homi_drift_report_json",
+    "export_homi_drift_report_json_schema",
+    "HOMI_RISK_BASIS",
+    "HOMI_RISK_FORMAT",
+    "HOMI_RISK_FORMAT_VERSION",
+    "HomiRiskFindingSummary",
+    "HomiRiskReport",
+    "build_homi_risk_report",
+    "encode_homi_risk_report_json",
+    "export_homi_risk_report_json_schema",
     "HOMI_OPERATION_CONTEXT_BASIS",
     "HOMI_OPERATION_CONTEXT_FORMAT",
     "HOMI_OPERATION_CONTEXT_FORMAT_VERSION",

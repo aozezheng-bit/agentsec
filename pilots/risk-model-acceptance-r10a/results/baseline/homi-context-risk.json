@@ -1,0 +1,72 @@
+{
+  "authority": {
+    "ci_blocked": false,
+    "policy_authority": false,
+    "report_only": true,
+    "runtime_verified": false
+  },
+  "ci_blocked": false,
+  "context_count": 1,
+  "coverage_complete": false,
+  "coverage_finding_count": 1,
+  "evaluated_rule_ids": [
+    "CTX-COVERAGE-001",
+    "CTX-RISK-001",
+    "CTX-RISK-002",
+    "CTX-RISK-003",
+    "CTX-RISK-004",
+    "CTX-RISK-005",
+    "CTX-RISK-006",
+    "CTX-RISK-007",
+    "CTX-RISK-008"
+  ],
+  "findings": [
+    {
+      "category": "scan_coverage",
+      "ci_blocked": false,
+      "confidence": "D",
+      "context_ids": [
+        "homi.workspace.read"
+      ],
+      "evidence_ids": [
+        "operation-evidence-sha256:0891cacb36c5af5df78e07c9ec9c1d0eb67789d875b46a70d37747b0f1425d89",
+        "operation-evidence-sha256:9639537715541e933a3066afc661d8ad0529a9effb0ad666f125ab865538b530"
+      ],
+      "finding_id": "context-risk-sha256:7b587d94c7aa779c35d0892107a9ae92a23c0090d721e15f6c25fb38fef7c5d9",
+      "impact": "low",
+      "kind": "coverage",
+      "likelihood": "very_low",
+      "limitations": [
+        "Unknown is a coverage state, not proof of a vulnerability or a clean pass."
+      ],
+      "policy_authority": false,
+      "rationale": "Operation Context coverage is incomplete or contains Unknown dimensions; risk conclusions require additional context.",
+      "rationale_code": "operation_context_incomplete",
+      "report_only": true,
+      "rule_id": "CTX-COVERAGE-001",
+      "rule_pack_version": "0.2.0",
+      "runtime_verified": false,
+      "severity": "none"
+    }
+  ],
+  "format": "agentsec-context-risk-report",
+  "format_version": "0.2.0",
+  "mapping_basis": [
+    "AgentSec RISK-09A deterministic context-aware rule contract 0.2.0",
+    "Risk requires an operation-context combination; capability presence alone is insufficient",
+    "Public-web reads with public data are not elevated without autonomy, sensitive data, side effects, or control weakness",
+    "Unknown context is a coverage observation, not proof of a vulnerability or a clean pass",
+    "Risk signals have no numeric score; RISK-05 owns residual-risk quantification"
+  ],
+  "policy_authority": false,
+  "report_only": true,
+  "risk_finding_count": 0,
+  "rule_pack_version": "0.2.0",
+  "runtime_verified": false,
+  "source_context_format": "agentsec-operation-context-set",
+  "source_context_sha256": "47e27f128d81af1e182c868992f3ebfbf8fab86115495b8381dee3c9f2de458e",
+  "unknown_dimensions": [
+    "homi.workspace.read.authorization.state",
+    "homi.workspace.read.trigger"
+  ]
+}

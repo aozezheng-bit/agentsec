@@ -1,0 +1,374 @@
+{
+  "authority": {
+    "ci_blocked": false,
+    "report_only": true,
+    "runtime_verified": false
+  },
+  "basis": [
+    "AgentSec RISK-02 Homi template/latent/active state contract 0.1.0",
+    "Static state classification is evidence interpretation, not runtime authority",
+    "Template, latent, active, runtime_attested, and unknown are mutually exclusive",
+    "Missing or skipped source coverage is unknown, not evidence of safety or activity"
+  ],
+  "ci_blocked": false,
+  "counts": {
+    "active": 8,
+    "latent": 2,
+    "runtime_attested": 0,
+    "template": 2,
+    "unknown": 17
+  },
+  "entries": [
+    {
+      "confidence": "D",
+      "declared_state": "unknown",
+      "item_id": "camera_access",
+      "method": "runtime_unverified",
+      "rationale_code": "insufficient_static_coverage",
+      "runtime_verified": false,
+      "scope": "capability",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "declared_state": "unknown",
+      "item_id": "control_file_self_modification",
+      "method": "runtime_unverified",
+      "rationale_code": "insufficient_static_coverage",
+      "runtime_verified": false,
+      "scope": "capability",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "declared_state": "unknown",
+      "item_id": "cron_schedule",
+      "method": "runtime_unverified",
+      "rationale_code": "insufficient_static_coverage",
+      "runtime_verified": false,
+      "scope": "capability",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "declared_state": "unknown",
+      "item_id": "external_message_send",
+      "method": "runtime_unverified",
+      "rationale_code": "insufficient_static_coverage",
+      "runtime_verified": false,
+      "scope": "capability",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "declared_state": "unknown",
+      "item_id": "external_network_read",
+      "method": "runtime_unverified",
+      "rationale_code": "insufficient_static_coverage",
+      "runtime_verified": false,
+      "scope": "capability",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "declared_state": "present",
+      "item_id": "group_chat_participation",
+      "method": "static_declaration",
+      "rationale_code": "explicit_static_declaration",
+      "runtime_verified": false,
+      "scope": "capability",
+      "source_paths": [
+        "AGENTS.md"
+      ],
+      "state": "active"
+    },
+    {
+      "confidence": "B",
+      "declared_state": "absent",
+      "item_id": "heartbeat_schedule",
+      "method": "structural_file_state",
+      "rationale_code": "structurally_absent",
+      "runtime_verified": false,
+      "scope": "capability",
+      "source_paths": [
+        "HEARTBEAT.md"
+      ],
+      "state": "template"
+    },
+    {
+      "confidence": "D",
+      "declared_state": "unknown",
+      "item_id": "identity_self_modification",
+      "method": "runtime_unverified",
+      "rationale_code": "insufficient_static_coverage",
+      "runtime_verified": false,
+      "scope": "capability",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "declared_state": "unknown",
+      "item_id": "mcp_access",
+      "method": "runtime_unverified",
+      "rationale_code": "insufficient_static_coverage",
+      "runtime_verified": false,
+      "scope": "capability",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "declared_state": "present",
+      "item_id": "memory_read",
+      "method": "static_declaration",
+      "rationale_code": "explicit_static_declaration",
+      "runtime_verified": false,
+      "scope": "capability",
+      "source_paths": [
+        "AGENTS.md"
+      ],
+      "state": "active"
+    },
+    {
+      "confidence": "D",
+      "declared_state": "unknown",
+      "item_id": "memory_write",
+      "method": "runtime_unverified",
+      "rationale_code": "insufficient_static_coverage",
+      "runtime_verified": false,
+      "scope": "capability",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "declared_state": "unknown",
+      "item_id": "oauth_access",
+      "method": "runtime_unverified",
+      "rationale_code": "insufficient_static_coverage",
+      "runtime_verified": false,
+      "scope": "capability",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "declared_state": "present",
+      "item_id": "persistent_memory",
+      "method": "static_declaration",
+      "rationale_code": "intent_without_operational_evidence",
+      "runtime_verified": false,
+      "scope": "capability",
+      "source_paths": [
+        "AGENTS.md"
+      ],
+      "state": "latent"
+    },
+    {
+      "confidence": "D",
+      "declared_state": "unknown",
+      "item_id": "persona_self_modification",
+      "method": "runtime_unverified",
+      "rationale_code": "insufficient_static_coverage",
+      "runtime_verified": false,
+      "scope": "capability",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "declared_state": "unknown",
+      "item_id": "secret_access",
+      "method": "runtime_unverified",
+      "rationale_code": "insufficient_static_coverage",
+      "runtime_verified": false,
+      "scope": "capability",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "declared_state": "unknown",
+      "item_id": "shell_execution",
+      "method": "runtime_unverified",
+      "rationale_code": "insufficient_static_coverage",
+      "runtime_verified": false,
+      "scope": "capability",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "declared_state": "unknown",
+      "item_id": "skill_tool_discovery",
+      "method": "runtime_unverified",
+      "rationale_code": "insufficient_static_coverage",
+      "runtime_verified": false,
+      "scope": "capability",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "declared_state": "unknown",
+      "item_id": "ssh_access",
+      "method": "runtime_unverified",
+      "rationale_code": "insufficient_static_coverage",
+      "runtime_verified": false,
+      "scope": "capability",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "declared_state": "unknown",
+      "item_id": "tts_output",
+      "method": "runtime_unverified",
+      "rationale_code": "insufficient_static_coverage",
+      "runtime_verified": false,
+      "scope": "capability",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "declared_state": "unknown",
+      "item_id": "user_profile_persistence",
+      "method": "runtime_unverified",
+      "rationale_code": "insufficient_static_coverage",
+      "runtime_verified": false,
+      "scope": "capability",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "D",
+      "declared_state": "present",
+      "item_id": "workspace_read",
+      "method": "static_declaration",
+      "rationale_code": "explicit_static_declaration",
+      "runtime_verified": false,
+      "scope": "capability",
+      "source_paths": [
+        "AGENTS.md"
+      ],
+      "state": "active"
+    },
+    {
+      "confidence": "D",
+      "declared_state": "unknown",
+      "item_id": "workspace_write",
+      "method": "runtime_unverified",
+      "rationale_code": "insufficient_static_coverage",
+      "runtime_verified": false,
+      "scope": "capability",
+      "source_paths": [],
+      "state": "unknown"
+    },
+    {
+      "confidence": "B",
+      "declared_state": "present",
+      "item_id": "AGENTS.md",
+      "method": "static_declaration",
+      "rationale_code": "non_template_static_file",
+      "runtime_verified": false,
+      "scope": "file",
+      "source_paths": [
+        "AGENTS.md"
+      ],
+      "state": "active"
+    },
+    {
+      "confidence": "B",
+      "declared_state": "empty",
+      "item_id": "HEARTBEAT.md",
+      "method": "structural_file_state",
+      "rationale_code": "empty_file_placeholder",
+      "runtime_verified": false,
+      "scope": "file",
+      "source_paths": [
+        "HEARTBEAT.md"
+      ],
+      "state": "template"
+    },
+    {
+      "confidence": "B",
+      "declared_state": "present",
+      "item_id": "IDENTITY.md",
+      "method": "static_declaration",
+      "rationale_code": "non_template_static_file",
+      "runtime_verified": false,
+      "scope": "file",
+      "source_paths": [
+        "IDENTITY.md"
+      ],
+      "state": "active"
+    },
+    {
+      "confidence": "B",
+      "declared_state": "present",
+      "item_id": "SOUL.md",
+      "method": "static_declaration",
+      "rationale_code": "non_template_static_file",
+      "runtime_verified": false,
+      "scope": "file",
+      "source_paths": [
+        "SOUL.md"
+      ],
+      "state": "active"
+    },
+    {
+      "confidence": "B",
+      "declared_state": "present",
+      "item_id": "TOOLS.md",
+      "method": "static_declaration",
+      "rationale_code": "non_template_static_file",
+      "runtime_verified": false,
+      "scope": "file",
+      "source_paths": [
+        "TOOLS.md"
+      ],
+      "state": "active"
+    },
+    {
+      "confidence": "B",
+      "declared_state": "present",
+      "item_id": "USER.md",
+      "method": "static_declaration",
+      "rationale_code": "non_template_static_file",
+      "runtime_verified": false,
+      "scope": "file",
+      "source_paths": [
+        "USER.md"
+      ],
+      "state": "active"
+    },
+    {
+      "confidence": "D",
+      "declared_state": "present",
+      "item_id": "external_approval",
+      "method": "static_declaration",
+      "rationale_code": "persona_intent_without_operation",
+      "runtime_verified": false,
+      "scope": "persona",
+      "source_paths": [
+        "SOUL.md"
+      ],
+      "state": "latent"
+    }
+  ],
+  "file_count": 6,
+  "format": "agentsec-homi-risk-state",
+  "format_version": "0.1.0",
+  "report_only": true,
+  "runtime_verified": false,
+  "signal_count": 23,
+  "source_report_format": "agentsec-homi-report-only-pilot",
+  "source_report_sha256": "565e59f86cdb7db9b7bc9d24508ac459292b806fa956c103d6a9dec85b65d2fb"
+}

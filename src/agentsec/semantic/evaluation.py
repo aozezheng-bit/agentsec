@@ -348,8 +348,10 @@ def _calculate_metrics(
     tp = sum(case.true_positive for case in cases)
     fp = sum(case.false_positive for case in cases)
     fn = sum(case.false_negative for case in cases)
-    precision = tp / (tp + fp) if tp + fp else 1.0 if tp + fn == 0 else 0.0
-    recall = tp / (tp + fn) if tp + fn else 1.0
+    # No predictions (tp + fp == 0) or no positives (tp + fn == 0) yield 0.0
+    # instead of a vacuous 1.0 so an empty evaluation can never look perfect.
+    precision = tp / (tp + fp) if tp + fp else 0.0
+    recall = tp / (tp + fn) if tp + fn else 0.0
     f1 = 2 * precision * recall / (precision + recall) if precision + recall else 0.0
     evidence_matches = sum(case.evidence_exact_matches for case in cases)
     evidence_comparisons = sum(case.evidence_comparisons for case in cases)

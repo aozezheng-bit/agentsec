@@ -80,7 +80,7 @@ HOMI_OPERATION_CONTEXT_FORMAT: Literal["agentsec-homi-operation-context-extracti
 )
 HOMI_OPERATION_CONTEXT_FORMAT_VERSION = HOMI_OPERATION_CONTEXT_OUTPUT_VERSION
 HOMI_OPERATION_CONTEXT_BASIS = (
-    "AgentSec RISK-03 deterministic Homi Operation Context extraction 0.1.0",
+    "AgentSec RISK-09A deterministic Homi Operation Context extraction 0.2.0",
     "Only source-backed action declarations become Operation Contexts",
     "Unknown authorization, trigger, data, and control facts remain unknown",
     "Operation Context is evidence input and grants no runtime authority",
@@ -180,8 +180,10 @@ class HomiOperationContextExtractor:
         contexts: list[OperationContext] = []
         contexts.extend(self._workspace_read(views))
         contexts.extend(self._network_read(views))
+        contexts.extend(self._mailbox_read(views))
         contexts.extend(self._external_message_send(views))
         contexts.extend(self._memory_persistence(views))
+        contexts.extend(self._approval_policy_change(views))
         contexts.extend(self._control_file_update(views))
         contexts.extend(self._secret_read(views))
         contexts.extend(self._tool_operations(views))
@@ -349,6 +351,58 @@ class HomiOperationContextExtractor:
             )
         ]
 
+    def _mailbox_read(
+        self, views: tuple[_HomiSourceView, ...]
+    ) -> list[OperationContext]:
+        evidence = _evidence_for_views(
+            views,
+            names=("AGENTS.md", "HEARTBEAT.md"),
+            markers=(
+                "read email inboxes",
+                "read email inbox",
+                "check email",
+                "check inbox",
+                "unread messages",
+            ),
+        )
+        if not evidence:
+            return []
+        heartbeat_evidence = any(
+            item.source_path == "HEARTBEAT.md" for item in evidence
+        )
+        trigger = (
+            OperationTrigger.SCHEDULED
+            if heartbeat_evidence
+            else _trigger_for_evidence(views, evidence)
+        )
+        return [
+            _context(
+                operation_id="homi.mailbox.scheduled-read"
+                if trigger is OperationTrigger.SCHEDULED
+                else "homi.mailbox.read",
+                action=OperationAction.READ,
+                target=OperationTarget.USER_MAILBOX,
+                data_scope=DataScope(
+                    classification=DataClassification.PERSONAL,
+                    sharing=DataSharingScope.MAIN_SESSION,
+                    retention=DataRetention.SESSION,
+                ),
+                trigger=trigger,
+                purpose=OperationPurpose.NOTIFICATION,
+                authorization=_authorization_for_evidence(views, evidence),
+                reversibility=OperationReversibility.REVERSIBLE,
+                scope=OperationScope.USER_SCOPE,
+                frequency=(
+                    Frequency.PERIODIC
+                    if trigger is OperationTrigger.SCHEDULED
+                    else Frequency.ONE_TIME
+                ),
+                controls=_controls_for_evidence(views, evidence),
+                evidence=evidence,
+                rationale="explicit_mailbox_read_declaration",
+            )
+        ]
+
     def _memory_persistence(
         self, views: tuple[_HomiSourceView, ...]
     ) -> list[OperationContext]:
@@ -361,12 +415,15 @@ class HomiOperationContextExtractor:
             "persist a note",
             "save a note",
             "write it to a file",
+            "conversation records",
+            "complete conversation",
         )
         evidence = _evidence_for_views(
             views,
             names=("AGENTS.md", "USER.md"),
             markers=markers,
             skip_template_user=True,
+            preserve_matching_block=True,
         )
         if not evidence:
             return []
@@ -379,19 +436,36 @@ class HomiOperationContextExtractor:
             )
             else OperationTarget.WORKSPACE
         )
+        evidence_text = _evidence_text(views, evidence)
+        sensitive_conversation = _contains_any(
+            evidence_text,
+            ("conversation records", "complete conversation", "every detail"),
+        )
+        indefinite = _contains_any(
+            evidence_text,
+            ("indefinitely", "forever", "without expiration", "never delete"),
+        )
         return [
             _context(
                 operation_id="homi.memory.persist",
                 action=OperationAction.STORE,
                 target=target,
                 data_scope=DataScope(
-                    classification=DataClassification.USER_PREFERENCE,
+                    classification=(
+                        DataClassification.PERSONAL
+                        if sensitive_conversation
+                        else DataClassification.USER_PREFERENCE
+                    ),
                     sharing=(
                         DataSharingScope.MAIN_SESSION
                         if target is OperationTarget.USER_PROFILE
                         else DataSharingScope.WORKSPACE
                     ),
-                    retention=DataRetention.BOUNDED,
+                    retention=(
+                        DataRetention.INDEFINITE
+                        if indefinite
+                        else DataRetention.BOUNDED
+                    ),
                 ),
                 trigger=_trigger_for_evidence(views, evidence),
                 purpose=OperationPurpose.PERSISTENCE,
@@ -402,6 +476,49 @@ class HomiOperationContextExtractor:
                 controls=_controls_for_evidence(views, evidence),
                 evidence=evidence,
                 rationale="explicit_user_context_persistence_declaration",
+            )
+        ]
+
+    def _approval_policy_change(
+        self, views: tuple[_HomiSourceView, ...]
+    ) -> list[OperationContext]:
+        evidence = _evidence_for_views(
+            views,
+            names=("AGENTS.md",),
+            markers=(
+                "no approval gate",
+                "do not require human approval",
+                "without waiting for confirmation",
+            ),
+        )
+        if not evidence:
+            return []
+        return [
+            _context(
+                operation_id="homi.approval-policy.disable",
+                action=OperationAction.MODIFY_POLICY,
+                target=OperationTarget.AGENT_CONTROL_FILE,
+                data_scope=DataScope(
+                    classification=DataClassification.INTERNAL,
+                    sharing=DataSharingScope.WORKSPACE,
+                    retention=DataRetention.INDEFINITE,
+                ),
+                trigger=OperationTrigger.AUTONOMOUS,
+                purpose=OperationPurpose.CONTROL_FILE_UPDATE,
+                authorization=AuthorizationContext(
+                    state=AuthorizationState.APPROVAL_MISSING,
+                    approval_required=True,
+                    approval_present=False,
+                ),
+                reversibility=OperationReversibility.PARTIALLY_REVERSIBLE,
+                scope=OperationScope.WORKSPACE,
+                frequency=Frequency.ONE_TIME,
+                controls=ControlEffectiveness(
+                    approval=ControlState.ABSENT,
+                    user_consent=ControlState.ABSENT,
+                ),
+                evidence=evidence,
+                rationale="explicit_approval_policy_weakening",
             )
         ]
 
@@ -1081,6 +1198,7 @@ def _evidence_for_views(
     patterns: tuple[str, ...] = (),
     skip_template_user: bool = False,
     skip_template_tools: bool = False,
+    preserve_matching_block: bool = False,
 ) -> tuple[OperationEvidence, ...]:
     evidence: dict[str, OperationEvidence] = {}
     for name in names:
@@ -1103,8 +1221,10 @@ def _evidence_for_views(
             )
             if not matched_marker and not matched_pattern:
                 continue
-            start_line, end_line = _matching_line_range(
-                block, markers=markers, patterns=patterns
+            start_line, end_line = (
+                (block.start_line, block.end_line)
+                if preserve_matching_block
+                else _matching_line_range(block, markers=markers, patterns=patterns)
             )
             method = (
                 OperationEvidenceMethod.STATIC_DECLARATION
@@ -1211,6 +1331,21 @@ def _authorization_for_evidence(
     if _contains_any(
         text,
         (
+            "without asking for approval",
+            "without asking",
+            "without waiting for confirmation",
+            "do not require human approval",
+            "no approval gate",
+        ),
+    ):
+        return AuthorizationContext(
+            state=AuthorizationState.APPROVAL_MISSING,
+            approval_required=True,
+            approval_present=False,
+        )
+    if _contains_any(
+        text,
+        (
             "ask before",
             "ask first",
             "requires asking",
@@ -1231,8 +1366,20 @@ def _controls_for_evidence(
     evidence: tuple[OperationEvidence, ...],
 ) -> ControlEffectiveness:
     text = _evidence_text(views, evidence)
+    approval_removed = _contains_any(
+        text,
+        (
+            "without asking for approval",
+            "without asking",
+            "without waiting for confirmation",
+            "do not require human approval",
+            "no approval gate",
+        ),
+    )
     approval = (
-        ControlState.PRESENT
+        ControlState.ABSENT
+        if approval_removed
+        else ControlState.PRESENT
         if _contains_any(
             text,
             (
@@ -1277,6 +1424,17 @@ def _trigger_for_evidence(
     evidence: tuple[OperationEvidence, ...],
 ) -> OperationTrigger:
     text = _evidence_text(views, evidence)
+    if _contains_any(
+        text,
+        (
+            "agent decides",
+            "without asking for approval",
+            "without asking",
+            "proceed directly",
+            "without waiting for confirmation",
+        ),
+    ):
+        return OperationTrigger.AUTONOMOUS
     if _contains_any(
         text, ("when the user", "user request", "user asked", "on request")
     ):

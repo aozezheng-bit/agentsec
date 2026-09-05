@@ -30,3 +30,23 @@ Do not describe an unknown state as safe.
 限制：<missing files, unknown reachability, or incomplete coverage>
 权限边界：仅报告，不证明运行时可达，不自动修改、不阻断 CI。
 ```
+
+## Directional Risk Drift
+
+Treat content drift and risk drift separately. `risk_direction=increased` requires
+added/increased Context Finding, upward Residual Risk, or risk-relevant control
+weakening. `decreased`, `resolved`, `unknown`, and benign Context changes do not
+produce positive Drift Score.
+
+Show these fields independently:
+
+```text
+increased_finding_ids
+decreased_finding_ids
+resolved_finding_ids
+control_weakening_count
+control_strengthening_count
+```
+
+Never describe `unknown` as high risk or clean. Never use file-change count,
+persona change, or capability count alone as risk direction.

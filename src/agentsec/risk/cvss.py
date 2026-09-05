@@ -708,11 +708,12 @@ def _calculate_v31_environmental_score(metrics: Mapping[str, str]) -> float:
     if scope == "U":
         impact = 6.42 * miss
         exploitability = _v31_modified_exploitability(metrics, scope)
-        raw = min(impact + exploitability, 10.0)
+        # FIRST v3.1 §8: Environmental = Roundup(Roundup(min[MI+ME,10]) * E*RL*RC)
+        raw = _round_up_one_decimal(min(impact + exploitability, 10.0))
     else:
         impact = 7.52 * (miss - 0.029) - 3.25 * (miss * 0.9731 - 0.02) ** 13
         exploitability = _v31_modified_exploitability(metrics, scope)
-        raw = min(1.08 * (impact + exploitability), 10.0)
+        raw = _round_up_one_decimal(min(1.08 * (impact + exploitability), 10.0))
     e = {"X": 1.0, "U": 0.91, "P": 0.94, "F": 0.97, "H": 1.0}[metrics.get("E", "X")]
     rl = {"X": 1.0, "O": 0.95, "T": 0.96, "W": 0.97, "U": 1.0}[metrics.get("RL", "X")]
     rc = {"X": 1.0, "U": 0.92, "R": 0.96, "C": 1.0}[metrics.get("RC", "X")]

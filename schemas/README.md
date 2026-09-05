@@ -43,7 +43,8 @@ schemas/risk/                      Operation Context Contract 0.1.0; Homi Risk S
                                    Report 0.1.0; Homi Operation Context
                                    Extraction Report 0.1.0; Context-aware
                                    Deterministic Risk Report 0.1.0; Context Risk
-                                   Score Report 0.1.0; Homi Agent Snapshot 0.1.0
+                                   Score Report 0.1.0; Homi Agent Snapshot 0.1.0; Homi Layered
+                                   Drift Report 0.1.0; Homi Unified Risk Report 0.1.0
 schemas/runtime/                   External Runtime Attestation 0.2.0; Evidence
                                    Reconciliation Report 0.2.0; Trusted Issuer
                                    Registry 0.1.0; Trust Verification 0.1.0;
@@ -241,3 +242,34 @@ material. The Trust Verification Report records signature, time, issuer/key,
 and replay outcomes. The Replay Store stores only hashed nonces and attestation
 digests. All three contracts are report-only and cannot authorize runtime
 actions or CI decisions.
+
+RISK-08 established `risk/homi-risk-report.schema.json` as the unified
+context-aware Homi Risk output. `risk_score` is bound to RISK-05 residual risk;
+RISK-03 Operation Context and RISK-04 Finding/Evidence summaries remain
+source-bound. Legacy `HOMI-COMB-*` matches are declaration signals only. Numeric
+risk drift requires a baseline Operation Context bound to the baseline Snapshot.
+All authority fields remain report-only, runtime-unverified, policy-neutral, and
+non-blocking.
+
+
+RISK-08A introduced stable Homi subject identity binding using explicit
+platform-owned `subject_id`; RISK-08B supersedes those intermediate contract
+versions with Snapshot `0.3.0`, Drift `0.3.0`, and Risk `0.4.0`. Project names and file-name
+sets do not establish identity. Old Snapshot artifacts without `subject_id` fail
+closed and must be recreated from a trusted platform identifier.
+
+RISK-08B extends `risk/homi-snapshot.schema.json` version `0.3.0` with
+value-minimized Operation Context, Context Finding, and Context Score summaries.
+Canonical RISK-03/04/05 digests and summaries are covered by `snapshot_digest`.
+`risk/homi-drift-report.schema.json` version `0.3.0` exposes Context changes;
+`risk/homi-risk-report.schema.json` version `0.4.0` binds its current Snapshot
+to this context-aware contract. No raw source, secret value, runtime log, or LLM
+response is stored.
+
+RISK-08C updates `risk/context-risk-score.schema.json` to `0.2.0`,
+`risk/homi-drift-report.schema.json` to `0.4.0`, and
+`risk/homi-risk-report.schema.json` to `0.5.0`. Finding Delta is keyed by stable
+Finding ID. Positive Drift Score consumes only added/increased risk, upward
+Residual Risk, risk-relevant control weakening, and risky added Contexts.
+Benign, decreased, resolved, or non-directional changes score zero positive
+risk drift.

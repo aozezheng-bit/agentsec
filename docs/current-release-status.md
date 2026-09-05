@@ -1056,3 +1056,15 @@ remains `report_only=true`, `policy_authority=false`, and `ci_blocked=false`.
 
 External Endpoint, credential, KMS, data-retention, and Homi publication
 approvals remain organizational prerequisites for a real runtime pilot.
+
+## RISK-10A status — Formal Risk Acceptance / Homi Smoke (2026-09-05)
+
+RISK-10A source acceptance is complete. The deterministic 16-scenario replay passes;
+installed/source CLI smoke validates zero-risk baseline, scheduled mailbox access at
+`CTX-RISK-002 / 8.0 high`, autonomous external send at `CTX-RISK-008 / 5.5 medium`,
+and approval-policy removal at `CTX-RISK-003/006 / 8.0 high`. JSON, Markdown, and HTML
+artifacts remain report-only, runtime-unverified, and non-blocking. Candidate reconciliation
+now includes installed-Wheel Homi Context Risk and Directional Drift smoke. Local Candidate rebuild, installed-Wheel Homi smoke, Release Manifest/Provenance validation,
+and Candidate Acceptance are complete. State is `candidate_go`; `acceptance_ready=true` and
+`ready_for_release=true`. No remote publication, signature, runtime authority, or production
+deployment is claimed.

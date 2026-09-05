@@ -119,6 +119,44 @@ def test_v31_environmental_score_includes_temporal_and_modified_metrics() -> Non
     assert result.effective_severity is Severity.HIGH
 
 
+def test_v31_environmental_score_applies_inner_roundup() -> None:
+    """H3 regression: FIRST v3.1 requires Roundup(Roundup(min[...]) * E*RL*RC).
+
+    With all modified metrics unset the inner roundup of the unrounded
+    impact+exploitability sum changes the result: the previous single-step
+    implementation returned 8.9 here, the spec-conformant two-step form
+    returns 9.0.
+    """
+
+    result = CvssBaseAdapter().adapt(
+        {"vector": ("CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H/E:U")}
+    )
+
+    assert result.score_type is CvssScoreType.TEMPORAL
+    assert result.effective_score == 9.0
+
+
+def test_v40_base_score_matches_official_first_calculator() -> None:
+    """H2 regression: eq3eq6 next-lower and the eq5 divisor follow FIRST.
+
+    This vector is drawn from a random differential run against the official
+    RedHat/FIRST ``cvss40.js`` calculator: the pre-fix implementation scored
+    it 1.6 via the wrong (eq3=1, eq6=0) next-lower branch and the missing
+    eq5 divisor contribution; the official score is 2.0.
+    """
+
+    result = CvssBaseAdapter().adapt(
+        {
+            "vector": (
+                "CVSS:4.0/AV:N/AC:L/AT:P/PR:H/UI:N/VC:L/VI:H/VA:L/"
+                "SC:L/SI:L/SA:N/E:U/CR:L/IR:H/AR:L"
+            )
+        }
+    )
+
+    assert result.effective_score == 2.0
+
+
 def test_v40_threat_score_uses_exploit_maturity() -> None:
     """CVSS v4.0 Threat E changes the effective score while preserving Base."""
 

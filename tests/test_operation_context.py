@@ -277,6 +277,26 @@ def test_evidence_rejects_unsafe_path_and_bad_line_range() -> None:
         )
 
 
+def test_evidence_rejects_field_path_with_outer_whitespace() -> None:
+    with pytest.raises(ValidationError, match="field_path must not contain"):
+        build_operation_evidence(
+            source_path="AGENTS.md",
+            content_sha256=_HASH,
+            field_path="  tools.web_search  ",
+            extraction_method=OperationEvidenceMethod.STATIC_DECLARATION,
+            confidence=EvidenceConfidence.D,
+        )
+
+    with pytest.raises(ValidationError, match="field_path must not contain"):
+        build_operation_evidence(
+            source_path="AGENTS.md",
+            content_sha256=_HASH,
+            field_path="\ntools.web_search\n",
+            extraction_method=OperationEvidenceMethod.STATIC_DECLARATION,
+            confidence=EvidenceConfidence.D,
+        )
+
+
 def test_authorization_and_control_invariants_are_strict() -> None:
     with pytest.raises(ValidationError, match="approval_present"):
         AuthorizationContext(

@@ -1,0 +1,49 @@
+{
+  "authority": {
+    "ci_blocked": false,
+    "policy_authority": false,
+    "report_only": true,
+    "runtime_verified": false
+  },
+  "ci_blocked": false,
+  "contribution_count": 0,
+  "contributions": [],
+  "coverage_complete": false,
+  "current_posture": "not_established",
+  "current_posture_score": null,
+  "drift": null,
+  "drift_score": null,
+  "format": "agentsec-context-risk-score",
+  "format_version": "0.3.0",
+  "limitations": [
+    "Static Operation Context does not prove runtime reachability, successful execution, or exploitability.",
+    "Current posture score remains null until an independent runtime attestation contract is supplied.",
+    "Residual-risk adjustment is an AgentSec policy metric and requires future human calibration; it is not a loss probability.",
+    "Coverage is incomplete or contains Unknown dimensions; scores are provisional and must not be interpreted as a clean pass."
+  ],
+  "model_version": "0.3.0",
+  "policy_authority": false,
+  "potential_impact_level": "very_low",
+  "potential_impact_score": 0.0,
+  "report_only": true,
+  "residual_risk_level": "none",
+  "residual_risk_score": 0.0,
+  "runtime_verified": false,
+  "scoring_basis": [
+    "AgentSec RISK-09A calibrated directional context risk contract 0.3.0",
+    "Potential impact uses the existing NIST likelihood-impact matrix and AgentSec representatives",
+    "Residual risk uses bounded explicit control coverage and never averages away a critical signal",
+    "Static Operation Context does not establish current runtime posture",
+    "Only added/increased risk, relevant control weakening, and upward residual risk score positive drift",
+    "Benign, resolved, decreased, or non-directional context changes score zero drift",
+    "Positive drift score cannot exceed current residual risk score"
+  ],
+  "source_context_format": "agentsec-operation-context-set",
+  "source_context_sha256": "47e27f128d81af1e182c868992f3ebfbf8fab86115495b8381dee3c9f2de458e",
+  "source_risk_report_format": "agentsec-context-risk-report",
+  "source_risk_report_sha256": "e34e063be9ec2d25492452f91e9bdf083c79608d1583ae0769bd10af7be52b3f",
+  "unknown_dimensions": [
+    "homi.workspace.read.authorization.state",
+    "homi.workspace.read.trigger"
+  ]
+}

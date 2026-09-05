@@ -1,0 +1,16 @@
+{
+  "schema_version": "0.1.0",
+  "digest_algorithm": "sha256",
+  "package_version": "0.4.0",
+  "adapter_version": "0.2.0",
+  "profile_model_version": "0.2.0",
+  "pilot_format_version": "0.2.0",
+  "combination_rule_pack_version": "0.1.0",
+  "rule_pack_version": "0.3.1",
+  "build_commit": "unavailable",
+  "build_commit_source": "unavailable",
+  "implementation_digest": "8aa8cb2cf441725920ee38dba24e551cff3b7f5370aabb65ee5b014aadfb7af0",
+  "implementation_file_count": 22,
+  "package_digest": "b9bccf7add81a79ba726c6907b2de23dab4b44964d04eeaa8a3218f14d281f60",
+  "package_file_count": 237
+}

@@ -69,6 +69,9 @@ def test_reconciliation_builds_current_candidate_without_mutating_preserved(
         "score_help": True,
         "attack_graph_json": True,
         "score_attack_path_context": True,
+        "homi_context_risk": True,
+        "homi_directional_drift": True,
+        "homi_html_report": True,
     }
     assert report["reproducible_build"]["byte_identical"] is True
     assert (output / "reconciliation-report.json").is_file()

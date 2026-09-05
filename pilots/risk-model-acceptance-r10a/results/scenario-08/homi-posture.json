@@ -1,0 +1,49 @@
+{
+  "authority": {
+    "ci_blocked": false,
+    "report_only": true,
+    "runtime_verified": false
+  },
+  "ci_blocked": false,
+  "current_posture": "active_unverified",
+  "current_posture_score": null,
+  "findings": [
+    {
+      "current_posture": "active_unverified",
+      "current_posture_score": null,
+      "evidence_confidence": "D",
+      "finding_id": "homi-combination-sha256:bc42e8323f501f7e28fae7370e6f52b7b0c487aa2e1b1503607210a0c7e843e3",
+      "likelihood": "high",
+      "operationality": "active",
+      "potential_impact_level": "high",
+      "potential_impact_score": 8.0,
+      "related_signal_ids": [
+        "external_network_read",
+        "heartbeat_schedule"
+      ],
+      "rule_id": "HOMI-COMB-002",
+      "runtime_verified": false,
+      "severity": "high"
+    }
+  ],
+  "format": "agentsec-homi-posture",
+  "format_version": "0.1.0",
+  "operationality_counts": {
+    "active": 1,
+    "latent": 0,
+    "runtime_attested": 0,
+    "template": 0
+  },
+  "potential_impact_score": 8.0,
+  "raw_finding_count": 1,
+  "raw_potential_impact_score": 8.0,
+  "report_only": true,
+  "runtime_verified": false,
+  "scoring_basis": {
+    "current_posture": "A numeric current score is emitted only for independent runtime_attested evidence; static findings remain unverified.",
+    "potential_impact": "Existing deterministic NIST likelihood-impact mapping and AgentSec 0-10 representative score."
+  },
+  "source_report_format": "agentsec-homi-report-only-pilot",
+  "source_report_sha256": "0e1ba2c58e616ed489fc215bd2305a4bb8c6963e1266f36b4a6152edd11a7fec",
+  "suppressed_finding_count": 0
+}

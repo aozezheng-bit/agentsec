@@ -1,0 +1,312 @@
+{
+  "agentsec_version": "agentsec 0.4.0",
+  "artifact_count": 47,
+  "artifacts": [
+    {
+      "path": "baseline/homi-build-fingerprint.json",
+      "sha256": "18299a32b7a331cbb205c4e06aac7495a4c23c2c683af1eef6cbead1ddb0189d",
+      "size_bytes": 591
+    },
+    {
+      "path": "baseline/homi-calibration.json",
+      "sha256": "036aea6a70600751c0af33949ea48017268b7dc5931c3350fdaa3aef91035d5a",
+      "size_bytes": 848
+    },
+    {
+      "path": "baseline/homi-context-risk.json",
+      "sha256": "72a4d4b7f359bdaa06b48b105c71e1338fd53a69c1f5a50fe85300515f4e8e4e",
+      "size_bytes": 2549
+    },
+    {
+      "path": "baseline/homi-operation-context.json",
+      "sha256": "4c2fc1625effda869fe91725c953f4feafcff0e595f232863a32bd1232637c0e",
+      "size_bytes": 3612
+    },
+    {
+      "path": "baseline/homi-operationality.json",
+      "sha256": "d799f83736e742cc17ebf9fa8a074fa50bc9df48c7434550a8b685a90faa05a6",
+      "size_bytes": 6635
+    },
+    {
+      "path": "baseline/homi-pilot-report.html",
+      "sha256": "e12f4042cf4c0a8b823ec07b622b031aea7894e006ec61372df849a02ee8eea1",
+      "size_bytes": 10075
+    },
+    {
+      "path": "baseline/homi-pilot-report.json",
+      "sha256": "565e59f86cdb7db9b7bc9d24508ac459292b806fa956c103d6a9dec85b65d2fb",
+      "size_bytes": 18172
+    },
+    {
+      "path": "baseline/homi-pilot-report.md",
+      "sha256": "01b9917e119c8c3ae817e6432194b9961204062e540857c463278019bd05260d",
+      "size_bytes": 1468
+    },
+    {
+      "path": "baseline/homi-posture.json",
+      "sha256": "75b0a76fc14bee78253855c5bf271ba0809aed7733e1abc996679eeeb812ba7d",
+      "size_bytes": 1024
+    },
+    {
+      "path": "baseline/homi-risk-score.json",
+      "sha256": "627e025ebbe6cabec637629c50f12ac17550f5b980d416bf755eed295e54b6a4",
+      "size_bytes": 2242
+    },
+    {
+      "path": "baseline/homi-risk-state.json",
+      "sha256": "c6e27c6c619cb48cd68de3d9f0935885d3073f8bb51acbe26db279ee92463ccb",
+      "size_bytes": 10359
+    },
+    {
+      "path": "homi-build-fingerprint.json",
+      "sha256": "18299a32b7a331cbb205c4e06aac7495a4c23c2c683af1eef6cbead1ddb0189d",
+      "size_bytes": 591
+    },
+    {
+      "path": "replay/replay-summary.json",
+      "sha256": "deabc52850ed261e8af0363f3dbf6b63511e79a4b7ead4f3a35e755b964ef7c4",
+      "size_bytes": 4677
+    },
+    {
+      "path": "replay/replay-summary.md",
+      "sha256": "ceb0b3b4fb16cffba91b9026ca45aec0ccd8bf0eb241fc479af62a5bda70fad6",
+      "size_bytes": 1427
+    },
+    {
+      "path": "scenario-08/homi-build-fingerprint.json",
+      "sha256": "18299a32b7a331cbb205c4e06aac7495a4c23c2c683af1eef6cbead1ddb0189d",
+      "size_bytes": 591
+    },
+    {
+      "path": "scenario-08/homi-calibration.json",
+      "sha256": "71247e80d879e77148a1c394fa243524a4b5178842545e6c3bfd9f02f3743dee",
+      "size_bytes": 4486
+    },
+    {
+      "path": "scenario-08/homi-context-risk.json",
+      "sha256": "f92ceaa2da48aed76cf527f2be9575b6a4ce00218a6abee9bfe1e7c185831949",
+      "size_bytes": 3775
+    },
+    {
+      "path": "scenario-08/homi-operation-context.json",
+      "sha256": "eebec185ead68121e4e73b5eebcbf4a475b1c326f62d00987401f3524056d149",
+      "size_bytes": 7490
+    },
+    {
+      "path": "scenario-08/homi-operationality.json",
+      "sha256": "a1f0aafa24018cce68b0fa8eb4082ffa6a906072a4d8af8fa7fe48af811a7f4c",
+      "size_bytes": 6660
+    },
+    {
+      "path": "scenario-08/homi-pilot-report.html",
+      "sha256": "2328643364e1163b4ed4e3bb9b5a35646188ac1b943c36f87fe086cc2dc5c841",
+      "size_bytes": 10742
+    },
+    {
+      "path": "scenario-08/homi-pilot-report.json",
+      "sha256": "0e1ba2c58e616ed489fc215bd2305a4bb8c6963e1266f36b4a6152edd11a7fec",
+      "size_bytes": 21945
+    },
+    {
+      "path": "scenario-08/homi-pilot-report.md",
+      "sha256": "fd69fb94f85c8c64f519f7fc778a8f197847bb8be79766eee5d597886a93d921",
+      "size_bytes": 1478
+    },
+    {
+      "path": "scenario-08/homi-posture.json",
+      "sha256": "7d2bee500d5f2a99020edc82ed30f57545fce2da938edab08cee5c5645905cb3",
+      "size_bytes": 1602
+    },
+    {
+      "path": "scenario-08/homi-risk-score.json",
+      "sha256": "497c8f8db9f51e0affefc876c6b9708290127a081c2fd4887d94ce04c41a3b2f",
+      "size_bytes": 4788
+    },
+    {
+      "path": "scenario-08/homi-risk-state.json",
+      "sha256": "4ad6647a6f3c57953e88f4bcbad9056dbbb46e3c1349448fb77b4c31587dd95b",
+      "size_bytes": 10388
+    },
+    {
+      "path": "scenario-10/homi-build-fingerprint.json",
+      "sha256": "18299a32b7a331cbb205c4e06aac7495a4c23c2c683af1eef6cbead1ddb0189d",
+      "size_bytes": 591
+    },
+    {
+      "path": "scenario-10/homi-calibration.json",
+      "sha256": "403cc813a635d0056c0814acb04cbc4216dc2d56f0dd1beb248789a42f0467c1",
+      "size_bytes": 4542
+    },
+    {
+      "path": "scenario-10/homi-context-risk.json",
+      "sha256": "f22eb0fea7cfedd64d2c9594d18ecdd7ef86e306f5db72bfacfc7a03f862470d",
+      "size_bytes": 3524
+    },
+    {
+      "path": "scenario-10/homi-operation-context.json",
+      "sha256": "39fa89c22869df64af5bdfba69704db98ebd248b90edc38ad32bec274e934978",
+      "size_bytes": 5324
+    },
+    {
+      "path": "scenario-10/homi-operationality.json",
+      "sha256": "8b6d6180cddaa1c9177d3b8542e3a3032107d515eccf531048796b81a06225d9",
+      "size_bytes": 7222
+    },
+    {
+      "path": "scenario-10/homi-pilot-report.html",
+      "sha256": "4f45490cd5844a96df89f06d66aaa40d69b858b9dcaff391018e0a0e42eecd75",
+      "size_bytes": 10757
+    },
+    {
+      "path": "scenario-10/homi-pilot-report.json",
+      "sha256": "5e6c7691bc8ee6538565e2c308b1de41649587b0e1515e8305a91ac00c4f3e44",
+      "size_bytes": 22970
+    },
+    {
+      "path": "scenario-10/homi-pilot-report.md",
+      "sha256": "9d892e945024ba75d117fcbd18539285cd645d271a16f3d9ef42915f44907583",
+      "size_bytes": 1478
+    },
+    {
+      "path": "scenario-10/homi-posture.json",
+      "sha256": "f91b262bf88b40177ad3c8ea9bfd9e2ac05dea7ec1259bb79499e653a82ca113",
+      "size_bytes": 1599
+    },
+    {
+      "path": "scenario-10/homi-risk-score.json",
+      "sha256": "b91e4cbc8ba94491e7c46db5d0cb9eeed90c558002e62399de76347cd9a8b136",
+      "size_bytes": 4603
+    },
+    {
+      "path": "scenario-10/homi-risk-state.json",
+      "sha256": "245f02c1ebe5f66d1ffb7951f5590116003207239416fdfde54801499cc1dc9e",
+      "size_bytes": 11060
+    },
+    {
+      "path": "scenario-12/homi-build-fingerprint.json",
+      "sha256": "18299a32b7a331cbb205c4e06aac7495a4c23c2c683af1eef6cbead1ddb0189d",
+      "size_bytes": 591
+    },
+    {
+      "path": "scenario-12/homi-calibration.json",
+      "sha256": "dc931cf7dbc90e2b673de3ec66a3ae6127acaf9d018dfe8ccedca2a6642543fb",
+      "size_bytes": 848
+    },
+    {
+      "path": "scenario-12/homi-context-risk.json",
+      "sha256": "4eab00e93329913f9918c7e5b04dc6d4f3f211a7cf943d3570beb31a6d1526dc",
+      "size_bytes": 4774
+    },
+    {
+      "path": "scenario-12/homi-operation-context.json",
+      "sha256": "ea6306bab5c7588f390747c48ea584c75aad303b111c51cb45981c7b659bf40b",
+      "size_bytes": 5806
+    },
+    {
+      "path": "scenario-12/homi-operationality.json",
+      "sha256": "f1084eb9bb1e6ac29786616982910f1a7125520f27ee6caa771ae7cd3a34d90e",
+      "size_bytes": 6635
+    },
+    {
+      "path": "scenario-12/homi-pilot-report.html",
+      "sha256": "1f17ddfe264a7744aed88b168b1eb370bdf95c468c2db989e859f46b580ad368",
+      "size_bytes": 10075
+    },
+    {
+      "path": "scenario-12/homi-pilot-report.json",
+      "sha256": "2d929ed94e4e38a9ddb41a05437b47e8d4a0e5fece9c90558e294aae93ab6b42",
+      "size_bytes": 18172
+    },
+    {
+      "path": "scenario-12/homi-pilot-report.md",
+      "sha256": "4f26247fce39924df8f8043b6256f5e617de290fdde0b2d1459f15cd772afe3a",
+      "size_bytes": 1468
+    },
+    {
+      "path": "scenario-12/homi-posture.json",
+      "sha256": "1f006f0b904fbe8788bafc36e16ade829f14ad9ec42d74094b4caade4abd54c3",
+      "size_bytes": 1024
+    },
+    {
+      "path": "scenario-12/homi-risk-score.json",
+      "sha256": "69088ec924a321c24dbd7f54d6144af1ccc8b25c9dacc8163eb35b2cec6ffef7",
+      "size_bytes": 5499
+    },
+    {
+      "path": "scenario-12/homi-risk-state.json",
+      "sha256": "2d5b8866a1c4d98833bada4a708dcf9c3a187100419991b2b91fe67e392881fa",
+      "size_bytes": 10359
+    }
+  ],
+  "baseline_checks": {
+    "html_written": true,
+    "report_only": true,
+    "zero_findings": true,
+    "zero_risk": true
+  },
+  "ci_blocked": false,
+  "format": "agentsec-risk-model-acceptance",
+  "format_version": "0.1.0",
+  "implementation_digest": "8aa8cb2cf441725920ee38dba24e551cff3b7f5370aabb65ee5b014aadfb7af0",
+  "network_accessed": false,
+  "package_version": "0.4.0",
+  "policy_authority": false,
+  "replay": {
+    "all_passed": true,
+    "scenario_passed": 16,
+    "scenario_total": 16
+  },
+  "report_only": true,
+  "runtime_verified": false,
+  "scanned_content_executed": false,
+  "scenario_results": {
+    "scenario-08": {
+      "checks": {
+        "drift_score": true,
+        "expected_rule_present": true,
+        "html_written": true,
+        "report_only": true,
+        "residual_level": true,
+        "residual_score": true
+      },
+      "risk_level": "high",
+      "risk_score": 8.0,
+      "rule_ids": [
+        "CTX-RISK-002"
+      ]
+    },
+    "scenario-10": {
+      "checks": {
+        "drift_score": true,
+        "expected_rule_present": true,
+        "html_written": true,
+        "report_only": true,
+        "residual_level": true,
+        "residual_score": true
+      },
+      "risk_level": "medium",
+      "risk_score": 5.5,
+      "rule_ids": [
+        "CTX-RISK-008"
+      ]
+    },
+    "scenario-12": {
+      "checks": {
+        "drift_score": true,
+        "expected_rule_present": true,
+        "html_written": true,
+        "report_only": true,
+        "residual_level": true,
+        "residual_score": true
+      },
+      "risk_level": "high",
+      "risk_score": 8.0,
+      "rule_ids": [
+        "CTX-RISK-003",
+        "CTX-RISK-006"
+      ]
+    }
+  },
+  "status": "accepted",
+  "task_id": "RISK-10A"
+}

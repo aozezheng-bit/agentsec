@@ -271,6 +271,10 @@ class SemanticQualityGate:
             failed.append(QualityGateCheck.GOLD_LABELS_VALID.value)
             reasons.append("gold_case_count_below_threshold")
 
+        if report.metrics.case_count == 0:
+            failed.append(QualityGateCheck.COMPLETED_CASES.value)
+            reasons.append("evaluation_case_count_zero")
+
         metrics = report.metrics
         if expected_provider_id is not None and (
             metrics.case_count and report.provider_id != expected_provider_id

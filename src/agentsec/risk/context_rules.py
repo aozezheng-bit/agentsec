@@ -49,7 +49,7 @@ CONTEXT_RISK_REPORT_FORMAT: Literal["agentsec-context-risk-report"] = (
 )
 CONTEXT_RISK_REPORT_FORMAT_VERSION = CONTEXT_RISK_REPORT_VERSION
 CONTEXT_RISK_RULE_MAPPING_BASIS = (
-    "AgentSec RISK-04 deterministic context-aware rule contract 0.1.0",
+    "AgentSec RISK-09A deterministic context-aware rule contract 0.2.0",
     (
         "Risk requires an operation-context combination; capability presence "
         "alone is insufficient"
@@ -92,6 +92,8 @@ class ContextRuleId(StrEnum):
     SECRET_TO_EXTERNAL_CHAIN = "CTX-RISK-004"
     INDEFINITE_EXTERNAL_PERSISTENCE = "CTX-RISK-005"
     CONTROL_FILE_WITHOUT_AUTHORIZATION = "CTX-RISK-006"
+    UNBOUNDED_SENSITIVE_RETENTION = "CTX-RISK-007"
+    AUTONOMOUS_EXTERNAL_SIDE_EFFECT = "CTX-RISK-008"
     CONTEXT_COVERAGE_GAP = "CTX-COVERAGE-001"
 
 
@@ -499,6 +501,26 @@ def builtin_context_rules() -> tuple[ContextRule, ...]:
             _control_file_without_authorization,
         ),
         _rule(
+            ContextRuleId.UNBOUNDED_SENSITIVE_RETENTION,
+            "Unbounded sensitive retention",
+            (
+                "Detect personal or sensitive data retained indefinitely without "
+                "an explicit retention or consent control."
+            ),
+            FindingCategory.PERSISTENT_MEMORY,
+            _unbounded_sensitive_retention,
+        ),
+        _rule(
+            ContextRuleId.AUTONOMOUS_EXTERNAL_SIDE_EFFECT,
+            "Autonomous external side effect",
+            (
+                "Detect external send/write operations that may proceed "
+                "autonomously without explicit approval."
+            ),
+            FindingCategory.EXTERNAL_TOOLING,
+            _autonomous_external_side_effect,
+        ),
+        _rule(
             ContextRuleId.CONTEXT_COVERAGE_GAP,
             "Operation Context coverage gap",
             (
@@ -847,6 +869,11 @@ def _autonomous_sensitive_operation(
             AuthorizationState.UNKNOWN,
             AuthorizationState.APPROVAL_MISSING,
         }
+        secret_like = context.data_scope.classification in {
+            DataClassification.CREDENTIAL,
+            DataClassification.SECRET,
+        }
+        critical = weak_auth and secret_like
         matches.append(
             _match(
                 context,
@@ -859,11 +886,11 @@ def _autonomous_sensitive_operation(
                     "The trigger is a static declaration and does not attest "
                     "scheduler or runtime reachability.",
                 ),
-                likelihood=LikelihoodLevel.HIGH
-                if weak_auth
-                else LikelihoodLevel.MODERATE,
+                likelihood=(
+                    LikelihoodLevel.HIGH if critical else LikelihoodLevel.MODERATE
+                ),
                 impact=ImpactLevel.VERY_HIGH,
-                severity=Severity.CRITICAL if weak_auth else Severity.HIGH,
+                severity=Severity.CRITICAL if critical else Severity.HIGH,
             )
         )
     return tuple(matches)
@@ -896,13 +923,10 @@ def _high_impact_without_authorization(
         ):
             continue
         critical = (
-            context.target
-            in {
-                OperationTarget.PRODUCTION_SYSTEM,
-                OperationTarget.AGENT_CONTROL_FILE,
-            }
+            context.target is OperationTarget.PRODUCTION_SYSTEM
             or context.reversibility is OperationReversibility.IRREVERSIBLE
         )
+        likelihood = LikelihoodLevel.HIGH if critical else LikelihoodLevel.MODERATE
         matches.append(
             _match(
                 context,
@@ -916,9 +940,9 @@ def _high_impact_without_authorization(
                     "The declaration does not prove that the operation is "
                     "available or executable at runtime.",
                 ),
-                likelihood=LikelihoodLevel.HIGH,
+                likelihood=likelihood,
                 impact=ImpactLevel.VERY_HIGH if critical else ImpactLevel.HIGH,
-                severity=Severity.CRITICAL if critical else Severity.HIGH,
+                severity=Severity.CRITICAL if critical else Severity.MEDIUM,
             )
         )
     return tuple(matches)
@@ -1048,6 +1072,99 @@ def _control_file_without_authorization(
                 likelihood=LikelihoodLevel.MODERATE,
                 impact=ImpactLevel.VERY_HIGH,
                 severity=Severity.HIGH,
+            )
+        )
+    return tuple(matches)
+
+
+def _unbounded_sensitive_retention(
+    context_set: OperationContextSet,
+) -> tuple[ContextRuleMatch, ...]:
+    matches: list[ContextRuleMatch] = []
+    sensitive = {
+        DataClassification.PERSONAL,
+        DataClassification.SENSITIVE,
+        DataClassification.CREDENTIAL,
+        DataClassification.SECRET,
+    }
+    for context in context_set.contexts:
+        if not (
+            context.action in {OperationAction.STORE, OperationAction.WRITE}
+            and context.data_scope.classification in sensitive
+            and context.data_scope.retention is DataRetention.INDEFINITE
+            and context.controls.retention is not ControlState.PRESENT
+            and context.controls.user_consent is not ControlState.PRESENT
+        ):
+            continue
+        secret_like = context.data_scope.classification in {
+            DataClassification.CREDENTIAL,
+            DataClassification.SECRET,
+        }
+        matches.append(
+            _match(
+                context,
+                rationale_code="unbounded_sensitive_retention_without_control",
+                rationale=(
+                    "Personal or sensitive data is declared for indefinite "
+                    "retention without an explicit retention or consent control."
+                ),
+                limitations=(
+                    "Static declaration does not prove stored content, runtime "
+                    "persistence, or actual retention duration.",
+                ),
+                likelihood=(
+                    LikelihoodLevel.HIGH if secret_like else LikelihoodLevel.MODERATE
+                ),
+                impact=ImpactLevel.VERY_HIGH,
+                severity=Severity.CRITICAL if secret_like else Severity.HIGH,
+            )
+        )
+    return tuple(matches)
+
+
+def _autonomous_external_side_effect(
+    context_set: OperationContextSet,
+) -> tuple[ContextRuleMatch, ...]:
+    matches: list[ContextRuleMatch] = []
+    autonomous = {
+        OperationTrigger.PROACTIVE,
+        OperationTrigger.AUTONOMOUS,
+        OperationTrigger.SCHEDULED,
+    }
+    weak_authorization = {
+        AuthorizationState.UNKNOWN,
+        AuthorizationState.APPROVAL_MISSING,
+        AuthorizationState.NOT_REQUIRED,
+    }
+    for context in context_set.contexts:
+        if not (
+            context.action in {OperationAction.SEND, OperationAction.WRITE}
+            and context.target
+            in {
+                OperationTarget.EXTERNAL_SERVICE,
+                OperationTarget.EXTERNAL_MESSAGE_CHANNEL,
+            }
+            and context.data_scope.sharing is DataSharingScope.EXTERNAL
+            and context.trigger in autonomous
+            and context.authorization.state in weak_authorization
+            and context.controls.approval is not ControlState.PRESENT
+        ):
+            continue
+        matches.append(
+            _match(
+                context,
+                rationale_code="autonomous_external_side_effect_without_approval",
+                rationale=(
+                    "An external send or write operation may proceed autonomously "
+                    "without explicit approval."
+                ),
+                limitations=(
+                    "Static declaration does not prove destination reachability, "
+                    "message content, or successful delivery.",
+                ),
+                likelihood=LikelihoodLevel.MODERATE,
+                impact=ImpactLevel.HIGH,
+                severity=Severity.MEDIUM,
             )
         )
     return tuple(matches)

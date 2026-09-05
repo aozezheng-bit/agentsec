@@ -1,0 +1,488 @@
+{
+  "$id": "https://agentsec.local/schemas/risk/homi-risk-report.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "authority": {
+      "additionalProperties": false,
+      "properties": {
+        "ci_blocked": {
+          "const": false
+        },
+        "policy_authority": {
+          "const": false
+        },
+        "report_only": {
+          "const": true
+        },
+        "runtime_verified": {
+          "const": false
+        }
+      },
+      "required": [
+        "report_only",
+        "runtime_verified",
+        "policy_authority",
+        "ci_blocked"
+      ],
+      "type": "object"
+    },
+    "baseline_snapshot_digest": {
+      "anyOf": [
+        {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "basis": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "capability_change_count": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "ci_blocked": {
+      "const": false
+    },
+    "context_count": {
+      "minimum": 1,
+      "type": "integer"
+    },
+    "context_coverage_complete": {
+      "type": "boolean"
+    },
+    "context_coverage_finding_count": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "context_findings": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "confidence": {
+            "enum": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ],
+            "type": "string"
+          },
+          "context_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "uniqueItems": true
+          },
+          "control_coverage": {
+            "enum": [
+              "none",
+              "partial",
+              "strong"
+            ],
+            "type": "string"
+          },
+          "evidence_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "uniqueItems": true
+          },
+          "finding_id": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "potential_impact_score": {
+            "maximum": 10,
+            "minimum": 0,
+            "type": "number"
+          },
+          "rationale_code": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "residual_risk_score": {
+            "maximum": 10,
+            "minimum": 0,
+            "type": "number"
+          },
+          "rule_id": {
+            "pattern": "^CTX-RISK-[0-9]{3}$",
+            "type": "string"
+          },
+          "severity": {
+            "enum": [
+              "critical",
+              "high",
+              "low",
+              "medium",
+              "none"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "finding_id",
+          "rule_id",
+          "severity",
+          "confidence",
+          "potential_impact_score",
+          "residual_risk_score",
+          "control_coverage",
+          "context_ids",
+          "evidence_ids",
+          "rationale_code"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "context_risk_finding_count": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "context_risk_report_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "context_score_model_version": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "context_unknown_dimensions": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "control_strengthening_count": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "control_weakening_count": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "coverage_metrics": {
+      "type": "object"
+    },
+    "current_posture": {
+      "enum": [
+        "active_unverified",
+        "latent_unverified",
+        "not_established",
+        "runtime_attested",
+        "template_only"
+      ],
+      "type": "string"
+    },
+    "current_posture_score": {
+      "anyOf": [
+        {
+          "maximum": 10,
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "current_snapshot_digest": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "declaration_signal_level": {
+      "enum": [
+        "critical",
+        "high",
+        "low",
+        "medium",
+        "none"
+      ],
+      "type": "string"
+    },
+    "declaration_signal_reasons": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "declaration_signal_score": {
+      "maximum": 10,
+      "minimum": 0,
+      "type": "number"
+    },
+    "decreased_finding_ids": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "drift_direction": {
+      "anyOf": [
+        {
+          "enum": [
+            "decreased",
+            "increased",
+            "unchanged",
+            "unknown"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "drift_reasons": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "drift_risk_basis": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "drift_risk_level": {
+      "anyOf": [
+        {
+          "enum": [
+            "critical",
+            "high",
+            "low",
+            "medium",
+            "none"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "drift_risk_score": {
+      "anyOf": [
+        {
+          "maximum": 10,
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "drift_status": {
+      "enum": [
+        "not_established",
+        "verified",
+        "drifted",
+        "identity_mismatch"
+      ],
+      "type": "string"
+    },
+    "evidence_confidence": {
+      "anyOf": [
+        {
+          "enum": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "file_change_count": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "finding_delta_count": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "format": {
+      "const": "agentsec-homi-risk-report"
+    },
+    "format_version": {
+      "const": "0.5.0"
+    },
+    "increased_finding_ids": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "limitations": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "operation_context_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "persona_change_count": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "policy_authority": {
+      "const": false
+    },
+    "potential_impact_level": {
+      "enum": [
+        "high",
+        "low",
+        "moderate",
+        "very_high",
+        "very_low"
+      ],
+      "type": "string"
+    },
+    "potential_impact_score": {
+      "maximum": 10,
+      "minimum": 0,
+      "type": "number"
+    },
+    "report_only": {
+      "const": true
+    },
+    "residual_risk_level": {
+      "enum": [
+        "critical",
+        "high",
+        "low",
+        "medium",
+        "none"
+      ],
+      "type": "string"
+    },
+    "residual_risk_score": {
+      "maximum": 10,
+      "minimum": 0,
+      "type": "number"
+    },
+    "resolved_finding_ids": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "risk_basis": {
+      "const": "operation_context_residual_risk"
+    },
+    "risk_level": {
+      "enum": [
+        "critical",
+        "high",
+        "low",
+        "medium",
+        "none"
+      ],
+      "type": "string"
+    },
+    "risk_reasons": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "risk_score": {
+      "maximum": 10,
+      "minimum": 0,
+      "type": "number"
+    },
+    "runtime_verified": {
+      "const": false
+    },
+    "subject_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]{0,127}$",
+      "type": "string"
+    },
+    "suppressed_finding_count": {
+      "minimum": 0,
+      "type": "integer"
+    }
+  },
+  "required": [
+    "format",
+    "format_version",
+    "subject_id",
+    "risk_score",
+    "risk_level",
+    "risk_basis",
+    "risk_reasons",
+    "potential_impact_score",
+    "potential_impact_level",
+    "residual_risk_score",
+    "residual_risk_level",
+    "current_posture",
+    "current_posture_score",
+    "evidence_confidence",
+    "context_count",
+    "context_risk_finding_count",
+    "context_coverage_finding_count",
+    "context_coverage_complete",
+    "context_unknown_dimensions",
+    "operation_context_sha256",
+    "context_risk_report_sha256",
+    "context_score_model_version",
+    "context_findings",
+    "limitations",
+    "declaration_signal_score",
+    "declaration_signal_level",
+    "declaration_signal_reasons",
+    "drift_status",
+    "drift_risk_score",
+    "drift_risk_level",
+    "drift_direction",
+    "drift_risk_basis",
+    "drift_reasons",
+    "increased_finding_ids",
+    "decreased_finding_ids",
+    "resolved_finding_ids",
+    "control_weakening_count",
+    "control_strengthening_count",
+    "file_change_count",
+    "capability_change_count",
+    "persona_change_count",
+    "finding_delta_count",
+    "suppressed_finding_count",
+    "coverage_metrics",
+    "baseline_snapshot_digest",
+    "current_snapshot_digest",
+    "report_only",
+    "runtime_verified",
+    "policy_authority",
+    "ci_blocked",
+    "basis",
+    "authority"
+  ],
+  "title": "AgentSec Homi Unified Context-aware Risk Report",
+  "type": "object"
+}

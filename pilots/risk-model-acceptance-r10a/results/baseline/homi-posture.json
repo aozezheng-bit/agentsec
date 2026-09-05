@@ -1,0 +1,31 @@
+{
+  "authority": {
+    "ci_blocked": false,
+    "report_only": true,
+    "runtime_verified": false
+  },
+  "ci_blocked": false,
+  "current_posture": "not_established",
+  "current_posture_score": null,
+  "findings": [],
+  "format": "agentsec-homi-posture",
+  "format_version": "0.1.0",
+  "operationality_counts": {
+    "active": 0,
+    "latent": 0,
+    "runtime_attested": 0,
+    "template": 0
+  },
+  "potential_impact_score": 0.0,
+  "raw_finding_count": 0,
+  "raw_potential_impact_score": 0.0,
+  "report_only": true,
+  "runtime_verified": false,
+  "scoring_basis": {
+    "current_posture": "A numeric current score is emitted only for independent runtime_attested evidence; static findings remain unverified.",
+    "potential_impact": "Existing deterministic NIST likelihood-impact mapping and AgentSec 0-10 representative score."
+  },
+  "source_report_format": "agentsec-homi-report-only-pilot",
+  "source_report_sha256": "565e59f86cdb7db9b7bc9d24508ac459292b806fa956c103d6a9dec85b65d2fb",
+  "suppressed_finding_count": 0
+}
