@@ -31,17 +31,17 @@
     "missing_sdist_metadata": [],
     "missing_sdist_schemas": [],
     "missing_wheel_files": [],
-    "sdist_file_count": 2709,
-    "wheel_file_count": 240
+    "sdist_file_count": 2900,
+    "wheel_file_count": 243
   },
   "artifacts": {
     "agentsec-0.4.0-py3-none-any.whl": {
-      "sha256": "95c571a62a18a2e4aeb625b3f83c4da1af0e2f6f9ebd66fd9cffc8b6f6ee04c7",
-      "size_bytes": 829289
+      "sha256": "dacc6e0f6d7238d03f6f6b8b6c5b16647f654e403652163271e734a8a5eb0dd1",
+      "size_bytes": 863301
     },
     "agentsec-0.4.0.tar.gz": {
-      "sha256": "07f43a8739fbc1601413ce87374f6fb1574787666ca79d00dbbc555ff48636e9",
-      "size_bytes": 2388447
+      "sha256": "b3eec624f9ddbda0ccd9daf7dc4a590bcf54f44cb19bac86b2b686719f9a07fe",
+      "size_bytes": 2500127
     }
   },
   "candidate_artifacts_differ_from_preserved": true,
@@ -61,6 +61,9 @@
   "installed_cli_smoke": {
     "attack_graph_help": true,
     "attack_graph_json": true,
+    "homi_context_risk": true,
+    "homi_directional_drift": true,
+    "homi_html_report": true,
     "root_help": true,
     "score_attack_path_context": true,
     "score_help": true,
@@ -86,8 +89,8 @@
   "scanned_content_executed": false,
   "signature": "not_claimed",
   "slsa_provenance": "not_claimed",
-  "source_inventory_file_count": 324,
-  "source_inventory_sha256": "87f848c24287ae899a6350ea8c0675475741a024cbb685c50fadacfae4eaa515",
+  "source_inventory_file_count": 330,
+  "source_inventory_sha256": "76dec9847464a2bcb8b1788dcd74509d4b202ac269b058b7a82931d76309e4dc",
   "status": "reconciled",
   "task_id": "P3-REL-03"
 }

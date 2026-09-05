@@ -1,0 +1,73 @@
+{
+  "acceptance": {
+    "acceptance_ready": true,
+    "path": "docs/reviews/phase3-risk10a-candidate-acceptance-2026-09-05.json",
+    "ready_for_release": true,
+    "sha256": "4576245a5588dbcff079fa45055f8e689806dfc6613069a53fefcb95d8fbe891",
+    "state": "candidate_go"
+  },
+  "authority": {
+    "artifact_commit_created": false,
+    "git_push_performed": false,
+    "remote_published": false,
+    "report_only": true,
+    "runtime_verified": false,
+    "source_commit_created": true
+  },
+  "candidate": {
+    "directory": "dist/candidates/0.4.0-p3-rel-01",
+    "installed_cli_smoke": {
+      "attack_graph_help": true,
+      "attack_graph_json": true,
+      "homi_context_risk": true,
+      "homi_directional_drift": true,
+      "homi_html_report": true,
+      "root_help": true,
+      "score_attack_path_context": true,
+      "score_help": true,
+      "version": true
+    },
+    "provenance_bundle": {
+      "path": "dist/candidates/0.4.0-p3-rel-01/provenance-bundle.json",
+      "sha256": "8c7da8a220690d8ba5f3009f82a3ae23fe4532f7686892d877db1d534c61980b",
+      "size_bytes": 5014
+    },
+    "reproducible_build": {
+      "byte_identical": true,
+      "source_date_epoch": 0
+    },
+    "sdist": {
+      "path": "dist/candidates/0.4.0-p3-rel-01/agentsec-0.4.0.tar.gz",
+      "sha256": "b3eec624f9ddbda0ccd9daf7dc4a590bcf54f44cb19bac86b2b686719f9a07fe",
+      "size_bytes": 2500127
+    },
+    "wheel": {
+      "path": "dist/candidates/0.4.0-p3-rel-01/agentsec-0.4.0-py3-none-any.whl",
+      "sha256": "dacc6e0f6d7238d03f6f6b8b6c5b16647f654e403652163271e734a8a5eb0dd1",
+      "size_bytes": 863301
+    }
+  },
+  "created_at": "2026-09-05",
+  "format": "agentsec-local-candidate-freeze",
+  "format_version": "0.2.0",
+  "next_required_action": "Commit candidate artifacts and freeze evidence, push branch, then let Homi pull the fixed artifact commit and verify Wheel SHA-256.",
+  "package": "agentsec",
+  "package_version": "0.4.0",
+  "source": {
+    "branch": "codex/risk-10a-candidate",
+    "build_source_mode": "two isolated temporary source copies from fixed source commit; .git/.venv/cache/build/dist excluded",
+    "source_commit": "ef21355d9f4b72daa789a0cc19a49410631eae1b",
+    "source_inventory_file_count": 330,
+    "source_inventory_sha256": "76dec9847464a2bcb8b1788dcd74509d4b202ac269b058b7a82931d76309e4dc",
+    "working_tree_clean_at_build": true
+  },
+  "status": "local_frozen_source_committed",
+  "task_id": "RISK-10A-FREEZE",
+  "verification": {
+    "changed_text_files_scanned_for_credential_patterns": 219,
+    "credential_pattern_hits": 0,
+    "full_pytest": "1768 passed",
+    "mypy": "407 files passed",
+    "ruff": "passed"
+  }
+}

@@ -2,7 +2,7 @@
 
 - Status: `reconciled`
 - Package: `0.4.0`
-- Source inventory SHA-256: `87f848c24287ae899a6350ea8c0675475741a024cbb685c50fadacfae4eaa515`
+- Source inventory SHA-256: `76dec9847464a2bcb8b1788dcd74509d4b202ac269b058b7a82931d76309e4dc`
 - Candidate directory: `dist/candidates/0.4.0-p3-rel-01`
 
 ## Result
@@ -39,6 +39,9 @@ overwritten.
 - score_help: `True`
 - attack_graph_json: `True`
 - score_attack_path_context: `True`
+- homi_context_risk: `True`
+- homi_directional_drift: `True`
+- homi_html_report: `True`
 
 ## Boundary
 
