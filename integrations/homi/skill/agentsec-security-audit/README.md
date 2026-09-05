@@ -140,6 +140,7 @@ Homi must provide its immutable Agent identifier explicitly. Example:
 ```bash
 commands/snapshot.sh create homi:agent:01HXYZ /path/to/workspace \
   --output /tmp/homi-snapshot.json
+# snapshot create also writes /tmp/homi-operation-context.json
 commands/drift.sh homi:agent:01HXYZ /path/to/workspace /tmp/homi-snapshot.json
 commands/risk.sh homi:agent:01HXYZ /path/to/workspace \
   /tmp/homi-snapshot.json /tmp/homi-operation-context.json

@@ -1368,6 +1368,16 @@ def _register_snapshot_commands(
         workspace: HomiWorkspaceArgument = Path("."),
         output_format: HomiFormatOption = HomiCliFormat.JSON,
         output_path: HomiOutputOption = None,
+        context_output_path: Annotated[
+            Path | None,
+            typer.Option(
+                "--context-output",
+                help=(
+                    "Write Pilot-bound Operation Context beside the Snapshot; "
+                    "defaults to homi-operation-context.json beside --output."
+                ),
+            ),
+        ] = None,
         pilot_id: HomiPilotIdOption = "homi-snapshot-cli",
         project_name: HomiProjectNameOption = None,
         owner: HomiOwnerOption = "cli-user",
@@ -1402,11 +1412,27 @@ def _register_snapshot_commands(
                 if output_format is HomiCliFormat.JSON
                 else _render_homi_snapshot_text(snapshot)
             )
+            effective_context_output = context_output_path
+            if effective_context_output is None and output_path is not None:
+                effective_context_output = output_path.with_name(
+                    "homi-operation-context.json"
+                )
             if output_path is None:
                 typer.echo(rendered, nl=False)
             else:
                 _write_diff_output(
                     rendered, output_path, force=force, protected_paths=()
+                )
+            if effective_context_output is not None:
+                if output_path is not None and effective_context_output == output_path:
+                    raise HomiPilotError(
+                        "--context-output must differ from Snapshot --output"
+                    )
+                _write_diff_output(
+                    encode_homi_operation_context_json(operation_context),
+                    effective_context_output,
+                    force=force,
+                    protected_paths=(output_path,) if output_path is not None else (),
                 )
         except (HomiPilotError, ValueError, OSError) as error:
             typer.echo(f"Homi snapshot creation failed safely: {error}", err=True)

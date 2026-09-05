@@ -522,16 +522,41 @@ def _installed_cli_smoke(wheel: Path, package_version: str) -> dict[str, Any]:
 
         homi_baseline = root / "homi-baseline"
         homi_current = root / "homi-current"
+        homi_snapshot = homi_baseline / "baseline.json"
+        homi_baseline.mkdir(parents=True, exist_ok=True)
+        homi_current.mkdir(parents=True, exist_ok=True)
         _run(
             [
                 str(venv_agentsec),
                 "homi",
-                "report",
+                "snapshot",
+                "create",
                 str(ROOT / "pilots" / "risk-replay-r09" / "scenario-01"),
-                "--output-dir",
-                str(homi_baseline),
-                "--language",
-                "zh",
+                "--subject-id",
+                "homi:agent:reconciliation-smoke",
+                "--output",
+                str(homi_snapshot),
+                "--force",
+            ],
+            cwd=root,
+            env=env,
+        )
+        _run(
+            [
+                str(venv_agentsec),
+                "homi",
+                "risk",
+                str(ROOT / "pilots" / "risk-replay-r09" / "scenario-08"),
+                "--subject-id",
+                "homi:agent:reconciliation-smoke",
+                "--baseline",
+                str(homi_snapshot),
+                "--baseline-context",
+                str(homi_baseline / "homi-operation-context.json"),
+                "--format",
+                "json",
+                "--output",
+                str(homi_current / "homi-risk.json"),
                 "--force",
             ],
             cwd=root,
@@ -545,8 +570,6 @@ def _installed_cli_smoke(wheel: Path, package_version: str) -> dict[str, Any]:
                 str(ROOT / "pilots" / "risk-replay-r09" / "scenario-08"),
                 "--output-dir",
                 str(homi_current),
-                "--baseline-dir",
-                str(homi_baseline),
                 "--language",
                 "zh",
                 "--force",
@@ -555,10 +578,14 @@ def _installed_cli_smoke(wheel: Path, package_version: str) -> dict[str, Any]:
             env=env,
         )
         homi_score = json.loads(
-            (homi_current / "homi-risk-score.json").read_text(encoding="utf-8")
+            (homi_current / "homi-risk.json").read_text(encoding="utf-8")
         )
         homi_findings = json.loads(
-            (homi_current / "homi-context-risk.json").read_text(encoding="utf-8")
+            (homi_current / "homi-current-context-risk.json").read_text(
+                encoding="utf-8"
+            )
+            if (homi_current / "homi-current-context-risk.json").is_file()
+            else (homi_current / "homi-context-risk.json").read_text(encoding="utf-8")
         )
         finding_ids = {
             item.get("rule_id")
@@ -567,7 +594,7 @@ def _installed_cli_smoke(wheel: Path, package_version: str) -> dict[str, Any]:
         }
         if (
             homi_score.get("residual_risk_score") != 8.0
-            or homi_score.get("drift_score") != 8.0
+            or homi_score.get("drift_risk_score") != 8.0
             or "CTX-RISK-002" not in finding_ids
             or homi_score.get("report_only") is not True
             or homi_score.get("runtime_verified") is not False

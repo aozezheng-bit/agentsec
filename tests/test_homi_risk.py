@@ -446,6 +446,53 @@ def test_homi_risk_cli_runs_context_chain_and_accepts_bound_baseline(
     assert payload["declaration_signal_score"] == 8.0
 
 
+def test_snapshot_cli_sidecar_binds_risk_cli_baseline(tmp_path: Path) -> None:
+    root = Path(__file__).parents[1]
+    baseline_workspace = root / "pilots" / "risk-replay-r09" / "scenario-01"
+    current_workspace = root / "pilots" / "risk-replay-r09" / "scenario-08"
+    snapshot_path = tmp_path / "baseline.json"
+
+    created = runner.invoke(
+        create_app(),
+        [
+            "homi",
+            "snapshot",
+            "create",
+            str(baseline_workspace),
+            "--subject-id",
+            SUBJECT_ID,
+            "--output",
+            str(snapshot_path),
+            "--force",
+        ],
+    )
+    assert created.exit_code == 0, created.output
+    context_path = tmp_path / "homi-operation-context.json"
+    assert context_path.is_file()
+
+    result = runner.invoke(
+        create_app(),
+        [
+            "homi",
+            "risk",
+            str(current_workspace),
+            "--subject-id",
+            SUBJECT_ID,
+            "--baseline",
+            str(snapshot_path),
+            "--baseline-context",
+            str(context_path),
+            "--format",
+            "json",
+        ],
+    )
+    assert result.exit_code == 0, result.output
+    payload = json.loads(result.stdout)
+    assert payload["risk_score"] == 8.0
+    assert payload["drift_risk_score"] == 8.0
+    assert payload["drift_direction"] == "increased"
+
+
 def test_homi_risk_cli_requires_snapshot_with_context_baseline(
     tmp_path: Path,
 ) -> None:

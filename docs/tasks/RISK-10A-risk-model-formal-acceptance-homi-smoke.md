@@ -11,6 +11,7 @@
 - 脚本测试：`tests/test_risk_model_acceptance.py`；
 - 固定验收证据：`pilots/risk-model-acceptance-r10a/`；
 - Candidate Installed-CLI Smoke：Homi Context Risk、Directional Drift、HTML；
+- Snapshot CLI 自动生成 `homi-operation-context.json` Sidecar，并可直接供 Risk CLI 使用；
 - Source/Candidate 字节一致、双构建可复现、Wheel SHA-256 与 Provenance Bundle。
 
 ## 源码验收结果

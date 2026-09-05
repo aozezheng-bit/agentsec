@@ -17,6 +17,7 @@
 
 ```bash
 agentsec homi snapshot create <workspace> --subject-id homi:agent:<immutable-id> --output baseline.json
+# also writes homi-operation-context.json beside baseline.json
 agentsec homi snapshot verify --baseline baseline.json --subject-id homi:agent:<immutable-id> <workspace>
 ```
 
