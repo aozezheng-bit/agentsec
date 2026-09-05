@@ -2,7 +2,7 @@
 
 - Status: `reconciled`
 - Package: `0.4.0`
-- Source inventory SHA-256: `76dec9847464a2bcb8b1788dcd74509d4b202ac269b058b7a82931d76309e4dc`
+- Source inventory SHA-256: `c2e6829d3bfecd6317d9d079d906ad3a0b9657b3e14c6e9c9c721090ab1b57f7`
 - Candidate directory: `dist/candidates/0.4.0-p3-rel-01`
 
 ## Result

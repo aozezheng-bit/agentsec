@@ -4,34 +4,24 @@
     "ready_for_release": true,
     "state": "candidate_go"
   },
-  "artifact_commit": "ec885f5d5e0485c471a80ffdcf877201ead8131d",
   "authority": {
-    "ci_blocked": false,
+    "ci_blocked": true,
     "production_released": false,
     "report_only": true,
     "runtime_verified": false
   },
   "branch": "codex/risk-10a-candidate",
+  "candidate_artifact_commit": null,
   "candidate_directory": "dist/candidates/0.4.0-p3-rel-01",
   "created_at": "2026-09-05",
   "format": "agentsec-homi-candidate-handoff",
-  "format_version": "0.1.0",
+  "format_version": "0.2.0",
   "homi_install_mode": "isolated_virtual_environment",
-  "provenance_bundle": {
-    "path": "dist/candidates/0.4.0-p3-rel-01/provenance-bundle.json",
-    "sha256": "8c7da8a220690d8ba5f3009f82a3ae23fe4532f7686892d877db1d534c61980b"
-  },
-  "remote_published": false,
+  "provenance_sha256": "06daca555bd7ac32837e5545d4bbfb24af7493f413712b4905a25e8cc6307236",
   "repository": "aozezheng-bit/agentsec",
-  "sdist": {
-    "path": "dist/candidates/0.4.0-p3-rel-01/agentsec-0.4.0.tar.gz",
-    "sha256": "b3eec624f9ddbda0ccd9daf7dc4a590bcf54f44cb19bac86b2b686719f9a07fe"
-  },
-  "source_commit": "ef21355d9f4b72daa789a0cc19a49410631eae1b",
+  "sdist_sha256": "64415c05418d8f1d30ff3a2129ed888a71aa8028b6a76e8166a2e5879d8199ad",
+  "source_commit": "3a82e40ed37046a876643b7981a5580460be858b",
   "status": "ready_for_remote_push",
   "task_id": "RISK-10A-HANDOFF",
-  "wheel": {
-    "path": "dist/candidates/0.4.0-p3-rel-01/agentsec-0.4.0-py3-none-any.whl",
-    "sha256": "dacc6e0f6d7238d03f6f6b8b6c5b16647f654e403652163271e734a8a5eb0dd1"
-  }
+  "wheel_sha256": "0e385ab5649656e1f91e67a76ce57aa7c3b74b91666135a2ef097df72e30dc94"
 }

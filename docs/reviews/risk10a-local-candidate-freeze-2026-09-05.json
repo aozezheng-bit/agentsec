@@ -29,7 +29,7 @@
     },
     "provenance_bundle": {
       "path": "dist/candidates/0.4.0-p3-rel-01/provenance-bundle.json",
-      "sha256": "8c7da8a220690d8ba5f3009f82a3ae23fe4532f7686892d877db1d534c61980b",
+      "sha256": "06daca555bd7ac32837e5545d4bbfb24af7493f413712b4905a25e8cc6307236",
       "size_bytes": 5014
     },
     "reproducible_build": {
@@ -38,35 +38,38 @@
     },
     "sdist": {
       "path": "dist/candidates/0.4.0-p3-rel-01/agentsec-0.4.0.tar.gz",
-      "sha256": "b3eec624f9ddbda0ccd9daf7dc4a590bcf54f44cb19bac86b2b686719f9a07fe",
-      "size_bytes": 2500127
+      "sha256": "64415c05418d8f1d30ff3a2129ed888a71aa8028b6a76e8166a2e5879d8199ad",
+      "size_bytes": 2501248
     },
     "wheel": {
       "path": "dist/candidates/0.4.0-p3-rel-01/agentsec-0.4.0-py3-none-any.whl",
-      "sha256": "dacc6e0f6d7238d03f6f6b8b6c5b16647f654e403652163271e734a8a5eb0dd1",
-      "size_bytes": 863301
+      "sha256": "0e385ab5649656e1f91e67a76ce57aa7c3b74b91666135a2ef097df72e30dc94",
+      "size_bytes": 863466
     }
   },
   "created_at": "2026-09-05",
+  "fixes": {
+    "risk_baseline_uses_operation_context_digest": true,
+    "snapshot_context_sidecar": true
+  },
   "format": "agentsec-local-candidate-freeze",
-  "format_version": "0.2.0",
-  "next_required_action": "Commit candidate artifacts and freeze evidence, push branch, then let Homi pull the fixed artifact commit and verify Wheel SHA-256.",
+  "format_version": "0.3.0",
+  "next_required_action": "Commit candidate artifacts and handoff evidence, push, then test fixed Commit on Homi.",
   "package": "agentsec",
   "package_version": "0.4.0",
   "source": {
     "branch": "codex/risk-10a-candidate",
     "build_source_mode": "two isolated temporary source copies from fixed source commit; .git/.venv/cache/build/dist excluded",
-    "source_commit": "ef21355d9f4b72daa789a0cc19a49410631eae1b",
+    "source_commit": "3a82e40ed37046a876643b7981a5580460be858b",
     "source_inventory_file_count": 330,
-    "source_inventory_sha256": "76dec9847464a2bcb8b1788dcd74509d4b202ac269b058b7a82931d76309e4dc",
+    "source_inventory_sha256": "c2e6829d3bfecd6317d9d079d906ad3a0b9657b3e14c6e9c9c721090ab1b57f7",
     "working_tree_clean_at_build": true
   },
   "status": "local_frozen_source_committed",
   "task_id": "RISK-10A-FREEZE",
   "verification": {
-    "changed_text_files_scanned_for_credential_patterns": 219,
     "credential_pattern_hits": 0,
-    "full_pytest": "1768 passed",
+    "full_pytest": "1769 passed",
     "mypy": "407 files passed",
     "ruff": "passed"
   }

@@ -1,10 +1,10 @@
-eac015ef40aed2a7a686c43fe1769e8a8dd642a7646a238771ef05958b7bf69e  dist/candidates/0.4.0-p3-rel-01/SHA256SUMS
-dacc6e0f6d7238d03f6f6b8b6c5b16647f654e403652163271e734a8a5eb0dd1  dist/candidates/0.4.0-p3-rel-01/agentsec-0.4.0-py3-none-any.whl
-b3eec624f9ddbda0ccd9daf7dc4a590bcf54f44cb19bac86b2b686719f9a07fe  dist/candidates/0.4.0-p3-rel-01/agentsec-0.4.0.tar.gz
-8c7da8a220690d8ba5f3009f82a3ae23fe4532f7686892d877db1d534c61980b  dist/candidates/0.4.0-p3-rel-01/provenance-bundle.json
-49340487c85280ffb78f1a24293fb4d0a05abdc331adfa8220f1c819643b429a  dist/candidates/0.4.0-p3-rel-01/reconciliation-report.json
-f7c5117ac29cd54ca4a40af339e6c8033323c7f0bf8152bd37e66d6442cf7018  dist/candidates/0.4.0-p3-rel-01/reconciliation-report.md
-ecc954852e4b26bce2fedfcf5f6c20a75f893bffdc65c2a6f048278f5f5d0d9b  dist/candidates/0.4.0-p3-rel-01/release-manifest.json
+4751692925a191cd12f246cf0e8a399e8d5638e4c53a181b74a4905db5a4cb06  dist/candidates/0.4.0-p3-rel-01/SHA256SUMS
+0e385ab5649656e1f91e67a76ce57aa7c3b74b91666135a2ef097df72e30dc94  dist/candidates/0.4.0-p3-rel-01/agentsec-0.4.0-py3-none-any.whl
+64415c05418d8f1d30ff3a2129ed888a71aa8028b6a76e8166a2e5879d8199ad  dist/candidates/0.4.0-p3-rel-01/agentsec-0.4.0.tar.gz
+06daca555bd7ac32837e5545d4bbfb24af7493f413712b4905a25e8cc6307236  dist/candidates/0.4.0-p3-rel-01/provenance-bundle.json
+53a75014f55f50619a0e42a06c93c300f1c1d13c045b535da208d1a6b246c505  dist/candidates/0.4.0-p3-rel-01/reconciliation-report.json
+0a4d23c9b9616277d0111aae61138b485639b9636f82a3795624bea83c902ea4  dist/candidates/0.4.0-p3-rel-01/reconciliation-report.md
+0ae3a88c3e5411ab9385b2b959fcd4d54d1466b1582780b826553e9a7f8b074a  dist/candidates/0.4.0-p3-rel-01/release-manifest.json
 26acf2bdb7e4e0ddb8792895df9e9480c0fce6a65ecd4fc54b51372726c9b836  requirements/dev.lock
 5940f108ba84be6c72e80c8641953126a427cade618cca01d4740a3e7a12d3ac  requirements/runtime.lock
 75b7bdc7e70511c8ffff0cfa756f674774917f06b6b55ce1df47e6d94d243c62  supply-chain/build-provenance.json
